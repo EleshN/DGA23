@@ -6,7 +6,7 @@ using UnityEngine;
 public class Animal : MonoBehaviour
 {
     [SerializeField] Rigidbody rd; 
-    
+
     public int animalHealth;
     public int animalDamage;
     public enum animalEmotion {
