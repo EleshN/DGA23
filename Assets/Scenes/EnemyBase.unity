@@ -460,7 +460,7 @@ GameObject:
   - component: {fileID: 564092741}
   - component: {fileID: 564092740}
   - component: {fileID: 564092739}
-  - component: {fileID: 564092738}
+  - component: {fileID: 564092744}
   m_Layer: 0
   m_Name: enemyBase
   m_TagString: Untagged
@@ -468,22 +468,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &564092738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 564092737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a82b66e895dca4d3b836e0ed450b4267, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  healthBar: {fileID: 825604969}
-  enemyPrefab: {fileID: 6644180354889415888, guid: a04f3369971cc4e81b0a83309e4396ab, type: 3}
-  spawnHeight: 2
 --- !u!114 &564092739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -585,6 +569,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &564092744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564092737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a82b66e895dca4d3b836e0ed450b4267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  healthBar: {fileID: 0}
+  enemyPrefab: {fileID: 192446041718462293, guid: 9aeea4e4a71bf45968a725a3ca78b1f3, type: 3}
+  spawnHeight: 2
 --- !u!1 &825604967
 GameObject:
   m_ObjectHideFlags: 0

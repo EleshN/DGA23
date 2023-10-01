@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
+        rb.useGravity = true;
         currentHealth = maxHealth;
     }
 
@@ -27,11 +28,11 @@ public class Enemy : MonoBehaviour, IDamageable
     void OnCollisionEnter(Collision collision)
     {
         // Check if collision has player tag
-        if (collision.gameObject.CompareTag("Animal"))
-        {
-            GameObject attackedObject = collision.gameObject;
-            // attackedObject.TakeDamage(myDamage);
-        }
+        //if (collision.gameObject.CompareTag(""))
+        //{
+        //    GameObject attackedObject = collision.gameObject;
+        //    // attackedObject.TakeDamage(myDamage);
+        //}
     }
 
     public void TakeDamage(float damage)
