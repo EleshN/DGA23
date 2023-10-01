@@ -7,6 +7,7 @@ using TMPro;
 public class Player : MonoBehaviour
 {
     public int[] ammo;
+    public int[] initialAmmo;
     public Gun gun;
     int ammoIndex;
 
@@ -16,6 +17,11 @@ public class Player : MonoBehaviour
     [SerializeField] string[] ammoNames; // make sure that the indices match up with emotions index
 
     public float moveSpeed = 6.9f;
+
+    private void Start()
+    {
+        initialAmmo = (int[]) ammo.Clone();
+    }
 
     private void Update()
     {
@@ -82,6 +88,11 @@ public class Player : MonoBehaviour
 
             //Knockback
         }
+    }
+
+    private void RefreshAmmo()
+    {
+        ammo = (int[]) initialAmmo.Clone();
     }
 }
 
