@@ -30,10 +30,10 @@ public class Animal : MonoBehaviour, IDamageable
         // Switch statement for move
         switch (currEmotion)
         {
-            case: Emotion.ANGER:
+            case Emotion.ANGER:
                 AngerMove(targetPosition);
                 break;
-            case: Emotion.LOVE:
+            case Emotion.LOVE:
                 LoveMove(targetPosition);
                 break;
             default:
