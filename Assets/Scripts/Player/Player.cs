@@ -12,9 +12,9 @@ public class Player : MonoBehaviour
     public Text ammoTypeText;  // displays the current ammo type
     public Text ammoCountText; // displays the current ammo count
 
-    public float moveSpeed = 6.9f;
+    [SerializeField] string[] ammoNames; // make sure that the indices match up with emotions index
 
-    [SerializeField] string[] ammoNames; // index 0 is Love and index 1 is Anger
+    public float moveSpeed = 6.9f;
 
     private void Update()
     {
@@ -34,11 +34,8 @@ public class Player : MonoBehaviour
                 ammo[ammoIndex]--;
                 UpdateUI();
             }
-            else
-            {
-                // play an empty gun sound or something here idk
-            }
         }
+        //handle empty shooting (an effect maybe)
     }
 
 
