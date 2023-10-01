@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public interface IDamageable
 {
-    float Health
-    void TakeDamage(float damageAmount)
-    void Die()
+    void TakeDamage(float damageAmount);
+    void Die();
 }
