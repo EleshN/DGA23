@@ -18,10 +18,6 @@ public class Player : MonoBehaviour
 
     public float moveSpeed = 6.9f;
 
-    private void Start()
-    {
-        initialAmmo = (int[]) ammo.Clone();
-    }
 
     private void Update()
     {
@@ -90,9 +86,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void RefreshAmmo()
+    public void RefreshAmmo()
     {
-        ammo = (int[]) initialAmmo.Clone();
+        Debug.Log("Ammo Refreshed");
+        for (int i = 0; i < ammo.Length; i++)
+        {
+            ammo[i] = initialAmmo[i];
+        }
     }
 }
 
