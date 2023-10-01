@@ -23,7 +23,7 @@ public class RegenTrigger : MonoBehaviour
   {
     if (other.tag == "Player" && Time.time >= nextRegenTime)
     {
-      other.gameObject.GetComponent<Player>().RefreshHPAmmo();
+      other.gameObject.GetComponent<Player>().RefreshAmmo();
       nextRegenTime = Time.time + playerBase.RegenTickSpeed;
     }
   }

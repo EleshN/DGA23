@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     Debug.Log("Ammo: " + Ammo);
   }
 
-  public void RefreshHPAmmo()
+  public void RefreshAmmo()
   {
     Ammo = InitialAmmo;
   }
