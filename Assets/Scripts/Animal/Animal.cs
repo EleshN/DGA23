@@ -6,31 +6,41 @@ using UnityEngine;
 public class Animal : MonoBehaviour, IDamageable
 {
     [SerializeField] Rigidbody rd; 
+    public float maxHealth;
 
-    public float Health;
+    public float currHealth;
     public float animalDamage;
-    public AnimalEmotion currEmotion;
+    public Emotion currEmotion = Emotion.Emotionless;
+    public Vector3 targetPosition;
     
     [Header("Speeds")]
     [SerializeField] float emolessSpeed;
     [SerializeField] float emoSpeed;
 
-    public enum AnimalEmotion {
-        Emotionless, // emoless
-        Love, // emo
-        Anger // emoless
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        // Set default
+        // Set health
+        currHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Switch statement for move
+        switch (currEmotion)
+        {
+            case: Emotion.Anger:
+                AngerMove(targetPosition);
+                break;
+            case: Emotion.Love:
+                LoveMove(targetPosition);
+                break;
+            default:
+                EmolessMove();
+                break;
+
+        }
     }
 
 
@@ -38,9 +48,9 @@ public class Animal : MonoBehaviour, IDamageable
     /// Sets the emotion of the animal when called
     /// </summary>
     /// <param name="emotion"></param>
-    void SetEmotion(AnimalEmotion emotion)
+    void SetEmotion(Emotion emotion)
     {
-
+        currEmotion = emotion;
     }
 
     /// <summary>
@@ -92,5 +102,5 @@ public class Animal : MonoBehaviour, IDamageable
 
     }
 
-    // Check 
+    // TODO: check to update emotion and the target to follow
 }
