@@ -6,8 +6,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
-    public int health;
-    public int damage;
+    public float health;
+    public float damage;
     // Position of player???
     Transform target;
 
