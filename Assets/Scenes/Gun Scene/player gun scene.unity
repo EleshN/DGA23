@@ -803,6 +803,7 @@ MonoBehaviour:
   ammoPrefabs:
   - {fileID: 8484157980712267484, guid: fe3900e0c9e9d744bb620d300aee68ca, type: 3}
   - {fileID: 411135268976928213, guid: f6638be4436ac3347993c5b15d9a8064, type: 3}
+  bulletSpawn: {fileID: 31281371}
 --- !u!23 &1393588671
 MeshRenderer:
   m_ObjectHideFlags: 0
