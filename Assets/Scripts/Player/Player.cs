@@ -14,18 +14,14 @@ public class Player : MonoBehaviour
 
     public float moveSpeed = 6.9f;
 
-    private string[] ammoNames = { "Love", "Anger" }; // index 0 is Love and index 1 is Anger
-
-    private void Start()
-    {
-        UpdateUI();
-    }
+    [SerializeField] string[] ammoNames; // index 0 is Love and index 1 is Anger
 
     private void Update()
     {
         Inputs();
         Move();
         Scroll();
+        UpdateUI();
     }
 
     private void Inputs()
@@ -34,7 +30,7 @@ public class Player : MonoBehaviour
         {
             if (ammo[ammoIndex] > 0)
             {
-                gun.Fire();
+                //gun.Fire();
                 ammo[ammoIndex]--;
                 UpdateUI();
             }
@@ -67,7 +63,6 @@ public class Player : MonoBehaviour
         {
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
         }
-        UpdateUI();
     }
 
     private void UpdateUI()
@@ -84,12 +79,9 @@ public class Player : MonoBehaviour
             if (ammo[ammoIndex] > 0)
             {
                 ammo[ammoIndex]--;
-                UpdateUI();
             }
-            else
-            {
-                // what happens when ammo is 0
-            }
+
+            //Knockback
         }
     }
 }
