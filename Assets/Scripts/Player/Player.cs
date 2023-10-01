@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     public int[] ammo;
     public Gun gun;
-    public int ammoIndex;
+    int ammoIndex;
 
-    public Text ammoTypeText;  // displays the current ammo type
-    public Text ammoCountText; // displays the current ammo count
+    public TMP_Text ammoTypeText;  // displays the current ammo type
+    public TMP_Text ammoCountText; // displays the current ammo count
 
     [SerializeField] string[] ammoNames; // make sure that the indices match up with emotions index
 
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
         Move();
         Scroll();
         UpdateUI();
+
     }
 
     private void Inputs()
