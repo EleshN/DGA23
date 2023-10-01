@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Implements IDamageable Interface
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
     [SerializeField] Rigidbody rb;
-    public float health;
-    public float damage;
-    // Position of player???
-    Transform target;
+    public float maxHealth;
+    public float currentHealth;
+    public float myDamage;
+    // Position of target
+    GameObject target;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -26,21 +27,30 @@ public class Enemy : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         // Check if collision has player tag
+        if (collision.gameObject.CompareTag("animal"))
+        {
+            GameObject attackedObject = collision.gameObject;
+            // attackedObject.TakeDamage(myDamage);
+        }
     }
 
-    void TakeDamage()
+    public void TakeDamage(float damage)
     {
-        //health-=passed in damage
-        // if (damage >= health){Die()}
+        //currentHealth -= damage;
+        // if (currentHealth <= 0){Die()}
     }
 
     void Move()
     {
-        // SetTarget()
+        // target = (GameManager) Find target
+        // SetTarget(target)
+        // Movement - rb.velocity...
     }
 
-    void Die()
+    public void Die()
     {
         // Destory object and play animation
+        Debug.Log("An enemy has died!");
+        Destroy(gameObject);
     }
 }
