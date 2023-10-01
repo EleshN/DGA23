@@ -64,8 +64,8 @@ public class Animal : MonoBehaviour, IDamageable
     /// <summary>
     /// Called every update, when the emotion is Love, animal will move toward the player position
     /// </summary>
-    /// <param name="playerPos"></param>
-    void LoveMove(Vector3 playerPos)
+    /// <param name="target"></param>
+    void LoveMove(Vector3 target)
     {
 
     }
@@ -74,7 +74,7 @@ public class Animal : MonoBehaviour, IDamageable
     /// Called every update, when the emotion is Anger, animal will move toward the robot position
     /// </summary>
     /// <param name="robotPos"></param>
-    void AngerMove(Vector3 robotPos)
+    void AngerMove(Vector3 target)
     {
 
     }
@@ -86,4 +86,11 @@ public class Animal : MonoBehaviour, IDamageable
     {
 
     }
+
+    void setTarget(Vector3 target)
+    {
+
+    }
+
+    // Check 
 }
