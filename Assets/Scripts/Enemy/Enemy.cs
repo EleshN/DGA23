@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour, IDamageable
     void OnCollisionEnter(Collision collision)
     {
         // Check if collision has player tag
-        if (collision.gameObject.CompareTag("animal"))
+        if (collision.gameObject.CompareTag("Animal"))
         {
             GameObject attackedObject = collision.gameObject;
             // attackedObject.TakeDamage(myDamage);
