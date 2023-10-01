@@ -5,8 +5,10 @@ using UnityEngine;
 // Implements IDamageable Interface
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] int health;
-    [SerializeField] int damage;
+    [SerializeField] Rigidbody rb;
+    public int health;
+    public int damage;
+    // Position of player???
     Transform target;
 
     // Start is called before the first frame update
