@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Animal : MonoBehaviour, IDamageable
 {
+    public NavMeshAgent agent;
+
     [SerializeField] Rigidbody rd; 
+    Transform player;
     public float maxHealth;
 
     public float currHealth;
@@ -22,6 +26,10 @@ public class Animal : MonoBehaviour, IDamageable
     {
         // Set health
         currHealth = maxHealth;
+
+        // Set player tags and get agent component
+        agent = GetComponent<NavMeshAgent>();
+        player = GameObject.Find("Player").transform;
     }
 
     // Update is called once per frame
@@ -31,10 +39,10 @@ public class Animal : MonoBehaviour, IDamageable
         switch (currEmotion)
         {
             case Emotion.ANGER:
-                AngerMove(targetPosition);
+                AngerMove();
                 break;
             case Emotion.LOVE:
-                LoveMove(targetPosition);
+                LoveMove();
                 break;
             default:
                 EmolessMove();
@@ -74,17 +82,15 @@ public class Animal : MonoBehaviour, IDamageable
     /// <summary>
     /// Called every update, when the emotion is Love, animal will move toward the player position
     /// </summary>
-    /// <param name="target"></param>
-    void LoveMove(Vector3 target)
+    void LoveMove()
     {
-
+        agent.destination = player.position;
     }
 
     /// <summary>
     /// Called every update, when the emotion is Anger, animal will move toward the robot position
     /// </summary>
-    /// <param name="robotPos"></param>
-    void AngerMove(Vector3 target)
+    void AngerMove()
     {
 
     }
@@ -97,7 +103,7 @@ public class Animal : MonoBehaviour, IDamageable
 
     }
 
-    void setTarget(Vector3 target)
+    void findClosetEnemy()
     {
 
     }
