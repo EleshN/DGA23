@@ -42,7 +42,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void Move()
     {
-        // target = (GameManager) Find target
+        // target = (GameManager) Find target NOTE: Prioritize Bases, only
+        // target animal that attacks
         // SetTarget(target)
         // Movement - rb.velocity...
     }
