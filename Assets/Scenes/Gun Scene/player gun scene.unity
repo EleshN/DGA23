@@ -597,7 +597,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573776629}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 862bfdb349293044b84637437b7f6ee1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -998,6 +998,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1550462295}
   - component: {fileID: 1550462296}
+  - component: {fileID: 1550462297}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1037,12 +1038,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammo: 0500000005000000
   gun: {fileID: 1393588670}
+  rb: {fileID: 1550462297}
   ammoTypeText: {fileID: 1404891802}
   ammoCountText: {fileID: 34390380}
   ammoNames:
   - love
   - anger
-  moveSpeed: 6.9
+  moveSpeed: 20
+--- !u!54 &1550462297
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550462294}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1 &2103306913
 GameObject:
   m_ObjectHideFlags: 0

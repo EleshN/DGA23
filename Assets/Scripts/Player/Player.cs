@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public int[] ammo;
     public Gun gun;
     int ammoIndex;
+    [SerializeField] Rigidbody rb;
 
     public TMP_Text ammoTypeText;  // displays the current ammo type
     public TMP_Text ammoCountText; // displays the current ammo count
@@ -48,7 +49,7 @@ public class Player : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
 
-        transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
+        rb.AddForce(movement * moveSpeed);
     }
 
     private void Scroll()
