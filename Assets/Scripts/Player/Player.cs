@@ -28,11 +28,11 @@ public class Player : MonoBehaviour
 
     private void Inputs()
     {
-        if (Input.GetMouseButton(0)) // 0 represents left mouse button
+        if (Input.GetMouseButtonDown(0)) // 0 represents left mouse button
         {
             if (ammo[ammoIndex] > 0)
             {
-                //gun.Fire();
+                gun.Shoot(ammoIndex);
                 ammo[ammoIndex]--;
                 UpdateUI();
             }
