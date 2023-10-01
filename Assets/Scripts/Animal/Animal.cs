@@ -10,7 +10,7 @@ public class Animal : MonoBehaviour, IDamageable
 
     public float currHealth;
     public float animalDamage;
-    public Emotion currEmotion = Emotion.Emotionless;
+    public Emotion currEmotion = Emotion.EMOTIONLESS;
     public Vector3 targetPosition;
     
     [Header("Speeds")]
@@ -30,10 +30,10 @@ public class Animal : MonoBehaviour, IDamageable
         // Switch statement for move
         switch (currEmotion)
         {
-            case: Emotion.Anger:
+            case: Emotion.ANGER:
                 AngerMove(targetPosition);
                 break;
-            case: Emotion.Love:
+            case: Emotion.LOVE:
                 LoveMove(targetPosition);
                 break;
             default:
