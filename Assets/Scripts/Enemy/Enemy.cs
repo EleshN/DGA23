@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 // Implements IDamageable Interface
 public class Enemy : MonoBehaviour, IDamageable
 {
+    public NavMeshAgent agent;
     [SerializeField] Rigidbody rb;
     public float maxHealth;
     public float currentHealth;
     public float myDamage;
+    Transform target;
     // Position of target
-    GameObject target;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Find the closest base
+        // Some foreach method: FindClosestTarget(gameObject.transform.position)
+        // Set what base to home-in on (Nearest from last step)
+        //target = GameObject.Find("Base").transform;
         rb.useGravity = true;
         currentHealth = maxHealth;
     }
@@ -45,7 +51,8 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         // target = (GameManager) Find target NOTE: Prioritize Bases, only
         // target animal that attacks
-        // SetTarget(target)
+        // setting target to
+        //agent.destination = target.position;
         // Movement - rb.velocity...
     }
 
