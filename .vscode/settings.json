@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "DGA23.sln"
+    "dotnet.defaultSolution": "emotional baggage.sln"
 }
