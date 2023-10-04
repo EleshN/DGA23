@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
 
     public float moveSpeed = 6.9f;
 
+    public HashSet<Animal> followers = new HashSet<Animal>(); //all animals following this player
 
     private void Update()
     {

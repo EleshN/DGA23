@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Animal : MonoBehaviour, IDamageable
 {
-    [SerializeField] Rigidbody rd; 
+    [SerializeField] Rigidbody rb; 
     public float maxHealth;
 
     public float currHealth;
@@ -16,6 +16,11 @@ public class Animal : MonoBehaviour, IDamageable
     [Header("Speeds")]
     [SerializeField] float emolessSpeed;
     [SerializeField] float emoSpeed;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +61,6 @@ public class Animal : MonoBehaviour, IDamageable
     /// <summary>
     /// Reduces the animal health by the damageAmount
     /// </summary>
-    /// <param name="damageAmount"></param>
     public void TakeDamage(float damageAmount)
     {
 
