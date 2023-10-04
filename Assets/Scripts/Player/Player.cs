@@ -7,6 +7,7 @@ using TMPro;
 public class Player : MonoBehaviour
 {
     public int[] ammo;
+    public int[] initialAmmo;
     public Gun gun;
     int ammoIndex;
     [SerializeField] Rigidbody rb;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] string[] ammoNames; // make sure that the indices match up with emotions index
 
     public float moveSpeed = 6.9f;
+
 
     private void Update()
     {
@@ -82,6 +84,15 @@ public class Player : MonoBehaviour
             }
 
             //Knockback
+        }
+    }
+
+    public void RefreshAmmo()
+    {
+        Debug.Log("Ammo Refreshed");
+        for (int i = 0; i < ammo.Length; i++)
+        {
+            ammo[i] = initialAmmo[i];
         }
     }
 }
