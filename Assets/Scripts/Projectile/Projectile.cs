@@ -25,7 +25,7 @@ public abstract class Projectile : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
     }
