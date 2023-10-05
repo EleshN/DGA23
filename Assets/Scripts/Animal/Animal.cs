@@ -11,7 +11,8 @@ public class Animal : MonoBehaviour, IDamageable
     public float currHealth;
     public float animalDamage;
     public Emotion currEmotion = Emotion.EMOTIONLESS;
-    public Vector3 targetPosition;
+    public GameObject target;
+
     
     [Header("Speeds")]
     [SerializeField] float emolessSpeed;
@@ -33,13 +34,15 @@ public class Animal : MonoBehaviour, IDamageable
     void Update()
     {
         // Switch statement for move
+        // Todo: incorporate target selection based on emotion when a new target entity is needed.
+        // Note: emotionless animals have no target.
         switch (currEmotion)
         {
             case Emotion.ANGER:
-                AngerMove(targetPosition);
+                AngerMove(target.transform.position);
                 break;
             case Emotion.LOVE:
-                LoveMove(targetPosition);
+                LoveMove(target.transform.position);
                 break;
             default:
                 EmolessMove();
@@ -97,11 +100,6 @@ public class Animal : MonoBehaviour, IDamageable
     /// Called every update, when there is no emotion, animal will move in some random direction
     /// </summary>
     void EmolessMove()
-    {
-
-    }
-
-    void setTarget(Vector3 target)
     {
 
     }

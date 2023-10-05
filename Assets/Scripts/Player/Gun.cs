@@ -24,6 +24,7 @@ public class Gun : MonoBehaviour
 
     public void Shoot(int ammoIndex)
     {
-        Instantiate(ammoPrefabs[ammoIndex], bulletSpawn.position, bulletSpawn.rotation);
+        GameObject projectile = Instantiate(ammoPrefabs[ammoIndex], bulletSpawn.position, bulletSpawn.rotation);
+        projectile.GetComponent<Projectile>().SetPlayer(gameObject.GetComponent<Player>());
     }
 }

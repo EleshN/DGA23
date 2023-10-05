@@ -1,11 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AngerProjectile : Projectile
 {
-    public override float Speed => 3;
-
     // temporary testing
     // private void Update()
     // {
@@ -17,13 +14,23 @@ public class AngerProjectile : Projectile
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy") {
+        GameObject other = collision.gameObject;
+        Animal animal = other.GetComponent<Animal>();
+        Enemy enemy = other.GetComponent<Enemy>();
+        if (enemy) {
             HashSet<Animal> animals = sourcePlayer.followers;
-            foreach (Animal animal in animals)
+            foreach (Animal follower in animals)
             {
-                animal.currEmotion = Emotion.ANGER;
+                follower.currEmotion = Emotion.ANGER;
+                follower.target = other;
             }
             animals.Clear();
+        }
+        else if (animal)
+        {
+            sourcePlayer.followers.Remove(animal);
+            animal.currEmotion = Emotion.ANGER;
+            animal.target = null; // assignment to null forces new target selection.
         }
         Destroy(gameObject);
     }

@@ -5,12 +5,12 @@ public abstract class Projectile : MonoBehaviour
 {
     private Rigidbody rb;
 
-    public abstract float Speed { get; }
+    [SerializeField] private protected float speed = 3;
 
     private protected Player sourcePlayer;
 
     /// <summary>
-    /// Sets the projectile's source, which is the player which launched the projectile
+    /// Sets the projectile's source, which is the player that shot this projectile
     /// </summary>
     /// <param name="p">player object</param>
     public void SetPlayer(Player p)
@@ -21,7 +21,7 @@ public abstract class Projectile : MonoBehaviour
     public void SetDirection(Vector3 direction)
     {
         direction.Normalize();
-        rb.velocity = direction * Speed;
+        rb.velocity = direction * speed;
     }
 
     // Use this for initialization
