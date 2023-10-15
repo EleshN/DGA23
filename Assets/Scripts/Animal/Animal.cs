@@ -32,6 +32,8 @@ public class Animal : MonoBehaviour, IDamageable
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = speed;
     }
 
     void Start()
@@ -46,6 +48,7 @@ public class Animal : MonoBehaviour, IDamageable
         {
             currEmotion = Emotion.EMOTIONLESS;
         }
+        //print(currEmotion);
 
         // Movement
         switch (currEmotion)
@@ -60,6 +63,7 @@ public class Animal : MonoBehaviour, IDamageable
                 EmoTarget();
                 break;
         }
+        //targetPosition = new Vector3(1, transform.position.y, 1);
         agent.destination = targetPosition;
     }
 
@@ -149,6 +153,7 @@ public class Animal : MonoBehaviour, IDamageable
         }
         else
         {
+            print("fail");
             TargetSelect();
         }
     }
