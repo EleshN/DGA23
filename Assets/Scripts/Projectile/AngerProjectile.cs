@@ -22,7 +22,7 @@ public class AngerProjectile : Projectile
             foreach (Animal follower in animals)
             {
                 follower.currEmotion = Emotion.ANGER;
-                follower.target = other;
+                follower.targetTransform = other.transform;
             }
             animals.Clear();
         }
@@ -30,7 +30,7 @@ public class AngerProjectile : Projectile
         {
             sourcePlayer.followers.Remove(animal);
             animal.currEmotion = Emotion.ANGER;
-            animal.target = null; // assignment to null forces new target selection.
+            animal.targetTransform = null; // assignment to null forces new target selection.
         }
         Destroy(gameObject);
     }
