@@ -22,7 +22,7 @@ public class AngerProjectile : Projectile
             foreach (Animal follower in animals)
             {
                 follower.currEmotion = Emotion.ANGER;
-                follower.targetTransform = other;
+                follower.targetTransform = other.transform;
             }
             animals.Clear();
         }
