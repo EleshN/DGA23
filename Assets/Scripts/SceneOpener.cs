@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneOpener : MonoBehaviour
 {
     // Loading scene name
-    [SerializeField] private string nextScene = "";
+    [SerializeField] protected string nextScene = "";
 
     // Start is called before the first frame update
     void Start()
