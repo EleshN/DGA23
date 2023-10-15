@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class OpenLevel : MonoBehaviour
+public class SceneOpener : MonoBehaviour
 {
-    public int level;
+    // Loading scene name
+    [SerializeField] private string nextScene = "";
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +16,6 @@ public class OpenLevel : MonoBehaviour
 
     public void OpenScene()
     {
-        SceneManager.LoadScene("GamePlayLevel" + level.ToString());
+        SceneManager.LoadScene(nextScene);
     }
 }
