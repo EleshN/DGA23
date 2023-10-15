@@ -7,7 +7,11 @@ public class EnemyBase : MonoBehaviour
     public Slider healthBar;
     public GameObject enemyPrefab;
     public float spawnHeight = 2f; // Height from which the enemy will be spawned
-
+    public GameObject PlayerBaseObject;
+    void Start()
+    {
+        GameManager.Instance.EnemyBases.Add(this);
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -31,6 +35,8 @@ public class EnemyBase : MonoBehaviour
 
         if (health <= 0)
         {
+            GameManager.Instance.EnemyBases.Remove(this);
+            Instantiate(PlayerBaseObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
