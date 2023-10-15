@@ -12,6 +12,8 @@ public class EnemyBase : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.EnemyBases.Add(this);
+        
         RectTransform rectTransform = healthBar.GetComponent<RectTransform>();
         rectTransform.sizeDelta = newSize;
         healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
@@ -19,7 +21,7 @@ public class EnemyBase : MonoBehaviour
         
         resetNextSpawnTime();
     }
-
+    
     void Update()
     {
         nextSpwanTime -= Time.deltaTime;
@@ -50,6 +52,8 @@ public class EnemyBase : MonoBehaviour
 
         if (health <= 0)
         {
+            GameManager.Instance.EnemyBases.Remove(this);
+            Instantiate(PlayerBaseObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
