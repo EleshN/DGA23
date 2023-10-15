@@ -32,6 +32,6 @@ public class AngerProjectile : Projectile
             animal.currEmotion = Emotion.ANGER;
             animal.targetTransform = null; // assignment to null forces new target selection.
         }
-        Destroy(gameObject);
+        Destroy(gameObject, 0.1f);
     }
 }

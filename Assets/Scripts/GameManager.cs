@@ -7,11 +7,12 @@ public class GameManager : MonoBehaviour
 
     private static GameManager _Instance;
     public int LevelNumber = 1;
-    public List<Animal> Animals { get; private set; }
-    public List<Animal> Enemies { get; private set; }
     public List<PlayerBase> PlayerBases { get; private set; }
     public List<EnemyBase> EnemyBases { get; private set; }
 
+    /// <summary>
+    /// all angry animals and all player bases
+    /// </summary>
     public List<Transform> TeamPlayer;
 
     public List<Transform> TeamEnemy;
@@ -32,11 +33,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _Instance = this;
-        Animals = new();
-        Enemies = new();
         PlayerBases = new();
         EnemyBases = new();
-
+        TeamPlayer = new();
+        TeamEnemy = new();
     }
 
     // Start is called before the first frame update
@@ -49,11 +49,24 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (PlayerBases.Count == 0) Debug.Log("Game Over");
-        if (PlayerBases.Count == 0) Debug.Log("You Win");
+        if (EnemyBases.Count == 0) Debug.Log("You Win");
     }
 
     public Transform FindClosest(Vector3 source, List<Transform> listTransforms)
     {
-        return null;
+        // find closest using Euclidean distance
+        Transform closest = null;
+        float minDist = float.PositiveInfinity;
+        foreach (Transform target in listTransforms)
+        {
+            Vector3 targetPosition = target.position;
+            float distance = (targetPosition - source).magnitude;
+            if ( distance < minDist)
+            {
+                minDist = distance;
+                closest = target;
+            }
+        }
+        return closest;
     }
 }
