@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     public List<PlayerBase> PlayerBases { get; private set; }
     public List<EnemyBase> EnemyBases { get; private set; }
 
+    // Reference to Player Transform for player target tracking
+    public Transform PlayerTransform;
+
     public static GameManager Instance
     {
         get
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (len(PlayerBases) == 0) Debug.Log("Game Over");
-        if (len(EnemyBases) == 0) Debug.Log("You Win");
+        if (PlayerBases.Count == 0) Debug.Log("Game Over");
+        if (PlayerBases.Count == 0) Debug.Log("You Win");
     }
 }
