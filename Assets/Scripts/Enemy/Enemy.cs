@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour, IDamageable
         //target = GameObject.Find("Base").transform;
         rb.useGravity = true;
         currentHealth = maxHealth;
+        GameManager.Instance.TeamEnemy.Add(gameObject.transform);
     }
 
     // Update is called once per frame

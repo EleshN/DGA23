@@ -10,11 +10,7 @@ public class GameManager : MonoBehaviour
     public List<PlayerBase> PlayerBases { get; private set; }
     public List<EnemyBase> EnemyBases { get; private set; }
 
-    /// <summary>
-    /// all angry animals and all player bases
-    /// </summary>
-    public List<Transform> TeamPlayer;
-
+    // All enemies on the map (robots, enemy bases)
     public List<Transform> TeamEnemy;
 
     // Reference to Player Transform for player target tracking
@@ -35,7 +31,6 @@ public class GameManager : MonoBehaviour
         _Instance = this;
         PlayerBases = new();
         EnemyBases = new();
-        TeamPlayer = new();
         TeamEnemy = new();
     }
 

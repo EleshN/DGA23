@@ -13,6 +13,6 @@ public class LoveProjectile : Projectile
             animal.currEmotion = Emotion.LOVE;
             animal.targetTransform = GameManager.Instance.PlayerTransform;
         }
-        Destroy(gameObject);
+        Destroy(gameObject, 0.1f);
     }
 }
