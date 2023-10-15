@@ -2,35 +2,38 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Animal : MonoBehaviour, IDamageable
 {
-    [SerializeField] Rigidbody rb; 
-    public float maxHealth;
-
-    public float currHealth;
-    public float animalDamage;
-    public Emotion currEmotion = Emotion.EMOTIONLESS;
-    public GameObject target;
+    [SerializeField] NavMeshAgent agent;
 
     
-    [Header("Speeds")]
-    [SerializeField] float emolessSpeed;
+    [SerializeField] Rigidbody rb;
+    [SerializeField] float maxHealth;
+    [SerializeField] float currHealth;
+    [SerializeField] float animalDamage;
+    [HideInInspector] public Emotion currEmotion = Emotion.EMOTIONLESS;
+    [HideInInspector] public Transform target;
+
+
+    [Tooltip("Time in between choosing new patrol points")]
+    float patrolTime;
+
+    [Header("Stats")]
     [SerializeField] float emoSpeed;
+    [SerializeField] float speed;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         // Set health
         currHealth = maxHealth;
     }
-
-    // Update is called once per frame
     void Update()
     {
         // Switch statement for move
