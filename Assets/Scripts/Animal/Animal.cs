@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SocialPlatforms;
 
 public class Animal : MonoBehaviour, IDamageable
 {
@@ -14,11 +15,15 @@ public class Animal : MonoBehaviour, IDamageable
     [SerializeField] float currHealth;
     [SerializeField] float animalDamage;
     [HideInInspector] public Emotion currEmotion = Emotion.EMOTIONLESS;
-    [HideInInspector] public Transform target;
+    [HideInInspector] public Transform targetTransform;
+    
+    Vector3 targetPosition;
 
 
     [Tooltip("Time in between choosing new patrol points")]
-    float patrolTime;
+    [SerializeField] float patrolTime;
+    float currTime = 0;
+    [SerializeField] float searchRange;
 
     [Header("Stats")]
     [SerializeField] float emoSpeed;
@@ -51,8 +56,8 @@ public class Animal : MonoBehaviour, IDamageable
                 EmoTarget();
                 break;
         }
-        
-        agent.destination = target.position;
+
+        agent.destination = targetPosition;
     }
 
 
@@ -88,8 +93,10 @@ public class Animal : MonoBehaviour, IDamageable
     /// <param name="target"></param>
     void LoveTarget()
     {
-        if (target != GameManager.Instance.PlayerTransform)
-            target = GameManager.Instance.PlayerTransform;
+        if (targetTransform != GameManager.Instance.PlayerTransform)
+            targetTransform = GameManager.Instance.PlayerTransform;
+
+        targetPosition = targetTransform.position;
     }
 
     /// <summary>
@@ -98,19 +105,49 @@ public class Animal : MonoBehaviour, IDamageable
     /// <param name="robotPos"></param>
     void AngerTarget()
     {
-        if (target = null)
-            target = null;
+        if (targetTransform = null)
+            GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
+        else
+        {
+            targetPosition = targetTransform.position;
+        }
     }
 
 
 
     /// <summary>
-    /// Called every update, when there is no emotion, animal will move in some random direction
+    /// Called every update, when there is no emotion, a random target will be chosen
+    /// after a certain amount of time has passed (currTime = patrolTime).
+    ///
+    /// The Target will be chosen using the TargetSelect helper function
     /// </summary>
     void EmoTarget()
     {
-
+        currTime += Time.deltaTime;
+        if (currTime >= patrolTime)
+        {
+            TargetSelect();
+            currTime = 0;
+        }
     }
 
-    // TODO: check to update emotion and the target to follow
+    /// <summary>
+    /// Select a random target on teh NavMesh around the player within the searchRange
+    ///
+    /// Function is called recursively until the point is found
+    /// </summary>
+    void TargetSelect()
+    {
+        Vector3 randomPoint = transform.position + UnityEngine.Random.insideUnitSphere * searchRange;
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+        {
+            targetPosition = hit.position;
+        }
+        else
+        {
+            TargetSelect();
+        }
+    }
 }

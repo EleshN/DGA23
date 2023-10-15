@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         if (PlayerBases.Count == 0) Debug.Log("You Win");
     }
 
-    Transform FindClosest(Transform target, List<Transform> listTransforms)
+    public Transform FindClosest(Vector3 source, List<Transform> listTransforms)
     {
         return null;
     }
