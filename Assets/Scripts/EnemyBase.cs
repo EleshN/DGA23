@@ -7,9 +7,30 @@ public class EnemyBase : MonoBehaviour
     public Slider healthBar;
     public GameObject enemyPrefab;
     public float spawnHeight = 2f; // Height from which the enemy will be spawned
+    public Vector2 newSize = new Vector2(1,1);
+    public float nextSpwanTime = 0f;
+
+    void Start()
+    {
+        RectTransform rectTransform = healthBar.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = newSize;
+        healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
+        UpdateHealthBar();
+        
+        resetNextSpawnTime();
+    }
 
     void Update()
     {
+        nextSpwanTime -= Time.deltaTime;
+        if (nextSpwanTime <= 0)
+        {
+            Vector3 spawnPosition = new Vector3(transform.position.x, spawnHeight, transform.position.z);
+            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+            resetNextSpawnTime();
+        }
+
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             health += 10;
@@ -27,17 +48,14 @@ public class EnemyBase : MonoBehaviour
         health = Mathf.Clamp(health, 0, 100);
         healthBar.value = health / 100f;
 
-        healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
-
         if (health <= 0)
         {
             Destroy(gameObject);
         }
     }
 
-    private void OnMouseDown()
+    private void resetNextSpawnTime()
     {
-        Vector3 spawnPosition = new Vector3(transform.position.x, spawnHeight, transform.position.z);
-        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        nextSpwanTime = Random.Range(1f, 5f);
     }
 }
