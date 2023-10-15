@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     public List<PlayerBase> PlayerBases { get; private set; }
     public List<EnemyBase> EnemyBases { get; private set; }
 
+    public List<Transform> TeamPlayer;
+
+    public List<Transform> TeamEnemy;
+
     // Reference to Player Transform for player target tracking
     public Transform PlayerTransform;
 
@@ -46,5 +50,10 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerBases.Count == 0) Debug.Log("Game Over");
         if (PlayerBases.Count == 0) Debug.Log("You Win");
+    }
+
+    Transform FindClosest(Transform target, List<Transform> listTransforms)
+    {
+        return null;
     }
 }

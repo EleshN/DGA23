@@ -88,7 +88,8 @@ public class Animal : MonoBehaviour, IDamageable
     /// <param name="target"></param>
     void LoveTarget()
     {
-
+        if (target != GameManager.Instance.PlayerTransform)
+            target = GameManager.Instance.PlayerTransform;
     }
 
     /// <summary>
@@ -97,8 +98,11 @@ public class Animal : MonoBehaviour, IDamageable
     /// <param name="robotPos"></param>
     void AngerTarget()
     {
-
+        if (target = null)
+            target = null;
     }
+
+
 
     /// <summary>
     /// Called every update, when there is no emotion, animal will move in some random direction
