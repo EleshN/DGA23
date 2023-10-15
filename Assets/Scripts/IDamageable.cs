@@ -8,5 +8,5 @@ using UnityEngine;
 public interface IDamageable
 {
     void TakeDamage(float damageAmount);
-    void Die();
+    //void Die();
 }

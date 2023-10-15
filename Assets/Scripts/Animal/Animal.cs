@@ -41,9 +41,13 @@ public class Animal : MonoBehaviour, IDamageable
     }
     void Update()
     {
-        // Switch statement for move
-        // Todo: incorporate target selection based on emotion when a new target entity is needed.
-        // Note: emotionless animals have no target.
+        // Damage
+        if (currHealth <= 0)
+        {
+            currEmotion = Emotion.EMOTIONLESS;
+        }
+
+        // Movement
         switch (currEmotion)
         {
             case Emotion.ANGER:
@@ -56,7 +60,6 @@ public class Animal : MonoBehaviour, IDamageable
                 EmoTarget();
                 break;
         }
-
         agent.destination = targetPosition;
     }
 
@@ -71,26 +74,26 @@ public class Animal : MonoBehaviour, IDamageable
     }
 
     /// <summary>
+    /// The enemy gives damage to the animal 
     /// Reduces the animal health by the damageAmount
     /// </summary>
     public void TakeDamage(float damageAmount)
     {
-
+        currHealth -= damageAmount;
     }
 
-    /// <summary>
-    /// Called when the animal losses all health
-    /// Change emotion of animal to emotionless
-    /// </summary>
-    public void Die()
-    {
+    ///// <summary>
+    ///// Called when the animal losses all health
+    ///// Change emotion of animal to emotionless
+    ///// </summary>
+    //public void Die()
+    //{
+    //    currEmotion = Emotion.EMOTIONLESS;
+    //}
 
-    }
-
     /// <summary>
-    /// Called every update, when the emotion is Love, animal will move toward the player position
+    /// Called every update, when the emotion is Love, targetPosition will update to player position
     /// </summary>
-    /// <param name="target"></param>
     void LoveTarget()
     {
         if (targetTransform != GameManager.Instance.PlayerTransform)
@@ -100,9 +103,8 @@ public class Animal : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// Called every update, when the emotion is Anger, animal will move toward the robot position
+    /// Called every update, when the emotion is Anger, targetPosition will update to enemy position
     /// </summary>
-    /// <param name="robotPos"></param>
     void AngerTarget()
     {
         if (targetTransform = null)
