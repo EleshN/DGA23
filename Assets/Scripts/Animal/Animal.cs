@@ -42,16 +42,17 @@ public class Animal : MonoBehaviour, IDamageable
         switch (currEmotion)
         {
             case Emotion.ANGER:
-                AngerMove(target.transform.position);
+                AngerTarget();
                 break;
             case Emotion.LOVE:
-                LoveMove(target.transform.position);
+                LoveTarget();
                 break;
             default:
-                EmolessMove();
+                EmoTarget();
                 break;
-
         }
+        
+        agent.destination = target.position;
     }
 
 
@@ -85,7 +86,7 @@ public class Animal : MonoBehaviour, IDamageable
     /// Called every update, when the emotion is Love, animal will move toward the player position
     /// </summary>
     /// <param name="target"></param>
-    void LoveMove(Vector3 target)
+    void LoveTarget()
     {
 
     }
@@ -94,7 +95,7 @@ public class Animal : MonoBehaviour, IDamageable
     /// Called every update, when the emotion is Anger, animal will move toward the robot position
     /// </summary>
     /// <param name="robotPos"></param>
-    void AngerMove(Vector3 target)
+    void AngerTarget()
     {
 
     }
@@ -102,7 +103,7 @@ public class Animal : MonoBehaviour, IDamageable
     /// <summary>
     /// Called every update, when there is no emotion, animal will move in some random direction
     /// </summary>
-    void EmolessMove()
+    void EmoTarget()
     {
 
     }
