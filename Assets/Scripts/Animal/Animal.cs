@@ -2,47 +2,47 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Animal : MonoBehaviour, IDamageable
 {
-    public NavMeshAgent agent;
-
-    [SerializeField] Rigidbody rd; 
-    Transform player;
+    [SerializeField] Rigidbody rb; 
     public float maxHealth;
 
     public float currHealth;
     public float animalDamage;
     public Emotion currEmotion = Emotion.EMOTIONLESS;
-    public Vector3 targetPosition;
+    public GameObject target;
+
     
     [Header("Speeds")]
     [SerializeField] float emolessSpeed;
     [SerializeField] float emoSpeed;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         // Set health
         currHealth = maxHealth;
-
-        // Set player tags and get agent component
-        agent = GetComponent<NavMeshAgent>();
-        player = GameObject.Find("Player").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Switch statement for move
+        // Todo: incorporate target selection based on emotion when a new target entity is needed.
+        // Note: emotionless animals have no target.
         switch (currEmotion)
         {
             case Emotion.ANGER:
-                AngerMove();
+                AngerMove(target.transform.position);
                 break;
             case Emotion.LOVE:
-                LoveMove();
+                LoveMove(target.transform.position);
                 break;
             default:
                 EmolessMove();
@@ -64,7 +64,6 @@ public class Animal : MonoBehaviour, IDamageable
     /// <summary>
     /// Reduces the animal health by the damageAmount
     /// </summary>
-    /// <param name="damageAmount"></param>
     public void TakeDamage(float damageAmount)
     {
 
@@ -82,15 +81,17 @@ public class Animal : MonoBehaviour, IDamageable
     /// <summary>
     /// Called every update, when the emotion is Love, animal will move toward the player position
     /// </summary>
-    void LoveMove()
+    /// <param name="target"></param>
+    void LoveMove(Vector3 target)
     {
-        agent.destination = player.position;
+
     }
 
     /// <summary>
     /// Called every update, when the emotion is Anger, animal will move toward the robot position
     /// </summary>
-    void AngerMove()
+    /// <param name="robotPos"></param>
+    void AngerMove(Vector3 target)
     {
 
     }
@@ -99,11 +100,6 @@ public class Animal : MonoBehaviour, IDamageable
     /// Called every update, when there is no emotion, animal will move in some random direction
     /// </summary>
     void EmolessMove()
-    {
-
-    }
-
-    void findClosetEnemy()
     {
 
     }

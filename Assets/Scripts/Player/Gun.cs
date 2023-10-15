@@ -7,7 +7,8 @@ public class Gun : MonoBehaviour
     //same index as ammo index
     [Tooltip("Make sure the index of the ammo is same as Player script")]
     public GameObject[] ammoPrefabs;
-    // Start is called before the first frame update
+
+    private Vector3 fireDirection = new();
 
     //spawn of the bullet
     [SerializeField] Transform bulletSpawn;
@@ -24,6 +25,11 @@ public class Gun : MonoBehaviour
 
     public void Shoot(int ammoIndex)
     {
-        Instantiate(ammoPrefabs[ammoIndex], bulletSpawn.position, bulletSpawn.rotation);
+        GameObject obj = Instantiate(ammoPrefabs[ammoIndex], bulletSpawn.position, bulletSpawn.rotation);
+        Projectile projectile = obj.GetComponent<Projectile>();
+        projectile.SetPlayer(gameObject.GetComponent<Player>());
+        // todo: determine direction of aim
+        fireDirection.Set(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
+        projectile.SetDirection(fireDirection);
     }
 }
