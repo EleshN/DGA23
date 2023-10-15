@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SocialPlatforms;
 
 public class Animal : MonoBehaviour, IDamageable
 {
@@ -20,7 +21,9 @@ public class Animal : MonoBehaviour, IDamageable
 
 
     [Tooltip("Time in between choosing new patrol points")]
-    float patrolTime;
+    [SerializeField] float patrolTime;
+    float currTime = 0;
+    [SerializeField] float searchRange;
 
     [Header("Stats")]
     [SerializeField] float emoSpeed;
@@ -113,12 +116,38 @@ public class Animal : MonoBehaviour, IDamageable
 
 
     /// <summary>
-    /// Called every update, when there is no emotion, animal will move in some random direction
+    /// Called every update, when there is no emotion, a random target will be chosen
+    /// after a certain amount of time has passed (currTime = patrolTime).
+    ///
+    /// The Target will be chosen using the TargetSelect helper function
     /// </summary>
     void EmoTarget()
     {
-
+        currTime += Time.deltaTime;
+        if (currTime >= patrolTime)
+        {
+            TargetSelect();
+            currTime = 0;
+        }
     }
 
-    // TODO: check to update emotion and the target to follow
+    /// <summary>
+    /// Select a random target on teh NavMesh around the player within the searchRange
+    ///
+    /// Function is called recursively until the point is found
+    /// </summary>
+    void TargetSelect()
+    {
+        Vector3 randomPoint = transform.position + UnityEngine.Random.insideUnitSphere * searchRange;
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+        {
+            targetPosition = hit.position;
+        }
+        else
+        {
+            TargetSelect();
+        }
+    }
 }
