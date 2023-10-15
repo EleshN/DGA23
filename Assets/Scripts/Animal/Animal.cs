@@ -14,7 +14,9 @@ public class Animal : MonoBehaviour, IDamageable
     [SerializeField] float currHealth;
     [SerializeField] float animalDamage;
     [HideInInspector] public Emotion currEmotion = Emotion.EMOTIONLESS;
-    [HideInInspector] public Transform target;
+    [HideInInspector] public Transform targetTransform;
+    
+    Vector3 targetPosition;
 
 
     [Tooltip("Time in between choosing new patrol points")]
@@ -51,8 +53,8 @@ public class Animal : MonoBehaviour, IDamageable
                 EmoTarget();
                 break;
         }
-        
-        agent.destination = target.position;
+
+        agent.destination = targetPosition;
     }
 
 
@@ -88,8 +90,10 @@ public class Animal : MonoBehaviour, IDamageable
     /// <param name="target"></param>
     void LoveTarget()
     {
-        if (target != GameManager.Instance.PlayerTransform)
-            target = GameManager.Instance.PlayerTransform;
+        if (targetTransform != GameManager.Instance.PlayerTransform)
+            targetTransform = GameManager.Instance.PlayerTransform;
+
+        targetPosition = targetTransform.position;
     }
 
     /// <summary>
@@ -98,8 +102,12 @@ public class Animal : MonoBehaviour, IDamageable
     /// <param name="robotPos"></param>
     void AngerTarget()
     {
-        if (target = null)
-            target = null;
+        if (targetTransform = null)
+            GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
+        else
+        {
+            targetPosition = targetTransform.position;
+        }
     }
 
 
