@@ -15,9 +15,9 @@ public class EnemyBase : MonoBehaviour, IDamageable
     {
         GameManager.Instance.Register(this);
         
-        RectTransform rectTransform = healthBar.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = newSize;
-        healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
+        // RectTransform rectTransform = healthBar.GetComponent<RectTransform>();
+        // rectTransform.sizeDelta = newSize;
+        // healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
         UpdateHealthBar();
         
         resetNextSpawnTime();
@@ -49,7 +49,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
     void UpdateHealthBar()
     {
         health = Mathf.Clamp(health, 0, 100);
-        healthBar.value = health / 100f;
+        // healthBar.value = health / 100f;
 
         if (health <= 0)
         {
