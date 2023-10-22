@@ -293,6 +293,12 @@ MonoBehaviour:
   emoSpeed: 2
   loveSpeed: 3
   angerSpeed: 3
+  animalMask:
+    serializedVersion: 2
+    m_Bits: 128
+  damageMultiplier: 1
+  healthMultiplier: 1
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4
+  loveDistance: 5

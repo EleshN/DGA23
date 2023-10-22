@@ -6,8 +6,6 @@ public class Dog : Animal
     public override void Update()
     {
         base.Update();
-
-        //check radius from other animals.  If animal close, reduce damage and max health
     }
 
     public override void LoveTarget()

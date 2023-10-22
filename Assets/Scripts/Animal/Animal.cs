@@ -21,6 +21,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [SerializeField] float emoSpeed = 2f;
     [SerializeField] float loveSpeed = 3f;
     [SerializeField] float angerSpeed = 3f;
+    public float damageMultiplier = 1f;
+    public float healthMultiplier = 1f;
 
     [Header("Emotionless")]
     [Tooltip("Time in between choosing new patrol points")]
