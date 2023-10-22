@@ -37,7 +37,9 @@ public class GameManager : MonoBehaviour
     /// All player-side entities currently on the map
     /// </summary>
     public HashSet<Transform> TeamPlayer;
-    
+
+    // Results script
+    public ResultSceneOpener ResultSceneOpener;
 
     // Reference to Player Transform for player target tracking
     public Transform PlayerTransform;
@@ -76,10 +78,12 @@ public class GameManager : MonoBehaviour
         if (PlayerBases.Count == 0)
         {
             // you lose
+            ResultSceneOpener.Init(false);
         }
         if (EnemyBases.Count == 0)
         {
-           // you win
+            // you win
+            ResultSceneOpener.Init(true);
         }
     }
 

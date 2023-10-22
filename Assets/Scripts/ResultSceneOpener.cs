@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
-public class WinScript : MonoBehaviour
+public class ResultSceneOpener : MonoBehaviour
 {
-    public Text resultText;
-    public Text restartOrNextText;
+    public TMP_Text resultText;
+    public TMP_Text restartOrNextText;
+    public TMP_Text ammoTypeText;
+    public TMP_Text ammoCountText;
     //public Text toDisplay;
 
     //void Start()
@@ -32,6 +35,8 @@ public class WinScript : MonoBehaviour
     public void Init(bool result)
     {
         gameObject.SetActive(true);
+        ammoTypeText.enabled = false;
+        ammoCountText.enabled = false;
         if (result)
         {
             resultText.text = "You Win!";
