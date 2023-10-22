@@ -213,7 +213,9 @@ MonoBehaviour:
   animalDamage: 0
   currEmotion: 2
   targetTransform: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
   patrolTime: 6.28
+  currTime: 0
   searchRange: 5.47
   emoSpeed: 1.3
   speed: 1.33
@@ -740,7 +742,9 @@ MonoBehaviour:
   animalDamage: 0
   currEmotion: 2
   targetTransform: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
   patrolTime: 6.28
+  currTime: 0
   searchRange: 5.47
   emoSpeed: 1.3
   speed: 1.33
@@ -902,6 +906,7 @@ GameObject:
   - component: {fileID: 1171574764}
   - component: {fileID: 1171574763}
   - component: {fileID: 1171574762}
+  - component: {fileID: 1171574765}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -976,13 +981,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1171574761}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.345, y: 1.437, z: -17.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1171574765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171574761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e369f46d8aa4696aafd09991eb856b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 10, z: 0}
 --- !u!1001 &1517204334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1152,7 +1170,9 @@ MonoBehaviour:
   animalDamage: 0
   currEmotion: 2
   targetTransform: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
   patrolTime: 6.28
+  currTime: 0
   searchRange: 5.47
   emoSpeed: 1.3
   speed: 1.33
