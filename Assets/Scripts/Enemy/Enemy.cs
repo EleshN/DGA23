@@ -3,64 +3,79 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-// Implements IDamageable Interface
-public class Enemy : MonoBehaviour, IDamageable
+public abstract class Enemy : MonoBehaviour, IDamageable
 {
-    public NavMeshAgent agent;
+    [SerializeField] protected NavMeshAgent agent;
     [SerializeField] Rigidbody rb;
-    public float maxHealth;
-    public float currentHealth;
-    public float myDamage;
-    Transform target;
-    // Position of target
+    [SerializeField] float speed;
+    [SerializeField] float maxHealth;
+    [SerializeField] protected float currentHealth;
+    [SerializeField] protected float robotDamage;
+
+    IDamageable targetState;
+    Transform targetTransform;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = speed;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        // Find the closest base
-        // Some foreach method: FindClosestTarget(gameObject.transform.position)
-        // Set what base to home-in on (Nearest from last step)
-        //target = GameObject.Find("Base").transform;
-        rb.useGravity = true;
         currentHealth = maxHealth;
-        GameManager.Instance.TeamEnemy.Add(gameObject.transform);
+        GameManager.Instance.Register(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (targetTransform == null || !targetState.isDamageable())
+        {
+            selectNewTarget();
+        }
+        // just stay still if there is no more targets on map, the game must end.
+        if (targetTransform != null)
+        {
+            Move(targetTransform.position);
+            Attack();
+        }
     }
 
-    void OnCollisionEnter(Collision collision)
+    protected virtual void Move(Vector3 targetPosition)
     {
-        // Check if collision has player tag
-        //if (collision.gameObject.CompareTag(""))
-        //{
-        //    GameObject attackedObject = collision.gameObject;
-        //    // attackedObject.TakeDamage(myDamage);
-        //}
+        // always move the entity closer to target
+        agent.stoppingDistance = 0;
+        agent.destination = targetPosition;
     }
+
+    protected abstract void Attack();
+    
 
     public void TakeDamage(float damage)
     {
-        //currentHealth -= damage;
-        // if (currentHealth <= 0){Die()}
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            GameManager.Instance.Unregister(this);
+            Destroy(gameObject);
+        }
     }
 
-    void Move()
+    public void selectNewTarget()
     {
-        // target = (GameManager) Find target NOTE: Prioritize Bases, only
-        // target animal that attacks
-        // setting target to
-        //agent.destination = target.position;
-        // Movement - rb.velocity...
-    }
-
-    public void Die()
-    {
-        // Destory object and play animation
-        Debug.Log("An enemy has died!");
-        Destroy(gameObject);
+        GameObject target = GameManager.Instance.FindClosestTargetForEnemmy(this);
+        if (target == null)
+        {
+            targetTransform = null;
+            targetState = null;
+        }
+        else
+        {
+            targetTransform = target.transform;
+            targetState = target.GetComponent<IDamageable>();
+        }
     }
 }

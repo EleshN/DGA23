@@ -14,7 +14,7 @@ public class Animal : MonoBehaviour, IDamageable
     [SerializeField] float maxHealth;
     [SerializeField] float currHealth;
     [SerializeField] float animalDamage;
-    [HideInInspector] public Emotion currEmotion = Emotion.EMOTIONLESS;
+    public Emotion currEmotion = Emotion.EMOTIONLESS;
     [HideInInspector] public Transform targetTransform;
     
     Vector3 targetPosition;
@@ -40,6 +40,7 @@ public class Animal : MonoBehaviour, IDamageable
     {
         // Set health
         currHealth = maxHealth;
+        GameManager.Instance.Register(this);
     }
     void Update()
     {
@@ -63,7 +64,6 @@ public class Animal : MonoBehaviour, IDamageable
                 EmoTarget();
                 break;
         }
-        //targetPosition = new Vector3(1, transform.position.y, 1);
         agent.destination = targetPosition;
     }
 
@@ -83,17 +83,9 @@ public class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public void TakeDamage(float damageAmount)
     {
+        print("poor doggie took " + damageAmount + " hit point damage");
         currHealth -= damageAmount;
     }
-
-    ///// <summary>
-    ///// Called when the animal losses all health
-    ///// Change emotion of animal to emotionless
-    ///// </summary>
-    //public void Die()
-    //{
-    //    currEmotion = Emotion.EMOTIONLESS;
-    //}
 
     /// <summary>
     /// Called every update, when the emotion is Love, targetPosition will update to player position
@@ -111,7 +103,7 @@ public class Animal : MonoBehaviour, IDamageable
     /// </summary>
     void AngerTarget()
     {
-        if (targetTransform = null)
+        if (targetTransform == null)
             GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
         else
         {
@@ -153,8 +145,13 @@ public class Animal : MonoBehaviour, IDamageable
         }
         else
         {
-            print("fail");
+            //print("fail");
             TargetSelect();
         }
+    }
+
+    public bool isDamageable()
+    {
+        return currEmotion == Emotion.ANGER;
     }
 }
