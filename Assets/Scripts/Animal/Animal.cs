@@ -5,35 +5,41 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SocialPlatforms;
 
-public class Animal : MonoBehaviour, IDamageable
+public abstract class Animal : MonoBehaviour, IDamageable
 {
-    [SerializeField] NavMeshAgent agent;
-
-    
-    [SerializeField] Rigidbody rb;
-    [SerializeField] float maxHealth;
-    [SerializeField] float currHealth;
-    [SerializeField] float animalDamage;
+    protected NavMeshAgent agent;
+    Rigidbody rb;
     public Emotion currEmotion = Emotion.EMOTIONLESS;
     [HideInInspector] public Transform targetTransform;
     
-    Vector3 targetPosition;
-
-
-    [Tooltip("Time in between choosing new patrol points")]
-    [SerializeField] float patrolTime;
-    float currTime = 0;
-    [SerializeField] float searchRange;
+    protected Vector3 targetPosition;
 
     [Header("Stats")]
-    [SerializeField] float emoSpeed;
-    [SerializeField] float speed;
+    [SerializeField] float maxHealth;
+    [SerializeField] float currHealth;
+    [SerializeField] float animalDamage;
+    [SerializeField] float emoSpeed = 2f;
+    [SerializeField] float loveSpeed = 3f;
+    [SerializeField] float angerSpeed = 3f;
+
+    [Header("Emotionless")]
+    [Tooltip("Time in between choosing new patrol points")]
+    [SerializeField] float patrolTime = 5f;
+    float currTime = 0;
+    [SerializeField] float minRanDistance = 1.5f;
+    [SerializeField] float maxRanDistance = 4f;
+
+    [Header("Love")]
+    [Tooltip("Minimum distance between the player and animal")]
+    [SerializeField] protected float loveDistance = 5f;
+
+    float ranRange;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = speed;
+        ranRange = maxRanDistance - minRanDistance;
     }
 
     void Start()
@@ -42,25 +48,21 @@ public class Animal : MonoBehaviour, IDamageable
         currHealth = maxHealth;
         GameManager.Instance.Register(this);
     }
-    void Update()
+    public virtual void Update()
     {
-        // Damage
-        if (currHealth <= 0)
-        {
-            currEmotion = Emotion.EMOTIONLESS;
-        }
-        //print(currEmotion);
-
         // Movement
         switch (currEmotion)
         {
             case Emotion.ANGER:
+                if (agent.speed != angerSpeed) agent.speed = angerSpeed;
                 AngerTarget();
                 break;
             case Emotion.LOVE:
+                if (agent.speed != loveSpeed) agent.speed = loveSpeed;
                 LoveTarget();
                 break;
             default:
+                if (agent.speed != emoSpeed) agent.speed = emoSpeed;
                 EmoTarget();
                 break;
         }
@@ -83,33 +85,18 @@ public class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public void TakeDamage(float damageAmount)
     {
-        print("poor doggie took " + damageAmount + " hit point damage");
         currHealth -= damageAmount;
     }
 
     /// <summary>
     /// Called every update, when the emotion is Love, targetPosition will update to player position
     /// </summary>
-    void LoveTarget()
-    {
-        if (targetTransform != GameManager.Instance.PlayerTransform)
-            targetTransform = GameManager.Instance.PlayerTransform;
-
-        targetPosition = targetTransform.position;
-    }
+    public abstract void LoveTarget();
 
     /// <summary>
     /// Called every update, when the emotion is Anger, targetPosition will update to enemy position
     /// </summary>
-    void AngerTarget()
-    {
-        if (targetTransform == null)
-            GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
-        else
-        {
-            targetPosition = targetTransform.position;
-        }
-    }
+    public abstract void AngerTarget();
 
 
 
@@ -124,7 +111,7 @@ public class Animal : MonoBehaviour, IDamageable
         currTime += Time.deltaTime;
         if (currTime >= patrolTime)
         {
-            TargetSelect();
+            RandomPosition();
             currTime = 0;
         }
     }
@@ -134,20 +121,14 @@ public class Animal : MonoBehaviour, IDamageable
     ///
     /// Function is called recursively until the point is found
     /// </summary>
-    void TargetSelect()
+    void RandomPosition()
     {
-        Vector3 randomPoint = transform.position + UnityEngine.Random.insideUnitSphere * searchRange;
-        NavMeshHit hit;
+        float ranX = UnityEngine.Random.Range(-ranRange, ranRange);
+        float ranZ = UnityEngine.Random.Range(-ranRange, ranRange);
+        if(ranX < 0f) { ranX -= minRanDistance; } else { ranX += minRanDistance; }
+        if (ranZ < 0f) { ranZ -= minRanDistance; } else { ranZ += minRanDistance; }
+        targetPosition = new Vector3(ranX, transform.position.y, ranZ);
 
-        if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
-        {
-            targetPosition = hit.position;
-        }
-        else
-        {
-            //print("fail");
-            TargetSelect();
-        }
     }
 
     public bool isDamageable()
