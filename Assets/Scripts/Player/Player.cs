@@ -96,5 +96,6 @@ public class Player : MonoBehaviour
             ammo[i] = initialAmmo[i];
         }
     }
+
 }
 

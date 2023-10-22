@@ -2,53 +2,71 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.SocialPlatforms;
 
-public class Animal : MonoBehaviour, IDamageable
+public abstract class Animal : MonoBehaviour, IDamageable
 {
-    [SerializeField] Rigidbody rb; 
-    public float maxHealth;
-
-    public float currHealth;
-    public float animalDamage;
+    protected NavMeshAgent agent;
+    Rigidbody rb;
     public Emotion currEmotion = Emotion.EMOTIONLESS;
-    public GameObject target;
-
+    [HideInInspector] public Transform targetTransform;
     
-    [Header("Speeds")]
-    [SerializeField] float emolessSpeed;
-    [SerializeField] float emoSpeed;
+    protected Vector3 targetPosition;
+
+    [Header("Stats")]
+    [SerializeField] float maxHealth;
+    [SerializeField] float currHealth;
+    [SerializeField] float animalDamage;
+    [SerializeField] float emoSpeed = 2f;
+    [SerializeField] float loveSpeed = 3f;
+    [SerializeField] float angerSpeed = 3f;
+
+    [Header("Emotionless")]
+    [Tooltip("Time in between choosing new patrol points")]
+    [SerializeField] float patrolTime = 5f;
+    float currTime = 0;
+    [SerializeField] float minRanDistance = 1.5f;
+    [SerializeField] float maxRanDistance = 4f;
+
+    [Header("Love")]
+    [Tooltip("Minimum distance between the player and animal")]
+    [SerializeField] protected float loveDistance = 5f;
+
+    float ranRange;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+        ranRange = maxRanDistance - minRanDistance;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         // Set health
         currHealth = maxHealth;
+        GameManager.Instance.Register(this);
     }
-
-    // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
-        // Switch statement for move
-        // Todo: incorporate target selection based on emotion when a new target entity is needed.
-        // Note: emotionless animals have no target.
+        // Movement
         switch (currEmotion)
         {
             case Emotion.ANGER:
-                AngerMove(target.transform.position);
+                if (agent.speed != angerSpeed) agent.speed = angerSpeed;
+                AngerTarget();
                 break;
             case Emotion.LOVE:
-                LoveMove(target.transform.position);
+                if (agent.speed != loveSpeed) agent.speed = loveSpeed;
+                LoveTarget();
                 break;
             default:
-                EmolessMove();
+                if (agent.speed != emoSpeed) agent.speed = emoSpeed;
+                EmoTarget();
                 break;
-
         }
+        agent.destination = targetPosition;
     }
 
 
@@ -62,47 +80,59 @@ public class Animal : MonoBehaviour, IDamageable
     }
 
     /// <summary>
+    /// The enemy gives damage to the animal 
     /// Reduces the animal health by the damageAmount
     /// </summary>
     public void TakeDamage(float damageAmount)
     {
-
+        currHealth -= damageAmount;
     }
 
     /// <summary>
-    /// Called when the animal losses all health
-    /// Change emotion of animal to emotionless
+    /// Called every update, when the emotion is Love, targetPosition will update to player position
     /// </summary>
-    public void Die()
-    {
+    public abstract void LoveTarget();
 
+    /// <summary>
+    /// Called every update, when the emotion is Anger, targetPosition will update to enemy position
+    /// </summary>
+    public abstract void AngerTarget();
+
+
+
+    /// <summary>
+    /// Called every update, when there is no emotion, a random target will be chosen
+    /// after a certain amount of time has passed (currTime = patrolTime).
+    ///
+    /// The Target will be chosen using the TargetSelect helper function
+    /// </summary>
+    void EmoTarget()
+    {
+        currTime += Time.deltaTime;
+        if (currTime >= patrolTime)
+        {
+            RandomPosition();
+            currTime = 0;
+        }
     }
 
     /// <summary>
-    /// Called every update, when the emotion is Love, animal will move toward the player position
+    /// Select a random target on teh NavMesh around the player within the searchRange
+    ///
+    /// Function is called recursively until the point is found
     /// </summary>
-    /// <param name="target"></param>
-    void LoveMove(Vector3 target)
+    void RandomPosition()
     {
+        float ranX = UnityEngine.Random.Range(-ranRange, ranRange);
+        float ranZ = UnityEngine.Random.Range(-ranRange, ranRange);
+        if(ranX < 0f) { ranX -= minRanDistance; } else { ranX += minRanDistance; }
+        if (ranZ < 0f) { ranZ -= minRanDistance; } else { ranZ += minRanDistance; }
+        targetPosition = new Vector3(ranX, transform.position.y, ranZ);
 
     }
 
-    /// <summary>
-    /// Called every update, when the emotion is Anger, animal will move toward the robot position
-    /// </summary>
-    /// <param name="robotPos"></param>
-    void AngerMove(Vector3 target)
+    public bool isDamageable()
     {
-
+        return currEmotion == Emotion.ANGER;
     }
-
-    /// <summary>
-    /// Called every update, when there is no emotion, animal will move in some random direction
-    /// </summary>
-    void EmolessMove()
-    {
-
-    }
-
-    // TODO: check to update emotion and the target to follow
 }

@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RegenTickSpeed: 0.64
   HP: 10
-  EnemyBaseObject: {fileID: 0}
+  EnemyBaseObject: {fileID: 327787184381659261, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
 --- !u!1 &2838713649703541446
 GameObject:
   m_ObjectHideFlags: 0
