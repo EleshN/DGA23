@@ -109,10 +109,6 @@ public class GameManager : MonoBehaviour
         // check each animal, whether they can be attacked: if yes, consider the animal as a candidate.
         foreach (Animal animal in Animals)
         {
-            if (!animal.isDamageable())
-            {
-                continue;
-            }
             Vector3 targetPosition = animal.transform.position;
             float distance = (targetPosition - source).magnitude;
             if (distance < minDist)
@@ -121,16 +117,16 @@ public class GameManager : MonoBehaviour
                 closest = animal.gameObject;
             }
         }
-        foreach (PlayerBase playerBase in PlayerBases)
-        {
-            Vector3 targetPosition = playerBase.transform.position;
-            float distance = (targetPosition - source).magnitude;
-            if (distance < minDist)
-            {
-                minDist = distance;
-                closest = playerBase.gameObject;
-            }
-        }
+        // foreach (PlayerBase playerBase in PlayerBases)
+        // {
+        //     Vector3 targetPosition = playerBase.transform.position;
+        //     float distance = (targetPosition - source).magnitude;
+        //     if (distance < minDist)
+        //     {
+        //         minDist = distance;
+        //         closest = playerBase.gameObject;
+        //     }
+        // }
         return closest;
     }
 
@@ -158,7 +154,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Register(EnemyBase ebase)
     {
-        print("testtest");
         EnemyBases.Add(ebase);
         TeamEnemy.Add(ebase.transform);
     }

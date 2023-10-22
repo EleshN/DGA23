@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] string[] ammoNames; // make sure that the indices match up with emotions index
 
-    public float moveSpeed = 6.9f;
+    public float moveSpeed = 3f;
 
     public HashSet<Animal> followers = new HashSet<Animal>(); //all animals following this player
 
