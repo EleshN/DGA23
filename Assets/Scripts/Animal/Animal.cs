@@ -44,7 +44,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         ranRange = maxRanDistance - minRanDistance;
     }
 
-    void Start()
+    public virtual void Start()
     {
         // Set health
         currHealth = maxHealth;

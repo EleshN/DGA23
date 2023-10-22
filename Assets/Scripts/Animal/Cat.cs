@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class Cat : Animal
 {
+
+    [SerializeField] float debuffRadius;
+    public override void Start()
+    {
+        base.Start();
+        InvokeRepeating(nameof(Isolation), 0, 1);
+    }
+
     public override void Update()
     {
         base.Update();
-
-        Isolation();
     }
 
     public override void LoveTarget()
@@ -17,7 +23,6 @@ public class Cat : Animal
         if (targetTransform != GameManager.Instance.PlayerTransform)
         {
             targetTransform = GameManager.Instance.PlayerTransform;
-            print("nope");
         }
         if (Vector3.Magnitude(targetTransform.position - transform.position) > loveDistance)
         {
@@ -25,7 +30,6 @@ public class Cat : Animal
         }
         else
         {
-            print("close");
             targetPosition = transform.position;
         }
     }
@@ -41,17 +45,26 @@ public class Cat : Animal
     }
 
     private void Isolation()
-     //currently no way to test this
     {
-        Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, 5f);
+        Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, debuffRadius);
+        bool isolated = false;
 
         // Check if there's any GameObject with the "Animal" tag nearby other than 'this'
-        Collider foundAnimal = System.Array.Find(nearbyColliders, collider => collider.CompareTag("Animal") && collider.gameObject != this.gameObject);
-
-        if (foundAnimal != null)
+        foreach (Collider col in nearbyColliders)
         {
-            this.damageMultiplier = 0.5f;
-            this.healthMultiplier = 0.5f;
+            if (col.gameObject.CompareTag("Animal") && col.gameObject != gameObject)
+            {
+                damageMultiplier = 0.5f;
+                healthMultiplier = 0.5f;
+                isolated = true;
+                break;
+            }
+        }
+
+        if (!isolated)
+        {
+            damageMultiplier = 1f;
+            healthMultiplier = 1f;
         }
     }
 

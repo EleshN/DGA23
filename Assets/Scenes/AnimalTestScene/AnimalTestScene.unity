@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 944843444}
   - component: {fileID: 944843443}
   - component: {fileID: 944843442}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,32 +431,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1339037352409684838, guid: 3a919b2be3729964c803409af19386a5, type: 3}
   m_PrefabInstance: {fileID: 2037818714}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1144198473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1144198472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d0859303d181644685ea140c858b0bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currEmotion: 0
-  targetTransform: {fileID: 0}
-  maxHealth: 0
-  currHealth: 0
-  animalDamage: 0
-  emoSpeed: 2
-  loveSpeed: 3
-  angerSpeed: 3
-  damageMultiplier: 1
-  healthMultiplier: 1
-  patrolTime: 5
-  minRanDistance: 1.5
-  maxRanDistance: 4
-  loveDistance: 5
 --- !u!195 &1144198475
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -479,6 +453,33 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &1144198476
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144198472}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1171574761
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,16 +698,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8837019954673746445, guid: 3a919b2be3729964c803409af19386a5, type: 3}
+      propertyPath: debuffRadius
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1339037352409684838, guid: 3a919b2be3729964c803409af19386a5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1144198473}
+      addedObject: {fileID: 1144198475}
     - targetCorrespondingSourceObject: {fileID: 1339037352409684838, guid: 3a919b2be3729964c803409af19386a5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1144198475}
+      addedObject: {fileID: 1144198476}
   m_SourcePrefab: {fileID: 100100000, guid: 3a919b2be3729964c803409af19386a5, type: 3}
 --- !u!1 &2110313271
 GameObject:
