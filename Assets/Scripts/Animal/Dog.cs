@@ -6,6 +6,8 @@ public class Dog : Animal
     public override void Update()
     {
         base.Update();
+
+        //check radius from other animals.  If animal close, reduce damage and max health
     }
 
     public override void LoveTarget()
@@ -13,7 +15,6 @@ public class Dog : Animal
         if (targetTransform != GameManager.Instance.PlayerTransform)
         {
             targetTransform = GameManager.Instance.PlayerTransform;
-            print("nope");
         }
         if(Vector3.Magnitude(targetTransform.position - transform.position) > loveDistance)
         {
@@ -21,7 +22,6 @@ public class Dog : Animal
         }
         else
         {
-            print("close");
             targetPosition = transform.position;
         }
     }
