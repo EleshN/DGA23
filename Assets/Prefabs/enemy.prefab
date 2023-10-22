@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 328512778247370248}
   - component: {fileID: 4288100602726006704}
   - component: {fileID: 2164346131555632297}
+  - component: {fileID: 8390950961805698145}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -115,6 +116,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 6644180354889415888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6deca3963dbac4d26a9fa7c87efee9d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 7dbf114aee93f4ab59bd140f7ad16f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 8390950961805698145}
+  rb: {fileID: 0}
+  speed: 3
+  maxHealth: 10
+  currentHealth: 0
+  robotDamage: 2
+--- !u!195 &8390950961805698145
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6644180354889415888}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
