@@ -158,6 +158,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Register(EnemyBase ebase)
     {
+        print("testtest");
         EnemyBases.Add(ebase);
         TeamEnemy.Add(ebase.transform);
     }

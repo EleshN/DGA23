@@ -13,7 +13,6 @@ public class Dog : Animal
         if (targetTransform != GameManager.Instance.PlayerTransform)
         {
             targetTransform = GameManager.Instance.PlayerTransform;
-            print("nope");
         }
         if(Vector3.Magnitude(targetTransform.position - transform.position) > loveDistance)
         {
@@ -21,7 +20,6 @@ public class Dog : Animal
         }
         else
         {
-            print("close");
             targetPosition = transform.position;
         }
     }

@@ -3,13 +3,13 @@ using UnityEngine.UI;
 
 public class EnemyBase : MonoBehaviour, IDamageable
 {
-    public float health = 100f;
-    public Slider healthBar;
-    public GameObject enemyPrefab;
+    [SerializeField]float health = 100f;
+    // public Slider healthBar;
+    public GameObject[] enemyPrefabs;
     public GameObject PlayerBaseObject;
-    public float spawnHeight = 2f; // Height from which the enemy will be spawned
-    public Vector2 newSize = new Vector2(1,1);
-    public float nextSpwanTime = 0f;
+    float spawnHeight = 0f; // Height from which the enemy will be spawned
+    // public Vector2 newSize = new Vector2(1,1);
+    float nextSpwanTime = 0f;
 
     void Start()
     {
@@ -28,8 +28,9 @@ public class EnemyBase : MonoBehaviour, IDamageable
         nextSpwanTime -= Time.deltaTime;
         if (nextSpwanTime <= 0)
         {
+            //just spwans the first one for now
             Vector3 spawnPosition = new Vector3(transform.position.x, spawnHeight, transform.position.z);
-            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(enemyPrefabs[0], spawnPosition, Quaternion.identity);
 
             resetNextSpawnTime();
         }
