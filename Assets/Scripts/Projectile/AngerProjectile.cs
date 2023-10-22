@@ -18,7 +18,7 @@ public class AngerProjectile : Projectile
         Animal animal = other.GetComponent<Animal>();
         Enemy enemy = other.GetComponent<Enemy>();
         if (enemy) {
-            HashSet<Animal> animals = sourcePlayer.followers;
+            HashSet<Animal> animals = GameManager.Instance.followers;
             foreach (Animal follower in animals)
             {
                 follower.currEmotion = Emotion.ANGER;
@@ -28,7 +28,7 @@ public class AngerProjectile : Projectile
         }
         else if (animal)
         {
-            sourcePlayer.followers.Remove(animal);
+            GameManager.Instance.followers.Remove(animal);
             animal.currEmotion = Emotion.ANGER;
             animal.targetTransform = null; // assignment to null forces new target selection.
         }

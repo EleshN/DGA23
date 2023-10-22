@@ -9,7 +9,7 @@ public class LoveProjectile : Projectile
         Animal animal = other.GetComponent<Animal>();
         if (animal)
         {
-            sourcePlayer.followers.Add(animal);
+            GameManager.Instance.followers.Add(animal);
             animal.currEmotion = Emotion.LOVE;
             animal.targetTransform = GameManager.Instance.PlayerTransform;
         }

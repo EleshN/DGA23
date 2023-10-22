@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyBase : MonoBehaviour
+public class EnemyBase : MonoBehaviour, IDamageable
 {
     public float health = 100f;
     public Slider healthBar;
@@ -13,8 +13,7 @@ public class EnemyBase : MonoBehaviour
 
     void Start()
     {
-        GameManager.Instance.EnemyBases.Add(this);
-        GameManager.Instance.TeamEnemy.Add(gameObject.transform);
+        GameManager.Instance.Register(this);
         
         RectTransform rectTransform = healthBar.GetComponent<RectTransform>();
         rectTransform.sizeDelta = newSize;
@@ -34,17 +33,17 @@ public class EnemyBase : MonoBehaviour
 
             resetNextSpawnTime();
         }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            health += 10;
-            UpdateHealthBar();
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            health -= 10;
-            UpdateHealthBar();
-        }
+        // testing only
+        //if (Input.GetKeyDown(KeyCode.UpArrow))
+        //{
+        //    health += 10;
+        //    UpdateHealthBar();
+        //}
+        //if (Input.GetKeyDown(KeyCode.DownArrow))
+        //{
+        //    health -= 10;
+        //    UpdateHealthBar();
+        //}
     }
 
     void UpdateHealthBar()
@@ -54,8 +53,7 @@ public class EnemyBase : MonoBehaviour
 
         if (health <= 0)
         {
-            GameManager.Instance.EnemyBases.Remove(this);
-            GameManager.Instance.TeamEnemy.Remove(gameObject.transform);
+            GameManager.Instance.Unregister(this);
             Instantiate(PlayerBaseObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
@@ -64,5 +62,11 @@ public class EnemyBase : MonoBehaviour
     private void resetNextSpawnTime()
     {
         nextSpwanTime = Random.Range(1f, 5f);
+    }
+
+    public void TakeDamage(float damageAmount)
+    {
+        health -= damageAmount;
+        UpdateHealthBar();
     }
 }

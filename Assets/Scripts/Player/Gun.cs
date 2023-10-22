@@ -27,9 +27,8 @@ public class Gun : MonoBehaviour
     {
         GameObject obj = Instantiate(ammoPrefabs[ammoIndex], bulletSpawn.position, bulletSpawn.rotation);
         Projectile projectile = obj.GetComponent<Projectile>();
-        projectile.SetPlayer(gameObject.GetComponent<Player>());
         // todo: determine direction of aim
-        fireDirection.Set(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
+        fireDirection.Set(0,0,1);
         projectile.SetDirection(fireDirection);
     }
 }

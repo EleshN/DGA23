@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerBase : MonoBehaviour
+public class PlayerBase : MonoBehaviour, IDamageable
 {
     [Range(0.1f, 10.0f)]
     public float RegenTickSpeed;
@@ -9,14 +9,14 @@ public class PlayerBase : MonoBehaviour
 
     public void Start()
     {
-        GameManager.Instance.PlayerBases.Add(this);
+        GameManager.Instance.Register(this);
     }
-    public void DecrementHP(float amount)
+    public void TakeDamage(float amount)
     {
         HP -= amount;
         if (HP <= 0)
         {
-            GameManager.Instance.PlayerBases.Remove(this);
+            GameManager.Instance.Unregister(this);
             Instantiate(EnemyBaseObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
