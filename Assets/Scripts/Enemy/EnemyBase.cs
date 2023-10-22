@@ -3,21 +3,21 @@ using UnityEngine.UI;
 
 public class EnemyBase : MonoBehaviour, IDamageable
 {
-    public float health = 100f;
-    public Slider healthBar;
-    public GameObject enemyPrefab;
+    [SerializeField]float health = 100f;
+    // public Slider healthBar;
+    public GameObject[] enemyPrefabs;
     public GameObject PlayerBaseObject;
-    public float spawnHeight = 2f; // Height from which the enemy will be spawned
-    public Vector2 newSize = new Vector2(1,1);
-    public float nextSpwanTime = 0f;
+    float spawnHeight = 0f; // Height from which the enemy will be spawned
+    // public Vector2 newSize = new Vector2(1,1);
+    float nextSpwanTime = 0f;
 
     void Start()
     {
         GameManager.Instance.Register(this);
         
-        RectTransform rectTransform = healthBar.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = newSize;
-        healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
+        // RectTransform rectTransform = healthBar.GetComponent<RectTransform>();
+        // rectTransform.sizeDelta = newSize;
+        // healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
         UpdateHealthBar();
         
         resetNextSpawnTime();
@@ -28,8 +28,9 @@ public class EnemyBase : MonoBehaviour, IDamageable
         nextSpwanTime -= Time.deltaTime;
         if (nextSpwanTime <= 0)
         {
+            //just spwans the first one for now
             Vector3 spawnPosition = new Vector3(transform.position.x, spawnHeight, transform.position.z);
-            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(enemyPrefabs[0], spawnPosition, Quaternion.identity);
 
             resetNextSpawnTime();
         }
@@ -49,7 +50,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
     void UpdateHealthBar()
     {
         health = Mathf.Clamp(health, 0, 100);
-        healthBar.value = health / 100f;
+        // healthBar.value = health / 100f;
 
         if (health <= 0)
         {

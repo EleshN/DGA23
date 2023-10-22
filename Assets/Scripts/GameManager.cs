@@ -61,12 +61,13 @@ public class GameManager : MonoBehaviour
         TeamPlayer = new();
         Animals = new();
         followers = new();
+        PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        // PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -157,6 +158,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Register(EnemyBase ebase)
     {
+        print("testtest");
         EnemyBases.Add(ebase);
         TeamEnemy.Add(ebase.transform);
     }

@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
         Move();
         Scroll();
         UpdateUI();
-
     }
 
     private void Inputs()
