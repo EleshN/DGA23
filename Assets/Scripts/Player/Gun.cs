@@ -26,5 +26,9 @@ public class Gun : MonoBehaviour
     public void Shoot(int ammoIndex)
     {
         GameObject projectile = Instantiate(ammoPrefabs[ammoIndex], bulletSpawn.position, bulletSpawn.rotation);
+        Projectile bullet = projectile.GetComponent<Projectile>();
+        // TODO: so you must set a direction for the projectile, otherwise it will not move. The exact direction will be determined by our aim
+        fireDirection.Set(0,0,1); 
+        bullet.SetDirection(fireDirection);
     }
 }
