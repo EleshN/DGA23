@@ -287,8 +287,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currEmotion: 2
   targetTransform: {fileID: 0}
-  maxHealth: 3
-  currHealth: 3
+  maxHealth: 9
+  currHealth: 9
   animalDamage: 5
   emoSpeed: 2
   loveSpeed: 3
