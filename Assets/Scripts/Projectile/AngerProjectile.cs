@@ -12,7 +12,7 @@ public class AngerProjectile : Projectile
     //     }
     // }
 
-    private void OnTriggerEnter(Collider collision)
+    protected override void HandleCollision(Collider collision)
     {
         GameObject other = collision.gameObject;
         Animal animal = other.GetComponent<Animal>();
@@ -32,7 +32,6 @@ public class AngerProjectile : Projectile
             animal.currEmotion = Emotion.ANGER;
             animal.targetTransform = null; // assignment to null forces new target selection.
         }
-        //Removed delay for destroying projectile, can restore if some sort of splash mechanic is needed
-        Destroy(gameObject);
+        base.HandleCollision(collision);
     }
 }
