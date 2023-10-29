@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Diagnostics;
 
 public class Dog : Animal
 {
@@ -8,6 +9,17 @@ public class Dog : Animal
     [SerializeField] float attackDelay;
     [Tooltip("The amount of time in seconds that the hitbox is active when attacking")]
     [SerializeField] float hitboxActiveTime;
+
+    [Header("Dog Buffs")]
+    [SerializeField] float buffRadius;
+    [SerializeField] float healthBuffConst = 1.5f;
+    [SerializeField] float damageBuffConst = 1.5f;
+
+    public override void Start()
+    {
+        base.Start();
+        InvokeRepeating(nameof(Buff), 0, 1);
+    }
 
     public override void Update()
     {
@@ -39,6 +51,30 @@ public class Dog : Animal
             targetPosition = targetTransform.position;
         }
     }
+
+    private void Buff()
+    {
+        Collider[] neabyColliders = Physics.OverlapSphere(transform.position, buffRadius);
+        int nearByDogs = 0; // total number of dog within the radius, including itself
+
+        // Check if there's any Gameobject that is a Dog component
+        foreach (Collider col in neabyColliders)
+        {
+            if (col.gameObject.GetComponent<Dog>() != null &&
+                col.gameObject != gameObject) nearByDogs += 1;
+        }
+
+        if (nearByDogs > 0)
+        {
+            damageMultiplier = damageBuffConst * nearByDogs;
+            healthMultiplier = healthBuffConst * nearByDogs;
+        } else
+        {
+            damageMultiplier = 1f;
+            healthMultiplier = 1f;
+        }
+    }
+
     /// <summary>
     /// Set the damage of the hitbox based on the dog's base damage * damageMultiplier.  Call DogAttack
     /// </summary>
