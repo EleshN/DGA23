@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Hitbox : MonoBehaviour
@@ -19,7 +17,6 @@ public class Hitbox : MonoBehaviour
         if (other.CompareTag(tagTarget))
         {
             other.GetComponent<IDamageable>().TakeDamage(damage);
-            print("Damaged: " + other.gameObject.name);
             gameObject.SetActive(false);
         }
     }
