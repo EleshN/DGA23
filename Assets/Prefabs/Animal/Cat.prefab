@@ -83,74 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &3195221933299783529
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2728443785735982557}
-  - component: {fileID: 5080099046500923342}
-  - component: {fileID: 2585526950369013348}
-  m_Layer: 0
-  m_Name: Dog Hitbox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &2728443785735982557
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3195221933299783529}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 1.25}
-  m_LocalScale: {x: 1.5, y: 1, z: 1.5}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1746057720259803590}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5080099046500923342
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3195221933299783529}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2585526950369013348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3195221933299783529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94917eb21ff9a3f4d952038ef752216a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tagTarget: Enemy
-  damage: 0
 --- !u!1 &4156970003935199234
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,10 +177,10 @@ GameObject:
   - component: {fileID: 1746057720259803590}
   - component: {fileID: 937300227935327899}
   - component: {fileID: -6819493712484568676}
-  - component: {fileID: 8667359369462860146}
   - component: {fileID: 8943669702477749790}
+  - component: {fileID: 223751227597533873}
   m_Layer: 0
-  m_Name: Dog
+  m_Name: Cat
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,7 +201,6 @@ Transform:
   m_Children:
   - {fileID: 6053390372349133030}
   - {fileID: 6602789801753239504}
-  - {fileID: 2728443785735982557}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &937300227935327899
@@ -321,37 +252,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8667359369462860146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6077426668867834045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d24187540a12c418e940998b1be1210c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currEmotion: 2
-  targetTransform: {fileID: 0}
-  maxHealth: 4
-  currHealth: 0
-  animalDamage: 1
-  emoSpeed: 2
-  loveSpeed: 3
-  angerSpeed: 3
-  damageMultiplier: 1
-  healthMultiplier: 1
-  patrolTime: 5
-  minRanDistance: 1.5
-  maxRanDistance: 4
-  loveDistance: 5
-  attackRadius: 1
-  attackRate: 2
-  hitbox: {fileID: 2585526950369013348}
-  attackDelay: 0
-  hitboxActiveTime: 0.5
 --- !u!65 &8943669702477749790
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -373,3 +273,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &223751227597533873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6077426668867834045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d0859303d181644685ea140c858b0bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currEmotion: 2
+  targetTransform: {fileID: 0}
+  maxHealth: 9
+  currHealth: 9
+  animalDamage: 5
+  emoSpeed: 2
+  loveSpeed: 3
+  angerSpeed: 3
+  damageMultiplier: 1
+  healthMultiplier: 1
+  patrolTime: 5
+  minRanDistance: 1.5
+  maxRanDistance: 4
+  loveDistance: 5
+  debuffRadius: 5

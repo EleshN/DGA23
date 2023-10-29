@@ -113,24 +113,28 @@ public class GameManager : MonoBehaviour
         // check each animal, whether they can be attacked: if yes, consider the animal as a candidate.
         foreach (Animal animal in Animals)
         {
-            Vector3 targetPosition = animal.transform.position;
+            if(animal.currEmotion == Emotion.ANGER)
+            {
+                Vector3 targetPosition = animal.transform.position;
+                float distance = (targetPosition - source).magnitude;
+                if (distance < minDist)
+                {
+                    minDist = distance;
+                    closest = animal.gameObject;
+                }
+            }
+            
+        }
+        foreach (PlayerBase playerBase in PlayerBases)
+        {
+            Vector3 targetPosition = playerBase.transform.position;
             float distance = (targetPosition - source).magnitude;
             if (distance < minDist)
             {
                 minDist = distance;
-                closest = animal.gameObject;
+                closest = playerBase.gameObject;
             }
         }
-        // foreach (PlayerBase playerBase in PlayerBases)
-        // {
-        //     Vector3 targetPosition = playerBase.transform.position;
-        //     float distance = (targetPosition - source).magnitude;
-        //     if (distance < minDist)
-        //     {
-        //         minDist = distance;
-        //         closest = playerBase.gameObject;
-        //     }
-        // }
         return closest;
     }
 
