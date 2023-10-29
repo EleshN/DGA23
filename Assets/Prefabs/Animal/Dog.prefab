@@ -352,6 +352,9 @@ MonoBehaviour:
   hitbox: {fileID: 2585526950369013348}
   attackDelay: 0
   hitboxActiveTime: 0.5
+  buffRadius: 5
+  healthBuffConst: 1.5
+  damageBuffConst: 1.5
 --- !u!65 &8943669702477749790
 BoxCollider:
   m_ObjectHideFlags: 0
