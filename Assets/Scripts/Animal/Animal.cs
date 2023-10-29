@@ -8,7 +8,6 @@ using UnityEngine.SocialPlatforms;
 public abstract class Animal : MonoBehaviour, IDamageable
 {
     protected NavMeshAgent agent;
-    Rigidbody rb;
     public Emotion currEmotion = Emotion.EMOTIONLESS;
     [HideInInspector] public Transform targetTransform;
     
@@ -17,7 +16,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [Header("Stats")]
     [SerializeField] float maxHealth;
     [SerializeField] float currHealth;
-    [SerializeField] float animalDamage;
+    [SerializeField] protected float animalDamage;
     [SerializeField] float emoSpeed = 2f;
     [SerializeField] float loveSpeed = 3f;
     [SerializeField] float angerSpeed = 3f;
@@ -30,16 +29,20 @@ public abstract class Animal : MonoBehaviour, IDamageable
     float currTime = 0;
     [SerializeField] float minRanDistance = 1.5f;
     [SerializeField] float maxRanDistance = 4f;
+    float ranRange;
 
     [Header("Love")]
     [Tooltip("Minimum distance between the player and animal")]
     [SerializeField] protected float loveDistance = 5f;
 
-    float ranRange;
+    [Header("Combat")]
+    public float attackRadius;
+    public float attackRate;
+    float attackCooldown;
+
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         ranRange = maxRanDistance - minRanDistance;
     }
@@ -69,6 +72,17 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 break;
         }
         agent.destination = targetPosition;
+
+        //Attack
+        attackCooldown -= Time.deltaTime;
+        if (currEmotion == Emotion.ANGER && attackCooldown <= 0 &&
+            Vector3.Magnitude(targetPosition - transform.position) <= attackRadius)
+        {
+            Attack();
+            attackCooldown = attackRate;
+        }
+
+
     }
 
 
@@ -132,6 +146,12 @@ public abstract class Animal : MonoBehaviour, IDamageable
         targetPosition = new Vector3(ranX, transform.position.y, ranZ);
 
     }
+
+    /// <summary>
+    /// Defines the attack of the animal.  This method is called when the attack cooldown <= 0
+    /// </summary>
+    public abstract void Attack();
+    
 
     public bool isDamageable()
     {

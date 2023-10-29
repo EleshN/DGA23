@@ -68,4 +68,9 @@ public class Cat : Animal
         }
     }
 
+    public override void Attack()
+    {
+        throw new System.NotImplementedException();
+    }
+
 }
