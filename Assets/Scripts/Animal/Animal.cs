@@ -8,7 +8,7 @@ using UnityEngine.SocialPlatforms;
 public abstract class Animal : MonoBehaviour, IDamageable
 {
     protected NavMeshAgent agent;
-    protected Emotion currEmotion = Emotion.EMOTIONLESS;
+    [SerializeField] protected Emotion currEmotion = Emotion.EMOTIONLESS;
     [HideInInspector] public Transform targetTransform;
     
     protected Vector3 targetPosition;
