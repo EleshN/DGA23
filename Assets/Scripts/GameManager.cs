@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public int LevelNumber = 1;
 
     /// <summary>
-    /// Limit for the size of team enemy (including enemy bases)
+    /// Limit for the number of enemies
     /// </summary>
     public int EnemySpawnCap = 3;
 
@@ -216,6 +216,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public bool WithinEnemySpawnCap()
     {
-        return TeamEnemy.Count < EnemySpawnCap;
+        return (TeamEnemy.Count - EnemyBases.Count) < EnemySpawnCap;
     }
 }
