@@ -47,8 +47,9 @@ public abstract class Projectile : MonoBehaviour
     protected virtual void HandleCollision(Collider collision)
     {
         //Removed delay for destroying projectile, can restore if some sort of splash mechanic is needed
-        Destroy(gameObject); // Destroy projectile on collision by default
+        if (! collision.isTrigger) Destroy(gameObject); // Destroy projectile on collision by default
     }
+
     private void OnTriggerEnter(Collider collision)
     {
         HandleCollision(collision);

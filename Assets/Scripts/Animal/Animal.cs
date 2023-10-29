@@ -53,6 +53,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         currHealth = maxHealth;
         GameManager.Instance.Register(this);
     }
+
     public virtual void Update()
     {
         // Movement
@@ -84,7 +85,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
 
     }
-
 
     /// <summary>
     /// Sets the emotion of the animal when called
@@ -133,15 +133,13 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public abstract void AngerTarget();
 
-
-
     /// <summary>
     /// Called every update, when there is no emotion, a random target will be chosen
     /// after a certain amount of time has passed (currTime = patrolTime).
     ///
     /// The Target will be chosen using the TargetSelect helper function
     /// </summary>
-    void EmoTarget()
+    protected virtual void EmoTarget()
     {
         currTime += Time.deltaTime;
         if (currTime >= patrolTime)
