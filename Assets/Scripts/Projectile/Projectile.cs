@@ -30,6 +30,7 @@ public abstract class Projectile : MonoBehaviour
     void Update()
     {
         float distanceTraveled = Vector3.Distance(startPosition, transform.position);
+        // If a time based metric is preferred, do Destroy(gameObject,lifeTime)
         if (distanceTraveled > maxDistance)
         {
             Destroy(gameObject);
