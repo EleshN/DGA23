@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public enum EnemyState
 {
-    SPWAN,
+    SPAWN,
     WANDER,
     CHASE,
     ATTACK
