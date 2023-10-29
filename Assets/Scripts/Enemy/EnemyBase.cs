@@ -28,9 +28,12 @@ public class EnemyBase : MonoBehaviour, IDamageable
         nextSpwanTime -= Time.deltaTime;
         if (nextSpwanTime <= 0)
         {
-            //just spwans the first one for now
-            Vector3 spawnPosition = new Vector3(transform.position.x, spawnHeight, transform.position.z);
-            Instantiate(enemyPrefabs[0], spawnPosition, Quaternion.identity);
+            if (GameManager.Instance.WithinEnemySpawnCap())
+            {
+                //just spwans the first one for now
+                Vector3 spawnPosition = new Vector3(transform.position.x, spawnHeight, transform.position.z);
+                Instantiate(enemyPrefabs[0], spawnPosition, Quaternion.identity);
+            }
 
             resetNextSpawnTime();
         }

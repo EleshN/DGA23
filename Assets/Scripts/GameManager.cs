@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     public int LevelNumber = 1;
 
     /// <summary>
+    /// Limit for the size of team enemy (including enemy bases)
+    /// </summary>
+    public int EnemySpawnCap = 3;
+
+    /// <summary>
     /// All player bases currently on the map
     /// </summary>
     private HashSet<PlayerBase> PlayerBases;
@@ -204,5 +209,13 @@ public class GameManager : MonoBehaviour
         // animals never die so this method is probably unnecessary
         TeamPlayer.Remove(a.transform);
         Animals.Remove(a);
+    }
+
+    /// <summary>
+    /// returns whether more enemies can be spawned without hitting the enemy spawn cap
+    /// </summary>
+    public bool WithinEnemySpawnCap()
+    {
+        return TeamEnemy.Count < EnemySpawnCap;
     }
 }
