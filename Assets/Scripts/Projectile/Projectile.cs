@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Unity.IO.LowLevel.Unsafe;
 
 public abstract class Projectile : MonoBehaviour
 {
     private Rigidbody rb;
 
+    //Projectile speed
     [SerializeField] private protected float speed = 3;
-    [SerializeField] private float maxDistance = 50f;
-    private Vector3 startPosition;
 
-    public void SetDirection(Vector3 direction)
-    {
-        direction.Normalize();
-        rb.velocity = direction * speed;
-    }
+    //Projectile lifetime
+    [SerializeField] private float maxDistance = 50f;
+
+    //Projectile start position
+    private Vector3 startPosition;
 
     private void Start()
     {
@@ -24,15 +24,33 @@ public abstract class Projectile : MonoBehaviour
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+        startPosition = transform.position;
+    }
+
+    public void SetDirection(Vector3 direction)
+    {
+        direction.Normalize();
+        rb.velocity = direction * speed;
     }
 
     // Update is called once per frame
     void Update()
     {
         float distanceTraveled = Vector3.Distance(startPosition, transform.position);
+        // If a time based metric is preferred, do Destroy(gameObject,lifeTime)
         if (distanceTraveled > maxDistance)
         {
             Destroy(gameObject);
         }
+    }
+
+    protected virtual void HandleCollision(Collider collision)
+    {
+        //Removed delay for destroying projectile, can restore if some sort of splash mechanic is needed
+        Destroy(gameObject); // Destroy projectile on collision by default
+    }
+    private void OnTriggerEnter(Collider collision)
+    {
+        HandleCollision(collision);
     }
 }
