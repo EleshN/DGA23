@@ -12,8 +12,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected float currentHealth;
     [SerializeField] protected float robotDamage;
 
-    IDamageable targetState;
-    Transform targetTransform;
+    protected IDamageable targetState;
+    protected Transform targetTransform;
 
     void Awake()
     {
