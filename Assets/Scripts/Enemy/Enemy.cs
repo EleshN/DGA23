@@ -5,16 +5,7 @@ using UnityEngine.AI;
 
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
-
-    public enum State
-    {
-        SPWAN,
-        WANDER,
-        CHASE,
-        ATTACK
-    }
-
-    [SerializeField] State state;
+    [SerializeField] EnemyState state = EnemyState.SPWAN;
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] Rigidbody rb;
     [SerializeField] float speed;
@@ -41,25 +32,25 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         currentHealth = maxHealth;
         currentAtackTime = attackCountDown;
         GameManager.Instance.Register(this);
-        state = State.SPWAN;
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentAtackTime -= Update.deltaTime;
+        currentAtackTime -= Time.deltaTime;
         changeStateIfAcceptable();
+
         switch(state){
-            case State.WANDER:
+            case EnemyState.WANDER:
                 selectNewTarget();
                 break;
 
-            case State.CHASE:
+            case EnemyState.CHASE:
                 Move(targetTransform.position);
                 break;
             
-            case State.Attack:
-                attack();
+            case EnemyState.ATTACK:
+                Attack();
                 break;
             
             default:
@@ -68,51 +59,40 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         if (currentAtackTime <= 0){
             currentAtackTime = attackCountDown;
         }
-
-        // if (targetTransform == null || !targetState.isDamageable())
-        // {
-        //     selectNewTarget();
-        // }
-        // // just stay still if there is no more targets on map, the game must end.
-        // if (targetTransform != null)
-        // {
-        //     Move(targetTransform.position);
-        //     Attack();
-        // }
     }
 
     public void changeStateIfAcceptable(){
         switch(state){
-            case State.SPWAN:
-                state = State.WANDER;
+            case EnemyState.SPWAN:
+                state = EnemyState.WANDER;
                 break;
 
-            case State.WANDER:
+            case EnemyState.WANDER:
                 if (targetTransform != null && targetState.isDamageable())
                 {
                     if (currentAtackTime <= 0){
-                        state = state.ATTACK;
+                        state = EnemyState.ATTACK;
                     }else{
-                        state = state.CHASE;
+                        state = EnemyState.CHASE;
                     }
                 }
                 break;
 
-            case State.CHASE:
+            case EnemyState.CHASE:
                 if (targetTransform == null || !targetState.isDamageable())
                 {
-                    state = state.WANDER;
+                    state = EnemyState.WANDER;
                 } else if (currentAtackTime <= 0){
-                    state = state.ATTACK;
+                    state = EnemyState.ATTACK;
                 }
                 break;
             
-            case State.ATTACK:
+            case EnemyState.ATTACK:
                 if (targetTransform == null || !targetState.isDamageable())
                 {
-                    state = state.WANDER;
+                    state = EnemyState.WANDER;
                 } else{
-                    state = state.CHASE;
+                    state = EnemyState.CHASE;
                 }
                 break;
 
