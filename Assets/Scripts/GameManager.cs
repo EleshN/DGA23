@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,6 +45,10 @@ public class GameManager : MonoBehaviour
     // Reference to Player Transform for player target tracking
     public Transform PlayerTransform;
 
+    [Header("Game UI")]
+    [SerializeField] TMP_Text enemyBaseCount;
+    [SerializeField] TMP_Text playerBaseCount;
+
     public static GameManager Instance
     {
         get
@@ -86,7 +91,6 @@ public class GameManager : MonoBehaviour
             ResultSceneOpener.Init(true);
         }
     }
-
     public Transform FindClosest(Vector3 source, HashSet<Transform> transforms)
     {
         // find closest using Euclidean distance
@@ -146,6 +150,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerBases.Add(pbase);
         TeamPlayer.Add(pbase.transform);
+        playerBaseCount.text = PlayerBases.Count.ToString();
     }
 
     /// <summary>
@@ -155,6 +160,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerBases.Remove(pbase);
         TeamPlayer.Remove(pbase.transform);
+        playerBaseCount.text = PlayerBases.Count.ToString();
     }
 
     /// <summary>
@@ -164,6 +170,7 @@ public class GameManager : MonoBehaviour
     {
         EnemyBases.Add(ebase);
         TeamEnemy.Add(ebase.transform);
+        enemyBaseCount.text = EnemyBases.Count.ToString();
     }
 
     /// <summary>
@@ -173,6 +180,7 @@ public class GameManager : MonoBehaviour
     {
         EnemyBases.Remove(ebase);
         TeamEnemy.Remove(ebase.transform);
+        enemyBaseCount.text = EnemyBases.Count.ToString();
     }
 
     /// <summary>
