@@ -3,15 +3,19 @@ using System.Collections;
 
 public class MeleeEnemy : Enemy
 {
+    private float attackCooldown = 1;
+    private float lastAttack;
 
     void OnCollisionStay(Collision collision)
     {
         GameObject other = collision.gameObject;
         IDamageable entity = other.GetComponent<IDamageable>();
         if (entity != null && entity.isDamageable() &&
-            GameManager.Instance.TeamPlayer.Contains(other.transform))
+            GameManager.Instance.TeamPlayer.Contains(other.transform) && 
+            Time.time > lastAttack + attackCooldown)
         {
             entity.TakeDamage(robotDamage);
+            lastAttack = Time.time;
         }
     }
 
