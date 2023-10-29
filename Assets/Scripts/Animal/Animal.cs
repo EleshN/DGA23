@@ -92,16 +92,27 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <param name="emotion"></param>
     void SetEmotion(Emotion emotion)
     {
+        if (currEmotion == Emotion.EMOTIONLESS &&
+            emotion != Emotion.EMOTIONLESS)
+        {
+            currHealth = maxHealth;
+        }
         currEmotion = emotion;
     }
 
     /// <summary>
-    /// The enemy gives damage to the animal 
-    /// Reduces the animal health by the damageAmount
+    /// The enemy gives damage to the animal. Reduces the animal health
+    /// by the damageAmount. If animal's current health reduces to 0,
+    /// its emotion will be set to emotionless.
     /// </summary>
     public void TakeDamage(float damageAmount)
     {
         currHealth -= damageAmount;
+
+        if (currHealth <= 0)
+        {
+            currEmotion = Emotion.EMOTIONLESS;
+        }
     }
 
     /// <summary>
