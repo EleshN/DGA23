@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LoveProjectile : Projectile
 {
-    private void OnTriggerEnter(Collider collision)
+    protected override void HandleCollision(Collider collision)
     {
         GameObject other = collision.gameObject;
         Animal animal = other.GetComponent<Animal>();
@@ -13,7 +13,6 @@ public class LoveProjectile : Projectile
             animal.currEmotion = Emotion.LOVE;
             animal.targetTransform = GameManager.Instance.PlayerTransform;
         }
-        //Removed delay for destroying projectile, can restore if some sort of splash mechanic is needed
-        Destroy(gameObject);
+        base.HandleCollision(collision);
     }
 }
