@@ -6,6 +6,7 @@ public enum EnemyState
     SPAWN,
     WANDER,
     CHASE,
+    STOP,
     ATTACK
 }
 
