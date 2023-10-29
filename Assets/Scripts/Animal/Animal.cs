@@ -8,7 +8,7 @@ using UnityEngine.SocialPlatforms;
 public abstract class Animal : MonoBehaviour, IDamageable
 {
     protected NavMeshAgent agent;
-    public Emotion currEmotion = Emotion.EMOTIONLESS;
+    protected Emotion currEmotion = Emotion.EMOTIONLESS;
     [HideInInspector] public Transform targetTransform;
     
     protected Vector3 targetPosition;
@@ -90,7 +90,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// Sets the emotion of the animal when called
     /// </summary>
     /// <param name="emotion"></param>
-    void SetEmotion(Emotion emotion)
+    public void SetEmotion(Emotion emotion)
     {
         if (currEmotion == Emotion.EMOTIONLESS &&
             emotion != Emotion.EMOTIONLESS)
@@ -98,6 +98,14 @@ public abstract class Animal : MonoBehaviour, IDamageable
             currHealth = maxHealth;
         }
         currEmotion = emotion;
+    }
+
+    /// <summary>
+    /// Gets the animal's current emotion
+    /// </summary>
+    /// <returns name="curremotion">Current emotion of this animal</returns>
+    public Emotion GetEmotion() {
+        return currEmotion;
     }
 
     /// <summary>

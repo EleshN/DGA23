@@ -10,7 +10,7 @@ public class LoveProjectile : Projectile
         if (animal)
         {
             GameManager.Instance.followers.Add(animal);
-            animal.currEmotion = Emotion.LOVE;
+            animal.SetEmotion(Emotion.LOVE);
             animal.targetTransform = GameManager.Instance.PlayerTransform;
         }
         Destroy(gameObject, 0.1f);

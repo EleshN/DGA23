@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         // check each animal, whether they can be attacked: if yes, consider the animal as a candidate.
         foreach (Animal animal in Animals)
         {
-            if(animal.currEmotion == Emotion.ANGER)
+            if(animal.GetEmotion() == Emotion.ANGER)
             {
                 Vector3 targetPosition = animal.transform.position;
                 float distance = (targetPosition - source).magnitude;
