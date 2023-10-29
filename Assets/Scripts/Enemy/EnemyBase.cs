@@ -9,7 +9,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
     public GameObject PlayerBaseObject;
     float spawnHeight = 0f; // Height from which the enemy will be spawned
     // public Vector2 newSize = new Vector2(1,1);
-    float nextSpwanTime = 0f;
+    float nextSpawnTime = 0f;
 
     void Start()
     {
@@ -25,12 +25,15 @@ public class EnemyBase : MonoBehaviour, IDamageable
     
     void Update()
     {
-        nextSpwanTime -= Time.deltaTime;
-        if (nextSpwanTime <= 0)
+        nextSpawnTime -= Time.deltaTime;
+        if (nextSpawnTime <= 0)
         {
-            //just spwans the first one for now
-            Vector3 spawnPosition = new Vector3(transform.position.x, spawnHeight, transform.position.z);
-            Instantiate(enemyPrefabs[0], spawnPosition, Quaternion.identity);
+            if (GameManager.Instance.WithinEnemySpawnCap())
+            {
+                //just spwans the first one for now
+                Vector3 spawnPosition = new Vector3(transform.position.x, spawnHeight, transform.position.z);
+                Instantiate(enemyPrefabs[0], spawnPosition, Quaternion.identity);
+            }
 
             resetNextSpawnTime();
         }
@@ -62,7 +65,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
 
     private void resetNextSpawnTime()
     {
-        nextSpwanTime = Random.Range(1f, 5f);
+        nextSpawnTime = Random.Range(1f, 5f);
     }
 
     public void TakeDamage(float damageAmount)
