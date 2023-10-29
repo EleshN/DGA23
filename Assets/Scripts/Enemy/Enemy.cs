@@ -112,7 +112,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
+        
         currentHealth -= damage;
+        print("health left: " + currentHealth.ToString());
         if (currentHealth <= 0)
         {
             GameManager.Instance.Unregister(this);
