@@ -243,7 +243,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1746057720259803590}
-  - component: {fileID: 937300227935327899}
   - component: {fileID: -6819493712484568676}
   - component: {fileID: 8667359369462860146}
   - component: {fileID: 8943669702477749790}
@@ -272,33 +271,6 @@ Transform:
   - {fileID: 2728443785735982557}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &937300227935327899
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6077426668867834045}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!195 &-6819493712484568676
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -333,6 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24187540a12c418e940998b1be1210c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currEmotion: 2
   targetTransform: {fileID: 0}
   maxHealth: 4
   currHealth: 0

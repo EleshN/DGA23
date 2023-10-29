@@ -8,6 +8,7 @@ public class MeleeEnemy : Enemy
 
     void OnCollisionStay(Collision collision)
     {
+        print("enemy colliding with something");
         GameObject other = collision.gameObject;
         IDamageable entity = other.GetComponent<IDamageable>();
         if (entity != null && entity.isDamageable() &&

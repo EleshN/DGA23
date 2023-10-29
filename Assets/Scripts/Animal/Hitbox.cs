@@ -15,6 +15,7 @@ public class Hitbox : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
+        print(other.gameObject.name);
         if (other.CompareTag(tagTarget))
         {
             other.GetComponent<IDamageable>().TakeDamage(damage);
