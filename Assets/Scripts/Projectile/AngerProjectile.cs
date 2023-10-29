@@ -12,7 +12,7 @@ public class AngerProjectile : Projectile
     //     }
     // }
 
-    private void OnCollisionEnter(Collision collision)
+    protected override void HandleCollision(Collider collision)
     {
         GameObject other = collision.gameObject;
         Animal animal = other.GetComponent<Animal>();
@@ -21,7 +21,7 @@ public class AngerProjectile : Projectile
             HashSet<Animal> animals = GameManager.Instance.followers;
             foreach (Animal follower in animals)
             {
-                follower.currEmotion = Emotion.ANGER;
+                follower.SetEmotion(Emotion.ANGER);
                 follower.targetTransform = other.transform;
             }
             animals.Clear();
@@ -29,9 +29,9 @@ public class AngerProjectile : Projectile
         else if (animal)
         {
             GameManager.Instance.followers.Remove(animal);
-            animal.currEmotion = Emotion.ANGER;
+            animal.SetEmotion(Emotion.ANGER);
             animal.targetTransform = null; // assignment to null forces new target selection.
         }
-        Destroy(gameObject, 0.1f);
+        base.HandleCollision(collision);
     }
 }

@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
     public int LevelNumber = 1;
 
     /// <summary>
+    /// Limit for the number of enemies
+    /// </summary>
+    public int EnemySpawnCap = 3;
+
+    /// <summary>
     /// All player bases currently on the map
     /// </summary>
     private HashSet<PlayerBase> PlayerBases;
@@ -117,7 +122,7 @@ public class GameManager : MonoBehaviour
         // check each animal, whether they can be attacked: if yes, consider the animal as a candidate.
         foreach (Animal animal in Animals)
         {
-            if(animal.currEmotion == Emotion.ANGER)
+            if(animal.GetEmotion() == Emotion.ANGER)
             {
                 Vector3 targetPosition = animal.transform.position;
                 float distance = (targetPosition - source).magnitude;
@@ -216,5 +221,13 @@ public class GameManager : MonoBehaviour
         // animals never die so this method is probably unnecessary
         TeamPlayer.Remove(a.transform);
         Animals.Remove(a);
+    }
+
+    /// <summary>
+    /// returns whether more enemies can be spawned without hitting the enemy spawn cap
+    /// </summary>
+    public bool WithinEnemySpawnCap()
+    {
+        return (TeamEnemy.Count - EnemyBases.Count) < EnemySpawnCap;
     }
 }

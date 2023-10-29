@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class LoveProjectile : Projectile
 {
-    private void OnCollisionEnter(Collision collision)
+    protected override void HandleCollision(Collider collision)
     {
         GameObject other = collision.gameObject;
         Animal animal = other.GetComponent<Animal>();
         if (animal)
         {
             GameManager.Instance.followers.Add(animal);
-            animal.currEmotion = Emotion.LOVE;
+            animal.SetEmotion(Emotion.LOVE);
             animal.targetTransform = GameManager.Instance.PlayerTransform;
         }
-        Destroy(gameObject, 0.1f);
+        base.HandleCollision(collision);
     }
 }

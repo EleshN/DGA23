@@ -7,10 +7,13 @@ public class Cat : Animal
 {
 
     [SerializeField] float debuffRadius;
+    [SerializeField] float healthDebuffConst = 0.5f;
+    [SerializeField] float damageDebuffConst = 0.5f;
+
     public override void Start()
     {
         base.Start();
-        InvokeRepeating(nameof(Isolation), 0, 1);
+        InvokeRepeating(nameof(Debuff), 0, 1);
     }
 
     public override void Update()
@@ -44,7 +47,7 @@ public class Cat : Animal
         }
     }
 
-    private void Isolation()
+    private void Debuff()
     {
         Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, debuffRadius);
         bool isolated = false;
@@ -54,8 +57,8 @@ public class Cat : Animal
         {
             if (col.gameObject.CompareTag("Animal") && col.gameObject != gameObject)
             {
-                damageMultiplier = 0.5f;
-                healthMultiplier = 0.5f;
+                damageMultiplier = damageDebuffConst;
+                healthMultiplier = healthDebuffConst;
                 isolated = true;
                 break;
             }

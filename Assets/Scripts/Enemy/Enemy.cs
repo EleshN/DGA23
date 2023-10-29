@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
-    [SerializeField] EnemyState state = EnemyState.SPWAN;
+    [SerializeField] EnemyState state = EnemyState.SPAWN;
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] Rigidbody rb;
     [SerializeField] float speed;
@@ -63,7 +63,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     public void changeStateIfAcceptable(){
         switch(state){
-            case EnemyState.SPWAN:
+            case EnemyState.SPAWN:
                 state = EnemyState.WANDER;
                 break;
 
@@ -105,7 +105,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     protected virtual void Move(Vector3 targetPosition)
     {
         // always move the entity closer to target
-        agent.stoppingDistance = 0;
         agent.destination = targetPosition;
     }
 
