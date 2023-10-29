@@ -21,6 +21,16 @@ public class Player : MonoBehaviour
 
     public HashSet<Animal> followers = new HashSet<Animal>(); //all animals following this player
 
+    private void Start()
+    {
+        SetUI();
+    }
+
+    void SetUI()
+    {
+
+    }
+
     private void Update()
     {
         Inputs();

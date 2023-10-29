@@ -11,27 +11,7 @@ public class ResultSceneOpener : MonoBehaviour
     public TMP_Text restartOrNextText;
     public TMP_Text ammoTypeText;
     public TMP_Text ammoCountText;
-    //public Text toDisplay;
 
-    //void Start()
-    //{
-
-    //}
-
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.W))
-    //    {
-    //        gameObject.SetActive(true);
-    //        Init(true);
-    //    } else if (Input.GetKeyDown(KeyCode.L))
-    //    {
-    //        gameObject.SetActive(true);
-    //        Init(false);
-    //    }
-    //}
-
-    // Param bool result - If player won or lost
     public void Init(bool result)
     {
         gameObject.SetActive(true);
@@ -65,21 +45,5 @@ public class ResultSceneOpener : MonoBehaviour
     {
         SceneManager.LoadScene("LevelSelect");
     }
-
-
-    //public void GoToScene(bool r)
-    //{
-    //    if (Input.GetKeyDown("return") && r)
-    //    {
-    //        //nextScene = "LevelSelect";
-    //        //OpenScene();
-    //        SceneManager.LoadScene("GamePlayLevel1");
-    //    } else if (Input.GetKeyDown("space"))
-    //    {
-    //        //nextScene = "GamePlayLevel1";
-    //        //OpenScene();
-    //        SceneManager.LoadScene("LevelSelect");
-    //    }
-    //}
 
 }
