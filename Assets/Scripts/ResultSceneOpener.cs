@@ -11,9 +11,12 @@ public class ResultSceneOpener : MonoBehaviour
     public TMP_Text restartOrNextText;
     public TMP_Text ammoTypeText;
     public TMP_Text ammoCountText;
+    public GameObject gameCanvas;
+    public GameManager gameManager;
 
     public void Init(bool result)
     {
+        gameCanvas.SetActive(false);
         gameObject.SetActive(true);
         ammoTypeText.enabled = false;
         ammoCountText.enabled = false;
@@ -33,11 +36,13 @@ public class ResultSceneOpener : MonoBehaviour
     {
         if (restartOrNextText.text.Equals("Next Level"))
         {
-            SceneManager.LoadScene("GamePlayLevel2");
+            int level = gameManager.LevelNumber + 1;
+            SceneManager.LoadScene("GamePlayLevel"+level.ToString());
         }
         else
         {
-            SceneManager.LoadScene("GamePlayLevel1");
+            int level = gameManager.LevelNumber;
+            SceneManager.LoadScene("GamePlayLevel"+level.ToString());
         }
     }
 
