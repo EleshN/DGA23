@@ -12,7 +12,7 @@ public class AngerProjectile : Projectile
     //     }
     // }
 
-    private void OnCollisionEnter(Collision collision)
+    protected override void HandleCollision(Collider collision)
     {
         GameObject other = collision.gameObject;
         Animal animal = other.GetComponent<Animal>();
@@ -32,6 +32,6 @@ public class AngerProjectile : Projectile
             animal.SetEmotion(Emotion.ANGER);
             animal.targetTransform = null; // assignment to null forces new target selection.
         }
-        Destroy(gameObject, 0.1f);
+        base.HandleCollision(collision);
     }
 }

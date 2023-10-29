@@ -46,12 +46,12 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
 
-        rb.AddForce(movement * moveSpeed);
+        rb.velocity = movement * moveSpeed;
     }
 
     private void Scroll()
