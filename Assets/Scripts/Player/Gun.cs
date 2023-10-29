@@ -8,8 +8,6 @@ public class Gun : MonoBehaviour
     [Tooltip("Make sure the index of the ammo is same as Player script")]
     public GameObject[] ammoPrefabs;
 
-    private Vector3 fireDirection = new();
-
     //spawn of the bullet
     [SerializeField] Transform bulletSpawn;
     void Start()
@@ -26,5 +24,11 @@ public class Gun : MonoBehaviour
     public void Shoot(int ammoIndex)
     {
         GameObject projectile = Instantiate(ammoPrefabs[ammoIndex], bulletSpawn.position, bulletSpawn.rotation);
+        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+
+        if (projectileRb != null)
+        {
+            projectileRb.AddForce(bulletSpawn.forward * 20f, ForceMode.Impulse);
+        }
     }
 }
