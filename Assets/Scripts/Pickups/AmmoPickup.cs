@@ -7,16 +7,16 @@ public class AmmoPickup : MonoBehaviour
 
   private void OnTriggerEnter(Collider other)
   {
-    Debug.Log("Trigger Entered by: " + other.tag);  // Debug statement
+    //Debug.Log("Trigger Entered by: " + other.tag);  // Debug statement
 
 
     if (other.tag == "Player")  // Check if the colliding object has the "Player" tag
     {
       Player playerScript = other.gameObject.GetComponentInParent<Player>();  // Get the Player script component from the object
 
-      Debug.Log("Player script is null: " + (playerScript == null));
-      Debug.Log("ammoType is null: " + (ammoType == null));
-      Debug.Log("ammoType is null: " + (ammoType == null));
+      //Debug.Log("Player script is null: " + (playerScript == null));
+      //Debug.Log("ammoType is null: " + (ammoType == null));
+      //Debug.Log("ammoType is null: " + (ammoType == null));
       // Find the index of "love" ammo in the Player's ammoNames array
       int ammoIndexPickup = System.Array.IndexOf(playerScript.ammoNames, ammoType);
 
