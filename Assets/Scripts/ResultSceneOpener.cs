@@ -41,8 +41,10 @@ public class ResultSceneOpener : MonoBehaviour
         }
         else
         {
-            int level = gameManager.LevelNumber;
-            SceneManager.LoadScene("GamePlayLevel"+level.ToString());
+            //int level = gameManager.LevelNumber;
+            //SceneManager.LoadScene("GamePlayLevel"+level.ToString());
+            // Temporary change for prototype demo
+            SceneManager.LoadScene("GameTestScene");
         }
     }
 
