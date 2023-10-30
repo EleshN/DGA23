@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
-    [SerializeField] EnemyState state = EnemyState.SPAWN;
+    EnemyState state = EnemyState.SPAWN;
+    EnemyState prevState = EnemyState.SPAWN;
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] Rigidbody rb;
     [SerializeField] float speed;
@@ -13,8 +14,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected float currentHealth;
     [SerializeField] protected float robotDamage;
     [SerializeField] protected float enemyDamage;
-    [SerializeField] protected float attackCountDown;
-    [SerializeField] protected float currentAtackTime;
+    [SerializeField] protected float attackCountDown = 5f;
+    protected float currentAtackTime;
+    [SerializeField] protected float stopCountDown = 5f;
+    protected float currentStopTime;
 
     IDamageable targetState;
     Transform targetTransform;
@@ -37,20 +40,44 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
+        prevState = state;
         currentAtackTime -= Time.deltaTime;
-        changeStateIfAcceptable();
+
+        if (targetTransform == null || !targetState.isDamageable())
+        {
+            state = EnemyState.WANDER;
+        }
 
         switch(state){
+            case EnemyState.SPAWN:
+                state = EnemyState.WANDER;
+                break;
+
             case EnemyState.WANDER:
                 selectNewTarget();
+                if (targetTransform != null && targetState.isDamageable())
+                {
+                    state = EnemyState.CHASE;
+                } else {
+                    state = EnemyState.STOP;
+                }
                 break;
 
             case EnemyState.CHASE:
                 Move(targetTransform.position);
                 break;
+
+            case EnemyState.STOP:
+                currentStopTime -= Time.deltaTime;
+                if (currentStopTime <= 0){
+                    state = EnemyState.WANDER;
+                    currentStopTime = stopCountDown;
+                }
+                break;
             
             case EnemyState.ATTACK:
                 Attack();
+                state = prevState;
                 break;
             
             default:
@@ -61,44 +88,16 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    public void changeStateIfAcceptable(){
-        switch(state){
-            case EnemyState.SPAWN:
-                state = EnemyState.WANDER;
-                break;
+    void OnCollisionEnter(Collision collision){
+        state = EnemyState.STOP;
+    }
 
-            case EnemyState.WANDER:
-                if (targetTransform != null && targetState.isDamageable())
-                {
-                    if (currentAtackTime <= 0){
-                        state = EnemyState.ATTACK;
-                    }else{
-                        state = EnemyState.CHASE;
-                    }
-                }
-                break;
-
-            case EnemyState.CHASE:
-                if (targetTransform == null || !targetState.isDamageable())
-                {
-                    state = EnemyState.WANDER;
-                } else if (currentAtackTime <= 0){
-                    state = EnemyState.ATTACK;
-                }
-                break;
-            
-            case EnemyState.ATTACK:
-                if (targetTransform == null || !targetState.isDamageable())
-                {
-                    state = EnemyState.WANDER;
-                } else{
-                    state = EnemyState.CHASE;
-                }
-                break;
-
-            default:
-                break;
-
+    void OnCollisionExit(Collision collision){
+        if (targetTransform == null || !targetState.isDamageable())
+        {
+            state = EnemyState.WANDER;
+        } else {
+            state = EnemyState.CHASE;
         }
     }
 
@@ -113,7 +112,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
+        
         currentHealth -= damage;
+        print("health left: " + currentHealth.ToString());
         if (currentHealth <= 0)
         {
             GameManager.Instance.Unregister(this);

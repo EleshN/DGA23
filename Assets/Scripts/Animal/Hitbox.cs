@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Hitbox : MonoBehaviour
@@ -15,10 +13,10 @@ public class Hitbox : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
+        print(other.gameObject.name);
         if (other.CompareTag(tagTarget))
         {
             other.GetComponent<IDamageable>().TakeDamage(damage);
-            print("Damaged: " + other.gameObject.name);
             gameObject.SetActive(false);
         }
     }
