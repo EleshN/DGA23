@@ -13,7 +13,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] float maxHealth;
     [SerializeField] protected float currentHealth;
     [SerializeField] protected float robotDamage;
-    [SerializeField] protected float enemyDamage;
     [SerializeField] protected float attackCountDown = 5f;
     protected float currentAtackTime;
     [SerializeField] protected float stopCountDown = 5f;
@@ -57,7 +56,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
                 selectNewTarget();
                 if (targetTransform != null && targetState.isDamageable())
                 {
-                    state = EnemyState.CHASE;
+                    state = EnemyState.ATTACK;
                 } else {
                     state = EnemyState.STOP;
                 }
@@ -76,6 +75,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
                 break;
             
             case EnemyState.ATTACK:
+                Move(targetTransform.position);
                 Attack();
                 state = prevState;
                 break;
