@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerBases.Add(pbase);
         TeamPlayer.Add(pbase.transform);
-        playerBaseCount.text = PlayerBases.Count.ToString();
+        playerBaseCount.text = "Total Player Bases: " + PlayerBases.Count.ToString();
     }
 
     /// <summary>
@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerBases.Remove(pbase);
         TeamPlayer.Remove(pbase.transform);
-        playerBaseCount.text = PlayerBases.Count.ToString();
+        playerBaseCount.text = "Total Player Bases: " + PlayerBases.Count.ToString();
     }
 
     /// <summary>
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
     {
         EnemyBases.Add(ebase);
         TeamEnemy.Add(ebase.transform);
-        enemyBaseCount.text = EnemyBases.Count.ToString();
+        enemyBaseCount.text = "Total Enemy Bases: " + EnemyBases.Count.ToString();
     }
 
     /// <summary>
@@ -185,7 +185,7 @@ public class GameManager : MonoBehaviour
     {
         EnemyBases.Remove(ebase);
         TeamEnemy.Remove(ebase.transform);
-        enemyBaseCount.text = EnemyBases.Count.ToString();
+        enemyBaseCount.text = "Total Enemy Bases: " + EnemyBases.Count.ToString();
     }
 
     /// <summary>
