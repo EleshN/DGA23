@@ -750,6 +750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currEmotion: 2
   targetTransform: {fileID: 0}
+  animalBody: {fileID: 4156970003935199234}
   maxHealth: 4
   healthBar: {fileID: 512443639149192916}
   animalDamage: 1
