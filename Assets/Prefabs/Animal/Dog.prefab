@@ -150,7 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94917eb21ff9a3f4d952038ef752216a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagTarget: Enemy
+  tagTargets:
+  - Enemy
   damage: 0
 --- !u!54 &1027934842542314329
 Rigidbody:

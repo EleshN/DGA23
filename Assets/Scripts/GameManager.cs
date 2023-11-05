@@ -30,6 +30,11 @@ public class GameManager : MonoBehaviour
     private HashSet<Animal> Animals;
 
     /// <summary>
+    /// All enemy gameobjects
+    /// </summary>
+    private HashSet<Enemy> Enemies;
+
+    /// <summary>
     /// Set of animals currently in loved with the player
     /// </summary>
     public HashSet<Animal> followers;
@@ -54,6 +59,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text enemyBaseCount;
     [SerializeField] TMP_Text playerBaseCount;
 
+    /// <summary>
+    /// whether the current running level is completed (ongoing vs won/lost)
+    /// </summary>
+    private bool isLevelComplete;
+
     public static GameManager Instance
     {
         get
@@ -72,8 +82,10 @@ public class GameManager : MonoBehaviour
         TeamEnemy = new();
         TeamPlayer = new();
         Animals = new();
+        Enemies = new();
         followers = new();
         PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        isLevelComplete = false;
     }
 
     // Start is called before the first frame update
@@ -85,15 +97,19 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerBases.Count == 0)
+        if (PlayerBases.Count == 0 && !isLevelComplete)
         {
             // you lose
             ResultSceneOpener.Init(false);
+            isLevelComplete = true;
+            PauseObjects();
         }
-        if (EnemyBases.Count == 0)
+        if (EnemyBases.Count == 0 && !isLevelComplete)
         {
             // you win
             ResultSceneOpener.Init(true);
+            isLevelComplete = true;
+            PauseObjects();
         }
     }
     public Transform FindClosest(Vector3 source, HashSet<Transform> transforms)
@@ -194,6 +210,7 @@ public class GameManager : MonoBehaviour
     public void Register(Enemy e)
     {
         TeamEnemy.Add(e.transform);
+        Enemies.Add(e);
     }
 
     /// <summary>
@@ -202,6 +219,7 @@ public class GameManager : MonoBehaviour
     public void Unregister(Enemy e)
     {
         TeamEnemy.Remove(e.transform);
+        Enemies.Remove(e);
     }
 
     /// <summary>
@@ -229,5 +247,22 @@ public class GameManager : MonoBehaviour
     public bool WithinEnemySpawnCap()
     {
         return (TeamEnemy.Count - EnemyBases.Count) < EnemySpawnCap;
+    }
+
+    /// <summary>
+    /// Pause all animals, robots, bases on screen.
+    /// </summary>
+    private void PauseObjects()
+    {
+        // turn off all animal, enemy, player scripts
+        foreach (Enemy e in Enemies)
+        {
+            e.gameObject.GetComponent<Enemy>().enabled = false;
+        }
+        foreach (Animal a in Animals)
+        {
+            a.gameObject.GetComponent<Animal>().enabled = false;
+        }
+        PlayerTransform.gameObject.GetComponentInParent<Player>().enabled = false;
     }
 }
