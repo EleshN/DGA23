@@ -17,7 +17,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     [Header("Stats")]
     [SerializeField] float maxHealth;
-    [SerializeField] float currHealth;
+    float health;
+    [SerializeField] HealthBar healthBar;
     [SerializeField] protected float animalDamage;
     [SerializeField] float emoSpeed = 2f;
     [SerializeField] float loveSpeed = 3f;
@@ -52,7 +53,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public virtual void Start()
     {
         // Set health
-        currHealth = maxHealth;
+        health = maxHealth;
+        healthBar.SetHealthBar(maxHealth);
         GameManager.Instance.Register(this);
         spawnLocation = transform.position;
     }
@@ -98,7 +100,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         if (currEmotion == Emotion.EMOTIONLESS &&
             emotion != Emotion.EMOTIONLESS)
         {
-            currHealth = maxHealth;
+            health = maxHealth;
         }
         currEmotion = emotion;
     }
@@ -118,12 +120,14 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public void TakeDamage(float damageAmount)
     {
-        currHealth -= damageAmount;
+        health -= damageAmount;
 
-        if (currHealth <= 0)
+        if (health <= 0)
         {
             currEmotion = Emotion.EMOTIONLESS;
+            health = maxHealth;
         }
+        healthBar.UpdateHealthBar(health);
     }
 
     /// <summary>
