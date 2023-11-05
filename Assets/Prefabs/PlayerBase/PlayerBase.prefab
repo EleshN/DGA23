@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6062771783725887580}
   - component: {fileID: 2934229969314648839}
   - component: {fileID: 3770474109522332828}
+  - component: {fileID: -8644587308849743771}
   m_Layer: 0
   m_Name: PlayerBase
   m_TagString: PlayerBase
@@ -124,6 +125,19 @@ MonoBehaviour:
   health: 100
   healthBar: {fileID: 8823427924884426560}
   EnemyBaseObject: {fileID: 327787184381659261, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
+--- !u!114 &-8644587308849743771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2475064746497608209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c35feea9bbb8c4a93cc2b5bb08fe0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &2600279605250388900
 GameObject:
   m_ObjectHideFlags: 0

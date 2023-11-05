@@ -12,7 +12,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     private Vector3 spawnLocation;
     [HideInInspector] public Transform targetTransform;
-    
+
     protected Vector3 targetPosition;
 
     [Header("Stats")]
@@ -43,6 +43,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public float attackRate;
     float attackCooldown;
 
+    private ColorIndicator colorIndicator;
 
     void Awake()
     {
@@ -57,6 +58,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         healthBar.SetHealthBar(maxHealth);
         GameManager.Instance.Register(this);
         spawnLocation = transform.position;
+        colorIndicator = GetComponent<ColorIndicator>();
     }
     public virtual void Update()
     {
@@ -109,7 +111,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// Gets the animal's current emotion
     /// </summary>
     /// <returns name="curremotion">Current emotion of this animal</returns>
-    public Emotion GetEmotion() {
+    public Emotion GetEmotion()
+    {
         return currEmotion;
     }
 
@@ -121,7 +124,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public void TakeDamage(float damageAmount)
     {
         health -= damageAmount;
-
+        healthBar.UpdateHealthBar(health);
+        colorIndicator.IndicateDamage();
         if (health <= 0)
         {
             currEmotion = Emotion.EMOTIONLESS;
@@ -167,7 +171,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     {
         float ranX = UnityEngine.Random.Range(-ranRange, ranRange);
         float ranZ = UnityEngine.Random.Range(-ranRange, ranRange);
-        if(ranX < 0f) { ranX -= minRanDistance; } else { ranX += minRanDistance; }
+        if (ranX < 0f) { ranX -= minRanDistance; } else { ranX += minRanDistance; }
         if (ranZ < 0f) { ranZ -= minRanDistance; } else { ranZ += minRanDistance; }
         targetPosition = new Vector3(spawnLocation.x + ranX, transform.position.y, spawnLocation.z + ranZ);
 
@@ -177,7 +181,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// Defines the attack of the animal.  This method is called when the attack cooldown <= 0
     /// </summary>
     public abstract void Attack();
-    
+
 
     public bool isDamageable()
     {
