@@ -4,7 +4,8 @@ public class PlayerBase : MonoBehaviour, IDamageable
 {
     [Range(0.1f, 10.0f)]
     public float RegenTickSpeed;
-    public float HP;
+    [SerializeField] float health;
+    [SerializeField] HealthBar healthBar;
     public GameObject EnemyBaseObject;
 
     // Reference to the DamageIndicator component
@@ -13,6 +14,7 @@ public class PlayerBase : MonoBehaviour, IDamageable
     void Start()
     {
         GameManager.Instance.Register(this);
+        healthBar.SetHealthBar(health);
 
         // Get the DamageIndicator component attached to the same GameObject
         damageIndicator = GetComponent<DamageIndicator>();
@@ -28,7 +30,8 @@ public class PlayerBase : MonoBehaviour, IDamageable
     {
         if (!isDamageable()) return;
 
-        HP -= amount;
+        health -= amount;
+        healthBar.UpdateHealthBar(health);
 
         // Call IndicateDamage on the DamageIndicator component
         if (damageIndicator != null)
@@ -36,7 +39,7 @@ public class PlayerBase : MonoBehaviour, IDamageable
             damageIndicator.IndicateDamage();
         }
 
-        if (HP <= 0)
+        if (health <= 0)
         {
             GameManager.Instance.Unregister(this);
             Instantiate(EnemyBaseObject, transform.position, Quaternion.identity);

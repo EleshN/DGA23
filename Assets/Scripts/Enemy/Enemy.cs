@@ -11,7 +11,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] Rigidbody rb;
     [SerializeField] float speed;
     [SerializeField] float maxHealth;
-    [SerializeField] protected float currentHealth;
+    [SerializeField] protected float health;
+    [SerializeField] HealthBar healthBar;
     [SerializeField] protected float robotDamage;
     [SerializeField] protected float attackCountDown = 5f;
     protected float currentAtackTime;
@@ -31,7 +32,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        health = maxHealth;
+        healthBar.SetHealthBar(maxHealth);
         currentAtackTime = attackCountDown;
         GameManager.Instance.Register(this);
     }
@@ -113,9 +115,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     public void TakeDamage(float damage)
     {
         
-        currentHealth -= damage;
-        print("health left: " + currentHealth.ToString());
-        if (currentHealth <= 0)
+        health -= damage;
+        print("health left: " + health.ToString());
+        healthBar.UpdateHealthBar(health);
+        if (health <= 0)
         {
             GameManager.Instance.Unregister(this);
             Destroy(gameObject);
