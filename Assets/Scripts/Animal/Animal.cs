@@ -16,7 +16,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [Header("Stats")]
     [SerializeField] float maxHealth;
     float health;
-    HealthBar healthBar;
+    [SerializeField] HealthBar healthBar;
     [SerializeField] protected float animalDamage;
     [SerializeField] float emoSpeed = 2f;
     [SerializeField] float loveSpeed = 3f;
