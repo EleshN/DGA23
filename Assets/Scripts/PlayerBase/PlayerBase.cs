@@ -21,7 +21,6 @@ public class PlayerBase : MonoBehaviour, IDamageable
     {
         health -= amount;
         healthBar.UpdateHealthBar(health);
-
         colorIndicator.IndicateDamage();
 
         if (health <= 0)
