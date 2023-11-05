@@ -120,7 +120,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public void TakeDamage(float damageAmount)
     {
-        health -= damageAmount;
+        if(currEmotion != Emotion.EMOTIONLESS)
+            health -= damageAmount;
 
         if (health <= 0)
         {
