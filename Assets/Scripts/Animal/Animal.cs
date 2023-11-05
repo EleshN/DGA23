@@ -9,6 +9,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
 {
     protected NavMeshAgent agent;
     [SerializeField] protected Emotion currEmotion = Emotion.EMOTIONLESS;
+
+    private Vector3 spawnLocation;
     [HideInInspector] public Transform targetTransform;
     
     protected Vector3 targetPosition;
@@ -52,6 +54,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         // Set health
         currHealth = maxHealth;
         GameManager.Instance.Register(this);
+        spawnLocation = transform.position;
     }
     public virtual void Update()
     {
@@ -162,7 +165,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         float ranZ = UnityEngine.Random.Range(-ranRange, ranRange);
         if(ranX < 0f) { ranX -= minRanDistance; } else { ranX += minRanDistance; }
         if (ranZ < 0f) { ranZ -= minRanDistance; } else { ranZ += minRanDistance; }
-        targetPosition = new Vector3(ranX, transform.position.y, ranZ);
+        targetPosition = new Vector3(spawnLocation.x + ranX, transform.position.y, spawnLocation.z + ranZ);
 
     }
 
