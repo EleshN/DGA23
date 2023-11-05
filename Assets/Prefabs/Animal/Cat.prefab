@@ -546,6 +546,7 @@ MonoBehaviour:
   debuffRadius: 5
   healthDebuffConst: 0.5
   damageDebuffConst: 0.5
+  ps: {fileID: 0}
 --- !u!114 &-6699116982518008933
 MonoBehaviour:
   m_ObjectHideFlags: 0

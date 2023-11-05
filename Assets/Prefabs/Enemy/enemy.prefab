@@ -424,8 +424,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 8390950961805698145}
   rb: {fileID: 0}
-  speed: 3
-  maxHealth: 10
+  speed: 2
+  maxHealth: 6
   health: 0
   healthBar: {fileID: 1938080854383796208}
   robotDamage: 2
