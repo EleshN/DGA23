@@ -662,6 +662,7 @@ GameObject:
   - component: {fileID: -6819493712484568676}
   - component: {fileID: 8667359369462860146}
   - component: {fileID: 8943669702477749790}
+  - component: {fileID: 5327657638451959388}
   m_Layer: 0
   m_Name: Dog
   m_TagString: Animal
@@ -772,6 +773,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &5327657638451959388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6077426668867834045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c35feea9bbb8c4a93cc2b5bb08fe0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &6650736208514744164
 GameObject:
   m_ObjectHideFlags: 0

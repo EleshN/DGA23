@@ -51,6 +51,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public float attackRate;
     float attackCooldown;
 
+    private ColorIndicator colorIndicator;
 
 
     void Awake()
@@ -69,6 +70,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         healthBar.SetHealthBar(maxHealth);
         GameManager.Instance.Register(this);
         spawnLocation = transform.position;
+        colorIndicator = GetComponent<ColorIndicator>();
         // Set color
         SetEmotion(Emotion.EMOTIONLESS);
     }
@@ -152,7 +154,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     {
         if (currEmotion == Emotion.ANGER)
             health -= damageAmount;
-
+            colorIndicator.IndicateDamage();
         if (health <= 0)
         {
             //currEmotion = Emotion.EMOTIONLESS;

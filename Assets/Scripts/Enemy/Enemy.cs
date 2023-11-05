@@ -22,6 +22,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     IDamageable targetState;
     Transform targetTransform;
 
+    private ColorIndicator colorIndicator;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -36,6 +37,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         healthBar.SetHealthBar(maxHealth);
         currentAtackTime = attackCountDown;
         GameManager.Instance.Register(this);
+        colorIndicator = GetComponent<ColorIndicator>();
     }
 
     // Update is called once per frame
@@ -49,7 +51,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             state = EnemyState.WANDER;
         }
 
-        switch(state){
+        switch (state)
+        {
             case EnemyState.SPAWN:
                 state = EnemyState.WANDER;
                 break;
@@ -59,7 +62,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
                 if (targetTransform != null && targetState.isDamageable())
                 {
                     state = EnemyState.ATTACK;
-                } else {
+                }
+                else
+                {
                     state = EnemyState.STOP;
                 }
                 break;
@@ -70,35 +75,41 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
             case EnemyState.STOP:
                 currentStopTime -= Time.deltaTime;
-                if (currentStopTime <= 0){
+                if (currentStopTime <= 0)
+                {
                     state = EnemyState.WANDER;
                     currentStopTime = stopCountDown;
                 }
                 break;
-            
+
             case EnemyState.ATTACK:
                 Move(targetTransform.position);
                 Attack();
                 state = prevState;
                 break;
-            
+
             default:
                 break;
         }
-        if (currentAtackTime <= 0){
+        if (currentAtackTime <= 0)
+        {
             currentAtackTime = attackCountDown;
         }
     }
 
-    void OnCollisionEnter(Collision collision){
+    void OnCollisionEnter(Collision collision)
+    {
         state = EnemyState.STOP;
     }
 
-    void OnCollisionExit(Collision collision){
+    void OnCollisionExit(Collision collision)
+    {
         if (targetTransform == null || !targetState.isDamageable())
         {
             state = EnemyState.WANDER;
-        } else {
+        }
+        else
+        {
             state = EnemyState.CHASE;
         }
     }
@@ -110,14 +121,14 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     }
 
     protected abstract void Attack();
-    
+
 
     public void TakeDamage(float damage)
     {
-        
+
         health -= damage;
-        print("health left: " + health.ToString());
         healthBar.UpdateHealthBar(health);
+        colorIndicator.IndicateDamage();
 
         if (health <= 0)
         {

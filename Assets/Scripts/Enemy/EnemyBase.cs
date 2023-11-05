@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class EnemyBase : MonoBehaviour, IDamageable
 {
-    [SerializeField]float health = 100f;
+    [SerializeField] float health = 100f;
     [SerializeField] HealthBar healthBar;
     // public Slider healthBar;
     public GameObject[] enemyPrefabs;
@@ -11,6 +11,8 @@ public class EnemyBase : MonoBehaviour, IDamageable
     float spawnHeight = 0f; // Height from which the enemy will be spawned
     // public Vector2 newSize = new Vector2(1,1);
     float nextSpawnTime = 0f;
+
+    private ColorIndicator colorIndicator;
 
     void Start()
     {
@@ -20,10 +22,10 @@ public class EnemyBase : MonoBehaviour, IDamageable
         // rectTransform.sizeDelta = newSize;
         // healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
         healthBar.SetHealthBar(health);
-        
+        colorIndicator = GetComponent<ColorIndicator>();
         resetNextSpawnTime();
     }
-    
+
     void Update()
     {
         nextSpawnTime -= Time.deltaTime;
@@ -60,6 +62,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
     {
         health -= damageAmount;
         healthBar.UpdateHealthBar(health);
+        colorIndicator.IndicateDamage();
         if (health <= 0)
         {
             GameManager.Instance.Unregister(this);

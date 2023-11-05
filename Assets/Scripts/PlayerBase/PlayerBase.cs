@@ -8,15 +8,21 @@ public class PlayerBase : MonoBehaviour, IDamageable
     [SerializeField] HealthBar healthBar;
     public GameObject EnemyBaseObject;
 
+    private ColorIndicator colorIndicator;
+
+
     public void Start()
     {
         GameManager.Instance.Register(this);
         healthBar.SetHealthBar(health);
+        colorIndicator = GetComponent<ColorIndicator>();
     }
     public void TakeDamage(float amount)
     {
         health -= amount;
         healthBar.UpdateHealthBar(health);
+        colorIndicator.IndicateDamage();
+
         if (health <= 0)
         {
             GameManager.Instance.Unregister(this);
