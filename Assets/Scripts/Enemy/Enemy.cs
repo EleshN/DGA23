@@ -127,9 +127,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
 
         health -= damage;
-        // print("health left: " + health.ToString());
         healthBar.UpdateHealthBar(health);
         colorIndicator.IndicateDamage();
+
         if (health <= 0)
         {
             GameManager.Instance.Unregister(this);

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2207483055452384888}
   - component: {fileID: 8844302341295386381}
   - component: {fileID: 4704093260141162650}
-  - component: {fileID: 79051665939101563}
   m_Layer: 0
   m_Name: Ear left
   m_TagString: Untagged
@@ -84,29 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &79051665939101563
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 458094655876399935}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &811779083985559673
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +727,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currEmotion: 2
   targetTransform: {fileID: 0}
+  animalBody: {fileID: 4156970003935199234}
+  emotionlessColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  angerColor: {r: 0.98039216, g: 0.043137256, b: 0.078431375, a: 0.6666667}
+  loveColor: {r: 0.9843137, g: 0.38431373, b: 0.69411767, a: 0.69803923}
   maxHealth: 4
+  health: 0
   healthBar: {fileID: 512443639149192916}
   animalDamage: 1
   emoSpeed: 2
@@ -891,7 +872,6 @@ GameObject:
   - component: {fileID: 5776999291822137892}
   - component: {fileID: 1483519842074262899}
   - component: {fileID: 304424193523119697}
-  - component: {fileID: 5433500303088396358}
   m_Layer: 0
   m_Name: Ear right
   m_TagString: Untagged
@@ -964,26 +944,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5433500303088396358
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7746165056754448582}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
