@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class EnemyBase : MonoBehaviour, IDamageable
 {
     [SerializeField]float health = 100f;
+    [SerializeField] HealthBar healthBar;
     // public Slider healthBar;
     public GameObject[] enemyPrefabs;
     public GameObject PlayerBaseObject;
@@ -14,11 +15,11 @@ public class EnemyBase : MonoBehaviour, IDamageable
     void Start()
     {
         GameManager.Instance.Register(this);
-        
+
         // RectTransform rectTransform = healthBar.GetComponent<RectTransform>();
         // rectTransform.sizeDelta = newSize;
         // healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
-        UpdateHealthBar();
+        healthBar.SetHealthBar(health);
         
         resetNextSpawnTime();
     }
@@ -50,19 +51,6 @@ public class EnemyBase : MonoBehaviour, IDamageable
         //}
     }
 
-    void UpdateHealthBar()
-    {
-        health = Mathf.Clamp(health, 0, 100);
-        // healthBar.value = health / 100f;
-
-        if (health <= 0)
-        {
-            GameManager.Instance.Unregister(this);
-            Instantiate(PlayerBaseObject, transform.position, Quaternion.identity);
-            Destroy(gameObject);
-        }
-    }
-
     private void resetNextSpawnTime()
     {
         nextSpawnTime = Random.Range(1f, 5f);
@@ -71,6 +59,12 @@ public class EnemyBase : MonoBehaviour, IDamageable
     public void TakeDamage(float damageAmount)
     {
         health -= damageAmount;
-        UpdateHealthBar();
+        healthBar.UpdateHealthBar(health);
+        if (health <= 0)
+        {
+            GameManager.Instance.Unregister(this);
+            Instantiate(PlayerBaseObject, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 }
