@@ -357,7 +357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5979161767522792125
 Transform:
   m_ObjectHideFlags: 0
@@ -680,12 +680,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b0d9653e92270b4aaaaf8d88eaaac52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
   gunTransform: {fileID: 1097025714240175275}
-  reticlePrefab: {fileID: 0}
   laserSight: {fileID: 8851094568131856733}
+  redDotPrefab: {fileID: 1582840077467022553, guid: 0b686eec593fbff4db06ff92126efccb, type: 3}
 --- !u!1 &3862529808886750313
 GameObject:
   m_ObjectHideFlags: 0
