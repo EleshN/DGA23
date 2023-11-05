@@ -38,10 +38,10 @@ public class Targetting : MonoBehaviour
             var direction = position - transform.position;
 
             // Ignore the height difference.
-            direction.y = 0;
+            // direction.y = 0;
 
-            // Make the transform look in the direction.
-            transform.forward = direction;
+            // Make the transform look in the direction, but only rotate around the y-axis.
+            transform.rotation = Quaternion.Euler(0, Quaternion.LookRotation(direction).eulerAngles.y, 0);
         }
     }
 
