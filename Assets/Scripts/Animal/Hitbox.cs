@@ -1,9 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Hitbox : MonoBehaviour
 {
-    [Tooltip("The target the hitbox is trying to hurt")]
-    [SerializeField] string tagTarget;
+    [Tooltip("The target(s) the hitbox is trying to hurt")]
+    [SerializeField] List<string> tagTargets;
     [SerializeField] float damage;
 
 
@@ -14,7 +16,7 @@ public class Hitbox : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         print(other.gameObject.name);
-        if (other.CompareTag(tagTarget))
+        if (tagTargets.Contains(other.tag))
         {
             other.GetComponent<IDamageable>().TakeDamage(damage);
             gameObject.SetActive(false);

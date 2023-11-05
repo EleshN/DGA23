@@ -15,9 +15,7 @@ public class AngerProjectile : Projectile
     protected override void HandleCollision(Collider collision)
     {
         GameObject other = collision.gameObject;
-        Animal animal = other.GetComponent<Animal>();
-        Enemy enemy = other.GetComponent<Enemy>();
-        if (enemy) {
+        if (other.tag == "Enemy") {
             HashSet<Animal> animals = GameManager.Instance.followers;
             foreach (Animal follower in animals)
             {
@@ -26,8 +24,9 @@ public class AngerProjectile : Projectile
             }
             animals.Clear();
         }
-        else if (animal)
+        else if (other.tag == "Animal")
         {
+            Animal animal = other.GetComponent<Animal>();
             GameManager.Instance.followers.Remove(animal);
             animal.SetEmotion(Emotion.ANGER);
             animal.targetTransform = null; // assignment to null forces new target selection.

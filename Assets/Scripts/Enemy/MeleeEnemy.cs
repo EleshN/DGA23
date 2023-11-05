@@ -3,29 +3,48 @@ using System.Collections;
 
 public class MeleeEnemy : Enemy
 {
-    private float attackCooldown = 1;
-    private float lastAttack;
 
-    void OnCollisionStay(Collision collision)
-    {
-        print("enemy colliding with something");
-        GameObject other = collision.gameObject;
-        IDamageable entity = other.GetComponent<IDamageable>();
-        if (entity != null && entity.isDamageable() &&
-            GameManager.Instance.TeamPlayer.Contains(other.transform) && 
-            Time.time > lastAttack + attackCooldown)
-        {
-            entity.TakeDamage(robotDamage);
-            lastAttack = Time.time;
-        }
-    }
+    [Header("Melee Enemy Attack Stats")]
+    [SerializeField] Hitbox hitbox;
+    [SerializeField] float attackDelay = 1f;
+    [Tooltip("The amount of time in seconds that the hitbox is active when attacking")]
+    [SerializeField] float hitboxActiveTime = 2f;
 
 
+    // void OnCollisionStay(Collision collision)
+    // {
+    //     print("enemy colliding with something");
+    //     GameObject other = collision.gameObject;
+    //     entity = other.GetComponent<IDamageable>();
+    //     if (entity != null && entity.isDamageable() &&
+    //         GameManager.Instance.TeamPlayer.Contains(other.transform) && 
+    //         currentAtackTime <= 0)
+    //     {
+    //         Attack();
+    //     }
+    // }
 
     protected override void Attack()
     {
-        // Todo: does nothing for now, since melee attack is done on entity collision.
         // perhaps for melee enemies, this is where we animate the attack motion.
-        return;
+        // only attack if attack cooldown is over
+        if (currentAtackTime <= 0)
+        {
+            print("Enemy Attacking because cooldown is over");
+            hitbox.SetDamage(robotDamage);
+            StartCoroutine(ToggleHitbox());
+        }
+    }
+
+    /// <summary>
+    /// turns on the hitbox to deal damage to opponents and then turns off the hitbox once damage time is over (as indicated by hitboxActiveTime)
+    /// </summary>
+    IEnumerator ToggleHitbox()
+    {
+        yield return new WaitForSeconds(attackDelay);
+        hitbox.gameObject.SetActive(true);
+        yield return new WaitForSeconds(hitboxActiveTime);
+        hitbox.gameObject.SetActive(false);
+
     }
 }
