@@ -14,6 +14,8 @@ public class Dog : Animal
     [SerializeField] float buffRadius;
     [SerializeField] float healthBuffConst = 1.5f;
     [SerializeField] float damageBuffConst = 1.5f;
+    [SerializeField] ParticleSystem ps;
+
 
     public override void Start()
     {
@@ -54,24 +56,37 @@ public class Dog : Animal
 
     private void Buff()
     {
-        Collider[] neabyColliders = Physics.OverlapSphere(transform.position, buffRadius);
-        int nearByDogs = 0; // total number of dog within the radius, including itself
+        if (currEmotion != Emotion.EMOTIONLESS)
+        {
+            Collider[] neabyColliders = Physics.OverlapSphere(transform.position, buffRadius);
+            int nearByDogs = 0; // total number of dog within the radius, including itself
 
-        // Check if there's any Gameobject that is a Dog component
-        foreach (Collider col in neabyColliders)
-        {
-            if (col.gameObject.GetComponent<Dog>() != null &&
-                col.gameObject != gameObject) nearByDogs += 1;
-        }
+            // Check if there's any Gameobject that is a Dog component
+            foreach (Collider col in neabyColliders)
+            {
+                if (col.gameObject.GetComponent<Dog>() != null &&
+                    col.gameObject != gameObject) nearByDogs += 1;
+            }
 
-        if (nearByDogs > 0)
-        {
-            damageMultiplier = damageBuffConst * nearByDogs;
-            healthMultiplier = healthBuffConst * nearByDogs;
-        } else
-        {
-            damageMultiplier = 1f;
-            healthMultiplier = 1f;
+            if (nearByDogs > 0)
+            {
+                if (!ps.isPlaying)
+                {
+                    ps.Play();
+                }
+                damageMultiplier = damageBuffConst * nearByDogs;
+                healthMultiplier = healthBuffConst * nearByDogs;
+            }
+            else
+            {
+                if (ps.isPlaying)
+                {
+                    ps.Pause();
+                    ps.Clear();
+                }
+                damageMultiplier = 1f;
+                healthMultiplier = 1f;
+            }
         }
     }
 
