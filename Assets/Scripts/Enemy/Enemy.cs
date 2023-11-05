@@ -11,7 +11,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] Rigidbody rb;
     [SerializeField] float speed;
     [SerializeField] float maxHealth;
-    [SerializeField] protected float currentHealth;
+    [SerializeField] protected float health;
+    [SerializeField] HealthBar healthBar;
     [SerializeField] protected float robotDamage;
     [SerializeField] protected float attackCountDown = 5f;
     protected float currentAtackTime;
@@ -21,6 +22,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     IDamageable targetState;
     Transform targetTransform;
 
+    private ColorIndicator colorIndicator;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -31,9 +33,11 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        health = maxHealth;
+        healthBar.SetHealthBar(maxHealth);
         currentAtackTime = attackCountDown;
         GameManager.Instance.Register(this);
+        colorIndicator = GetComponent<ColorIndicator>();
     }
 
     // Update is called once per frame
@@ -47,7 +51,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             state = EnemyState.WANDER;
         }
 
-        switch(state){
+        switch (state)
+        {
             case EnemyState.SPAWN:
                 state = EnemyState.WANDER;
                 break;
@@ -57,7 +62,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
                 if (targetTransform != null && targetState.isDamageable())
                 {
                     state = EnemyState.ATTACK;
-                } else {
+                }
+                else
+                {
                     state = EnemyState.STOP;
                 }
                 break;
@@ -68,35 +75,41 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
             case EnemyState.STOP:
                 currentStopTime -= Time.deltaTime;
-                if (currentStopTime <= 0){
+                if (currentStopTime <= 0)
+                {
                     state = EnemyState.WANDER;
                     currentStopTime = stopCountDown;
                 }
                 break;
-            
+
             case EnemyState.ATTACK:
                 Move(targetTransform.position);
                 Attack();
                 state = prevState;
                 break;
-            
+
             default:
                 break;
         }
-        if (currentAtackTime <= 0){
+        if (currentAtackTime <= 0)
+        {
             currentAtackTime = attackCountDown;
         }
     }
 
-    void OnCollisionEnter(Collision collision){
+    void OnCollisionEnter(Collision collision)
+    {
         state = EnemyState.STOP;
     }
 
-    void OnCollisionExit(Collision collision){
+    void OnCollisionExit(Collision collision)
+    {
         if (targetTransform == null || !targetState.isDamageable())
         {
             state = EnemyState.WANDER;
-        } else {
+        }
+        else
+        {
             state = EnemyState.CHASE;
         }
     }
@@ -108,14 +121,16 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     }
 
     protected abstract void Attack();
-    
+
 
     public void TakeDamage(float damage)
     {
-        
-        currentHealth -= damage;
-        print("health left: " + currentHealth.ToString());
-        if (currentHealth <= 0)
+
+        health -= damage;
+        healthBar.UpdateHealthBar(health);
+        colorIndicator.IndicateDamage();
+
+        if (health <= 0)
         {
             GameManager.Instance.Unregister(this);
             Destroy(gameObject);

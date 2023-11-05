@@ -3,7 +3,8 @@ using UnityEngine.UI;
 
 public class EnemyBase : MonoBehaviour, IDamageable
 {
-    [SerializeField]float health = 100f;
+    [SerializeField] float health = 100f;
+    [SerializeField] HealthBar healthBar;
     // public Slider healthBar;
     public GameObject[] enemyPrefabs;
     public GameObject PlayerBaseObject;
@@ -11,18 +12,20 @@ public class EnemyBase : MonoBehaviour, IDamageable
     // public Vector2 newSize = new Vector2(1,1);
     float nextSpawnTime = 0f;
 
+    private ColorIndicator colorIndicator;
+
     void Start()
     {
         GameManager.Instance.Register(this);
-        
+
         // RectTransform rectTransform = healthBar.GetComponent<RectTransform>();
         // rectTransform.sizeDelta = newSize;
         // healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
-        UpdateHealthBar();
-        
+        healthBar.SetHealthBar(health);
+        colorIndicator = GetComponent<ColorIndicator>();
         resetNextSpawnTime();
     }
-    
+
     void Update()
     {
         nextSpawnTime -= Time.deltaTime;
@@ -50,19 +53,6 @@ public class EnemyBase : MonoBehaviour, IDamageable
         //}
     }
 
-    void UpdateHealthBar()
-    {
-        health = Mathf.Clamp(health, 0, 100);
-        // healthBar.value = health / 100f;
-
-        if (health <= 0)
-        {
-            GameManager.Instance.Unregister(this);
-            Instantiate(PlayerBaseObject, transform.position, Quaternion.identity);
-            Destroy(gameObject);
-        }
-    }
-
     private void resetNextSpawnTime()
     {
         nextSpawnTime = Random.Range(1f, 5f);
@@ -71,6 +61,13 @@ public class EnemyBase : MonoBehaviour, IDamageable
     public void TakeDamage(float damageAmount)
     {
         health -= damageAmount;
-        UpdateHealthBar();
+        healthBar.UpdateHealthBar(health);
+        colorIndicator.IndicateDamage();
+        if (health <= 0)
+        {
+            GameManager.Instance.Unregister(this);
+            Instantiate(PlayerBaseObject, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 }

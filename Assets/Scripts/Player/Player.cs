@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public TMP_Text ammoTypeText;  // displays the current ammo type
     public TMP_Text ammoCountText; // displays the current ammo count
 
-    [SerializeField] string[] ammoNames; // make sure that the indices match up with emotions index
+    public string[] ammoNames; // make sure that the indices match up with emotions index
 
     public float moveSpeed = 3f;
 

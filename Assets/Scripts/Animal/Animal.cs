@@ -9,13 +9,24 @@ public abstract class Animal : MonoBehaviour, IDamageable
 {
     protected NavMeshAgent agent;
     [SerializeField] protected Emotion currEmotion = Emotion.EMOTIONLESS;
+
+    private Vector3 spawnLocation;
     [HideInInspector] public Transform targetTransform;
-    
+
     protected Vector3 targetPosition;
+
+    [Header("Animal Colors")]
+    [Tooltip("Change the color of the animal body")]
+    [SerializeField] GameObject animalBody;
+    Renderer cubeRenderer;
+    [SerializeField] Color emotionlessColor = Color.grey;
+    [SerializeField] Color angerColor = new Color32(250, 11, 20, 170);
+    [SerializeField] Color loveColor = new Color32(251, 98, 177, 178);
 
     [Header("Stats")]
     [SerializeField] float maxHealth;
-    [SerializeField] float currHealth;
+    [SerializeField] float health;
+    [SerializeField] HealthBar healthBar;
     [SerializeField] protected float animalDamage;
     [SerializeField] float emoSpeed = 2f;
     [SerializeField] float loveSpeed = 3f;
@@ -40,18 +51,28 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public float attackRate;
     float attackCooldown;
 
+    private ColorIndicator colorIndicator;
+
 
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         ranRange = maxRanDistance - minRanDistance;
+
+        // Get the Renderer component from the new cube (to change body color)
+        cubeRenderer = animalBody.GetComponent<Renderer>();
     }
 
     public virtual void Start()
     {
         // Set health
-        currHealth = maxHealth;
+        health = maxHealth;
+        healthBar.SetHealthBar(maxHealth);
         GameManager.Instance.Register(this);
+        spawnLocation = transform.position;
+        colorIndicator = GetComponent<ColorIndicator>();
+        // Set color
+        SetEmotion(Emotion.EMOTIONLESS);
     }
 
     public virtual void Update()
@@ -88,6 +109,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     /// <summary>
     /// Sets the emotion of the animal when called
+    /// Changes the color of the animal to its corresponding emotion
     /// </summary>
     /// <param name="emotion"></param>
     public void SetEmotion(Emotion emotion)
@@ -95,16 +117,31 @@ public abstract class Animal : MonoBehaviour, IDamageable
         if (currEmotion == Emotion.EMOTIONLESS &&
             emotion != Emotion.EMOTIONLESS)
         {
-            currHealth = maxHealth;
+            health = maxHealth;
         }
+
         currEmotion = emotion;
+
+        switch (currEmotion)
+        {
+            case Emotion.ANGER:
+                cubeRenderer.material.color = angerColor;
+                break;
+            case Emotion.LOVE:
+                cubeRenderer.material.color = loveColor;
+                break;
+            default:
+                cubeRenderer.material.color = emotionlessColor;
+                break;
+        }
     }
 
     /// <summary>
     /// Gets the animal's current emotion
     /// </summary>
     /// <returns name="curremotion">Current emotion of this animal</returns>
-    public Emotion GetEmotion() {
+    public Emotion GetEmotion()
+    {
         return currEmotion;
     }
 
@@ -115,12 +152,16 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public void TakeDamage(float damageAmount)
     {
-        currHealth -= damageAmount;
-
-        if (currHealth <= 0)
+        if (currEmotion == Emotion.ANGER)
+            health -= damageAmount;
+            colorIndicator.IndicateDamage();
+        if (health <= 0)
         {
-            currEmotion = Emotion.EMOTIONLESS;
+            //currEmotion = Emotion.EMOTIONLESS;
+            SetEmotion(Emotion.EMOTIONLESS);
+            health = maxHealth;
         }
+        healthBar.UpdateHealthBar(health);
     }
 
     /// <summary>
@@ -158,9 +199,9 @@ public abstract class Animal : MonoBehaviour, IDamageable
     {
         float ranX = UnityEngine.Random.Range(-ranRange, ranRange);
         float ranZ = UnityEngine.Random.Range(-ranRange, ranRange);
-        if(ranX < 0f) { ranX -= minRanDistance; } else { ranX += minRanDistance; }
+        if (ranX < 0f) { ranX -= minRanDistance; } else { ranX += minRanDistance; }
         if (ranZ < 0f) { ranZ -= minRanDistance; } else { ranZ += minRanDistance; }
-        targetPosition = new Vector3(ranX, transform.position.y, ranZ);
+        targetPosition = new Vector3(spawnLocation.x + ranX, transform.position.y, spawnLocation.z + ranZ);
 
     }
 
@@ -168,7 +209,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// Defines the attack of the animal.  This method is called when the attack cooldown <= 0
     /// </summary>
     public abstract void Attack();
-    
+
 
     public bool isDamageable()
     {
