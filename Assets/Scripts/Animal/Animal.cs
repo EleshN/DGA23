@@ -23,7 +23,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     [Header("Stats")]
     [SerializeField] float maxHealth;
-    float health;
+    [SerializeField] float health;
     [SerializeField] HealthBar healthBar;
     [SerializeField] protected float animalDamage;
     [SerializeField] float emoSpeed = 2f;
@@ -151,7 +151,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            currEmotion = Emotion.EMOTIONLESS;
+            //currEmotion = Emotion.EMOTIONLESS;
+            SetEmotion(Emotion.EMOTIONLESS);
             health = maxHealth;
         }
         healthBar.UpdateHealthBar(health);
