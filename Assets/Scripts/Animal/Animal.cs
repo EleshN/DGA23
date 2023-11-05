@@ -70,7 +70,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         GameManager.Instance.Register(this);
         spawnLocation = transform.position;
         // Set color
-        SetEmotion(emotion.EMOTIONLESS);
+        SetEmotion(Emotion.EMOTIONLESS);
     }
     public virtual void Update()
     {
@@ -150,7 +150,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public void TakeDamage(float damageAmount)
     {
-        if (currEmotion != Emotion.EMOTIONLESS)
+        if (currEmotion == Emotion.ANGER)
             health -= damageAmount;
 
         if (health <= 0)
