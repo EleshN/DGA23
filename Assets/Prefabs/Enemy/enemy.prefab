@@ -146,6 +146,7 @@ MonoBehaviour:
   - Animal
   - PlayerBase
   damage: 0
+  attackerTransform: {fileID: 6423367497784624718}
 --- !u!54 &6886312075259269264
 Rigidbody:
   m_ObjectHideFlags: 0

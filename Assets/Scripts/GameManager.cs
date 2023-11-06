@@ -45,9 +45,9 @@ public class GameManager : MonoBehaviour
     public HashSet<Transform> TeamEnemy;
 
     /// <summary>
-    /// All player-side entities currently on the map
+    /// All player-side entities currently on the map that can be targeted by enemies
     /// </summary>
-    public HashSet<Transform> TeamPlayer;
+    public HashSet<Transform> ValidEnemyTargets;
 
     // Results script
     public ResultSceneOpener ResultSceneOpener;
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         PlayerBases = new();
         EnemyBases = new();
         TeamEnemy = new();
-        TeamPlayer = new();
+        ValidEnemyTargets = new();
         Animals = new();
         Enemies = new();
         followers = new();
@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
     public void Register(PlayerBase pbase)
     {
         PlayerBases.Add(pbase);
-        TeamPlayer.Add(pbase.transform);
+        ValidEnemyTargets.Add(pbase.transform);
         playerBaseCount.text = "Total Player Bases: " + PlayerBases.Count.ToString();
     }
 
@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
     public void Unregister(PlayerBase pbase)
     {
         PlayerBases.Remove(pbase);
-        TeamPlayer.Remove(pbase.transform);
+        ValidEnemyTargets.Remove(pbase.transform);
         playerBaseCount.text = "Total Player Bases: " + PlayerBases.Count.ToString();
     }
 
@@ -227,7 +227,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Register(Animal a)
     {
-        TeamPlayer.Add(a.transform);
         Animals.Add(a); // useful to maintain all animals, not all animals qualify as a target for enemies
     }
 
@@ -236,8 +235,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Unregister(Animal a)
     {
-        // animals never die so this method is probably unnecessary
-        TeamPlayer.Remove(a.transform);
         Animals.Remove(a);
     }
 

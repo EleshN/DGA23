@@ -46,7 +46,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         prevState = state;
         currentAtackTime -= Time.deltaTime;
 
-        if (targetTransform == null || !targetState.isDamageable())
+        if (targetTransform == null || !GameManager.Instance.ValidEnemyTargets.Contains(targetTransform))
         {
             state = EnemyState.WANDER;
         }
@@ -59,7 +59,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
             case EnemyState.WANDER:
                 selectNewTarget();
-                if (targetTransform != null && targetState.isDamageable())
+                if (targetTransform != null && GameManager.Instance.ValidEnemyTargets.Contains(targetTransform))
                 {
                     state = EnemyState.ATTACK;
                 }
@@ -104,7 +104,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     void OnCollisionExit(Collision collision)
     {
-        if (targetTransform == null || !targetState.isDamageable())
+        if (targetTransform == null || !GameManager.Instance.ValidEnemyTargets.Contains(targetTransform))
         {
             state = EnemyState.WANDER;
         }
@@ -123,9 +123,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     protected abstract void Attack();
 
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, Transform damageSource)
     {
-
+        targetTransform = damageSource;
         health -= damage;
         healthBar.UpdateHealthBar(health);
         colorIndicator.IndicateDamage();

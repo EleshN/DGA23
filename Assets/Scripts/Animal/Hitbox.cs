@@ -8,6 +8,7 @@ public class Hitbox : MonoBehaviour
     [SerializeField] List<string> tagTargets;
     [SerializeField] float damage;
 
+    [SerializeField] Transform attackerTransform;
 
     public void SetDamage(float newDamage)
     {
@@ -18,7 +19,7 @@ public class Hitbox : MonoBehaviour
         print(other.gameObject.name);
         if (tagTargets.Contains(other.tag))
         {
-            other.GetComponent<IDamageable>().TakeDamage(damage);
+            other.GetComponent<IDamageable>().TakeDamage(damage, attackerTransform);
             gameObject.SetActive(false);
         }
     }

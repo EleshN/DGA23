@@ -114,6 +114,12 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <param name="emotion"></param>
     public void SetEmotion(Emotion emotion)
     {
+        if (emotion == Emotion.ANGER){
+            GameManager.Instance.ValidEnemyTargets.Add(this.transform);
+        }
+        else{
+            GameManager.Instance.ValidEnemyTargets.Remove(this.transform);
+        }
         if (currEmotion == Emotion.EMOTIONLESS &&
             emotion != Emotion.EMOTIONLESS)
         {
@@ -150,7 +156,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// by the damageAmount. If animal's current health reduces to 0,
     /// its emotion will be set to emotionless.
     /// </summary>
-    public void TakeDamage(float damageAmount)
+    public void TakeDamage(float damageAmount, Transform damageSource)
     {
         if (currEmotion == Emotion.ANGER)
             health -= damageAmount;
