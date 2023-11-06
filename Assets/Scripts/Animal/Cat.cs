@@ -10,6 +10,8 @@ public class Cat : Animal
     [SerializeField] float healthDebuffConst = 0.5f;
     [SerializeField] float damageDebuffConst = 0.5f;
 
+    [SerializeField] ParticleSystem ps;
+
     public override void Start()
     {
         base.Start();
@@ -49,25 +51,37 @@ public class Cat : Animal
 
     private void Debuff()
     {
-        Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, debuffRadius);
-        bool isolated = false;
-
-        // Check if there's any GameObject with the "Animal" tag nearby other than 'this'
-        foreach (Collider col in nearbyColliders)
+        if (currEmotion != Emotion.EMOTIONLESS)
         {
-            if (col.gameObject.CompareTag("Animal") && col.gameObject != gameObject)
+            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, debuffRadius);
+            bool isolated = false;
+
+            // Check if there's any GameObject with the "Animal" tag nearby other than 'this'
+            foreach (Collider col in nearbyColliders)
             {
-                damageMultiplier = damageDebuffConst;
-                healthMultiplier = healthDebuffConst;
-                isolated = true;
-                break;
+                if (col.gameObject.CompareTag("Animal") && col.gameObject != gameObject)
+                {
+                    if (!ps.isPlaying)
+                    {
+                        ps.Play();
+                    }
+                    damageMultiplier = damageDebuffConst;
+                    healthMultiplier = healthDebuffConst;
+                    isolated = true;
+                    break;
+                }
             }
-        }
 
-        if (!isolated)
-        {
-            damageMultiplier = 1f;
-            healthMultiplier = 1f;
+            if (!isolated)
+            {
+                if (ps.isPlaying)
+                {
+                    ps.Pause();
+                    ps.Clear();
+                }
+                damageMultiplier = 1f;
+                healthMultiplier = 1f;
+            }
         }
     }
 
