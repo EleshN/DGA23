@@ -413,6 +413,7 @@ MonoBehaviour:
   tagTargets:
   - Enemy
   damage: 0
+  attackerTransform: {fileID: 1746057720259803590}
 --- !u!54 &1027934842542314329
 Rigidbody:
   m_ObjectHideFlags: 0
