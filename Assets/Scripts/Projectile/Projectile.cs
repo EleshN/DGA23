@@ -40,7 +40,7 @@ public abstract class Projectile : MonoBehaviour
         // If a time based metric is preferred, do Destroy(gameObject,lifeTime)
         if (distanceTraveled > maxDistance)
         {
-            Destroy(gameObject);
+            Destroy(gameObject);    
         }
     }
 

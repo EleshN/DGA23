@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RegenTickSpeed: 0.64
-  health: 100
+  health: 10
   healthBar: {fileID: 8823427924884426560}
   EnemyBaseObject: {fileID: 327787184381659261, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
 --- !u!114 &-8644587308849743771

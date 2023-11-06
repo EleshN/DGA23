@@ -14,6 +14,12 @@ public class EnemyBase : MonoBehaviour, IDamageable
 
     private ColorIndicator colorIndicator;
 
+
+    [Header("Enemy Spawning")]
+    [Tooltip("Delay between each time an enemy spawns")]
+    [SerializeField] float minSpawnDelay = 1f;
+    [SerializeField] float maxSpawnDelay = 5f;
+
     void Start()
     {
         GameManager.Instance.Register(this);
@@ -55,7 +61,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
 
     private void resetNextSpawnTime()
     {
-        nextSpawnTime = Random.Range(1f, 5f);
+        nextSpawnTime = Random.Range(minSpawnDelay, maxSpawnDelay);
     }
 
     public void TakeDamage(float damageAmount)

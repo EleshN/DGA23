@@ -15,9 +15,17 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     protected Vector3 targetPosition;
 
+    [Header("Animal Colors")]
+    [Tooltip("Change the color of the animal body")]
+    [SerializeField] GameObject animalBody;
+    Renderer cubeRenderer;
+    [SerializeField] Color emotionlessColor = Color.grey;
+    [SerializeField] Color angerColor = new Color32(250, 11, 20, 170);
+    [SerializeField] Color loveColor = new Color32(251, 98, 177, 178);
+
     [Header("Stats")]
     [SerializeField] float maxHealth;
-    float health;
+    [SerializeField] float health;
     [SerializeField] HealthBar healthBar;
     [SerializeField] protected float animalDamage;
     [SerializeField] float emoSpeed = 2f;
@@ -45,10 +53,14 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     private ColorIndicator colorIndicator;
 
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         ranRange = maxRanDistance - minRanDistance;
+
+        // Get the Renderer component from the new cube (to change body color)
+        cubeRenderer = animalBody.GetComponent<Renderer>();
     }
 
     public virtual void Start()
@@ -59,6 +71,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
         GameManager.Instance.Register(this);
         spawnLocation = transform.position;
         colorIndicator = GetComponent<ColorIndicator>();
+        // Set color
+        SetEmotion(Emotion.EMOTIONLESS);
     }
     public virtual void Update()
     {
@@ -95,6 +109,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     /// <summary>
     /// Sets the emotion of the animal when called
+    /// Changes the color of the animal to its corresponding emotion
     /// </summary>
     /// <param name="emotion"></param>
     public void SetEmotion(Emotion emotion)
@@ -104,7 +119,21 @@ public abstract class Animal : MonoBehaviour, IDamageable
         {
             health = maxHealth;
         }
+
         currEmotion = emotion;
+
+        switch (currEmotion)
+        {
+            case Emotion.ANGER:
+                cubeRenderer.material.color = angerColor;
+                break;
+            case Emotion.LOVE:
+                cubeRenderer.material.color = loveColor;
+                break;
+            default:
+                cubeRenderer.material.color = emotionlessColor;
+                break;
+        }
     }
 
     /// <summary>
@@ -123,12 +152,13 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public void TakeDamage(float damageAmount)
     {
-        health -= damageAmount;
-        healthBar.UpdateHealthBar(health);
-        colorIndicator.IndicateDamage();
+        if (currEmotion == Emotion.ANGER)
+            health -= damageAmount;
+            colorIndicator.IndicateDamage();
         if (health <= 0)
         {
-            currEmotion = Emotion.EMOTIONLESS;
+            //currEmotion = Emotion.EMOTIONLESS;
+            SetEmotion(Emotion.EMOTIONLESS);
             health = maxHealth;
         }
         healthBar.UpdateHealthBar(health);
