@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
 
     public HashSet<Animal> followers = new HashSet<Animal>(); //all animals following this player
 
+    public KeyCode switchEmotion = KeyCode.Q;
+
     private void Update()
     {
         Inputs();
@@ -57,11 +59,11 @@ public class Player : MonoBehaviour
     private void Scroll()
     {
         // weapon switching here
-        if (Input.mouseScrollDelta.y > 0)
+        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(switchEmotion))
         {
             ammoIndex = (ammoIndex + 1) % ammo.Length;
         }
-        else if (Input.mouseScrollDelta.y < 0)
+        else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(switchEmotion))
         {
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
         }

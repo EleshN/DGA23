@@ -10,7 +10,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     protected NavMeshAgent agent;
     [SerializeField] protected Emotion currEmotion = Emotion.EMOTIONLESS;
 
-    private Vector3 spawnLocation;
+    protected Vector3 spawnLocation;
     [HideInInspector] public Transform targetTransform;
 
     protected Vector3 targetPosition;
@@ -38,8 +38,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [Tooltip("Time in between choosing new patrol points")]
     [SerializeField] float patrolTime = 5f;
     float currTime = 0;
-    [SerializeField] float minRanDistance = 1.5f;
-    [SerializeField] float maxRanDistance = 4f;
+    [SerializeField] float minRanDistance;
+    [SerializeField] float maxRanDistance;
     float ranRange;
 
     [Header("Love")]
@@ -73,6 +73,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         colorIndicator = GetComponent<ColorIndicator>();
         // Set color
         SetEmotion(Emotion.EMOTIONLESS);
+        RandomPosition();
     }
     public virtual void Update()
     {
@@ -204,6 +205,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         if (ranX < 0f) { ranX -= minRanDistance; } else { ranX += minRanDistance; }
         if (ranZ < 0f) { ranZ -= minRanDistance; } else { ranZ += minRanDistance; }
         targetPosition = new Vector3(spawnLocation.x + ranX, transform.position.y, spawnLocation.z + ranZ);
+        print("Name is " + gameObject.name + " target pos is " + targetPosition);
 
     }
 

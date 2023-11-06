@@ -23,6 +23,7 @@ public class Dog : Animal
         InvokeRepeating(nameof(Buff), 0, 1);
         ps.Pause();
         ps.Clear();
+        print("Name is " + gameObject.name + " spawnpos is " + spawnLocation);
     }
 
     public override void Update()
