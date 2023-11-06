@@ -34,6 +34,12 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public float damageMultiplier = 1f;
     public float healthMultiplier = 1f;
 
+    [Header("Death Cool Down")]
+    [Tooltip("The time between animal death and regain emotion")]
+    public float deathCoolDown = 5f;
+    public float currentCoolDownTime;
+    bool isCoolDown = false;
+
     [Header("Emotionless")]
     [Tooltip("Time in between choosing new patrol points")]
     [SerializeField] float patrolTime = 5f;
@@ -104,7 +110,16 @@ public abstract class Animal : MonoBehaviour, IDamageable
             attackCooldown = attackRate;
         }
 
+        // Die
+        if (isCoolDown)
+        {
+            currentCoolDownTime -= Time.deltaTime;
+        }
 
+        if (currentCoolDownTime <= 0)
+        {
+            isCoolDown = false;
+        }
     }
 
     /// <summary>
@@ -157,9 +172,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
             colorIndicator.IndicateDamage();
         if (health <= 0)
         {
+            isCoolDown = true;
             //currEmotion = Emotion.EMOTIONLESS;
             SetEmotion(Emotion.EMOTIONLESS);
             health = maxHealth;
+            currentCoolDownTime = deathCoolDown;
         }
         healthBar.UpdateHealthBar(health);
     }

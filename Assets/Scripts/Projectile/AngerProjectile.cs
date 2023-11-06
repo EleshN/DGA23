@@ -24,12 +24,15 @@ public class AngerProjectile : Projectile
             }
             animals.Clear();
         }
-        else if (other.tag == "Animal")
+        else if (other.tag == "Animal") // TODO: add cool down
         {
             Animal animal = other.GetComponent<Animal>();
-            GameManager.Instance.followers.Remove(animal);
-            animal.SetEmotion(Emotion.ANGER);
-            animal.targetTransform = null; // assignment to null forces new target selection.
+            if (animal.currentCoolDownTime <= 0)
+            {
+                GameManager.Instance.followers.Remove(animal);
+                animal.SetEmotion(Emotion.ANGER);
+                animal.targetTransform = null; // assignment to null forces new target selection.
+            }
         }
         base.HandleCollision(collision);
     }
