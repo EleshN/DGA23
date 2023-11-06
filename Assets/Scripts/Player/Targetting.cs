@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Targetting : MonoBehaviour
 {
-    // [Tooltip("Make sure the ground has the ground layer mask")]
-    // [SerializeField] private LayerMask groundMask;
+    [Tooltip("Make sure the ground has the ground layer mask")]
+    [SerializeField] private LayerMask groundMask;
     [Tooltip("Assign this to the transform of the gun")]
     [SerializeField] private Transform gunTransform;
     [Tooltip("Assign a LineRenderer for the laser sight")]
@@ -75,7 +75,7 @@ public class Targetting : MonoBehaviour
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundMask))
         {
             return (true, hit);
         }
