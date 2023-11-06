@@ -17,7 +17,7 @@ public class MeleeEnemy : Enemy
     //     GameObject other = collision.gameObject;
     //     entity = other.GetComponent<IDamageable>();
     //     if (entity != null && entity.isDamageable() &&
-    //         GameManager.Instance.TeamPlayer.Contains(other.transform) && 
+    //         GameManager.Instance.ValidEnemyTargets.Contains(other.transform) && 
     //         currentAtackTime <= 0)
     //     {
     //         Attack();

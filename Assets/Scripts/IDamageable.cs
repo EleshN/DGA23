@@ -7,16 +7,10 @@ using UnityEngine;
 /// </summary>
 public interface IDamageable
 {
-    void TakeDamage(float damageAmount);
-
     /// <summary>
-    /// Damageable entities may switch to a temporary state in which an opposing
-    /// entity may not directly inflict damage. One such case is when an angry
-    /// dog becomes happy and becomes immune to further attacks.
+    /// 
     /// </summary>
-    /// <returns>true if entity can be damaged </returns>
-    bool isDamageable()
-    {
-        return true;
-    }
+    /// <param name="damageAmount">the damage dealt</param>
+    /// <param name="damageSource">the game entity dealing the damage</param>
+    void TakeDamage(float damageAmount, Transform damageSource);
 }
