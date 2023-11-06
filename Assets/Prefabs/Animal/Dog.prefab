@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b667d29d77f3b36458d4bae39766b146, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -186,7 +186,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.097168826, y: -4.1294862e-10, z: -0.000000007745938, w: 0.9952679}
   m_LocalPosition: {x: 0, y: 0.4874, z: 0.3}
-  m_LocalScale: {x: 0.55073255, y: 0.27455598, z: 1.5688695}
+  m_LocalScale: {x: 0.55073255, y: 0.27455598, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1746057720259803590}
@@ -219,7 +219,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b667d29d77f3b36458d4bae39766b146, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -413,6 +413,7 @@ MonoBehaviour:
   tagTargets:
   - Enemy
   damage: 0
+  attackerTransform: {fileID: 1746057720259803590}
 --- !u!54 &1027934842542314329
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5425,7 +5426,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e6243bad2ec644442bb9485c63ce78ac, type: 2}
+  - {fileID: 2100000, guid: b667d29d77f3b36458d4bae39766b146, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5720,7 +5721,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b667d29d77f3b36458d4bae39766b146, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -34,6 +34,12 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public float damageMultiplier = 1f;
     public float healthMultiplier = 1f;
 
+    [Header("Death Cool Down")]
+    [Tooltip("The time between animal death and regain emotion")]
+    public float deathCoolDown = 5f;
+    public float currentCoolDownTime;
+    bool isCoolDown = false;
+
     [Header("Emotionless")]
     [Tooltip("Time in between choosing new patrol points")]
     [SerializeField] float patrolTime = 5f;
@@ -75,6 +81,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         SetEmotion(Emotion.EMOTIONLESS);
         RandomPosition();
     }
+
     public virtual void Update()
     {
         // Movement
@@ -104,9 +111,17 @@ public abstract class Animal : MonoBehaviour, IDamageable
             attackCooldown = attackRate;
         }
 
+        // Die
+        if (isCoolDown)
+        {
+            currentCoolDownTime -= Time.deltaTime;
+        }
 
+        if (currentCoolDownTime <= 0)
+        {
+            isCoolDown = false;
+        }
     }
-
 
     /// <summary>
     /// Sets the emotion of the animal when called
@@ -115,6 +130,12 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <param name="emotion"></param>
     public void SetEmotion(Emotion emotion)
     {
+        if (emotion == Emotion.ANGER){
+            GameManager.Instance.ValidEnemyTargets.Add(this.transform);
+        }
+        else{
+            GameManager.Instance.ValidEnemyTargets.Remove(this.transform);
+        }
         if (currEmotion == Emotion.EMOTIONLESS &&
             emotion != Emotion.EMOTIONLESS)
         {
@@ -151,16 +172,18 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// by the damageAmount. If animal's current health reduces to 0,
     /// its emotion will be set to emotionless.
     /// </summary>
-    public void TakeDamage(float damageAmount)
+    public void TakeDamage(float damageAmount, Transform damageSource)
     {
         if (currEmotion == Emotion.ANGER)
             health -= damageAmount;
             colorIndicator.IndicateDamage();
         if (health <= 0)
         {
+            isCoolDown = true;
             //currEmotion = Emotion.EMOTIONLESS;
             SetEmotion(Emotion.EMOTIONLESS);
             health = maxHealth;
+            currentCoolDownTime = deathCoolDown;
         }
         healthBar.UpdateHealthBar(health);
     }
@@ -175,15 +198,13 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public abstract void AngerTarget();
 
-
-
     /// <summary>
     /// Called every update, when there is no emotion, a random target will be chosen
     /// after a certain amount of time has passed (currTime = patrolTime).
     ///
     /// The Target will be chosen using the TargetSelect helper function
     /// </summary>
-    void EmoTarget()
+    protected virtual void EmoTarget()
     {
         currTime += Time.deltaTime;
         if (currTime >= patrolTime)

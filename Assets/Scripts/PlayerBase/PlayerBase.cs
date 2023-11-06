@@ -16,8 +16,9 @@ public class PlayerBase : MonoBehaviour, IDamageable
         GameManager.Instance.Register(this);
         healthBar.SetHealthBar(health);
         colorIndicator = GetComponent<ColorIndicator>();
+        GameManager.Instance.ValidEnemyTargets.Add(transform);
     }
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount, Transform damageSource)
     {
         health -= amount;
         healthBar.UpdateHealthBar(health);

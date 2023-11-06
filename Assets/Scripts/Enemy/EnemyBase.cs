@@ -46,17 +46,6 @@ public class EnemyBase : MonoBehaviour, IDamageable
 
             resetNextSpawnTime();
         }
-        // testing only
-        //if (Input.GetKeyDown(KeyCode.UpArrow))
-        //{
-        //    health += 10;
-        //    UpdateHealthBar();
-        //}
-        //if (Input.GetKeyDown(KeyCode.DownArrow))
-        //{
-        //    health -= 10;
-        //    UpdateHealthBar();
-        //}
     }
 
     private void resetNextSpawnTime()
@@ -64,7 +53,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
         nextSpawnTime = Random.Range(minSpawnDelay, maxSpawnDelay);
     }
 
-    public void TakeDamage(float damageAmount)
+    public void TakeDamage(float damageAmount, Transform damageSource)
     {
         health -= damageAmount;
         healthBar.UpdateHealthBar(health);
