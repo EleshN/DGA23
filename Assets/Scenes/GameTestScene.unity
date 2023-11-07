@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -639,6 +639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dog (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6077426668867834045, guid: 013c9503b8fd649c688d36affd347302, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
       propertyPath: attackDelay
       value: 0
@@ -747,6 +751,10 @@ PrefabInstance:
     - target: {fileID: 6077426668867834045, guid: 013c9503b8fd649c688d36affd347302, type: 3}
       propertyPath: m_Name
       value: Dog
+      objectReference: {fileID: 0}
+    - target: {fileID: 6077426668867834045, guid: 013c9503b8fd649c688d36affd347302, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
       propertyPath: attackDelay
@@ -1370,7 +1378,6 @@ SceneRoots:
   - {fileID: 326088360}
   - {fileID: 944843445}
   - {fileID: 2110313273}
-  - {fileID: 1020718964}
   - {fileID: 1517204334}
   - {fileID: 744431390}
   - {fileID: 1614577993}
@@ -1378,5 +1385,6 @@ SceneRoots:
   - {fileID: 1997134927}
   - {fileID: 1927213027}
   - {fileID: 1487487135}
+  - {fileID: 1020718964}
   - {fileID: 1366992181}
   - {fileID: 1207708118}
