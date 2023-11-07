@@ -27,7 +27,7 @@ public class Parrot : Animal
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Animal")) {
-            collision.gameObject.GetComponent<Animal>().SetEmotion(currEmotion);
+            collision.gameObject.GetComponent<Animal>().ApplyEmotionEffect(currEmotion);
         }
     }
 

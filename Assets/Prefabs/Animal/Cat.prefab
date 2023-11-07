@@ -324,6 +324,54 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5143240124594247433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8100304840088006531}
+  - component: {fileID: 3531104970659235533}
+  m_Layer: 0
+  m_Name: Cat Hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8100304840088006531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5143240124594247433}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1746057720259803590}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3531104970659235533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5143240124594247433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94917eb21ff9a3f4d952038ef752216a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagTargets:
+  - Enemy
+  damage: 0
+  attackerTransform: {fileID: 1746057720259803590}
 --- !u!1 &5519672129779570210
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +486,7 @@ Transform:
   - {fileID: 2167452909145687009}
   - {fileID: 1531236753285641686}
   - {fileID: 1698294348855494101}
+  - {fileID: 8100304840088006531}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &937300227935327899
@@ -531,12 +580,14 @@ MonoBehaviour:
   maxHealth: 9
   health: 0
   healthBar: {fileID: 5634918835204973811}
-  animalDamage: 5
+  animalDamage: 3
   emoSpeed: 2
   loveSpeed: 3
   angerSpeed: 3
   damageMultiplier: 1
   healthMultiplier: 1
+  deathCoolDown: 5
+  currentCoolDownTime: 0
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4

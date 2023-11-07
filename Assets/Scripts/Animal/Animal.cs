@@ -11,7 +11,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [SerializeField] protected Emotion currEmotion = Emotion.EMOTIONLESS;
 
     protected Vector3 spawnLocation;
-    [HideInInspector] public Transform targetTransform;
+    
+    protected Transform targetTransform;
 
     protected Vector3 targetPosition;
 
@@ -36,8 +37,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     [Header("Death Cool Down")]
     [Tooltip("The time between animal death and regain emotion")]
-    public float deathCoolDown = 5f;
-    public float currentCoolDownTime;
+    protected float deathCoolDown = 5f;
+    protected float currentCoolDownTime;
     bool isCoolDown = false;
 
     [Header("Emotionless")]
@@ -57,7 +58,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public float attackRate;
     float attackCooldown;
 
-    private ColorIndicator colorIndicator;
+    ColorIndicator colorIndicator;
 
 
     void Awake()
@@ -128,8 +129,9 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// Changes the color of the animal to its corresponding emotion
     /// </summary>
     /// <param name="emotion"></param>
-    public void SetEmotion(Emotion emotion)
+    protected void SetEmotion(Emotion emotion)
     {
+        // an animal set to anger state will be qualified to become a target of enemies
         if (emotion == Emotion.ANGER){
             GameManager.Instance.ValidEnemyTargets.Add(this.transform);
         }
@@ -156,6 +158,23 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 cubeRenderer.material.color = emotionlessColor;
                 break;
         }
+    }
+
+    /// <summary>
+    /// attempts to apply the given emotion onto the animal. Nothing happens if the animal has recently experience emotional transitions.
+    /// </summary>
+    /// <param name="emotion">the emotion that an effect carries (projectiles with love, etc)</param>
+    /// <param name="newTarget">a game object to follow upon receiving the effect (explicit), null if specific target is to be found by the animal (implicit)</param>
+    /// <returns>true if effect was applied successfully.</returns>
+    public bool ApplyEmotionEffect(Emotion emotion, Transform newTarget = null)
+    {
+        if (currentCoolDownTime <= 0)
+        {
+            SetEmotion(emotion);
+            this.targetTransform = newTarget;
+            return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -215,7 +234,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// Select a random target on teh NavMesh around the player within the searchRange
+    /// Select a random target on the NavMesh around the player within the searchRange
     ///
     /// Function is called recursively until the point is found
     /// </summary>
@@ -234,10 +253,4 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// Defines the attack of the animal.  This method is called when the attack cooldown <= 0
     /// </summary>
     public abstract void Attack();
-
-
-    public bool isDamageable()
-    {
-        return currEmotion == Emotion.ANGER;
-    }
 }

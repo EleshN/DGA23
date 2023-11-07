@@ -19,19 +19,18 @@ public class AngerProjectile : Projectile
             HashSet<Animal> animals = GameManager.Instance.followers;
             foreach (Animal follower in animals)
             {
-                follower.SetEmotion(Emotion.ANGER);
-                follower.targetTransform = other.transform;
+                follower.ApplyEmotionEffect(Emotion.ANGER, other.transform);
             }
-            animals.Clear();
+            animals.Clear(); // no more animals following player
         }
-        else if (other.tag == "Animal") // TODO: add cool down
+        else if (other.tag == "Animal")
         {
             Animal animal = other.GetComponent<Animal>();
-            if (animal.currentCoolDownTime <= 0)
             {
-                GameManager.Instance.followers.Remove(animal);
-                animal.SetEmotion(Emotion.ANGER);
-                animal.targetTransform = null; // assignment to null forces new target selection.
+                if (animal.ApplyEmotionEffect(Emotion.ANGER))
+                {
+                    GameManager.Instance.followers.Remove(animal);
+                }
             }
         }
         base.HandleCollision(collision);

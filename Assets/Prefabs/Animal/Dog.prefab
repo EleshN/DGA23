@@ -5538,6 +5538,8 @@ MonoBehaviour:
   angerSpeed: 3
   damageMultiplier: 1
   healthMultiplier: 1
+  deathCoolDown: 5
+  currentCoolDownTime: 0
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4

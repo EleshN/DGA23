@@ -15,9 +15,6 @@ public abstract class Projectile : MonoBehaviour
     //Projectile start position
     private Vector3 startPosition;
 
-    //Death cool down of the animal, 
-    [SerializeField] float animalDeathCoolDown;
-
     private void Start()
     {
         startPosition = transform.position;
