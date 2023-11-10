@@ -41,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: GroundSprite
+    uniqueID: 447628123
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

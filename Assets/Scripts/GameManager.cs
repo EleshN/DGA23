@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour
     public int LevelNumber = 1;
 
     /// <summary>
+    /// Are we in debug? If not, can't see meshes. Perhaps more functionality to come
+    /// </summary>
+    [SerializeField]
+    public bool isDebug;
+
+    /// <summary>
     /// Limit for the number of enemies
     /// </summary>
     public int EnemySpawnCap = 3;

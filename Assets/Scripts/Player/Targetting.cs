@@ -43,7 +43,8 @@ public class Targetting : MonoBehaviour
             // direction.y = 0;
 
             // Make the transform look in the direction, but only rotate around the y-axis.
-            transform.rotation = Quaternion.Euler(0, Quaternion.LookRotation(direction).eulerAngles.y, 0);  
+            //transform.rotation = Quaternion.Euler(0, Quaternion.LookRotation(direction).eulerAngles.y, 0);
+            //Commented out for now by Noah. Is this necessary? It makes the sprite go super wonky
         }
     }
 
