@@ -7,10 +7,15 @@ public class Cat : Animal
 {
 
     [SerializeField] float debuffRadius;
+    [SerializeField] float healthDebuffConst = 0.5f;
+    [SerializeField] float damageDebuffConst = 0.5f;
+
+    [SerializeField] ParticleSystem ps;
+
     public override void Start()
     {
         base.Start();
-        InvokeRepeating(nameof(Isolation), 0, 1);
+        InvokeRepeating(nameof(Debuff), 0, 1);
     }
 
     public override void Update()
@@ -44,28 +49,45 @@ public class Cat : Animal
         }
     }
 
-    private void Isolation()
+    private void Debuff()
     {
-        Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, debuffRadius);
-        bool isolated = false;
-
-        // Check if there's any GameObject with the "Animal" tag nearby other than 'this'
-        foreach (Collider col in nearbyColliders)
+        if (currEmotion != Emotion.EMOTIONLESS)
         {
-            if (col.gameObject.CompareTag("Animal") && col.gameObject != gameObject)
+            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, debuffRadius);
+            bool isolated = false;
+
+            // Check if there's any GameObject with the "Animal" tag nearby other than 'this'
+            foreach (Collider col in nearbyColliders)
             {
-                damageMultiplier = 0.5f;
-                healthMultiplier = 0.5f;
-                isolated = true;
-                break;
+                if (col.gameObject.CompareTag("Animal") && col.gameObject != gameObject)
+                {
+                    if (!ps.isPlaying)
+                    {
+                        ps.Play();
+                    }
+                    damageMultiplier = damageDebuffConst;
+                    healthMultiplier = healthDebuffConst;
+                    isolated = true;
+                    break;
+                }
+            }
+
+            if (!isolated)
+            {
+                if (ps.isPlaying)
+                {
+                    ps.Pause();
+                    ps.Clear();
+                }
+                damageMultiplier = 1f;
+                healthMultiplier = 1f;
             }
         }
+    }
 
-        if (!isolated)
-        {
-            damageMultiplier = 1f;
-            healthMultiplier = 1f;
-        }
+    public override void Attack()
+    {
+        throw new System.NotImplementedException();
     }
 
 }

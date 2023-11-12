@@ -4,17 +4,27 @@ public class PlayerBase : MonoBehaviour, IDamageable
 {
     [Range(0.1f, 10.0f)]
     public float RegenTickSpeed;
-    public float HP;
+    [SerializeField] float health;
+    [SerializeField] HealthBar healthBar;
     public GameObject EnemyBaseObject;
+
+    private ColorIndicator colorIndicator;
+
 
     public void Start()
     {
         GameManager.Instance.Register(this);
+        healthBar.SetHealthBar(health);
+        colorIndicator = GetComponent<ColorIndicator>();
+        GameManager.Instance.ValidEnemyTargets.Add(transform);
     }
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount, Transform damageSource)
     {
-        HP -= amount;
-        if (HP <= 0)
+        health -= amount;
+        healthBar.UpdateHealthBar(health);
+        colorIndicator.IndicateDamage();
+
+        if (health <= 0)
         {
             GameManager.Instance.Unregister(this);
             Instantiate(EnemyBaseObject, transform.position, Quaternion.identity);

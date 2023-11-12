@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CallWin : MonoBehaviour
 {
-    public WinScript WinScript;
+    public ResultSceneOpener ResultSceneOpener;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,14 +15,13 @@ public class CallWin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            
-            WinScript.Init(true);
+            ResultSceneOpener.Init(true);
         }
-        else if (Input.GetKeyDown(KeyCode.L))
+        else if (Input.GetKeyDown(KeyCode.O))
         {
-            WinScript.Init(false);
+            ResultSceneOpener.Init(false);
         }
     }
 }

@@ -15,11 +15,13 @@ public class Player : MonoBehaviour
     public TMP_Text ammoTypeText;  // displays the current ammo type
     public TMP_Text ammoCountText; // displays the current ammo count
 
-    [SerializeField] string[] ammoNames; // make sure that the indices match up with emotions index
+    public string[] ammoNames; // make sure that the indices match up with emotions index
 
     public float moveSpeed = 3f;
 
     public HashSet<Animal> followers = new HashSet<Animal>(); //all animals following this player
+
+    public KeyCode switchEmotion = KeyCode.Q;
 
     private void Update()
     {
@@ -46,22 +48,24 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
 
-        rb.AddForce(movement * moveSpeed);
+        Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
+
+        rb.velocity = anglevector * movement * moveSpeed;
     }
 
     private void Scroll()
     {
         // weapon switching here
-        if (Input.mouseScrollDelta.y > 0)
+        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(switchEmotion))
         {
             ammoIndex = (ammoIndex + 1) % ammo.Length;
         }
-        else if (Input.mouseScrollDelta.y < 0)
+        else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(switchEmotion))
         {
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
         }

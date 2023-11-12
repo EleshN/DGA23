@@ -8,48 +8,81 @@ using UnityEngine.SocialPlatforms;
 public abstract class Animal : MonoBehaviour, IDamageable
 {
     protected NavMeshAgent agent;
-    Rigidbody rb;
-    public Emotion currEmotion = Emotion.EMOTIONLESS;
-    [HideInInspector] public Transform targetTransform;
+    [SerializeField] protected Emotion currEmotion = Emotion.EMOTIONLESS;
+
+    protected Vector3 spawnLocation;
     
+    protected Transform targetTransform;
+
     protected Vector3 targetPosition;
+
+    [Header("Animal Colors")]
+    [Tooltip("Change the color of the animal body")]
+    [SerializeField] GameObject animalBody;
+    Renderer cubeRenderer;
+    [SerializeField] Color emotionlessColor = Color.grey;
+    [SerializeField] Color angerColor = new Color32(250, 11, 20, 170);
+    [SerializeField] Color loveColor = new Color32(251, 98, 177, 178);
 
     [Header("Stats")]
     [SerializeField] float maxHealth;
-    [SerializeField] float currHealth;
-    [SerializeField] float animalDamage;
+    [SerializeField] float health;
+    [SerializeField] HealthBar healthBar;
+    [SerializeField] protected float animalDamage;
     [SerializeField] float emoSpeed = 2f;
     [SerializeField] float loveSpeed = 3f;
     [SerializeField] float angerSpeed = 3f;
     public float damageMultiplier = 1f;
     public float healthMultiplier = 1f;
 
+    [Header("Death Cool Down")]
+    [Tooltip("The time between animal death and regain emotion")]
+    protected float deathCoolDown = 5f;
+    protected float currentCoolDownTime;
+    bool isCoolDown = false;
+
     [Header("Emotionless")]
     [Tooltip("Time in between choosing new patrol points")]
     [SerializeField] float patrolTime = 5f;
     float currTime = 0;
-    [SerializeField] float minRanDistance = 1.5f;
-    [SerializeField] float maxRanDistance = 4f;
+    [SerializeField] float minRanDistance;
+    [SerializeField] float maxRanDistance;
+    float ranRange;
 
     [Header("Love")]
     [Tooltip("Minimum distance between the player and animal")]
     [SerializeField] protected float loveDistance = 5f;
 
-    float ranRange;
+    [Header("Combat")]
+    public float attackRadius;
+    public float attackRate;
+    float attackCooldown;
+
+    ColorIndicator colorIndicator;
+
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         ranRange = maxRanDistance - minRanDistance;
+
+        // Get the Renderer component from the new cube (to change body color)
+        cubeRenderer = animalBody.GetComponent<Renderer>();
     }
 
     public virtual void Start()
     {
         // Set health
-        currHealth = maxHealth;
+        health = maxHealth;
+        healthBar.SetHealthBar(maxHealth);
         GameManager.Instance.Register(this);
+        spawnLocation = transform.position;
+        colorIndicator = GetComponent<ColorIndicator>();
+        // Set color
+        SetEmotion(Emotion.EMOTIONLESS);
+        RandomPosition();
     }
+
     public virtual void Update()
     {
         // Movement
@@ -69,25 +102,109 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 break;
         }
         agent.destination = targetPosition;
-    }
 
+        //Attack
+        attackCooldown -= Time.deltaTime;
+        if (currEmotion == Emotion.ANGER && attackCooldown <= 0 &&
+            Vector3.Magnitude(targetPosition - transform.position) <= attackRadius)
+        {
+            Attack();
+            attackCooldown = attackRate;
+        }
+
+        // Die
+        if (isCoolDown)
+        {
+            currentCoolDownTime -= Time.deltaTime;
+        }
+
+        if (currentCoolDownTime <= 0)
+        {
+            isCoolDown = false;
+        }
+    }
 
     /// <summary>
     /// Sets the emotion of the animal when called
+    /// Changes the color of the animal to its corresponding emotion
     /// </summary>
     /// <param name="emotion"></param>
-    void SetEmotion(Emotion emotion)
+    protected void SetEmotion(Emotion emotion)
     {
+        // an animal set to anger state will be qualified to become a target of enemies
+        if (emotion == Emotion.ANGER){
+            GameManager.Instance.ValidEnemyTargets.Add(this.transform);
+        }
+        else{
+            GameManager.Instance.ValidEnemyTargets.Remove(this.transform);
+        }
+        if (currEmotion == Emotion.EMOTIONLESS &&
+            emotion != Emotion.EMOTIONLESS)
+        {
+            health = maxHealth;
+        }
+
         currEmotion = emotion;
+
+        switch (currEmotion)
+        {
+            case Emotion.ANGER:
+                cubeRenderer.material.color = angerColor;
+                break;
+            case Emotion.LOVE:
+                cubeRenderer.material.color = loveColor;
+                break;
+            default:
+                cubeRenderer.material.color = emotionlessColor;
+                break;
+        }
     }
 
     /// <summary>
-    /// The enemy gives damage to the animal 
-    /// Reduces the animal health by the damageAmount
+    /// attempts to apply the given emotion onto the animal. Nothing happens if the animal has recently experience emotional transitions.
     /// </summary>
-    public void TakeDamage(float damageAmount)
+    /// <param name="emotion">the emotion that an effect carries (projectiles with love, etc)</param>
+    /// <param name="newTarget">a game object to follow upon receiving the effect (explicit), null if specific target is to be found by the animal (implicit)</param>
+    /// <returns>true if effect was applied successfully.</returns>
+    public bool ApplyEmotionEffect(Emotion emotion, Transform newTarget = null)
     {
-        currHealth -= damageAmount;
+        if (currentCoolDownTime <= 0)
+        {
+            SetEmotion(emotion);
+            this.targetTransform = newTarget;
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Gets the animal's current emotion
+    /// </summary>
+    /// <returns name="curremotion">Current emotion of this animal</returns>
+    public Emotion GetEmotion()
+    {
+        return currEmotion;
+    }
+
+    /// <summary>
+    /// The enemy gives damage to the animal. Reduces the animal health
+    /// by the damageAmount. If animal's current health reduces to 0,
+    /// its emotion will be set to emotionless.
+    /// </summary>
+    public void TakeDamage(float damageAmount, Transform damageSource)
+    {
+        if (currEmotion == Emotion.ANGER)
+            health -= damageAmount;
+            colorIndicator.IndicateDamage();
+        if (health <= 0)
+        {
+            isCoolDown = true;
+            //currEmotion = Emotion.EMOTIONLESS;
+            SetEmotion(Emotion.EMOTIONLESS);
+            health = maxHealth;
+            currentCoolDownTime = deathCoolDown;
+        }
+        healthBar.UpdateHealthBar(health);
     }
 
     /// <summary>
@@ -100,15 +217,13 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public abstract void AngerTarget();
 
-
-
     /// <summary>
     /// Called every update, when there is no emotion, a random target will be chosen
     /// after a certain amount of time has passed (currTime = patrolTime).
     ///
     /// The Target will be chosen using the TargetSelect helper function
     /// </summary>
-    void EmoTarget()
+    protected virtual void EmoTarget()
     {
         currTime += Time.deltaTime;
         if (currTime >= patrolTime)
@@ -119,7 +234,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// Select a random target on teh NavMesh around the player within the searchRange
+    /// Select a random target on the NavMesh around the player within the searchRange
     ///
     /// Function is called recursively until the point is found
     /// </summary>
@@ -127,14 +242,15 @@ public abstract class Animal : MonoBehaviour, IDamageable
     {
         float ranX = UnityEngine.Random.Range(-ranRange, ranRange);
         float ranZ = UnityEngine.Random.Range(-ranRange, ranRange);
-        if(ranX < 0f) { ranX -= minRanDistance; } else { ranX += minRanDistance; }
+        if (ranX < 0f) { ranX -= minRanDistance; } else { ranX += minRanDistance; }
         if (ranZ < 0f) { ranZ -= minRanDistance; } else { ranZ += minRanDistance; }
-        targetPosition = new Vector3(ranX, transform.position.y, ranZ);
+        targetPosition = new Vector3(spawnLocation.x + ranX, transform.position.y, spawnLocation.z + ranZ);
+        // print("Name is " + gameObject.name + " target pos is " + targetPosition);
 
     }
 
-    public bool isDamageable()
-    {
-        return currEmotion == Emotion.ANGER;
-    }
+    /// <summary>
+    /// Defines the attack of the animal.  This method is called when the attack cooldown <= 0
+    /// </summary>
+    public abstract void Attack();
 }
