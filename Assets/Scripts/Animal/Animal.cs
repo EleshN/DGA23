@@ -29,9 +29,9 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [SerializeField] float health;
     [SerializeField] HealthBar healthBar;
     [SerializeField] protected float animalDamage;
-    [SerializeField] float emoSpeed = 2f;
-    [SerializeField] float loveSpeed = 3f;
-    [SerializeField] float angerSpeed = 3f;
+    [SerializeField] protected float emoSpeed = 2f;
+    [SerializeField] protected float loveSpeed = 3f;
+    [SerializeField] protected float angerSpeed = 3f;
     public float damageMultiplier = 1f;
     public float healthMultiplier = 1f;
 
@@ -79,7 +79,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         spawnLocation = transform.position;
         colorIndicator = GetComponent<ColorIndicator>();
         // Set color
-        SetEmotion(Emotion.EMOTIONLESS);
+        SetEmotion(Emotion.LOVE);
         RandomPosition();
     }
 
@@ -234,11 +234,12 @@ public abstract class Animal : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// Select a random target on the NavMesh around the player within the searchRange
+    /// Select and move to a random target on the NavMesh around
+    /// the player within the searchRange
     ///
     /// Function is called recursively until the point is found
     /// </summary>
-    void RandomPosition()
+    protected virtual void RandomPosition()
     {
         float ranX = UnityEngine.Random.Range(-ranRange, ranRange);
         float ranZ = UnityEngine.Random.Range(-ranRange, ranRange);
