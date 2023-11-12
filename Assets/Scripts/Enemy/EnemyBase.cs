@@ -41,7 +41,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
             {
                 //just spwans the first one for now
                 Vector3 spawnPosition = new Vector3(transform.position.x, spawnHeight, transform.position.z);
-                Instantiate(enemyPrefabs[0], spawnPosition, Quaternion.identity);
+                Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)], spawnPosition, Quaternion.identity);
             }
 
             resetNextSpawnTime();

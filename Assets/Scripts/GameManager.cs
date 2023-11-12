@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     /// Limit for the number of enemies
     /// </summary>
     public int EnemySpawnCap = 3;
-    private int avoidance = 99;
+    private int avoidance = 49;
 
     /// <summary>
     /// All player bases currently on the map
@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
         Enemies.Add(e);
         avoidance -= 1;
         if (avoidance <= 0){
-            avoidance = 99;
+            avoidance = 49;
         }
         return avoidance;
     }
