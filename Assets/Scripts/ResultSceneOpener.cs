@@ -18,6 +18,8 @@ public class ResultSceneOpener : MonoBehaviour
     {
         gameCanvas.SetActive(false);
         gameObject.SetActive(true);
+        Time.timeScale = 0f;
+        PauseGame.isPaused = true;
         ammoTypeText.enabled = false;
         ammoCountText.enabled = false;
         if (result)

@@ -25,10 +25,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Inputs();
-        Move();
-        Scroll();
-        UpdateUI();
+        if (!PauseGame.isPaused)
+        {
+            Inputs();
+            Move();
+            Scroll();
+            UpdateUI();
+        }
     }
 
     private void Inputs()

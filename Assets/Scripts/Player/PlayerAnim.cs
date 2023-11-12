@@ -7,6 +7,8 @@ public class PlayerAnim : Sprite
     //The animator controller attached to the player
     [SerializeField]
     Animator anim;
+    private float horizontal;
+    private float vertical;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -17,12 +19,14 @@ public class PlayerAnim : Sprite
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update();
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        //print("h" + horizontal);
-        //print("v " + vertical);
-        
+        if (!PauseGame.isPaused)
+        {
+            base.Update();
+            horizontal = Input.GetAxisRaw("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
+            //print("h" + horizontal);
+            //print("v " + vertical);
+        }
 
         if (vertical > 0)
         {
