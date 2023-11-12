@@ -27,6 +27,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+        agent.radius *= 2;
         agent.speed = speed;
     }
 
@@ -36,7 +37,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         health = maxHealth;
         healthBar.SetHealthBar(maxHealth);
         currentAtackTime = attackCountDown;
-        GameManager.Instance.Register(this);
+        agent.avoidancePriority = GameManager.Instance.Register(this);
         colorIndicator = GetComponent<ColorIndicator>();
     }
 
