@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
-    EnemyState state = EnemyState.SPAWN;
+    protected EnemyState state = EnemyState.SPAWN;
     EnemyState prevState = EnemyState.SPAWN;
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] Rigidbody rb;
@@ -20,7 +20,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     protected float currentStopTime;
 
     IDamageable targetState;
-    Transform targetTransform;
+    protected Transform targetTransform;
 
     private ColorIndicator colorIndicator;
     void Awake()
@@ -31,7 +31,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         health = maxHealth;
         healthBar.SetHealthBar(maxHealth);
@@ -41,7 +41,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         prevState = state;
         currentAtackTime -= Time.deltaTime;
@@ -102,6 +102,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         state = EnemyState.STOP;
     }
 
+
     void OnCollisionExit(Collision collision)
     {
         if (targetTransform == null || !GameManager.Instance.ValidEnemyTargets.Contains(targetTransform))
@@ -125,6 +126,16 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage, Transform damageSource)
     {
+        if (healthBar == null)
+        {
+            Debug.LogError("HealthBar not assigned in Enemy");
+            return;
+        }
+        if (colorIndicator == null)
+        {
+            Debug.LogError("ColorIndicator not assigned in Enemy");
+            return;
+        }
         targetTransform = damageSource;
         health -= damage;
         healthBar.UpdateHealthBar(health);
