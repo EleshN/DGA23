@@ -79,7 +79,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         spawnLocation = transform.position;
         colorIndicator = GetComponent<ColorIndicator>();
         // Set color
-        SetEmotion(Emotion.LOVE);
+        SetEmotion(Emotion.EMOTIONLESS);
         RandomPosition();
     }
 

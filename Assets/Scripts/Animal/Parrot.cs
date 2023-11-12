@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Parrot : Animal
 {
+    [Header("Parrot Emo Box")]
+    public BirdEmoBox BirdEmoBox;
+
     [Header("Parrot Flight")]
     [SerializeField] float flightRadius;
     [SerializeField] float flightHeight;
     [SerializeField] float circleDurration;
 
     float currFlightTime; // the current time of the parabolic animation
+    float timeFirstMotion = 0; // Time needed for bird to take off
     [SerializeField] Vector3 targetLocation;
     [SerializeField] Vector3 currLocation;
     [SerializeField] Vector3 initLocation;
@@ -35,15 +39,17 @@ public class Parrot : Animal
             case Emotion.ANGER:
                 if (hSpeed != angerSpeed) hSpeed = angerSpeed;
                 AngerTarget();
+                BirdEmoBox.gameObject.SetActive(true);
                 break;
             case Emotion.LOVE:
                 if (hSpeed != loveSpeed) hSpeed = loveSpeed;
                 LoveTarget();
-                print("isLovetarget");
+                BirdEmoBox.gameObject.SetActive(true);
                 break;
             default:
                 if (hSpeed != emoSpeed) hSpeed = emoSpeed;
                 EmoTarget();
+                BirdEmoBox.gameObject.SetActive(false);
                 break;
         }
         currLocation = transform.position;
@@ -86,13 +92,12 @@ public class Parrot : Animal
 
     }
 
-    /// <summary> TODO
+    /// <summary>
     /// Flies in a circle of defind radius, spreads the emotion of the parrot
     /// </summary>
     /// <param name="targetEmotion"> The emotion the parrot is spreading</param>
     void SpreadEmotion(Emotion targetEmotion)
     {
-        float timeFirstMotion = 0; // Time needed for bird to take off
 
         // Update some variables
         if (!atFirstDestination && !inMotion) // take off (parabolic)
@@ -114,23 +119,21 @@ public class Parrot : Animal
         }
         else if (!doneFlight) // circular flight
         {
-            print("landing1");
+            //print("landing1");
             CircuilarMotion(hSpeed, timeFirstMotion);
             secondinitLocation = transform.position;
+
         }
         else if (inMotion) // landing (parabolic)
         {
-            print("Second init location: " + secondinitLocation.ToString());
+            //print("Second init location: " + secondinitLocation.ToString());
             ParabolicMotion(hSpeed, initLocation, secondinitLocation, circleDurration);
             inMotion = Vector3.Distance(initLocation, transform.position) > 0.2f;
         }
         else
         {
-            currEmotion = Emotion.EMOTIONLESS;
-            inMotion = false;
-            atFirstDestination = false;
-            doneFlight = false;
-}
+            Reset();
+        }
 
     }
 
@@ -173,6 +176,7 @@ public class Parrot : Animal
         transform.position = new Vector3((initLocation.x + changeX),
                                             initLocation.y + changeY,
                                             (initLocation.z + changeZ));
+        LookAt(- changeX, - changeY, - changeZ);
         return dt;
     }
 
@@ -182,15 +186,35 @@ public class Parrot : Animal
 
         currFlightTime += Time.deltaTime * (hSpeed/flightRadius);
 
-        float x = flightRadius * Mathf.Sin((currFlightTime - timeOffset) );
+        float x = flightRadius * Mathf.Cos(currFlightTime - timeOffset);
         float y = 0;
-        float z = flightRadius * Mathf.Cos((currFlightTime - timeOffset) );
+        float z = flightRadius * Mathf.Sin(currFlightTime - timeOffset);
+
+
 
         transform.position = new Vector3(initLocation.x + x,
                                             transform.position.y + y,
                                             initLocation.z + z);
-
+        LookAt(z, - y, -x);
     }
+
+    private void Reset()
+    {
+        LookAt(transform.rotation.x, 0, transform.rotation.z);
+        SetEmotion(Emotion.EMOTIONLESS);
+        inMotion = false;
+        atFirstDestination = false;
+        doneFlight = false;
+        vSpeed = Mathf.Abs(vSpeed);
+    }
+
+    private void LookAt(float x, float y, float z)
+    {
+        transform.rotation = Quaternion.LookRotation(new Vector3(x,y,z));
+    }
+
+    //------------------------------// EMOTIONS //------------------------------//
+
 
     //-------------------------------// ATTACK //-------------------------------//
 
