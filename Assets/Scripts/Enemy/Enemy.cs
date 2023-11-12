@@ -19,8 +19,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected float stopCountDown = 5f;
     protected float currentStopTime;
 
-    IDamageable targetState;
-    Transform targetTransform;
+    protected IDamageable targetState;
+    protected Transform targetTransform;
 
     private ColorIndicator colorIndicator;
     void Awake()
