@@ -19,7 +19,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected float stopCountDown = 5f;
     protected float currentStopTime;
 
-    IDamageable targetState;
     protected Transform targetTransform;
 
     private ColorIndicator colorIndicator;
@@ -27,6 +26,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+        agent.radius *= 2;
         agent.speed = speed;
     }
 
@@ -36,7 +36,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         health = maxHealth;
         healthBar.SetHealthBar(maxHealth);
         currentAtackTime = attackCountDown;
-        GameManager.Instance.Register(this);
+        agent.avoidancePriority = GameManager.Instance.Register(this);
         colorIndicator = GetComponent<ColorIndicator>();
     }
 
@@ -154,12 +154,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         if (target == null)
         {
             targetTransform = null;
-            targetState = null;
         }
         else
         {
             targetTransform = target.transform;
-            targetState = target.GetComponent<IDamageable>();
         }
     }
 }

@@ -10,9 +10,16 @@ public class GameManager : MonoBehaviour
     public int LevelNumber = 1;
 
     /// <summary>
+    /// Are we in debug? If not, can't see meshes. Perhaps more functionality to come
+    /// </summary>
+    [SerializeField]
+    public bool isDebug;
+
+    /// <summary>
     /// Limit for the number of enemies
     /// </summary>
     public int EnemySpawnCap = 3;
+    private int avoidance = 49;
 
     /// <summary>
     /// All player bases currently on the map
@@ -207,10 +214,15 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// adds enemy to the collection of enemies
     /// </summary>
-    public void Register(Enemy e)
+    public int Register(Enemy e)
     {
         TeamEnemy.Add(e.transform);
         Enemies.Add(e);
+        avoidance -= 1;
+        if (avoidance <= 0){
+            avoidance = 49;
+        }
+        return avoidance;
     }
 
     /// <summary>

@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
 
     public HashSet<Animal> followers = new HashSet<Animal>(); //all animals following this player
 
+    public KeyCode switchEmotion = KeyCode.Q;
+
     private void Update()
     {
         Inputs();
@@ -51,17 +53,19 @@ public class Player : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
 
-        rb.velocity = movement * moveSpeed;
+        Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
+
+        rb.velocity = anglevector * movement * moveSpeed;
     }
 
     private void Scroll()
     {
         // weapon switching here
-        if (Input.mouseScrollDelta.y > 0)
+        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(switchEmotion))
         {
             ammoIndex = (ammoIndex + 1) % ammo.Length;
         }
-        else if (Input.mouseScrollDelta.y < 0)
+        else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(switchEmotion))
         {
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
         }

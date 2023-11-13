@@ -9,9 +9,9 @@ public class LoveProjectile : Projectile
         if (other.tag == "Animal")
         {
             Animal animal = other.GetComponent<Animal>();
-            GameManager.Instance.followers.Add(animal);
-            animal.SetEmotion(Emotion.LOVE);
-            animal.targetTransform = GameManager.Instance.PlayerTransform;
+            if (animal.ApplyEmotionEffect(Emotion.LOVE, GameManager.Instance.PlayerTransform)){
+                GameManager.Instance.followers.Add(animal);
+            }
         }
         base.HandleCollision(collision);
     }

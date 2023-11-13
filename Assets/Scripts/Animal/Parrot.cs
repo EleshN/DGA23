@@ -4,20 +4,13 @@ using UnityEngine;
 
 public class Parrot : Animal
 {
-    public override void AngerTarget()
-    {
-        throw new System.NotImplementedException();
-    }
+    public override void AngerTarget() { }
 
-    public override void Attack()
-    {
-        throw new System.NotImplementedException();
-    }
+    public override void Attack() { }
 
-    public override void LoveTarget()
-    {
-        throw new System.NotImplementedException();
-    }
+    public override void LoveTarget() { }
+
+    override protected void EmoTarget() { }
 
     // Start is called before the first frame update
     public override void Start()
@@ -34,7 +27,7 @@ public class Parrot : Animal
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Animal")) {
-            collision.gameObject.GetComponent<Animal>().SetEmotion(currEmotion);
+            collision.gameObject.GetComponent<Animal>().ApplyEmotionEffect(currEmotion);
         }
     }
 
