@@ -19,7 +19,12 @@ public class GameManager : MonoBehaviour
     /// Limit for the number of enemies
     /// </summary>
     public int EnemySpawnCap = 3;
-    private int avoidance = 49;
+    private int avoidance = 50;
+
+    /// <summary>
+    /// Animal agent avoidance priority
+    /// </summary>
+    [SerializeField] private int AnimalAvoidance = 50;
 
     /// <summary>
     /// All player bases currently on the map
@@ -137,7 +142,7 @@ public class GameManager : MonoBehaviour
         return closest;
     }
 
-    public GameObject FindClosestTargetForEnemmy(Enemy e)
+    public GameObject FindClosestTargetForEnemy(Enemy e)
     {
         GameObject closest = null;
         Vector3 source = e.gameObject.transform.position;
@@ -218,9 +223,9 @@ public class GameManager : MonoBehaviour
     {
         TeamEnemy.Add(e.transform);
         Enemies.Add(e);
-        avoidance -= 1;
-        if (avoidance <= 0){
-            avoidance = 49;
+        avoidance += 1;
+        if (avoidance >= 99){
+            avoidance = AnimalAvoidance;
         }
         return avoidance;
     }

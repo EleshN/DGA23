@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641228, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2798,65 +2798,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4791089039594308749, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6077426668867834045, guid: 013c9503b8fd649c688d36affd347302, type: 3}
       propertyPath: m_Name
       value: Dog (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6077426668867834045, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: attackDelay
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: loveColor.b
-      value: 0.4745098
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: loveColor.g
-      value: 0.25490198
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: loveColor.r
-      value: 0.6117647
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: angerColor.b
-      value: 0.20784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: angerColor.g
-      value: 0.35686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: angerColor.r
-      value: 0.79607844
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: animalDamage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: hitboxActiveTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: emotionlessColor.b
-      value: 0.32156864
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: emotionlessColor.g
-      value: 0.3529412
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: emotionlessColor.r
-      value: 0.4431373
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3234,6 +3178,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
       propertyPath: attackDelay
       value: 0
       objectReference: {fileID: 0}
@@ -3263,7 +3211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
       propertyPath: animalDamage
-      value: 5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
       propertyPath: hitboxActiveTime
@@ -5241,7 +5189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9098546935930922653, guid: 8b24cb3a4132f419384be80db051b409, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.6
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 9098546935930922653, guid: 8b24cb3a4132f419384be80db051b409, type: 3}
       propertyPath: m_LocalPosition.z

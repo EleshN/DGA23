@@ -30,9 +30,10 @@ public class EnemyProjectile : Projectile
             if (col.gameObject.tag == "Animal" || col.gameObject.tag == "PlayerBase")
             {
                 IDamageable entity = col.gameObject.GetComponent<IDamageable>();
-                entity.TakeDamage(this.damage, projectileSource);
+                entity.TakeDamage(damage, projectileSource);
             }
         }
-        Destroy(gameObject, 0.1f);
+        // base.HandleCollision(collision);
+        Destroy(gameObject);
     }
 }

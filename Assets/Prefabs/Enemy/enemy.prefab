@@ -425,14 +425,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 8390950961805698145}
-  rb: {fileID: 0}
+  healthBar: {fileID: 1938080854383796208}
   speed: 2
   maxHealth: 6
   health: 0
-  healthBar: {fileID: 1938080854383796208}
+  attackRadius: 2
+  attackCountDown: 2
   robotDamage: 2
-  attackCountDown: 5
-  stopCountDown: 5
   hitbox: {fileID: 5769747738735344323}
   attackDelay: 1
   hitboxActiveTime: 2
