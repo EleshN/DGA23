@@ -762,15 +762,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 2686092500760852668}
   rb: {fileID: 0}
-  speed: 6
+  speed: 5
   maxHealth: 15
   health: 15
   healthBar: {fileID: 22060174676416364}
   robotDamage: 3
-  attackCountDown: 10
-  stopCountDown: 10
-  encircleRadius: 6
-  encircleSpeed: 6
+  attackCountDown: 5
+  stopCountDown: 5
+  encircleRadius: 9
+  encircleSpeed: 5
   lineRenderer: {fileID: 5104623080564480899, guid: d2962491e3edae0429383a535f09c538, type: 3}
   segments: 50
   attackMaterial: {fileID: 2100000, guid: 33f94348d35649a4b8b8cc96fb508e63, type: 2}

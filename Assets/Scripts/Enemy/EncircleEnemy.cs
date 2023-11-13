@@ -58,7 +58,7 @@ public class EncircleEnemy : Enemy
       // Check if the enemy has returned to the near vicinity of the start position
       if (Vector3.Distance(startPosition, transform.position) <= returnErrorMargin && angle >= 360f)
       {
-        StartCoroutine(PerformAttack());
+        Attack();
         angle = 0; // Reset the angle for the next encircling
       }
     }
