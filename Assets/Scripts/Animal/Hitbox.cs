@@ -8,7 +8,7 @@ public class Hitbox : MonoBehaviour
     [SerializeField] List<string> tagTargets;
     [SerializeField] float damage;
 
-    [SerializeField] Transform attackerTransform;
+    public Transform attackerTransform;
 
     public void SetDamage(float newDamage)
     {
