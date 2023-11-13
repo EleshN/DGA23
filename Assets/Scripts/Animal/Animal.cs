@@ -245,7 +245,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         if (ranX < 0f) { ranX -= minRanDistance; } else { ranX += minRanDistance; }
         if (ranZ < 0f) { ranZ -= minRanDistance; } else { ranZ += minRanDistance; }
         targetPosition = new Vector3(spawnLocation.x + ranX, transform.position.y, spawnLocation.z + ranZ);
-        print("Name is " + gameObject.name + " target pos is " + targetPosition);
+        // print("Name is " + gameObject.name + " target pos is " + targetPosition);
 
     }
 
