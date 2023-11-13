@@ -19,7 +19,7 @@ public class AngerProjectile : Projectile
             HashSet<Animal> animals = GameManager.Instance.followers;
             foreach (Animal follower in animals)
             {
-                follower.ApplyEmotionEffect(Emotion.ANGER, other.transform);
+                if (!follower.GetComponent<Parrot>())follower.ApplyEmotionEffect(Emotion.ANGER, other.transform);
             }
             animals.Clear(); // no more animals following player
         }

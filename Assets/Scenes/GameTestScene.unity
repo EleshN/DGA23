@@ -591,6 +591,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6819493712484568676, guid: 013c9503b8fd649c688d36affd347302, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1746057720259803590, guid: 013c9503b8fd649c688d36affd347302, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.27
@@ -690,6 +694,10 @@ PrefabInstance:
     - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
       propertyPath: emotionlessColor.r
       value: 0.4431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943669702477749790, guid: 013c9503b8fd649c688d36affd347302, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1448,7 +1456,7 @@ PrefabInstance:
       objectReference: {fileID: 1934159704}
     - target: {fileID: 89676508841180428, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
       propertyPath: angerSpeed
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 89676508841180428, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
       propertyPath: flightHeight
@@ -1462,6 +1470,14 @@ PrefabInstance:
       propertyPath: circleDurration
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 868621220294053537, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1124198798836679662, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1639147613946274810, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
       propertyPath: m_Name
       value: Emo box
@@ -1470,9 +1486,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1845653004336935827, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2040491723673656082, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3365940779206954392, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5075847750515261920, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
       propertyPath: m_Name
@@ -1484,7 +1508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6786900942498771229, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.36
+      value: 0.0000004768372
       objectReference: {fileID: 0}
     - target: {fileID: 6786900942498771229, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1518,6 +1542,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7049591899116869608, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7049591899116869608, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7613619919287657064, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
       propertyPath: m_LocalScale.x
       value: 5
@@ -1534,6 +1566,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2
       objectReference: {fileID: 0}
+    - target: {fileID: 7897021109142362239, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8076166651794757795, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
       propertyPath: m_Name
       value: Emo Box
@@ -1545,6 +1581,10 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4719415060420165640, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
     - {fileID: 1073661967883662217, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+    - {fileID: 1124198798836679662, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+    - {fileID: 1521379718853883657, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+    - {fileID: 5612037581625696967, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+    - {fileID: 163301069580723593, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
     m_RemovedGameObjects:
     - {fileID: 9197013735723497963, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
     m_AddedGameObjects: []

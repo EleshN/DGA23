@@ -166,7 +166,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <param name="emotion">the emotion that an effect carries (projectiles with love, etc)</param>
     /// <param name="newTarget">a game object to follow upon receiving the effect (explicit), null if specific target is to be found by the animal (implicit)</param>
     /// <returns>true if effect was applied successfully.</returns>
-    public bool ApplyEmotionEffect(Emotion emotion, Transform newTarget = null)
+    public virtual bool ApplyEmotionEffect(Emotion emotion, Transform newTarget = null)
     {
         if (currentCoolDownTime <= 0)
         {

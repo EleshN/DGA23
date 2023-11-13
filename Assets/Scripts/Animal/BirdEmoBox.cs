@@ -19,7 +19,7 @@ public class BirdEmoBox : MonoBehaviour
 
         print("bird trigger: " + other.tag.ToString());
 
-        if (other.tag == "Animal")
+        if (other.tag == "Animal" && other != parrot.gameObject)
         {
             //print("bird trigger: " + other.tag.ToString());
             Animal animal = other.GetComponent<Animal>();
