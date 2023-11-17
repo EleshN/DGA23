@@ -55,7 +55,6 @@ public class PauseGame : MonoBehaviour
     {
         Time.timeScale = 1f;
         isPaused = false;
-        // When we implement Level Name design pattern, Change to whatever level scene is active
-        SceneManager.LoadScene("GameTestScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
