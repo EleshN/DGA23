@@ -1,27 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ResultSceneOpener : MonoBehaviour
 {
+    [Tooltip("the textbox for storing the result as either win/lose")]
     public TMP_Text resultText;
-    public TMP_Text restartOrNextText;
-    public TMP_Text ammoTypeText;
-    public TMP_Text ammoCountText;
-    public GameObject gameCanvas;
-    public GameManager gameManager;
 
-    public void Init(bool result)
+    [Tooltip("the textbox indicating the action corresponding to restarting or proceeding to next level")]
+    public TMP_Text restartOrNextText;
+
+    int currentLevel;
+
+    bool levelResult;
+
+    /// <summary>
+    /// constructor to initialize the results menu for the given level and game result.
+    /// </summary>
+    /// <param name="currentLevel">current level (the level that the player just finished)</param>
+    /// <param name="result">true only if player successfully finishes the level</param>
+    public void Init(int currentLevel, bool result)
     {
-        gameCanvas.SetActive(false);
         gameObject.SetActive(true);
         Time.timeScale = 0f;
         PauseGame.isPaused = true;
-        ammoTypeText.enabled = false;
-        ammoCountText.enabled = false;
         if (result)
         {
             resultText.text = "You Win!";
@@ -32,21 +36,28 @@ public class ResultSceneOpener : MonoBehaviour
             resultText.text = "You Lose!";
             restartOrNextText.text = "Restart";
         }
+        this.currentLevel = currentLevel;
+        this.levelResult = result;
     }
 
+    /// <summary>
+    /// transition function to load the scene corresponding to the next level.
+    /// In the event that the level ends in player's defeat, the current level is treated as the "next".
+    /// </summary>
     public void ToNextLevel()
     {
-        if (restartOrNextText.text.Equals("Next Level"))
+        Time.timeScale = 1f;
+        PauseGame.isPaused = false;
+        //TODO: what if there is no next level? (result menu needs an edge case adjustment, keep this in mind for end product)
+        if (levelResult)
         {
-            int level = gameManager.LevelNumber + 1;
-            SceneManager.LoadScene("GamePlayLevel"+level.ToString());
+            int level = currentLevel + 1;
+            SceneManager.LoadScene("Level"+level.ToString());
         }
         else
         {
-            //int level = gameManager.LevelNumber;
-            //SceneManager.LoadScene("GamePlayLevel"+level.ToString());
-            // Temporary change for prototype demo
-            SceneManager.LoadScene("GameTestScene");
+            // replay current level
+            SceneManager.LoadScene("Level"+currentLevel.ToString());
         }
     }
 
