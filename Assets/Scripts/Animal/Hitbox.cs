@@ -14,7 +14,7 @@ public class Hitbox : MonoBehaviour
     {
         damage = newDamage;
     }
-    private void OnTriggerStay(Collider other)
+    protected virtual void OnTriggerStay(Collider other)
     {
         if (tagTargets.Contains(other.tag))
         {
