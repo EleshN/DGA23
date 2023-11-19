@@ -5655,9 +5655,9 @@ MonoBehaviour:
   health: 0
   healthBar: {fileID: 0}
   animalDamage: 2
-  emoSpeed: 2
-  loveSpeed: 3
-  angerSpeed: 3
+  emoSpeed: 1
+  loveSpeed: 1.5
+  angerSpeed: 1.5
   damageMultiplier: 1
   healthMultiplier: 1
   patrolTime: 5

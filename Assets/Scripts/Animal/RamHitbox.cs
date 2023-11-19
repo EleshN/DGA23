@@ -12,7 +12,7 @@ public class RamHitbox : Hitbox
         if (tagTargets.Contains(other.tag))
         {
             float bonusDamage = 0;
-            Debug.Log(other.GetComponent<IDamageable>().GetType().Name);
+            //Debug.Log(other.GetComponent<IDamageable>() is EnemyBase);
             if (other.GetComponent<IDamageable>() is EnemyBase)
             {
                 bonusDamage += bonusBaseDamage;
