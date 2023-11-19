@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 21636751}
   m_Layer: 0
   m_Name: grass_1 (6)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 47494530}
   m_Layer: 0
   m_Name: grass_1 (12)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 184667532}
   m_Layer: 0
   m_Name: grass_1
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 223551101}
   m_Layer: 0
   m_Name: grass_1 (4)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -598,7 +598,7 @@ GameObject:
   - component: {fileID: 295917567}
   m_Layer: 0
   m_Name: grass_1 (5)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -698,7 +698,7 @@ GameObject:
   - component: {fileID: 325716169}
   m_Layer: 0
   m_Name: grass_1 (27)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -892,7 +892,7 @@ GameObject:
   - component: {fileID: 349783019}
   m_Layer: 0
   m_Name: grass_1 (10)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -992,7 +992,7 @@ GameObject:
   - component: {fileID: 354625843}
   m_Layer: 0
   m_Name: grass_1 (2)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1092,7 +1092,7 @@ GameObject:
   - component: {fileID: 446084091}
   m_Layer: 0
   m_Name: grass_1 (24)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1197,7 +1197,7 @@ GameObject:
   - component: {fileID: 506761424}
   m_Layer: 0
   m_Name: grass_1 (1)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1297,7 +1297,7 @@ GameObject:
   - component: {fileID: 644598514}
   m_Layer: 0
   m_Name: tree_2 (1)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1397,7 +1397,7 @@ GameObject:
   - component: {fileID: 705498552}
   m_Layer: 0
   m_Name: tree_2
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1562,7 +1562,7 @@ GameObject:
   - component: {fileID: 760813648}
   m_Layer: 0
   m_Name: grass_1 (18)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1662,7 +1662,7 @@ GameObject:
   - component: {fileID: 762496858}
   m_Layer: 0
   m_Name: grass_1 (11)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1879,7 +1879,7 @@ GameObject:
   - component: {fileID: 954588459}
   m_Layer: 0
   m_Name: grass_1 (13)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1979,7 +1979,7 @@ GameObject:
   - component: {fileID: 954731066}
   m_Layer: 0
   m_Name: grass_1 (20)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2079,7 +2079,7 @@ GameObject:
   - component: {fileID: 968440550}
   m_Layer: 0
   m_Name: grass_1 (16)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2179,7 +2179,7 @@ GameObject:
   - component: {fileID: 991372029}
   m_Layer: 0
   m_Name: grass_1 (14)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2352,7 +2352,7 @@ GameObject:
   - component: {fileID: 1033121554}
   m_Layer: 0
   m_Name: grass_1 (8)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2457,7 +2457,7 @@ GameObject:
   - component: {fileID: 1098400059}
   m_Layer: 0
   m_Name: grass_1 (17)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2557,7 +2557,7 @@ GameObject:
   - component: {fileID: 1158482252}
   m_Layer: 0
   m_Name: grass_1 (3)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2656,6 +2656,7 @@ GameObject:
   - component: {fileID: 1171574763}
   - component: {fileID: 1171574762}
   - component: {fileID: 1171574765}
+  - component: {fileID: 1171574766}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2750,6 +2751,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: -6, y: 9, z: -6}
+--- !u!114 &1171574766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171574761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e51d7c8eae5824f12a8a51029b0748d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
 --- !u!1001 &1207708118
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2876,7 +2890,7 @@ GameObject:
   - component: {fileID: 1216069325}
   m_Layer: 0
   m_Name: grass_1 (32)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2986,7 +3000,7 @@ GameObject:
   - component: {fileID: 1279928309}
   m_Layer: 0
   m_Name: grass_1 (29)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3086,7 +3100,7 @@ GameObject:
   - component: {fileID: 1288568756}
   m_Layer: 0
   m_Name: grass_1 (26)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3299,7 +3313,7 @@ GameObject:
   - component: {fileID: 1369783401}
   m_Layer: 0
   m_Name: grass_1 (25)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3456,7 +3470,7 @@ GameObject:
   - component: {fileID: 1468492127}
   m_Layer: 0
   m_Name: grass_1 (21)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3626,7 +3640,7 @@ GameObject:
   - component: {fileID: 1481790496}
   m_Layer: 0
   m_Name: grass_1 (31)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3803,7 +3817,7 @@ GameObject:
   - component: {fileID: 1498563929}
   m_Layer: 0
   m_Name: grass_1 (28)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3903,7 +3917,7 @@ GameObject:
   - component: {fileID: 1501022213}
   m_Layer: 0
   m_Name: grass_1 (19)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4003,7 +4017,7 @@ GameObject:
   - component: {fileID: 1509534814}
   m_Layer: 0
   m_Name: grass_1 (23)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4173,7 +4187,7 @@ GameObject:
   - component: {fileID: 1523623191}
   m_Layer: 0
   m_Name: grass_1 (30)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4273,7 +4287,7 @@ GameObject:
   - component: {fileID: 1592384002}
   m_Layer: 0
   m_Name: grass_1 (15)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4373,7 +4387,7 @@ GameObject:
   - component: {fileID: 1599269022}
   m_Layer: 0
   m_Name: grass_1 (7)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4787,7 +4801,7 @@ GameObject:
   - component: {fileID: 1761542354}
   m_Layer: 0
   m_Name: grass_1 (9)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5041,7 +5055,7 @@ GameObject:
   - component: {fileID: 2062219456}
   m_Layer: 0
   m_Name: grass_1 (22)
-  m_TagString: Untagged
+  m_TagString: Scenery
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
