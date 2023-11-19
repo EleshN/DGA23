@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Parrot : Animal
 {
@@ -15,14 +16,16 @@ public class Parrot : Animal
     [SerializeField] float circleDurration;
 
     float currFlightTime; // the current time of the parabolic animation
-    float timeFirstMotion = 0; // Time needed for bird to take off
+    float timeFirstMotion = 0; // time needed for bird to take off
+    [SerializeField] Quaternion landingRotation; // the transform of bird at the end of landing
+
     [SerializeField] Vector3 targetLocationAir;
     [SerializeField] Vector3 initLocation;
     [SerializeField] Vector3 secondinitLocation;
     //[SerializeField] Vector3 currLocation;
-    [Tooltip("The inital vertical speed of parrot flight, used for parabolic motion")]
-    [SerializeField] float vSpeed;
-    [SerializeField] float hSpeed;
+    //[SerializeField] float vSpeed;
+    //[Tooltip("The inital vertical speed of parrot flight, used for parabolic motion")]
+    //[SerializeField] float hSpeed;
 
     public bool inMotion = false;
     bool atFirstDestination = false;
@@ -39,30 +42,52 @@ public class Parrot : Animal
         switch (currEmotion)
         {
             case Emotion.ANGER:
-                if (agent.speed != angerSpeed) agent.speed = angerSpeed;
+                if (agent.speed != angerSpeed)
+                {
+                    agent.speed = angerSpeed;
+                    //print("agent anger speed: " + angerSpeed.ToString() + "|" + agent.speed.ToString());
+                }
                 AngerTarget();
-                BirdEmoBox.gameObject.SetActive(true);
                 break;
             case Emotion.LOVE:
-                if (agent.speed != loveSpeed) agent.speed = loveSpeed;
+                if (agent.speed != loveSpeed)
+                {
+                    agent.speed = loveSpeed;
+                    //print("agent love speed: " + loveSpeed.ToString() + "|" + agent.speed.ToString());
+                }
                 LoveTarget();
-                BirdEmoBox.gameObject.SetActive(true);
                 break;
             default:
-                if (agent.speed != emoSpeed) agent.speed = emoSpeed;
+                if (agent.speed != emoSpeed)
+                {
+                    agent.speed = emoSpeed;
+                }
                 EmoTarget();
-                BirdEmoBox.gameObject.SetActive(false);
                 break;
         }
 
-        if (follow) agent.destination = targetPosition;
+        agent.enabled = !inMotion;
+        agent.destination = targetPosition;
+        //if (!inMotion) agent.destination = targetPosition;
+
         //print("transform position - y: " + transform.position.y.ToString());
     }
 
     //-----------------------------// TARGETING //------------------------------//
 
     /// <summary>
+    /// Overrides parent method, sets bird emo box inactive
+    /// </summary>
+    protected override void EmoTarget()
+    {
+        print("ughhhhhh");
+        base.EmoTarget();
+        BirdEmoBox.gameObject.SetActive(false);
+    }
+
+    /// <summary>
     /// Flies in a circle of defind radius, spreads Anger, calls "SpreadEmotion"
+    /// Set the bird emo box active
     /// </summary>
     public override void AngerTarget() {
         SpreadEmotion(Emotion.ANGER);
@@ -112,10 +137,12 @@ public class Parrot : Animal
 
     /// <summary>
     /// Flies in a circle of defind radius, spreads the emotion of the parrot
+    /// Sets the bird emobox active
     /// </summary>
     /// <param name="targetEmotion"> The emotion the parrot is spreading</param>
     void SpreadEmotion(Emotion targetEmotion)
     {
+        BirdEmoBox.gameObject.SetActive(true);
 
         // Update some variables
         if (!atFirstDestination && !inMotion) // take off (parabolic)
@@ -132,7 +159,7 @@ public class Parrot : Animal
         // Perform the motion
         if (!atFirstDestination) // take off (parabolic)
         {
-            timeFirstMotion = ParabolicMotion(agent.speed, targetLocationAir, initLocation);
+            (timeFirstMotion, _) = ParabolicMotion(agent.speed, targetLocationAir, initLocation);
             atFirstDestination = Vector3.Distance(targetLocationAir, transform.position) < 0.2f;
         }
         else if (!doneFlight) // circular flight
@@ -145,12 +172,12 @@ public class Parrot : Animal
         else if (inMotion) // landing (parabolic)
         {
             //print("Second init location: " + secondinitLocation.ToString());
-            ParabolicMotion(agent.speed, initLocation, secondinitLocation, circleDurration);
+            (_, landingRotation) = ParabolicMotion(agent.speed, initLocation, secondinitLocation, circleDurration);
             inMotion = Vector3.Distance(initLocation, transform.position) > 0.2f;
         }
         else
         {
-            Reset();
+            Reset(landingRotation);
         }
 
     }
@@ -162,7 +189,7 @@ public class Parrot : Animal
     /// <param name="hSpeed"> Speed of the animal depending on emotion</param>
     /// <param name="targetLocation"></param>
     /// <param name="initLocation"></param>
-    float ParabolicMotion(float hSpeed, Vector3 targetLocation, Vector3 initLocation, float timeOffSet = 0f)
+    (float, Quaternion) ParabolicMotion(float hSpeed, Vector3 targetLocation, Vector3 initLocation, float timeOffSet = 0f)
     {
         //print("init location: " + initLocation.ToString());
         inMotion = true;
@@ -172,30 +199,34 @@ public class Parrot : Animal
         float dx = targetLocation.x - initLocation.x;
         float dz = targetLocation.z - initLocation.z;
         float dy = targetLocation.y - initLocation.y;
-        if (dy < 0 && vSpeed > 0) vSpeed = -(vSpeed);
+        //if (dy < 0 && vSpeed > 0) vSpeed = -(vSpeed);
+
+        // point velocity vector to movement direction
+        Vector3 velocity = (targetLocation - initLocation).normalized * hSpeed;
 
         // gets horizontal displacement between final and inital location 
-        float dh = Mathf.Sqrt(Mathf.Pow(dx, 2f) + Mathf.Pow(dz, 2f));
+        //float dh = Mathf.Sqrt(Mathf.Pow(dx, 2f) + Mathf.Pow(dz, 2f));
 
         // gets the time needed to arrive to final location
-        float dt = dh / hSpeed;
+        float dt = (targetLocation - initLocation).magnitude / hSpeed;
 
         // calculate the needed vertical acceleration to fly to a certain location
-        float vAcc = 2 * (dy - vSpeed * dt) / (Mathf.Pow(dt, 2f)); // dy = ut + 1/2at^2
-        //print("vAcc: " + vAcc.ToString());
+        //float vAcc = 2 * (dy - vSpeed * dt) / (Mathf.Pow(dt, 2f)); // dy = ut + 1/2at^2
+        //float vAcc = - (Mathf.Pow(vSpeed, 2f)/(2 * dy));
+        //float vAcc = -(vSpeed / dt);
 
         // find y by: y = y0+ 1/2 a t^2
-        float changeX = dx / dh * hSpeed * (currFlightTime - timeOffSet);
-        float changeY = vSpeed * (currFlightTime - timeOffSet) + 0.5f * vAcc * Mathf.Pow(currFlightTime - timeOffSet, 2f);
-        float changeZ = dz / dh * hSpeed * (currFlightTime - timeOffSet);
+        // float changeX = dx / dh * hSpeed * (currFlightTime - timeOffSet);
+        // float changeY = vSpeed * (currFlightTime - timeOffSet) + 0.5f * vAcc * Mathf.Pow(currFlightTime - timeOffSet, 2f);
+        // float changeZ = dz / dh * hSpeed * (currFlightTime - timeOffSet);
 
         //print("update: " + changeX.ToString() + "," + changeY.ToString() + "," + changeZ.ToString());
 
-        transform.position = new Vector3(initLocation.x + changeX,
-                                            initLocation.y + changeY,
-                                            (initLocation.z + changeZ));
-        LookAt(changeX, changeY, changeZ);
-        return dt;
+        transform.position = initLocation + velocity * (currFlightTime - timeOffSet);//new Vector3(initLocation.x + changeX,
+                                            //initLocation.y + changeY,
+                                            //(initLocation.z + changeZ));
+        LookAt(dx, dy, dz);
+        return (dt, transform.rotation);
     }
 
     void CircuilarMotion(float hSpeed, float timeOffset, float yPos)
@@ -214,14 +245,14 @@ public class Parrot : Animal
         LookAt(-z, y, x);
     }
 
-    private void Reset()
+    private void Reset(Quaternion resetRotation)
     {
-        LookAt(transform.rotation.x, 0, transform.rotation.z);
+        LookAt(resetRotation.x, 0, resetRotation.z);
         SetEmotion(Emotion.EMOTIONLESS);
         inMotion = false;
         atFirstDestination = false;
         doneFlight = false;
-        vSpeed = Mathf.Abs(vSpeed);
+        //vSpeed = Mathf.Abs(vSpeed);
     }
 
     private void LookAt(float x, float y, float z)

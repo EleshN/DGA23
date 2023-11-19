@@ -589,13 +589,13 @@ MonoBehaviour:
   healthBar: {fileID: 1303589567965501596}
   animalDamage: 0
   emoSpeed: 2
-  loveSpeed: 10
-  angerSpeed: 10
+  loveSpeed: 5
+  angerSpeed: 5
   damageMultiplier: 1
   healthMultiplier: 1
   patrolTime: 5
-  minRanDistance: 0
-  maxRanDistance: 0
+  minRanDistance: 1.5
+  maxRanDistance: 5
   loveDistance: 5
   attackRadius: 0
   attackRate: 0
@@ -604,10 +604,10 @@ MonoBehaviour:
   flightRadius: 1.37
   flightHeight: 3
   circleDurration: 8
+  landingRotation: {x: 0, y: 0, z: 0, w: 0}
   targetLocationAir: {x: 0, y: 0, z: 0}
   initLocation: {x: 0, y: 0, z: 0}
   secondinitLocation: {x: 0, y: 0, z: 0}
-  vSpeed: 0.9
   inMotion: 0
 --- !u!1 &5350020983591841724
 GameObject:
