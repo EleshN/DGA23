@@ -5,8 +5,8 @@ using UnityEngine;
 public class Hitbox : MonoBehaviour
 {
     [Tooltip("The target(s) the hitbox is trying to hurt")]
-    [SerializeField] List<string> tagTargets;
-    [SerializeField] float damage;
+    [SerializeField] protected List<string> tagTargets;
+    [SerializeField] protected float damage;
 
     public Transform attackerTransform;
 

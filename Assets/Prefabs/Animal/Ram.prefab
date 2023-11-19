@@ -459,6 +459,7 @@ GameObject:
   - component: {fileID: 5080099046500923342}
   - component: {fileID: 2585526950369013348}
   - component: {fileID: 1027934842542314329}
+  - component: {fileID: 3552030837625853573}
   m_Layer: 0
   m_Name: Ram Hitbox
   m_TagString: Untagged
@@ -545,6 +546,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3552030837625853573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3195221933299783529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c306403dfb00914397336f32beaed01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagTargets:
+  - Enemy
+  damage: 0
+  attackerTransform: {fileID: 0}
+  bonusBaseDamage: 1
 --- !u!1 &3481398378857431071
 GameObject:
   m_ObjectHideFlags: 0
