@@ -98,20 +98,16 @@ public class EncircleEnemy : Enemy
 
   protected override void Attack()
   {
-    if (currentAtackTime <= 0)
+    Collider[] hitColliders = Physics.OverlapSphere(transform.position, encircleRadius);
+    foreach (var hitCollider in hitColliders)
     {
-      Collider[] hitColliders = Physics.OverlapSphere(transform.position, encircleRadius);
-      foreach (var hitCollider in hitColliders)
+      if (hitCollider.gameObject == this.gameObject) continue; // Skip self
+      IDamageable damageable = hitCollider.GetComponent<IDamageable>();
+      if (damageable != null)
       {
-        if (hitCollider.gameObject == this.gameObject) continue; // Skip self
-        IDamageable damageable = hitCollider.GetComponent<IDamageable>();
-        if (damageable != null)
-        {
-          damageable.TakeDamage(robotDamage, transform);
-        }
+        damageable.TakeDamage(robotDamage, transform);
       }
-
-      currentAtackTime = attackCountDown; // Resetting attack cooldown
     }
+  
   }
 }

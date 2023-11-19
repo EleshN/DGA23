@@ -14,7 +14,7 @@ public class EnemyProjectile : Projectile
     /// </summary>
     /// <param name="damage">the damage dealt to targets</param>
     /// <param name="attackRadius">the radius of the projectile effect</param>
-    public void initialize(float damage, float attackRadius, Transform projectileSource)
+    public void Initialize(float damage, float attackRadius, Transform projectileSource)
     {
         this.damage = damage;
         this.attackRadius = attackRadius;
@@ -23,16 +23,21 @@ public class EnemyProjectile : Projectile
 
     protected override void HandleCollision(Collider collision)
     {
+        // make sure we hit colliders of game objects.
+        if (collision.isTrigger)
+        {
+            return;
+        }
         Collider[] neabyColliders = Physics.OverlapSphere(transform.position, attackRadius);
         // find all animals and playerbases and damage them if possible
         foreach (Collider col in neabyColliders)
         {
-            if (col.gameObject.tag == "Animal" || col.gameObject.tag == "PlayerBase")
+            if (col.gameObject.CompareTag("Animal") || col.gameObject.CompareTag("PlayerBase"))
             {
                 IDamageable entity = col.gameObject.GetComponent<IDamageable>();
-                entity.TakeDamage(this.damage, projectileSource);
+                entity.TakeDamage(damage, projectileSource);
             }
         }
-        Destroy(gameObject, 0.1f);
+        base.HandleCollision(collision);
     }
 }

@@ -11,7 +11,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [SerializeField] protected Emotion currEmotion = Emotion.EMOTIONLESS;
 
     protected Vector3 spawnLocation;
-    
+
     protected Transform targetTransform;
 
     protected Vector3 targetPosition;
@@ -132,10 +132,13 @@ public abstract class Animal : MonoBehaviour, IDamageable
     protected void SetEmotion(Emotion emotion)
     {
         // an animal set to anger state will be qualified to become a target of enemies
-        if (emotion == Emotion.ANGER){
+        if (emotion == Emotion.ANGER)
+        {
             GameManager.Instance.ValidEnemyTargets.Add(this.transform);
         }
-        else{
+        else
+        {
+            health = maxHealth;
             GameManager.Instance.ValidEnemyTargets.Remove(this.transform);
         }
         if (currEmotion == Emotion.EMOTIONLESS &&
@@ -158,6 +161,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 cubeRenderer.material.color = emotionlessColor;
                 break;
         }
+
+        healthBar.UpdateHealthBar(health);
     }
 
     /// <summary>

@@ -27,13 +27,8 @@ public class MeleeEnemy : Enemy
     protected override void Attack()
     {
         // perhaps for melee enemies, this is where we animate the attack motion.
-        // only attack if attack cooldown is over
-        if (currentAtackTime <= 0)
-        {
-            print("Enemy Attacking because cooldown is over");
-            hitbox.SetDamage(robotDamage);
-            StartCoroutine(ToggleHitbox());
-        }
+        hitbox.SetDamage(robotDamage);
+        StartCoroutine(ToggleHitbox());
     }
 
     /// <summary>

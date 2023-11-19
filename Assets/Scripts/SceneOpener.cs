@@ -18,4 +18,8 @@ public class SceneOpener : MonoBehaviour
     {
         SceneManager.LoadScene(nextScene);
     }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
