@@ -55,19 +55,12 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     // Update is called once per frame
     protected virtual void Update()
     {
-<<<<<<< Updated upstream
         if (currentAttackTime > 0)
         {
             currentAttackTime -= Time.deltaTime;
         }
         
         // target eliminated or no longer a target
-=======
-
-        prevState = state;
-        currentAtackTime -= Time.deltaTime;
-
->>>>>>> Stashed changes
         if (targetTransform == null || !GameManager.Instance.ValidEnemyTargets.Contains(targetTransform))
         {
             agent.avoidancePriority = spawnTimeAvoidancePriority;
