@@ -364,7 +364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &11294988021208428
 Transform:
   m_ObjectHideFlags: 0
@@ -595,6 +595,7 @@ GameObject:
   - component: {fileID: 8390950961805698145}
   - component: {fileID: -3755928593137539418}
   - component: {fileID: 7144803809058969209}
+  - component: {fileID: 7804403660373446515}
   m_Layer: 0
   m_Name: A.N.T (Autonomous Nimble Terror)
   m_TagString: Enemy
@@ -739,6 +740,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea45c7383eeca804bafe51de09811cb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 8390950961805698145}
+  rb: {fileID: 0}
+  speed: 1
+  maxHealth: 10
+  health: 10
+  healthBar: {fileID: 1938080854383796208}
+  robotDamage: 1
+  attackCountDown: 5
+  stopCountDown: 5
+  stackVal: 1
+  stackSearchRadius: 10
+  stackTime: 17
+  searchRepeatTime: 2
+--- !u!135 &7804403660373446515
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6644180354889415888}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 4
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7204168739668767149
 GameObject:
   m_ObjectHideFlags: 0

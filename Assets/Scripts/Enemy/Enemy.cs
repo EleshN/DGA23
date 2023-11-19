@@ -6,25 +6,36 @@ using UnityEngine.AI;
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
     protected EnemyState state = EnemyState.SPAWN;
-    EnemyState prevState = EnemyState.SPAWN;
+
     [SerializeField] protected NavMeshAgent agent;
-    [SerializeField] Rigidbody rb;
-    [SerializeField] float speed;
-    [SerializeField] float maxHealth;
-    [SerializeField] protected float health;
+
+    protected int spawnTimeAvoidancePriority;
+
     [SerializeField] HealthBar healthBar;
-    [SerializeField] protected float robotDamage;
-    [SerializeField] protected float attackCountDown = 5f;
-    protected float currentAtackTime;
-    [SerializeField] protected float stopCountDown = 5f;
-    protected float currentStopTime;
+
+    ColorIndicator colorIndicator;
+
+    /// <summary>
+    /// remaining timer before next attack (enemy is able to attack when this value is not greater than 0)
+    /// </summary>
+    protected float currentAttackTime;
 
     protected Transform targetTransform;
 
-    private ColorIndicator colorIndicator;
+    [Header("Stats")]
+    [SerializeField] float speed;
+    [SerializeField] float maxHealth;
+    [SerializeField] protected float health;
+
+    [Header("Combat")]
+    [Tooltip("Minimum distance between the enemy and target to initiate an attack")]
+    [SerializeField] protected float attackRadius = 2f;
+    [Tooltip("Delay between each attack")]
+    [SerializeField] protected float attackCountDown = 5f;
+    [SerializeField] protected float robotDamage;
+
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         agent.radius *= 2;
         agent.speed = speed;
@@ -35,37 +46,45 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         health = maxHealth;
         healthBar.SetHealthBar(maxHealth);
-        currentAtackTime = attackCountDown;
-        agent.avoidancePriority = GameManager.Instance.Register(this);
+        currentAttackTime = 0;
+        spawnTimeAvoidancePriority = GameManager.Instance.Register(this);
+        agent.avoidancePriority = spawnTimeAvoidancePriority;
         colorIndicator = GetComponent<ColorIndicator>();
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
+<<<<<<< Updated upstream
+        if (currentAttackTime > 0)
+        {
+            currentAttackTime -= Time.deltaTime;
+        }
+        
+        // target eliminated or no longer a target
+=======
+
         prevState = state;
         currentAtackTime -= Time.deltaTime;
 
+>>>>>>> Stashed changes
         if (targetTransform == null || !GameManager.Instance.ValidEnemyTargets.Contains(targetTransform))
         {
-            state = EnemyState.WANDER;
+            agent.avoidancePriority = spawnTimeAvoidancePriority;
+            state = EnemyState.STOP;
         }
 
         switch (state)
         {
             case EnemyState.SPAWN:
-                state = EnemyState.WANDER;
+                state = EnemyState.STOP;
                 break;
 
-            case EnemyState.WANDER:
+            case EnemyState.STOP:
                 selectNewTarget();
                 if (targetTransform != null && GameManager.Instance.ValidEnemyTargets.Contains(targetTransform))
                 {
-                    state = EnemyState.ATTACK;
-                }
-                else
-                {
-                    state = EnemyState.STOP;
+                    state = EnemyState.CHASE;
                 }
                 break;
 
@@ -73,54 +92,56 @@ public abstract class Enemy : MonoBehaviour, IDamageable
                 Move(targetTransform.position);
                 break;
 
-            case EnemyState.STOP:
-                currentStopTime -= Time.deltaTime;
-                if (currentStopTime <= 0)
-                {
-                    state = EnemyState.WANDER;
-                    currentStopTime = stopCountDown;
-                }
-                break;
-
             case EnemyState.ATTACK:
-                Move(targetTransform.position);
-                Attack();
-                state = prevState;
+                // too far to attack, transition to moving
+                if (!CanAttack())
+                {
+                    // too far or something in the way
+                    state = EnemyState.CHASE;
+                    return;
+                }
+                if (currentAttackTime <= 0)
+                {
+                    // attack and reset attack cooldown timer
+                    currentAttackTime = attackCountDown;
+                    Attack();
+                }
                 break;
 
             default:
                 break;
         }
-        if (currentAtackTime <= 0)
-        {
-            currentAtackTime = attackCountDown;
-        }
     }
 
-    void OnCollisionEnter(Collision collision)
+    /// <summary>
+    /// without considering any cooldowns, this checks for conditions to initate an attack.
+    /// for example, physical enemies need to be within a small range to start an attack.
+    /// </summary>
+    /// <returns>whether an enemy can initiate an attack</returns>
+    protected virtual bool CanAttack()
     {
-        state = EnemyState.STOP;
+        return Vector3.Magnitude(targetTransform.position - transform.position) <= attackRadius;
     }
 
-
-    void OnCollisionExit(Collision collision)
-    {
-        if (targetTransform == null || !GameManager.Instance.ValidEnemyTargets.Contains(targetTransform))
-        {
-            state = EnemyState.WANDER;
-        }
-        else
-        {
-            state = EnemyState.CHASE;
-        }
-    }
-
+    /// <summary>
+    /// moves the enemy forward to the target position. sets the enemy state to ATTACK when within attack radius.
+    /// If enemy needs to be stopped from moving any further, modify stopping distance or destination.
+    /// </summary>
+    /// <param name="targetPosition"></param>
     protected virtual void Move(Vector3 targetPosition)
     {
         // always move the entity closer to target
         agent.destination = targetPosition;
+        agent.stoppingDistance = 0;
+        if (Vector3.Magnitude(targetTransform.position - transform.position) <= attackRadius)
+        {
+            state = EnemyState.ATTACK;
+        }
     }
 
+    /// <summary>
+    /// Attack() is invoked when enemy can attack its opponent (after cooldown is over).
+    /// </summary>
     protected abstract void Attack();
 
 
@@ -137,6 +158,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             return;
         }
         targetTransform = damageSource;
+        updateAgentPriority(targetTransform);
         health -= damage;
         healthBar.UpdateHealthBar(health);
         colorIndicator.IndicateDamage();
@@ -150,7 +172,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     public void selectNewTarget()
     {
-        GameObject target = GameManager.Instance.FindClosestTargetForEnemmy(this);
+        GameObject target = GameManager.Instance.FindClosestTargetForEnemy(this);
         if (target == null)
         {
             targetTransform = null;
@@ -158,6 +180,16 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         else
         {
             targetTransform = target.transform;
+            updateAgentPriority(targetTransform);
+        }
+    }
+
+    private void updateAgentPriority(Transform targetTransform)
+    {
+        if (targetTransform.TryGetComponent<NavMeshAgent>(out var targetAgent))
+        {
+            // set our agent priority to moving target's so we do not avoid one another
+            agent.avoidancePriority = targetAgent.avoidancePriority;
         }
     }
 }
