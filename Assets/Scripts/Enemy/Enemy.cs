@@ -87,22 +87,33 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
             case EnemyState.ATTACK:
                 // too far to attack, transition to moving
-                if (Vector3.Magnitude(targetTransform.position - transform.position) > attackRadius)
+                if (!CanAttack())
                 {
+                    // too far or something in the way
                     state = EnemyState.CHASE;
                     return;
                 }
                 if (currentAttackTime <= 0)
                 {
                     // attack and reset attack cooldown timer
-                    Attack();
                     currentAttackTime = attackCountDown;
+                    Attack();
                 }
                 break;
 
             default:
                 break;
         }
+    }
+
+    /// <summary>
+    /// without considering any cooldowns, this checks for conditions to initate an attack.
+    /// for example, physical enemies need to be within a small range to start an attack.
+    /// </summary>
+    /// <returns>whether an enemy can initiate an attack</returns>
+    protected virtual bool CanAttack()
+    {
+        return Vector3.Magnitude(targetTransform.position - transform.position) <= attackRadius;
     }
 
     /// <summary>
@@ -168,8 +179,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     private void updateAgentPriority(Transform targetTransform)
     {
-        NavMeshAgent targetAgent = targetTransform.GetComponent<NavMeshAgent>();
-        if (targetAgent != null)
+        if (targetTransform.TryGetComponent<NavMeshAgent>(out var targetAgent))
         {
             // set our agent priority to moving target's so we do not avoid one another
             agent.avoidancePriority = targetAgent.avoidancePriority;

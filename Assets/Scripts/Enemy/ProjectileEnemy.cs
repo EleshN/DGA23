@@ -16,32 +16,24 @@ public class ProjectileEnemy : Enemy
 
     protected override void Attack()
     {
-        agent.destination = transform.position; // stop moving
-        print("set agent to stop moving");
+        agent.destination = transform.position; // stop moving, then shoot
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + verticalOffset, transform.position.z);
         GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
         // make sure summoned projectile does not hit the summoner
         Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
         EnemyProjectile bullet = projectile.GetComponent<EnemyProjectile>();
-        bullet.initialize(robotDamage, projectileEffectRadius, transform);
+        bullet.Initialize(robotDamage, projectileEffectRadius, transform);
         bullet.SetDirection(targetTransform.position - spawnPosition);   
+    }
 
-        // // check whether target can be seen:
-        // Ray ray = new Ray(transform.position, transform.forward);
-        // RaycastHit hit;
-        // if (Physics.Raycast(ray, out hit, attackRadius))
-        // {
-            
-        //     print("hit: " + hit.collider.gameObject.name);
-        //     if (hit.collider.gameObject.transform == targetTransform)
-        //     {
-                
-        //     }
-        //     else {
-        //         state = EnemyState.CHASE;
-        //         return;
-        //     }
-            
-        // }
+    protected override bool CanAttack()
+    {
+        bool raycastResult = false;
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, attackRadius, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+        {
+            print(hit.collider.gameObject.name);
+            raycastResult = hit.collider.gameObject.transform == targetTransform;
+        }
+        return base.CanAttack() && raycastResult;
     }
 }
