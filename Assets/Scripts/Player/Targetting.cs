@@ -27,8 +27,11 @@ public class Targetting : MonoBehaviour
 
     private void Update()
     {
-        AimUpdate();
-        AimAssist();
+        if (!PauseGame.isPaused)
+        {
+            AimUpdate();
+            AimAssist();
+        }
     }
 
     private void AimUpdate()
