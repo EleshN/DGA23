@@ -11,17 +11,16 @@ public class Cat : Animal
     [Tooltip("The amount of time in seconds that the hitbox is active when attacking")]
     [SerializeField] float hitboxActiveTime;
 
-    [Header("Cat Debuff Stats")]
-    [SerializeField] float debuffRadius;
-    [SerializeField] float healthDebuffConst = 0.5f;
-    [SerializeField] float damageDebuffConst = 0.5f;
+    [Header("Cat Damage in Radius")]
+    [SerializeField] float damageRadius;
+    [SerializeField] float radiusDamage;
 
     [SerializeField] ParticleSystem ps;
 
     public override void Start()
     {
         base.Start();
-        InvokeRepeating(nameof(Debuff), 0, 1);
+        InvokeRepeating(nameof(DamageInRadius), 0, 1); // Changed from Debuff to DamageInRadius
         ps.Pause();
         ps.Clear();
     }
@@ -57,39 +56,33 @@ public class Cat : Animal
         }
     }
 
-
-    private void Debuff()
+    private void DamageInRadius()
     {
         if (currEmotion != Emotion.EMOTIONLESS)
         {
-            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, debuffRadius);
-            bool isolated = false;
+            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, damageRadius);
 
-            // Check if there's any GameObject with the "Animal" tag nearby other than 'this'
             foreach (Collider col in nearbyColliders)
             {
                 if (col.gameObject.CompareTag("Animal") && col.gameObject != gameObject)
                 {
-                    if (!ps.isPlaying)
+                    IDamageable damageable = col.GetComponent<IDamageable>();
+                    if (damageable != null)
                     {
-                        ps.Play();
+                        damageable.TakeDamage(radiusDamage, transform);
                     }
-                    damageMultiplier = damageDebuffConst;
-                    healthMultiplier = healthDebuffConst;
-                    isolated = true;
-                    break;
                 }
             }
 
-            if (!isolated)
+            // Particle system effect for visual feedback
+            if (nearbyColliders.Length > 0 && !ps.isPlaying)
             {
-                if (ps.isPlaying)
-                {
-                    ps.Pause();
-                    ps.Clear();
-                }
-                damageMultiplier = 1f;
-                healthMultiplier = 1f;
+                ps.Play();
+            }
+            else if (ps.isPlaying)
+            {
+                ps.Pause();
+                ps.Clear();
             }
         }
     }
@@ -115,5 +108,4 @@ public class Cat : Animal
         hitbox.gameObject.SetActive(false);
 
     }
-
 }
