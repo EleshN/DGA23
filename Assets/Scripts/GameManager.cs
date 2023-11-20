@@ -147,6 +147,7 @@ public class GameManager : MonoBehaviour
         ammoCount.text = PlayerObject.GetCurrentAmmoCount().ToString();
 
     }
+    
     public Transform FindClosest(Vector3 source, HashSet<Transform> transforms)
     {
         // find closest using Euclidean distance
