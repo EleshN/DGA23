@@ -1447,6 +1447,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 89676508841180428, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+      propertyPath: emoSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 89676508841180428, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
       propertyPath: loveSpeed
       value: 5
       objectReference: {fileID: 0}
@@ -1465,6 +1469,14 @@ PrefabInstance:
     - target: {fileID: 89676508841180428, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
       propertyPath: flightRadius
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 89676508841180428, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+      propertyPath: maxRanDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 89676508841180428, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
+      propertyPath: minRanDistance
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 89676508841180428, guid: 831c70975ca2e4343ada7f33f387f0b4, type: 3}
       propertyPath: circleDurration
