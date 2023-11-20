@@ -2,17 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Assertions;
 
 public class GameManager : MonoBehaviour
 {
 
     private static GameManager _Instance;
-    public int LevelNumber = 1;
+    public int LevelNumber = -1;
+
+    /// <summary>
+    /// Are we in debug? If not, can't see meshes. Perhaps more functionality to come
+    /// </summary>
+    [SerializeField]
+    public bool isDebug;
 
     /// <summary>
     /// Limit for the number of enemies
     /// </summary>
     public int EnemySpawnCap = 3;
+    private int avoidance = 50;
+
+    /// <summary>
+    /// Animal agent avoidance priority
+    /// </summary>
+    [SerializeField] private int AnimalAvoidance = 50;
 
     /// <summary>
     /// All player bases currently on the map
@@ -49,15 +62,19 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public HashSet<Transform> ValidEnemyTargets;
 
-    // Results script
-    public ResultSceneOpener ResultSceneOpener;
+    Player PlayerObject;
 
     // Reference to Player Transform for player target tracking
-    public Transform PlayerTransform;
+    [HideInInspector] public Transform PlayerTransform;
 
     [Header("Game UI")]
+
+    [SerializeField] ResultSceneOpener ResultSceneOpener;
     [SerializeField] TMP_Text enemyBaseCount;
     [SerializeField] TMP_Text playerBaseCount;
+
+    [SerializeField] TMP_Text selectedAmmoType;
+    [SerializeField] TMP_Text ammoCount;
 
     /// <summary>
     /// whether the current running level is completed (ongoing vs won/lost)
@@ -84,8 +101,23 @@ public class GameManager : MonoBehaviour
         Animals = new();
         Enemies = new();
         followers = new();
-        PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         isLevelComplete = false;
+
+        // TODO: usage of "Player" tag is not unique. Transform is fine but Player component not necessarily accessible.
+        // PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject[] candidates = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject obj in candidates)
+        {
+            Player playerComponent = obj.GetComponent<Player>();
+            if (playerComponent != null)
+            {
+                PlayerObject = playerComponent;
+                PlayerTransform = PlayerObject.transform;
+            }
+        }
+        Assert.IsTrue(PlayerObject != null, "Unable to find player script");
+        Assert.IsTrue(PlayerTransform != null, "Unable to find player");
+        Assert.IsTrue(LevelNumber >= 0, "Level Number in GameManager must be set");
     }
 
     // Start is called before the first frame update
@@ -100,17 +132,20 @@ public class GameManager : MonoBehaviour
         if (PlayerBases.Count == 0 && !isLevelComplete)
         {
             // you lose
-            ResultSceneOpener.Init(false);
+            ResultSceneOpener.Init(LevelNumber,false);
             isLevelComplete = true;
-            PauseObjects();
         }
         if (EnemyBases.Count == 0 && !isLevelComplete)
         {
             // you win
-            ResultSceneOpener.Init(true);
+            ResultSceneOpener.Init(LevelNumber, true);
             isLevelComplete = true;
-            PauseObjects();
         }
+
+        // update GameCanvas text elements
+        selectedAmmoType.text = PlayerObject.GetCurrentAmmoType();
+        ammoCount.text = PlayerObject.GetCurrentAmmoCount().ToString();
+
     }
     
     public Transform FindClosest(Vector3 source, HashSet<Transform> transforms)
@@ -131,7 +166,7 @@ public class GameManager : MonoBehaviour
         return closest;
     }
 
-    public GameObject FindClosestTargetForEnemmy(Enemy e)
+    public GameObject FindClosestTargetForEnemy(Enemy e)
     {
         GameObject closest = null;
         Vector3 source = e.gameObject.transform.position;
@@ -208,10 +243,15 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// adds enemy to the collection of enemies
     /// </summary>
-    public void Register(Enemy e)
+    public int Register(Enemy e)
     {
         TeamEnemy.Add(e.transform);
         Enemies.Add(e);
+        avoidance += 1;
+        if (avoidance >= 99){
+            avoidance = AnimalAvoidance;
+        }
+        return avoidance;
     }
 
     /// <summary>
@@ -247,20 +287,20 @@ public class GameManager : MonoBehaviour
         return (TeamEnemy.Count - EnemyBases.Count) < EnemySpawnCap;
     }
 
-    /// <summary>
-    /// Pause all animals, robots, bases on screen.
-    /// </summary>
-    private void PauseObjects()
-    {
-        // turn off all animal, enemy, player scripts
-        foreach (Enemy e in Enemies)
-        {
-            e.gameObject.GetComponent<Enemy>().enabled = false;
-        }
-        foreach (Animal a in Animals)
-        {
-            a.gameObject.GetComponent<Animal>().enabled = false;
-        }
-        PlayerTransform.gameObject.GetComponentInParent<Player>().enabled = false;
-    }
+    // /// <summary>
+    // /// Pause all animals, robots, bases on screen.
+    // /// </summary>
+    // private void PauseObjects()
+    // {
+    //     // turn off all animal, enemy, player scripts
+    //     foreach (Enemy e in Enemies)
+    //     {
+    //         e.gameObject.GetComponent<Enemy>().enabled = false;
+    //     }
+    //     foreach (Animal a in Animals)
+    //     {
+    //         a.gameObject.GetComponent<Animal>().enabled = false;
+    //     }
+    //     PlayerTransform.gameObject.GetComponentInParent<Player>().enabled = false;
+    // }
 }

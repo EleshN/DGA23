@@ -11,7 +11,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [SerializeField] protected Emotion currEmotion = Emotion.EMOTIONLESS;
 
     protected Vector3 spawnLocation;
-    
+
     protected Transform targetTransform;
 
     protected Vector3 targetPosition;
@@ -151,6 +151,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 cubeRenderer.material.color = emotionlessColor;
                 break;
         }
+
+        healthBar.UpdateHealthBar(health);
     }
 
     /// <summary>
@@ -249,7 +251,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         if (ranX < 0f) { ranX -= minRanDistance; } else { ranX += minRanDistance; }
         if (ranZ < 0f) { ranZ -= minRanDistance; } else { ranZ += minRanDistance; }
         targetPosition = new Vector3(spawnLocation.x + ranX, transform.position.y, spawnLocation.z + ranZ);
-        print("Name is " + gameObject.name + " target pos is " + targetPosition);
+        // print("Name is " + gameObject.name + " target pos is " + targetPosition);
 
     }
 

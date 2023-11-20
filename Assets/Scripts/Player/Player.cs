@@ -12,9 +12,6 @@ public class Player : MonoBehaviour
     int ammoIndex;
     [SerializeField] Rigidbody rb;
 
-    public TMP_Text ammoTypeText;  // displays the current ammo type
-    public TMP_Text ammoCountText; // displays the current ammo count
-
     public string[] ammoNames; // make sure that the indices match up with emotions index
 
     public float moveSpeed = 3f;
@@ -25,10 +22,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Inputs();
-        Move();
-        Scroll();
-        UpdateUI();
+        if (!PauseGame.isPaused)
+        {
+            Inputs();
+            Move();
+            Scroll();
+        }
     }
 
     private void Inputs()
@@ -39,7 +38,6 @@ public class Player : MonoBehaviour
             {
                 gun.Shoot(ammoIndex);
                 ammo[ammoIndex]--;
-                UpdateUI();
             }
         }
         //handle empty shooting (an effect maybe)
@@ -53,7 +51,9 @@ public class Player : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
 
-        rb.velocity = movement * moveSpeed;
+        Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
+
+        rb.velocity = anglevector * movement * moveSpeed;
     }
 
     private void Scroll()
@@ -67,12 +67,6 @@ public class Player : MonoBehaviour
         {
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
         }
-    }
-
-    private void UpdateUI()
-    {
-        ammoTypeText.text = ammoNames[ammoIndex];
-        ammoCountText.text = ammo[ammoIndex].ToString();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -96,6 +90,17 @@ public class Player : MonoBehaviour
         {
             ammo[i] = initialAmmo[i];
         }
+    }
+
+    public string GetCurrentAmmoType()
+    {
+        return ammoNames[ammoIndex];
+    }
+
+    /// <returns>the ammo count of the current selected ammo type</returns>
+    public int GetCurrentAmmoCount()
+    {
+        return ammo[ammoIndex];
     }
 
 }

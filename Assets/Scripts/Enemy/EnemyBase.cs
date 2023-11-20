@@ -5,7 +5,8 @@ public class EnemyBase : MonoBehaviour, IDamageable
 {
     [SerializeField] float health = 100f;
     [SerializeField] HealthBar healthBar;
-    // public Slider healthBar;
+
+    public int[] enemyWeights;
     public GameObject[] enemyPrefabs;
     public GameObject PlayerBaseObject;
     float spawnHeight = 0f; // Height from which the enemy will be spawned
@@ -13,6 +14,9 @@ public class EnemyBase : MonoBehaviour, IDamageable
     float nextSpawnTime = 0f;
 
     private ColorIndicator colorIndicator;
+    private int weightSum;
+    private int[] weightRange;
+    private int spwanType;
 
 
     [Header("Enemy Spawning")]
@@ -29,6 +33,12 @@ public class EnemyBase : MonoBehaviour, IDamageable
         // healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
         healthBar.SetHealthBar(health);
         colorIndicator = GetComponent<ColorIndicator>();
+        weightRange = new int[enemyWeights.Length];
+        weightSum = 0;
+        for (int i = 0; i<enemyWeights.Length; i++){
+            weightSum += enemyWeights[i];
+            weightRange[i] = weightSum;
+        }
         resetNextSpawnTime();
     }
 
@@ -39,11 +49,15 @@ public class EnemyBase : MonoBehaviour, IDamageable
         {
             if (GameManager.Instance.WithinEnemySpawnCap())
             {
-                //just spwans the first one for now
-                Vector3 spawnPosition = new Vector3(transform.position.x, spawnHeight, transform.position.z);
-                Instantiate(enemyPrefabs[0], spawnPosition, Quaternion.identity);
+                spwanType = Random.Range(1, weightSum+1);
+                for (int i=0; i<enemyWeights.Length; i++){
+                    if(spwanType <= weightRange[i]){
+                        //just spwans the first one for now
+                        Vector3 spawnPosition = new Vector3(transform.position.x, spawnHeight, transform.position.z);
+                        Instantiate(enemyPrefabs[i], spawnPosition, Quaternion.identity);
+                    }
+                }
             }
-
             resetNextSpawnTime();
         }
     }
