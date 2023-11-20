@@ -131,13 +131,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <param name="emotion"></param>
     protected void SetEmotion(Emotion emotion)
     {
-        // an animal set to anger state will be qualified to become a target of enemies
-        if (emotion == Emotion.ANGER){
-            GameManager.Instance.ValidEnemyTargets.Add(this.transform);
-        }
-        else{
-            GameManager.Instance.ValidEnemyTargets.Remove(this.transform);
-        }
         if (currEmotion == Emotion.EMOTIONLESS &&
             emotion != Emotion.EMOTIONLESS)
         {
@@ -171,7 +164,14 @@ public abstract class Animal : MonoBehaviour, IDamageable
         if (currentCoolDownTime <= 0)
         {
             SetEmotion(emotion);
-            this.targetTransform = newTarget;
+            // an animal set to anger state will be qualified to become a target of enemies
+            if (emotion == Emotion.ANGER){
+                GameManager.Instance.ValidEnemyTargets.Add(this.transform);
+            }
+            else{
+                GameManager.Instance.ValidEnemyTargets.Remove(this.transform);
+            }
+            targetTransform = newTarget;
             return true;
         }
         return false;
@@ -193,14 +193,17 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public void TakeDamage(float damageAmount, Transform damageSource)
     {
-        if (currEmotion == Emotion.ANGER)
+        if (currEmotion == Emotion.ANGER){
             health -= damageAmount;
             colorIndicator.IndicateDamage();
+        }
         if (health <= 0)
         {
             isCoolDown = true;
             //currEmotion = Emotion.EMOTIONLESS;
             SetEmotion(Emotion.EMOTIONLESS);
+            // an animal set to anger state will be qualified to become a target of enemies
+            GameManager.Instance.ValidEnemyTargets.Remove(transform);
             health = maxHealth;
             currentCoolDownTime = deathCoolDown;
         }

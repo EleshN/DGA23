@@ -67,7 +67,9 @@ public class Parrot : Animal
         }
 
         agent.enabled = !inMotion;
-        agent.destination = targetPosition;
+        if (agent.enabled){
+            agent.destination = targetPosition;
+        }
         //if (!inMotion) agent.destination = targetPosition;
 
         //print("transform position - y: " + transform.position.y.ToString());

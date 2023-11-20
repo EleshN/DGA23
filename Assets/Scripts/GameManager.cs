@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
             PauseObjects();
         }
     }
+    
     public Transform FindClosest(Vector3 source, HashSet<Transform> transforms)
     {
         // find closest using Euclidean distance
