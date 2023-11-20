@@ -200,7 +200,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     {
         if (currEmotion == Emotion.ANGER)
             health -= damageAmount;
-        colorIndicator.IndicateDamage();
+            colorIndicator.IndicateDamage();
         if (health <= 0)
         {
             isCoolDown = true;

@@ -12,9 +12,6 @@ public class Player : MonoBehaviour
     int ammoIndex;
     [SerializeField] Rigidbody rb;
 
-    public TMP_Text ammoTypeText;  // displays the current ammo type
-    public TMP_Text ammoCountText; // displays the current ammo count
-
     public string[] ammoNames; // make sure that the indices match up with emotions index
 
     public float moveSpeed = 3f;
@@ -25,10 +22,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Inputs();
-        Move();
-        Scroll();
-        UpdateUI();
+        if (!PauseGame.isPaused)
+        {
+            Inputs();
+            Move();
+            Scroll();
+        }
     }
 
     private void Inputs()
@@ -39,7 +38,6 @@ public class Player : MonoBehaviour
             {
                 gun.Shoot(ammoIndex);
                 ammo[ammoIndex]--;
-                UpdateUI();
             }
         }
         //handle empty shooting (an effect maybe)
@@ -71,12 +69,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void UpdateUI()
-    {
-        ammoTypeText.text = ammoNames[ammoIndex];
-        ammoCountText.text = ammo[ammoIndex].ToString();
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -98,6 +90,17 @@ public class Player : MonoBehaviour
         {
             ammo[i] = initialAmmo[i];
         }
+    }
+
+    public string GetCurrentAmmoType()
+    {
+        return ammoNames[ammoIndex];
+    }
+
+    /// <returns>the ammo count of the current selected ammo type</returns>
+    public int GetCurrentAmmoCount()
+    {
+        return ammo[ammoIndex];
     }
 
 }
