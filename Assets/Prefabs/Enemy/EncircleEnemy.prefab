@@ -761,14 +761,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2686092500760852668}
-  rb: {fileID: 0}
+  healthBar: {fileID: 22060174676416364}
   speed: 3
   maxHealth: 13
   health: 13
-  healthBar: {fileID: 22060174676416364}
-  robotDamage: 3
+  attackRadius: 0.001
   attackCountDown: 5
-  stopCountDown: 5
+  robotDamage: 3
   encircleRadius: 5
   encircleSpeed: 3
   lineRenderer: {fileID: 5104623080564480899, guid: d2962491e3edae0429383a535f09c538, type: 3}

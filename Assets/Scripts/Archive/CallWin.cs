@@ -15,13 +15,13 @@ public class CallWin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ResultSceneOpener.Init(true);
-        }
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            ResultSceneOpener.Init(false);
-        }
+        // if (Input.GetKeyDown(KeyCode.P))
+        // {
+        //     ResultSceneOpener.Init(true);
+        // }
+        // else if (Input.GetKeyDown(KeyCode.O))
+        // {
+        //     ResultSceneOpener.Init(false);
+        // }
     }
 }
