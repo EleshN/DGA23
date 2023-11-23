@@ -265,12 +265,11 @@ public class Parrot : Animal
     //------------------------------// EMOTIONS //------------------------------//
 
 
-    //-------------------------------// ATTACK //-------------------------------//
+    //-------------------------------// COMBAT //-------------------------------//
 
-    /// <summary>
-    /// Does nothing
-    /// </summary>
     public override void Attack() { }
+
+    public override void TakeDamage(float damage, Transform source){}
 
     //-----------------------------// COLLISION //-----------------------------//
 

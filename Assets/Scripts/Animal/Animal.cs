@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SocialPlatforms;
@@ -74,7 +75,10 @@ public abstract class Animal : MonoBehaviour, IDamageable
     {
         // Set health
         health = maxHealth;
-        healthBar.SetHealthBar(maxHealth);
+        if (healthBar != null){
+            healthBar.SetHealthBar(maxHealth);
+            healthBar.gameObject.SetActive(false);
+        }
         GameManager.Instance.Register(this);
         spawnLocation = transform.position;
         colorIndicator = GetComponent<ColorIndicator>();
@@ -122,6 +126,19 @@ public abstract class Animal : MonoBehaviour, IDamageable
         {
             isCoolDown = false;
         }
+
+        if (healthBar != null)
+        {
+            if (health < maxHealth)
+            {
+                healthBar.UpdateHealthBar(health);
+                healthBar.gameObject.SetActive(true);
+            }
+            else {
+                healthBar.gameObject.SetActive(false);
+            }
+        }
+        
     }
 
     /// <summary>
@@ -151,8 +168,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 cubeRenderer.material.color = emotionlessColor;
                 break;
         }
-
-        healthBar.UpdateHealthBar(health);
     }
 
     /// <summary>
@@ -193,7 +208,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// by the damageAmount. If animal's current health reduces to 0,
     /// its emotion will be set to emotionless.
     /// </summary>
-    public void TakeDamage(float damageAmount, Transform damageSource)
+    public virtual void TakeDamage(float damageAmount, Transform damageSource)
     {
         if (currEmotion == Emotion.ANGER){
             health -= damageAmount;
@@ -209,7 +224,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
             health = maxHealth;
             currentCoolDownTime = deathCoolDown;
         }
-        healthBar.UpdateHealthBar(health);
     }
 
     /// <summary>
