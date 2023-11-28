@@ -168,6 +168,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 cubeRenderer.material.color = emotionlessColor;
                 break;
         }
+        if (agent.isActiveAndEnabled)
+        {
+            // stop moving in this frame of emotional transition because the agent updates destination on next frame.
+            agent.SetDestination(transform.position);
+        }
     }
 
     /// <summary>

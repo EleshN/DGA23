@@ -82,7 +82,6 @@ public class Parrot : Animal
     /// </summary>
     protected override void EmoTarget()
     {
-        print("ughhhhhh");
         base.EmoTarget();
         BirdEmoBox.gameObject.SetActive(false);
     }
@@ -115,21 +114,7 @@ public class Parrot : Animal
 
     public override bool ApplyEmotionEffect(Emotion emotion, Transform newTarget = null)
     {
-        if (GetEmotion() == Emotion.EMOTIONLESS && emotion == Emotion.LOVE)
-        {
-            follow = true;
-            if (newTarget)
-            {
-                //print("Following: " + newTarget.ToString());
-                this.targetTransform = newTarget;
-            }
-        }
-        else
-        {
-            //print("Set Follow: false");
-            follow = false;
-        }
-
+        follow = GetEmotion() == Emotion.EMOTIONLESS && emotion == Emotion.LOVE;
         SetEmotion(emotion);
         return true;
         
@@ -179,7 +164,7 @@ public class Parrot : Animal
         }
         else
         {
-            Reset(landingRotation);
+            ResetParrot(landingRotation);
         }
 
     }
@@ -247,7 +232,7 @@ public class Parrot : Animal
         LookAt(-z, y, x);
     }
 
-    private void Reset(Quaternion resetRotation)
+    private void ResetParrot(Quaternion resetRotation)
     {
         LookAt(resetRotation.x, 0, resetRotation.z);
         SetEmotion(Emotion.EMOTIONLESS);
