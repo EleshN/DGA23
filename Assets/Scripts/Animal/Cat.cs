@@ -66,8 +66,7 @@ public class Cat : Animal
             {
                 if (col.gameObject.CompareTag("Animal") && col.gameObject != gameObject)
                 {
-                    IDamageable damageable = col.GetComponent<IDamageable>();
-                    if (damageable != null)
+                    if (col.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
                         damageable.TakeDamage(radiusDamage, transform);
                     }
