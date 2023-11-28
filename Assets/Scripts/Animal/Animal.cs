@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SocialPlatforms;
@@ -29,9 +30,9 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [SerializeField] float health;
     [SerializeField] HealthBar healthBar;
     [SerializeField] protected float animalDamage;
-    [SerializeField] float emoSpeed = 2f;
-    [SerializeField] float loveSpeed = 3f;
-    [SerializeField] float angerSpeed = 3f;
+    [SerializeField] protected float emoSpeed = 2f;
+    [SerializeField] protected float loveSpeed = 3f;
+    [SerializeField] protected float angerSpeed = 3f;
     public float damageMultiplier = 1f;
     public float healthMultiplier = 1f;
 
@@ -74,7 +75,10 @@ public abstract class Animal : MonoBehaviour, IDamageable
     {
         // Set health
         health = maxHealth;
-        healthBar.SetHealthBar(maxHealth);
+        if (healthBar != null){
+            healthBar.SetHealthBar(maxHealth);
+            healthBar.gameObject.SetActive(false);
+        }
         GameManager.Instance.Register(this);
         spawnLocation = transform.position;
         colorIndicator = GetComponent<ColorIndicator>();
@@ -122,6 +126,19 @@ public abstract class Animal : MonoBehaviour, IDamageable
         {
             isCoolDown = false;
         }
+
+        if (healthBar != null)
+        {
+            if (health < maxHealth)
+            {
+                healthBar.UpdateHealthBar(health);
+                healthBar.gameObject.SetActive(true);
+            }
+            else {
+                healthBar.gameObject.SetActive(false);
+            }
+        }
+        
     }
 
     /// <summary>
@@ -131,16 +148,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <param name="emotion"></param>
     protected void SetEmotion(Emotion emotion)
     {
-        // an animal set to anger state will be qualified to become a target of enemies
-        if (emotion == Emotion.ANGER)
-        {
-            GameManager.Instance.ValidEnemyTargets.Add(this.transform);
-        }
-        else
-        {
-            health = maxHealth;
-            GameManager.Instance.ValidEnemyTargets.Remove(this.transform);
-        }
         if (currEmotion == Emotion.EMOTIONLESS &&
             emotion != Emotion.EMOTIONLESS)
         {
@@ -161,8 +168,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 cubeRenderer.material.color = emotionlessColor;
                 break;
         }
-
-        healthBar.UpdateHealthBar(health);
+        if (agent.isActiveAndEnabled)
+        {
+            // stop moving in this frame of emotional transition because the agent updates destination on next frame.
+            agent.SetDestination(transform.position);
+        }
     }
 
     /// <summary>
@@ -171,12 +181,19 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <param name="emotion">the emotion that an effect carries (projectiles with love, etc)</param>
     /// <param name="newTarget">a game object to follow upon receiving the effect (explicit), null if specific target is to be found by the animal (implicit)</param>
     /// <returns>true if effect was applied successfully.</returns>
-    public bool ApplyEmotionEffect(Emotion emotion, Transform newTarget = null)
+    public virtual bool ApplyEmotionEffect(Emotion emotion, Transform newTarget = null)
     {
         if (currentCoolDownTime <= 0)
         {
             SetEmotion(emotion);
-            this.targetTransform = newTarget;
+            // an animal set to anger state will be qualified to become a target of enemies
+            if (emotion == Emotion.ANGER){
+                GameManager.Instance.ValidEnemyTargets.Add(this.transform);
+            }
+            else{
+                GameManager.Instance.ValidEnemyTargets.Remove(this.transform);
+            }
+            targetTransform = newTarget;
             return true;
         }
         return false;
@@ -196,20 +213,22 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// by the damageAmount. If animal's current health reduces to 0,
     /// its emotion will be set to emotionless.
     /// </summary>
-    public void TakeDamage(float damageAmount, Transform damageSource)
+    public virtual void TakeDamage(float damageAmount, Transform damageSource)
     {
-        if (currEmotion == Emotion.ANGER)
+        if (currEmotion == Emotion.ANGER){
             health -= damageAmount;
             colorIndicator.IndicateDamage();
+        }
         if (health <= 0)
         {
             isCoolDown = true;
             //currEmotion = Emotion.EMOTIONLESS;
             SetEmotion(Emotion.EMOTIONLESS);
+            // an animal set to anger state will be qualified to become a target of enemies
+            GameManager.Instance.ValidEnemyTargets.Remove(transform);
             health = maxHealth;
             currentCoolDownTime = deathCoolDown;
         }
-        healthBar.UpdateHealthBar(health);
     }
 
     /// <summary>
@@ -239,11 +258,12 @@ public abstract class Animal : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// Select a random target on the NavMesh around the player within the searchRange
+    /// Select and move to a random target on the NavMesh around
+    /// the player within the searchRange
     ///
     /// Function is called recursively until the point is found
     /// </summary>
-    void RandomPosition()
+    protected virtual void RandomPosition()
     {
         float ranX = UnityEngine.Random.Range(-ranRange, ranRange);
         float ranZ = UnityEngine.Random.Range(-ranRange, ranRange);

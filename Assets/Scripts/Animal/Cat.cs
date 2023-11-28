@@ -5,17 +5,24 @@ using UnityEngine;
 
 public class Cat : Animal
 {
+    [Header("Cat Attack Stats")]
+    [SerializeField] Hitbox hitbox;
+    [SerializeField] float attackDelay;
+    [Tooltip("The amount of time in seconds that the hitbox is active when attacking")]
+    [SerializeField] float hitboxActiveTime;
 
-    [SerializeField] float debuffRadius;
-    [SerializeField] float healthDebuffConst = 0.5f;
-    [SerializeField] float damageDebuffConst = 0.5f;
+    [Header("Cat Damage in Radius")]
+    [SerializeField] float damageRadius;
+    [SerializeField] float radiusDamage;
 
     [SerializeField] ParticleSystem ps;
 
     public override void Start()
     {
         base.Start();
-        InvokeRepeating(nameof(Debuff), 0, 1);
+        InvokeRepeating(nameof(DamageInRadius), 0, 1); // Changed from Debuff to DamageInRadius
+        ps.Pause();
+        ps.Clear();
     }
 
     public override void Update()
@@ -42,52 +49,62 @@ public class Cat : Animal
     public override void AngerTarget()
     {
         if (targetTransform == null)
-            GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
+            targetTransform = GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
         else
         {
             targetPosition = targetTransform.position;
         }
     }
 
-    private void Debuff()
+    private void DamageInRadius()
     {
         if (currEmotion != Emotion.EMOTIONLESS)
         {
-            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, debuffRadius);
-            bool isolated = false;
+            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, damageRadius);
 
-            // Check if there's any GameObject with the "Animal" tag nearby other than 'this'
             foreach (Collider col in nearbyColliders)
             {
                 if (col.gameObject.CompareTag("Animal") && col.gameObject != gameObject)
                 {
-                    if (!ps.isPlaying)
+                    if (col.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
-                        ps.Play();
+                        damageable.TakeDamage(radiusDamage, transform);
                     }
-                    damageMultiplier = damageDebuffConst;
-                    healthMultiplier = healthDebuffConst;
-                    isolated = true;
-                    break;
                 }
             }
 
-            if (!isolated)
+            // Particle system effect for visual feedback
+            if (nearbyColliders.Length > 0 && !ps.isPlaying)
             {
-                if (ps.isPlaying)
-                {
-                    ps.Pause();
-                    ps.Clear();
-                }
-                damageMultiplier = 1f;
-                healthMultiplier = 1f;
+                ps.Play();
+            }
+            else if (ps.isPlaying)
+            {
+                ps.Pause();
+                ps.Clear();
             }
         }
     }
 
+    /// <summary>
+    /// Set the damage of the hitbox based on the cat's base damage * damageMultiplier.  Call CatAttack
+    /// </summary>
     public override void Attack()
     {
-        throw new System.NotImplementedException();
+        hitbox.SetDamage(animalDamage * damageMultiplier);
+        StartCoroutine(CatAttack());
     }
 
+    /// <summary>
+    /// delay the attack by attackDelay.  Then enable the hitbox to damage enemy
+    /// </summary>
+
+    IEnumerator CatAttack()
+    {
+        yield return new WaitForSeconds(attackDelay);
+        hitbox.gameObject.SetActive(true);
+        yield return new WaitForSeconds(hitboxActiveTime);
+        hitbox.gameObject.SetActive(false);
+
+    }
 }
