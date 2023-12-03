@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
 
 public class Ant : Enemy
 {
@@ -21,10 +22,23 @@ public class Ant : Enemy
     [SerializeField] float stackSpacing;
 
 
+    [Header("Combat")]
+    float baseDamage;
+    float baseMaxHealth;
+
+    [SerializeField] Hitbox hitbox;
+    [SerializeField] float attackDelay;
+    [SerializeField] float hitboxActiveTime;
+    [Tooltip("The bonus health and damage applied to Ant stack")]
+    [SerializeField] float[] stackMultiplier;
+
+
 
     protected override void Start()
     {
         base.Start();
+        baseDamage = robotDamage;
+        baseMaxHealth = maxHealth;
         stackTimeLeft = stackTime;
     }
 
@@ -46,9 +60,22 @@ public class Ant : Enemy
         }
     }
 
-
     protected override void Attack()
     {
+        // perhaps for melee enemies, this is where we animate the attack motion.
+        hitbox.SetDamage(robotDamage);
+        StartCoroutine(ToggleHitbox());
+    }
+
+    /// <summary>
+    /// turns on the hitbox to deal damage to opponents and then turns off the hitbox once damage time is over (as indicated by hitboxActiveTime)
+    /// </summary>
+    IEnumerator ToggleHitbox()
+    {
+        yield return new WaitForSeconds(attackDelay);
+        hitbox.gameObject.SetActive(true);
+        yield return new WaitForSeconds(hitboxActiveTime);
+        hitbox.gameObject.SetActive(false);
 
     }
 
@@ -88,7 +115,8 @@ public class Ant : Enemy
         if(ant.gameObject != null)
         {
             stackVal += ant.stackVal;
-            print(stackVal);
+            UpdateStats(ant.stackVal);
+            print("Stack Value: " + stackVal);
             Destroy(ant.gameObject);
 
         }
@@ -105,6 +133,17 @@ public class Ant : Enemy
 
         stacking = false;
         stackTimeLeft = stackTime;
+    }
+    /// <summary>
+    /// Called whenever an Ant stacks to update the health, max health, and damage
+    /// to increase based on ant stack size
+    /// </summary>
+    void UpdateStats(int stackAdded)
+    {
+        robotDamage = baseDamage * stackMultiplier[stackVal-1];
+        maxHealth = baseMaxHealth * stackMultiplier[stackVal -1];
+        health = health + stackVal * baseMaxHealth;
+        print(robotDamage + ", " + maxHealth);
     }
 
 

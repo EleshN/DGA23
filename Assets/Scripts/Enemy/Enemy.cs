@@ -24,7 +24,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     [Header("Stats")]
     [SerializeField] float speed;
-    [SerializeField] float maxHealth;
+    [SerializeField] protected float maxHealth;
     [SerializeField] protected float health;
 
     [Header("Combat")]

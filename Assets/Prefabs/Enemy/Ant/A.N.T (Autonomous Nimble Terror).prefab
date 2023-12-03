@@ -509,6 +509,13 @@ MonoBehaviour:
   stackPrefab: {fileID: 7204168739668767149}
   antStack: {fileID: 11294988021208428}
   stackSpacing: 1
+  hitbox: {fileID: 5769747738735344323}
+  attackDelay: 0.5
+  hitboxActiveTime: 2
+  stackMultiplier:
+  - 1.5
+  - 2
+  - 2.5
 --- !u!135 &7804403660373446515
 SphereCollider:
   m_ObjectHideFlags: 0
