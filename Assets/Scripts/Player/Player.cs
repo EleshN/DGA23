@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     public int[] ammo;
     public int[] initialAmmo;
@@ -20,6 +20,17 @@ public class Player : MonoBehaviour
 
     public KeyCode switchEmotion = KeyCode.Q;
 
+    ColorIndicator colorIndicator;
+    [SerializeField] float iframeDuration = 1.0;
+    float iframes;
+    System.Random random;
+
+    public virtual void Start()
+    {
+        colorIndicator = GetComponent<ColorIndicator>();
+        random = new System.Random();
+    }
+
     private void Update()
     {
         if (!PauseGame.isPaused)
@@ -27,6 +38,7 @@ public class Player : MonoBehaviour
             Inputs();
             Move();
             Scroll();
+            iframes -= Time.deltaTime;
         }
     }
 
@@ -103,5 +115,20 @@ public class Player : MonoBehaviour
         return ammo[ammoIndex];
     }
 
+    /// <summary>
+    /// The enemy gives damage to the player. Reduces the player ammo.
+    /// </summary>
+    public virtual void TakeDamage(float damageAmount, Transform damageSource)
+    {
+        if(iframes <= 0)
+        {
+            for(int i = 0; i < ammo.length; i++)
+            {
+                ammo[i] = Math.max(ammo[i] - random.next(0, 2), 0);
+            }
+            iframes = iframeDuration;
+            colorIndicator.IndicateDamage();
+        }
+    }
 }
 
