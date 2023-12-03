@@ -8,6 +8,8 @@ using UnityEngine.SocialPlatforms;
 
 public abstract class Animal : MonoBehaviour, IDamageable
 {
+    public Animator anim;
+
     protected NavMeshAgent agent;
     [SerializeField] protected Emotion currEmotion = Emotion.EMOTIONLESS;
 
@@ -106,6 +108,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 break;
         }
         agent.destination = targetPosition;
+        Animate();
 
         //Attack
         attackCooldown -= Time.deltaTime;
@@ -278,4 +281,9 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// Defines the attack of the animal.  This method is called when the attack cooldown <= 0
     /// </summary>
     public abstract void Attack();
+
+    /// <summary>
+    /// Changes the animation of the animal depending on its movement direction
+    /// </summary>
+    public abstract void Animate();
 }

@@ -107,4 +107,12 @@ public class Cat : Animal
         hitbox.gameObject.SetActive(false);
 
     }
+
+    public override void Animate()
+    {
+        print("RLspeed: " + agent.velocity.x.ToString());
+        print("FBspeed: " + agent.velocity.z.ToString());
+        anim.SetFloat("RLspeed", agent.velocity.x);
+        anim.SetFloat("FBspeed", agent.velocity.z);
+    }
 }
