@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -21,7 +22,7 @@ public class Player : MonoBehaviour, IDamageable
     public KeyCode switchEmotion = KeyCode.Q;
 
     ColorIndicator colorIndicator;
-    [SerializeField] float iframeDuration = 1.0;
+    [SerializeField] float iframeDuration = 1.0f;
     float iframes;
     System.Random random;
 
@@ -122,9 +123,9 @@ public class Player : MonoBehaviour, IDamageable
     {
         if(iframes <= 0)
         {
-            for(int i = 0; i < ammo.length; i++)
+            for(int i = 0; i < ammo.Length; i++)
             {
-                ammo[i] = Math.max(ammo[i] - random.next(0, 2), 0);
+                ammo[i] = Math.Max(ammo[i] - random.Next(0, 2), 0);
             }
             iframes = iframeDuration;
             colorIndicator.IndicateDamage();
