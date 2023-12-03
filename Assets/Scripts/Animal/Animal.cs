@@ -12,6 +12,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     protected Vector3 spawnLocation;
 
+    [SerializeField]
     protected Transform targetTransform;
 
     protected Vector3 targetPosition;

@@ -41,8 +41,9 @@ public class Cat : Animal
 
     public override void AngerTarget()
     {
-        if (targetTransform == null)
-            GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
+        if (targetTransform == null) {
+            targetPosition = GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy).position;
+        }
         else
         {
             targetPosition = targetTransform.position;

@@ -54,4 +54,9 @@ public abstract class Projectile : MonoBehaviour
     {
         HandleCollision(collision);
     }
+
+    public void destroyMe() {
+        //method exists for animations to call it with animation events 
+        Destroy(gameObject);
+    }
 }
