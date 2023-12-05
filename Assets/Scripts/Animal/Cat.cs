@@ -110,9 +110,10 @@ public class Cat : Animal
 
     public override void Animate()
     {
-        print("RLspeed: " + agent.velocity.x.ToString());
-        print("FBspeed: " + agent.velocity.z.ToString());
-        anim.SetFloat("RLspeed", agent.velocity.x);
+        // whether the cat should be facing right (default is left)
+        //bool flipped = agent.velocity.x > 0;
+        //gameObject.transform.rotation = Quaternion.Euler(
+        //        new Vector3(0f, flipped ? 180f : 0f, 0f));
         anim.SetFloat("FBspeed", agent.velocity.z);
     }
 }
