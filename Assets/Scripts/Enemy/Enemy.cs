@@ -46,7 +46,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         health = maxHealth;
         healthBar.SetHealthBar(maxHealth);
         currentAttackTime = 0;
-        // spawnTimeAvoidancePriority = GameManager.Instance.Register(this);
+        GameManager.Instance.Register(this);
         // agent.avoidancePriority = spawnTimeAvoidancePriority;
         colorIndicator = GetComponent<ColorIndicator>();
     }
