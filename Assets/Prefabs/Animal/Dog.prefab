@@ -5688,7 +5688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c35feea9bbb8c4a93cc2b5bb08fe0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  damageColor: {r: 1, g: 0, b: 0, a: 0.4117647}
 --- !u!1 &6650736208514744164
 GameObject:
   m_ObjectHideFlags: 0

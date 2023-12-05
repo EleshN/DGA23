@@ -3,34 +3,60 @@ using UnityEngine;
 
 public class ColorIndicator : MonoBehaviour
 {
-    public Color damageColor = Color.red; // Default damage color
+    public Color damageColor = new Color(1f, 0f, 0f, 0.5f); // Red with transparency
     private Color originalColor;
-    private Material objectMaterial;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
-        // Get the Renderer component and store the original color
-        Renderer renderer = GetComponent<Renderer>();
-        if (renderer != null)
+        // Find the child GameObject named 'Sprite'
+        Transform spriteTransform = transform.Find("Sprite");
+
+        // Check if the child was found
+        if (spriteTransform != null)
         {
-            objectMaterial = renderer.material;
-            originalColor = objectMaterial.color;
+            // Get the SpriteRenderer component from the child and assign it to the class member
+            spriteRenderer = spriteTransform.GetComponent<SpriteRenderer>();
+
+            // Check if the SpriteRenderer component is attached
+            if (spriteRenderer != null)
+            {
+                originalColor = spriteRenderer.color;
+            }
+            else
+            {
+                Debug.LogError("SpriteRenderer component not found on the child GameObject.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Child GameObject named 'Sprite' not found.");
         }
     }
+
 
     // Call this method to indicate damage
     public void IndicateDamage()
     {
-        if (objectMaterial != null)
+        if (spriteRenderer != null)
         {
-            StartCoroutine(ChangeColorTemporarily());
+            StartCoroutine(FlashColorTemporarily());
         }
     }
 
-    private IEnumerator ChangeColorTemporarily()
+    private IEnumerator FlashColorTemporarily()
     {
-        objectMaterial.color = damageColor; // Change to the damage color
-        yield return new WaitForSeconds(0.120f); // Wait for 120 milliseconds
-        objectMaterial.color = originalColor; // Revert to the original color
+        float flashDuration = 0.300f; // Duration of the flash
+        float flashElapsedTime = 0;
+
+        while (flashElapsedTime < flashDuration)
+        {
+            flashElapsedTime += Time.deltaTime;
+            float lerpFactor = Mathf.Abs(Mathf.Sin((flashElapsedTime / flashDuration) * Mathf.PI)); // Sin wave for smooth interpolation
+            spriteRenderer.color = Color.Lerp(originalColor, damageColor, lerpFactor);
+            yield return null;
+        }
+
+        spriteRenderer.color = originalColor; // Revert to the original color
     }
 }
