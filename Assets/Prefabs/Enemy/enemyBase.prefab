@@ -139,7 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   healthBar: {fileID: 1082982858925421839}
-  enemyWeight: 00000000
+  enemyWeights: 020000000300000004000000
   enemyPrefabs:
   - {fileID: 6644180354889415888, guid: a04f3369971cc4e81b0a83309e4396ab, type: 3}
   - {fileID: 1369977561761461088, guid: 800b90ebcc06c1f45be98b2abd3c7a2f, type: 3}

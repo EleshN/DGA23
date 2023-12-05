@@ -37,7 +37,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     void Awake()
     {
         agent = GetComponent<NavMeshObstacleAgent>();
-        agent.SetSpeed(speed);
     }
 
     // Start is called before the first frame update
@@ -49,6 +48,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         // spawnTimeAvoidancePriority = GameManager.Instance.Register(this);
         // agent.avoidancePriority = spawnTimeAvoidancePriority;
         colorIndicator = GetComponent<ColorIndicator>();
+        agent.SetSpeed(speed);
     }
 
     // Update is called once per frame
