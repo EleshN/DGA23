@@ -6,9 +6,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SocialPlatforms;
 
+[RequireComponent(typeof(NavMeshAgent), typeof(NavMeshObstacle))]
 public abstract class Animal : MonoBehaviour, IDamageable
 {
-    protected NavMeshAgent agent;
+    protected NavMeshObstacleAgent agent;
     [SerializeField] protected Emotion currEmotion = Emotion.EMOTIONLESS;
 
     protected Vector3 spawnLocation;
@@ -64,7 +65,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshObstacleAgent>();
         ranRange = maxRanDistance - minRanDistance;
 
         // Get the Renderer component from the new cube (to change body color)
@@ -93,27 +94,32 @@ public abstract class Animal : MonoBehaviour, IDamageable
         switch (currEmotion)
         {
             case Emotion.ANGER:
-                if (agent.speed != angerSpeed) agent.speed = angerSpeed;
+                agent.SetSpeed(angerSpeed);
                 AngerTarget();
                 break;
             case Emotion.LOVE:
-                if (agent.speed != loveSpeed) agent.speed = loveSpeed;
+                agent.SetSpeed(loveSpeed);
                 LoveTarget();
                 break;
             default:
-                if (agent.speed != emoSpeed) agent.speed = emoSpeed;
+                agent.SetSpeed(emoSpeed);
                 EmoTarget();
                 break;
         }
-        agent.destination = targetPosition;
+        agent.SetDestination(targetPosition);
 
         //Attack
         attackCooldown -= Time.deltaTime;
-        if (currEmotion == Emotion.ANGER && attackCooldown <= 0 &&
-            Vector3.Magnitude(targetPosition - transform.position) <= attackRadius)
+        bool withinAttackRadius = Vector3.Magnitude(targetPosition - transform.position) <= attackRadius;
+        if (currEmotion == Emotion.ANGER && attackCooldown <= 0 && withinAttackRadius)
         {
             Attack();
+            agent.SetObstacleMode();
+            print("attacking");
             attackCooldown = attackRate;
+        }
+        if (!withinAttackRadius){
+            agent.SetAgentMode();
         }
 
         // Die
