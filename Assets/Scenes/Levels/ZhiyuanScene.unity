@@ -1627,22 +1627,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemyBase
       objectReference: {fileID: 0}
-    - target: {fileID: 327787184381659261, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
-      propertyPath: health
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
-      propertyPath: enemyPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
-      propertyPath: enemyPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 6644180354889415888, guid: 471d1a9cb95404fcb90e47dd09380454, type: 3}
     - target: {fileID: 3907812443516874588, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.479584
