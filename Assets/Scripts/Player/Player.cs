@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -20,6 +21,11 @@ public class Player : MonoBehaviour
 
     public KeyCode switchEmotion = KeyCode.Q;
 
+    ColorIndicator colorIndicator;
+    [SerializeField] float iframeDuration = 1.0f;
+    float iframes;
+    System.Random random;
+
     void Start()
     {         
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
@@ -33,6 +39,9 @@ public class Player : MonoBehaviour
                 Physics.IgnoreCollision(playerCollider, animalCollider);
             }
         }
+
+        colorIndicator = GetComponent<ColorIndicator>();
+        random = new System.Random();
     }
 
 
@@ -43,6 +52,7 @@ public class Player : MonoBehaviour
             Inputs();
             Move();
             Scroll();
+            iframes -= Time.deltaTime;
         }
     }
 
@@ -86,17 +96,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // Reduce ammo
-            if (ammo[ammoIndex] > 0)
+            if (iframes <= 0)
             {
-                ammo[ammoIndex]--;
+                for (int i = 0; i < ammo.Length; i++)
+                {
+                    ammo[i] = Math.Max(ammo[i] - random.Next(1, 3), 0);
+                }
+                iframes = iframeDuration;
+                colorIndicator.IndicateDamage();
             }
-
-            //Knockback
         }
     }
 
