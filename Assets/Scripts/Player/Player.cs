@@ -67,9 +67,10 @@ public class Player : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
 
-        Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
+        // Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
+        // rb.velocity = anglevector * movement * moveSpeed;
 
-        rb.velocity = anglevector * movement * moveSpeed;
+        rb.velocity = movement * moveSpeed;
     }
 
     private void Scroll()
