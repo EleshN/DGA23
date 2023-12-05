@@ -26,6 +26,10 @@ public class Player : MonoBehaviour
     float iframes;
     System.Random random;
 
+    [SerializeField] float knockbackForce = 20;
+    [SerializeField] float knockbackDuration = 0.3f;
+    float knockbackTimer;
+
     void Start()
     {         
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
@@ -53,6 +57,7 @@ public class Player : MonoBehaviour
             Move();
             Scroll();
             iframes -= Time.deltaTime;
+            knockbackTimer -= Time.deltaTime;
         }
     }
 
@@ -79,8 +84,10 @@ public class Player : MonoBehaviour
 
         // Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
         // rb.velocity = anglevector * movement * moveSpeed;
-
-        rb.velocity = movement * moveSpeed;
+        if(knockbackTimer <= 0)
+        {
+            rb.velocity = movement * moveSpeed;
+        }
     }
 
     private void Scroll()
@@ -102,6 +109,14 @@ public class Player : MonoBehaviour
         {
             if (iframes <= 0)
             {
+                knockbackTimer = knockbackDuration;
+
+                // Apply knockback
+                Vector3 direction = transform.position - collision.transform.position;
+                direction.y = 0;
+                direction = direction.normalized * knockbackForce; // Set knockback force and direction
+                GetComponent<Rigidbody>().AddForce(direction, ForceMode.Impulse);
+
                 for (int i = 0; i < ammo.Length; i++)
                 {
                     ammo[i] = Math.Max(ammo[i] - random.Next(1, 3), 0);
