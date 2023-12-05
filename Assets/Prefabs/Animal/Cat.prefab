@@ -5311,9 +5311,8 @@ MonoBehaviour:
   hitbox: {fileID: 8797103352101356180}
   attackDelay: 0
   hitboxActiveTime: 5
-  debuffRadius: 5
-  healthDebuffConst: 0.5
-  damageDebuffConst: 0.5
+  damageRadius: 1.5
+  radiusDamage: 2
   ps: {fileID: 8000037284899398019}
 --- !u!114 &3102279017370914336
 MonoBehaviour:
@@ -5504,7 +5503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6931437576821363961
 Transform:
   m_ObjectHideFlags: 0
