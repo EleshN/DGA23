@@ -9,6 +9,7 @@ using UnityEngine.SocialPlatforms;
 public abstract class Animal : MonoBehaviour, IDamageable
 {
     public Animator anim;
+    protected GameObject mainCam;
 
     protected NavMeshAgent agent;
     [SerializeField] protected Emotion currEmotion = Emotion.EMOTIONLESS;
@@ -71,6 +72,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
         // Get the Renderer component from the new cube (to change body color)
         cubeRenderer = animalBody.GetComponent<Renderer>();
+
+        if (!mainCam)
+        {
+            mainCam = GameObject.FindGameObjectWithTag("MainCamera");
+        }
     }
 
     public virtual void Start()
@@ -253,7 +259,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     protected virtual void EmoTarget()
     {
         currTime += Time.deltaTime;
-        if (currTime >= patrolTime)
+        if (currTime >= patrolTime || transform.position == agent.destination)
         {
             RandomPosition();
             currTime = 0;
@@ -285,5 +291,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <summary>
     /// Changes the animation of the animal depending on its movement direction
     /// </summary>
-    public abstract void Animate();
+    public virtual void Animate()
+    {
+        // whether the cat should be facing right (default is left)
+        Vector3 referenceZVelocity = Vector3.Project(agent.velocity, mainCam.transform.forward);
+
+        anim.SetFloat("FBspeed", -referenceZVelocity.z);
+    }
 }

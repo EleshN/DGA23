@@ -247,10 +247,6 @@ public class Parrot : Animal
         transform.rotation = Quaternion.LookRotation(new Vector3(x,y,z));
     }
 
-    public override void Animate()
-    {
-
-    }
 
     //------------------------------// EMOTIONS //------------------------------//
 
