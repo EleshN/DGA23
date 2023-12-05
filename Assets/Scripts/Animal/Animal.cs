@@ -70,7 +70,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
         // Get the Renderer component from the new cube (to change body color)
         cubeRenderer = animalBody.GetComponent<Renderer>();
-        Debug.Log(cubeRenderer);
     }
 
     public virtual void Start()

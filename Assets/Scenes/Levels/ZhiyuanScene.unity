@@ -1627,22 +1627,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemyBase
       objectReference: {fileID: 0}
-    - target: {fileID: 327787184381659261, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
-      propertyPath: health
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
-      propertyPath: enemyPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
-      propertyPath: enemyPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 6644180354889415888, guid: 471d1a9cb95404fcb90e47dd09380454, type: 3}
     - target: {fileID: 3907812443516874588, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.479584
@@ -4093,6 +4077,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1500094504
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6423367497784624718, guid: 7726f5835f6eabb4b8377a6272f76e53, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.12405491
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423367497784624718, guid: 7726f5835f6eabb4b8377a6272f76e53, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000009536743
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423367497784624718, guid: 7726f5835f6eabb4b8377a6272f76e53, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.521585
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423367497784624718, guid: 7726f5835f6eabb4b8377a6272f76e53, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423367497784624718, guid: 7726f5835f6eabb4b8377a6272f76e53, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423367497784624718, guid: 7726f5835f6eabb4b8377a6272f76e53, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423367497784624718, guid: 7726f5835f6eabb4b8377a6272f76e53, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423367497784624718, guid: 7726f5835f6eabb4b8377a6272f76e53, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423367497784624718, guid: 7726f5835f6eabb4b8377a6272f76e53, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423367497784624718, guid: 7726f5835f6eabb4b8377a6272f76e53, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6644180354889415888, guid: 7726f5835f6eabb4b8377a6272f76e53, type: 3}
+      propertyPath: m_Name
+      value: A.N.T (Autonomous Nimble Terror)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7726f5835f6eabb4b8377a6272f76e53, type: 3}
 --- !u!1 &1501022211
 GameObject:
   m_ObjectHideFlags: 0
@@ -5564,3 +5605,4 @@ SceneRoots:
   - {fileID: 2110313273}
   - {fileID: 283660982}
   - {fileID: 1529662848}
+  - {fileID: 1500094504}
