@@ -82,20 +82,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            // Reduce ammo
-            if (ammo[ammoIndex] > 0)
-            {
-                ammo[ammoIndex]--;
-            }
-
-            //Knockback
-        }
-    }
-
     public void RefreshAmmo()
     {
         Debug.Log("Ammo Refreshed");
@@ -116,15 +102,15 @@ public class Player : MonoBehaviour
         return ammo[ammoIndex];
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnCollisionStay(Collision collision)
     {
-        if (other.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             if (iframes <= 0)
             {
                 for (int i = 0; i < ammo.Length; i++)
                 {
-                    ammo[i] = Math.Max(ammo[i] - random.Next(0, 3), 0);
+                    ammo[i] = Math.Max(ammo[i] - random.Next(1, 3), 0);
                 }
                 iframes = iframeDuration;
                 colorIndicator.IndicateDamage();
