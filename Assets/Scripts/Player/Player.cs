@@ -20,6 +20,22 @@ public class Player : MonoBehaviour
 
     public KeyCode switchEmotion = KeyCode.Q;
 
+    void Start()
+    {         
+        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+        Collider playerCollider = GetComponent<Collider>();
+
+        foreach (var animal in animals)
+        {
+            Collider animalCollider = animal.GetComponent<Collider>();
+            if (animalCollider != null)
+            {
+                Physics.IgnoreCollision(playerCollider, animalCollider);
+            }
+        }
+    }
+
+
     private void Update()
     {
         if (!PauseGame.isPaused)
