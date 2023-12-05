@@ -1628,6 +1628,8 @@ GameObject:
   - component: {fileID: 4288100602726006704}
   - component: {fileID: 8390950961805698145}
   - component: {fileID: -3755928593137539418}
+  - component: {fileID: 7855512298177389240}
+  - component: {fileID: 1568873344517742384}
   m_Layer: 0
   m_Name: ProjectileEnemy
   m_TagString: Enemy
@@ -1783,6 +1785,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageColor: {r: 0.3141338, g: 1, b: 0.2584905, a: 1}
+--- !u!114 &7855512298177389240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6644180354889415888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b22089caa9844d3d96ab810202da061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopTime: 2
+--- !u!208 &1568873344517742384
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6644180354889415888}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7790496136723137304
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2207483055452384888
 Transform:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6602789801753239504
 Transform:
   m_ObjectHideFlags: 0
@@ -571,7 +571,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3481398378857431071}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
+  m_LocalRotation: {x: 0.6494481, y: -0, z: -0, w: -0.76040596}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -580,10 +580,10 @@ RectTransform:
   - {fileID: 8181246238274358427}
   - {fileID: 9187980312285807837}
   m_Father: {fileID: 3704356840445049594}
-  m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 279, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &512443639149192916
@@ -5486,7 +5486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6053390372349133030
 Transform:
   m_ObjectHideFlags: 0
@@ -5565,6 +5565,8 @@ GameObject:
   - component: {fileID: 8667359369462860146}
   - component: {fileID: 8943669702477749790}
   - component: {fileID: 5327657638451959388}
+  - component: {fileID: 1850268258099150970}
+  - component: {fileID: 2357239724580111686}
   m_Layer: 0
   m_Name: Dog
   m_TagString: Animal
@@ -5646,7 +5648,7 @@ MonoBehaviour:
   minRanDistance: 1.5
   maxRanDistance: 4
   loveDistance: 5
-  attackRadius: 2.5
+  attackRadius: 1.5
   attackRate: 2
   hitbox: {fileID: 2585526950369013348}
   attackDelay: 0
@@ -5674,7 +5676,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 1, z: 0.25}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &5327657638451959388
 MonoBehaviour:
@@ -5689,6 +5691,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!208 &1850268258099150970
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6077426668867834045}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.025, y: 0.5, z: 0.025}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+  m_TimeToStationary: 0.1
+--- !u!114 &2357239724580111686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6077426668867834045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b22089caa9844d3d96ab810202da061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopTime: 0.05
+  speed: 0
 --- !u!1 &6650736208514744164
 GameObject:
   m_ObjectHideFlags: 0
@@ -5781,7 +5813,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5776999291822137892
 Transform:
   m_ObjectHideFlags: 0
