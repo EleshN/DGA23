@@ -15,7 +15,8 @@ public class AngerProjectile : Projectile
     protected override void HandleCollision(Collider collision)
     {
         GameObject other = collision.gameObject;
-        if (other.tag == "Enemy") {
+        DamageableWall damageableWall = other.GetComponent<DamageableWall>();
+        if (other.tag == "Enemy" || damageableWall != null) {
             HashSet<Animal> animals = GameManager.Instance.followers;
             HashSet<Animal> parrots = new HashSet<Animal>();
             foreach (Animal follower in animals)
