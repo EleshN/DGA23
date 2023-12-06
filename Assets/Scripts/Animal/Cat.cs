@@ -107,4 +107,5 @@ public class Cat : Animal
         hitbox.gameObject.SetActive(false);
 
     }
+
 }

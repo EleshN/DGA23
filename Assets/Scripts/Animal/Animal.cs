@@ -9,7 +9,11 @@ using UnityEngine.SocialPlatforms;
 [RequireComponent(typeof(NavMeshAgent), typeof(NavMeshObstacle))]
 public abstract class Animal : MonoBehaviour, IDamageable
 {
+
+    public Animator anim;
+    protected GameObject mainCam;
     protected NavMeshObstacleAgent agent;
+
     [SerializeField] protected Emotion currEmotion = Emotion.EMOTIONLESS;
 
     protected Vector3 spawnLocation;
@@ -70,6 +74,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
         // Get the Renderer component from the new cube (to change body color)
         cubeRenderer = animalBody.GetComponent<Renderer>();
+
+        if (!mainCam)
+        {
+            mainCam = GameObject.FindGameObjectWithTag("MainCamera");
+        }
     }
 
     public virtual void Start()
@@ -106,7 +115,9 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 EmoTarget();
                 break;
         }
+
         agent.SetDestination(targetPosition);
+        Animate();
 
         //Attack
         attackCooldown -= Time.deltaTime;
@@ -256,7 +267,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     protected virtual void EmoTarget()
     {
         currTime += Time.deltaTime;
-        if (currTime >= patrolTime)
+        if (currTime >= patrolTime || transform.position == targetPosition)
         {
             RandomPosition();
             currTime = 0;
@@ -284,4 +295,15 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// Defines the attack of the animal.  This method is called when the attack cooldown <= 0
     /// </summary>
     public abstract void Attack();
+
+    /// <summary>
+    /// Changes the animation of the animal depending on its movement direction
+    /// </summary>
+    public virtual void Animate()
+    {
+        // whether the cat should be facing right (default is left)
+        Vector3 referenceZVelocity = Vector3.Project(agent.Velocity(), mainCam.transform.forward);
+
+        anim.SetFloat("FBspeed", -referenceZVelocity.z);
+    }
 }

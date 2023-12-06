@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 2363943619798348980}
   - component: {fileID: 2541674463355904257}
   - component: {fileID: 4162656538794206008}
+  - component: {fileID: 3740643053627029918}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -268,7 +269,7 @@ Transform:
   m_GameObject: {fileID: 2557104619974728140}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.886, z: 0}
+  m_LocalPosition: {x: 0, y: 0.85, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -334,17 +335,38 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -811120203, guid: 685f216d084634ef4809ac7609658b40, type: 3}
+  m_Sprite: {fileID: -279707157, guid: c7f1faa8e4dc6481f8f9be0d06049838, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.75, y: 2.34}
+  m_Size: {x: 12.000001, y: 12.01172}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3740643053627029918
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2557104619974728140}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9bbcefa8c33f8433bb12ddd54b311fbe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2677210087859256616
 GameObject:
   m_ObjectHideFlags: 0
@@ -5630,6 +5652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24187540a12c418e940998b1be1210c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 3740643053627029918}
   currEmotion: 2
   animalBody: {fileID: 4156970003935199234}
   emotionlessColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

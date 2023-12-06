@@ -92,5 +92,13 @@ public class NavMeshObstacleAgent : MonoBehaviour
             obstacle.enabled = true;
         }
     }
+
+    public Vector3 Velocity(){
+        if (agent.enabled)
+        {
+            return agent.velocity;
+        }
+        return Vector3.zero;
+    }
     
 }
