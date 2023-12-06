@@ -103,20 +103,20 @@ public abstract class Animal : MonoBehaviour, IDamageable
         switch (currEmotion)
         {
             case Emotion.ANGER:
-                agent.SetSpeed(angerSpeed);
+                agent.Speed = angerSpeed;
                 AngerTarget();
                 break;
             case Emotion.LOVE:
-                agent.SetSpeed(loveSpeed);
+                agent.Speed = loveSpeed ;
                 LoveTarget();
                 break;
             default:
-                agent.SetSpeed(emoSpeed);
+                agent.Speed = emoSpeed;
                 EmoTarget();
                 break;
         }
 
-        agent.SetDestination(targetPosition);
+        agent.Destination = targetPosition;
         Animate();
 
         //Attack
@@ -145,6 +145,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
         if (healthBar != null)
         {
+            // hide health bar when HP is at maximum
             if (health < maxHealth)
             {
                 healthBar.UpdateHealthBar(health);
@@ -187,7 +188,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         if (agent.isActiveAndEnabled)
         {
             // stop moving in this frame of emotional transition because the agent updates destination on next frame.
-            agent.SetDestination(transform.position);
+            agent.Destination = transform.position;
         }
     }
 
@@ -266,7 +267,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     protected virtual void EmoTarget()
     {
         currTime += Time.deltaTime;
-        if (currTime >= patrolTime || transform.position == targetPosition)
+        if (currTime >= patrolTime || agent.Velocity.magnitude <= 1e-3)
         {
             RandomPosition();
             currTime = 0;
@@ -301,8 +302,15 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public virtual void Animate()
     {
         // whether the cat should be facing right (default is left)
-        Vector3 referenceZVelocity = Vector3.Project(agent.Velocity(), mainCam.transform.forward);
+        Vector3 referenceZVelocity = Vector3.Project(agent.Velocity, mainCam.transform.forward);
 
-        anim.SetFloat("FBspeed", -referenceZVelocity.z);
+        if (anim != null){
+            anim.SetFloat("FBspeed", -referenceZVelocity.z);
+        }
+        else
+        {
+            Debug.Log("no animation set for animal " + gameObject.name );
+        }
+        
     }
 }

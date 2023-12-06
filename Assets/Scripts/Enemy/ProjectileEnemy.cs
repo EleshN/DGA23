@@ -16,7 +16,7 @@ public class ProjectileEnemy : Enemy
 
     protected override void Attack()
     {
-        agent.SetDestination(transform.position); // stop moving, then shoot
+        agent.Destination = transform.position; // stop moving, then shoot
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + verticalOffset, transform.position.z);
         GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
         // make sure summoned projectile does not hit the summoner
@@ -31,7 +31,6 @@ public class ProjectileEnemy : Enemy
         bool raycastResult = false;
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, attackRadius, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
-            print(hit.collider.gameObject.name);
             raycastResult = hit.collider.gameObject.transform == targetTransform;
         }
         return base.CanAttack() && raycastResult;

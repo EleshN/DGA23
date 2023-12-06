@@ -48,7 +48,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         GameManager.Instance.Register(this);
         // agent.avoidancePriority = spawnTimeAvoidancePriority;
         colorIndicator = GetComponent<ColorIndicator>();
-        agent.SetSpeed(speed);
+        agent.Speed = speed;
     }
 
     // Update is called once per frame
@@ -125,8 +125,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         // always move the entity closer to target
         agent.SetAgentMode();
-        agent.SetDestination(targetPosition);
-        agent.SetStoppingDistance(0);
+        agent.Destination = targetPosition;
+        agent.StoppingDistance = 0;
         if (Vector3.Magnitude(targetTransform.position - transform.position) <= attackRadius)
         {
             state = EnemyState.ATTACK;

@@ -42,22 +42,22 @@ public class Parrot : Animal
         switch (currEmotion)
         {
             case Emotion.ANGER:
-                agent.SetSpeed(angerSpeed);
+                agent.Speed = angerSpeed;
                 AngerTarget();
                 break;
             case Emotion.LOVE:
-                agent.SetSpeed(loveSpeed);
+                agent.Speed = loveSpeed ;
                 LoveTarget();
                 break;
             default:
-                agent.SetSpeed(emoSpeed);
+                agent.Speed = emoSpeed;
                 EmoTarget();
                 break;
         }
 
         agent.enabled = !inMotion;
         if (agent.enabled){
-            agent.SetDestination(targetPosition);
+            agent.Destination = targetPosition;
         }
         //if (!inMotion) agent.destination = targetPosition;
 
@@ -136,19 +136,19 @@ public class Parrot : Animal
         // Perform the motion
         if (!atFirstDestination) // take off (parabolic)
         {
-            (timeFirstMotion, _) = ParabolicMotion(agent.GetSpeed(), targetLocationAir, initLocation);
+            (timeFirstMotion, _) = ParabolicMotion(agent.Speed, targetLocationAir, initLocation);
             atFirstDestination = Vector3.Distance(targetLocationAir, transform.position) < 0.2f;
         }
         else if (!doneFlight) // circular flight
         {
             //print("landing1");
-            CircuilarMotion(agent.GetSpeed(), timeFirstMotion, targetLocationAir.y);
+            CircuilarMotion(agent.Speed, timeFirstMotion, targetLocationAir.y);
             secondinitLocation = transform.position;
         }
         else if (inMotion) // landing (parabolic)
         {
             //print("Second init location: " + secondinitLocation.ToString());
-            (_, landingRotation) = ParabolicMotion(agent.GetSpeed(), initLocation, secondinitLocation, circleDurration);
+            (_, landingRotation) = ParabolicMotion(agent.Speed, initLocation, secondinitLocation, circleDurration);
             inMotion = Vector3.Distance(initLocation, transform.position) > 0.2f;
         }
         else

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +14,25 @@ public class NavMeshObstacleAgent : MonoBehaviour
 
     float timer;
 
-    float speed;
+    /// <summary>
+    /// NavMeshAgent component velocity
+    /// </summary>
+    public Vector3 Velocity { get { return agent.velocity; } }
+
+    /// <summary>
+    /// NavMeshAgent component speed
+    /// </summary>
+    public float Speed { get { return agent.speed;} set { agent.speed = value;}}
+
+    /// <summary>
+    /// NavMeshAgent component destination. Attempts to set destination when agent is inactive will be ignored.
+    /// </summary>
+    public Vector3 Destination {get {return agent.destination;} set {if (agent.enabled){ agent.SetDestination(value);} }}
+
+    /// <summary>
+    /// NavMeshAgent component stopping distance
+    /// </summary>
+    public float StoppingDistance { get { return agent.stoppingDistance;} set { agent.stoppingDistance = value;}}
 
     public void Awake()
     {
@@ -34,40 +53,41 @@ public class NavMeshObstacleAgent : MonoBehaviour
         }
     }
 
-    public void SetSpeed(float speed)
-    {
-        if (agent.enabled) 
-        {
-            agent.speed = speed;
-            this.speed = speed;
-        }
-    }
 
-    public float GetSpeed()
-    {
-        if (agent.enabled) 
-        {
-            return agent.speed;
-        }
-        return speed;
-    }
+    // public void SetSpeed(float speed)
+    // {
+    //     if (agent.enabled) 
+    //     {
+    //         agent.speed = speed;
+    //         this.speed = speed;
+    //     }
+    // }
 
-    public void SetStoppingDistance(float dist)
-    {
-        if (agent.enabled) 
-        {
-            agent.stoppingDistance = dist;
-        }
-    }
+    // public float GetSpeed()
+    // {
+    //     if (agent.enabled) 
+    //     {
+    //         return agent.speed;
+    //     }
+    //     return speed;
+    // }
+
+    // public void SetStoppingDistance(float dist)
+    // {
+    //     if (agent.enabled) 
+    //     {
+    //         agent.stoppingDistance = dist;
+    //     }
+    // }
 
 
-    public void SetDestination(Vector3 destination)
-    { 
-        if (agent.enabled)
-        {
-            agent.SetDestination(destination);
-        }
-    }
+    // public void SetDestination(Vector3 destination)
+    // { 
+    //     if (agent.enabled)
+    //     {
+    //         agent.SetDestination(destination);
+    //     }
+    // }
 
     public void SetAgentMode(){
         if (agent.enabled){
@@ -77,7 +97,7 @@ public class NavMeshObstacleAgent : MonoBehaviour
         {
             timer = stopTime;
             obstacle.enabled = false;
-            agent.enabled = true;
+            StartCoroutine(EnableNavMeshAgent());
         }
     }
 
@@ -93,12 +113,15 @@ public class NavMeshObstacleAgent : MonoBehaviour
         }
     }
 
-    public Vector3 Velocity(){
-        if (agent.enabled)
-        {
-            return agent.velocity;
-        }
-        return Vector3.zero;
+    /// <summary>
+    /// turns on the navmesh agent, after making sure the navmesh obstacle is turned off for at least 1 frame.
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator EnableNavMeshAgent()
+    {
+        //delay for one frame
+        yield return 0;
+        agent.enabled = true;
     }
     
 }
