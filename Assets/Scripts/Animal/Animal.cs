@@ -126,7 +126,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
         {
             Attack();
             agent.SetObstacleMode();
-            print("attacking");
             attackCooldown = attackRate;
         }
         if (!withinAttackRadius){

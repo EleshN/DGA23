@@ -5679,7 +5679,7 @@ MonoBehaviour:
   buffRadius: 5
   healthBuffConst: 1.5
   damageBuffConst: 1.5
-  ps: {fileID: 2621100438784769718}
+  buffParticleSystem: {fileID: 2621100438784769718}
 --- !u!65 &8943669702477749790
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5743,7 +5743,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopTime: 0.05
-  speed: 0
 --- !u!1 &6650736208514744164
 GameObject:
   m_ObjectHideFlags: 0
