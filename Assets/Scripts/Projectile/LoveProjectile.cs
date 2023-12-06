@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class LoveProjectile : Projectile
 {
+    public void Awake()
+    {
+        Physics.IgnoreCollision(GetComponent<Collider>(), GameManager.Instance.PlayerObject.GetComponent<Collider>());
+    }
+    
     protected override void HandleCollision(Collider collision)
     {
         GameObject other = collision.gameObject;

@@ -3,14 +3,10 @@ using UnityEngine;
 
 public class AngerProjectile : Projectile
 {
-    // temporary testing
-    // private void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.Space))
-    //     {
-    //         this.SetDirection(new Vector3(1, 1, 1));
-    //     }
-    // }
+    public void Awake()
+    {
+        Physics.IgnoreCollision(GetComponent<Collider>(), GameManager.Instance.PlayerObject.GetComponent<Collider>());
+    }
 
     protected override void HandleCollision(Collider collision)
     {
