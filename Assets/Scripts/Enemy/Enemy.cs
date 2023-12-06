@@ -159,6 +159,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
+            GameManager.Instance.Unregister(this);
             Destroy(gameObject);
         }
     }
@@ -184,10 +185,5 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             // set our agent priority to moving target's so we do not avoid one another
             //agent.avoidancePriority = targetAgent.avoidancePriority;
         }
-    }
-
-    private void OnDestroy()
-    {
-        GameManager.Instance.Unregister(this);
     }
 }
