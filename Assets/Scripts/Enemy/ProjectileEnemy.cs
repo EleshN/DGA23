@@ -16,7 +16,7 @@ public class ProjectileEnemy : Enemy
 
     protected override void Attack()
     {
-        agent.destination = transform.position; // stop moving, then shoot
+        agent.SetDestination(transform.position); // stop moving, then shoot
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + verticalOffset, transform.position.z);
         GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
         // make sure summoned projectile does not hit the summoner

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -20,6 +21,30 @@ public class Player : MonoBehaviour
 
     public KeyCode switchEmotion = KeyCode.Q;
 
+    ColorIndicator colorIndicator;
+    [SerializeField] float iframeDuration = 1.0f;
+    float iframes;
+    System.Random random;
+
+    void Start()
+    {         
+        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+        Collider playerCollider = GetComponent<Collider>();
+
+        foreach (var animal in animals)
+        {
+            Collider animalCollider = animal.GetComponent<Collider>();
+            if (animalCollider != null)
+            {
+                Physics.IgnoreCollision(playerCollider, animalCollider);
+            }
+        }
+
+        colorIndicator = GetComponent<ColorIndicator>();
+        random = new System.Random();
+    }
+
+
     private void Update()
     {
         if (!PauseGame.isPaused)
@@ -27,6 +52,7 @@ public class Player : MonoBehaviour
             Inputs();
             Move();
             Scroll();
+            iframes -= Time.deltaTime;
         }
     }
 
@@ -51,9 +77,10 @@ public class Player : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
 
-        Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
+        // Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
+        // rb.velocity = anglevector * movement * moveSpeed;
 
-        rb.velocity = anglevector * movement * moveSpeed;
+        rb.velocity = movement * moveSpeed;
     }
 
     private void Scroll()
@@ -69,17 +96,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // Reduce ammo
-            if (ammo[ammoIndex] > 0)
+            if (iframes <= 0)
             {
-                ammo[ammoIndex]--;
+                for (int i = 0; i < ammo.Length; i++)
+                {
+                    ammo[i] = Math.Max(ammo[i] - random.Next(1, 3), 0);
+                }
+                iframes = iframeDuration;
+                colorIndicator.IndicateDamage();
             }
-
-            //Knockback
         }
     }
 

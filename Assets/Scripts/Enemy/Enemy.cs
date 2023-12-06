@@ -7,7 +7,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 {
     protected EnemyState state = EnemyState.SPAWN;
 
-    [SerializeField] protected NavMeshAgent agent;
+    [SerializeField] protected NavMeshObstacleAgent agent;
 
     protected int spawnTimeAvoidancePriority;
 
@@ -24,7 +24,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     [Header("Stats")]
     [SerializeField] float speed;
-    [SerializeField] float maxHealth;
+    [SerializeField] protected float maxHealth;
     [SerializeField] protected float health;
 
     [Header("Combat")]
@@ -36,9 +36,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.radius *= 2;
-        agent.speed = speed;
+        agent = GetComponent<NavMeshObstacleAgent>();
     }
 
     // Start is called before the first frame update
@@ -47,9 +45,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         health = maxHealth;
         healthBar.SetHealthBar(maxHealth);
         currentAttackTime = 0;
-        spawnTimeAvoidancePriority = GameManager.Instance.Register(this);
-        agent.avoidancePriority = spawnTimeAvoidancePriority;
+        GameManager.Instance.Register(this);
+        // agent.avoidancePriority = spawnTimeAvoidancePriority;
         colorIndicator = GetComponent<ColorIndicator>();
+        agent.SetSpeed(speed);
     }
 
     // Update is called once per frame
@@ -63,7 +62,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         // target eliminated or no longer a target
         if (targetTransform == null || !GameManager.Instance.ValidEnemyTargets.Contains(targetTransform))
         {
-            agent.avoidancePriority = spawnTimeAvoidancePriority;
+            // agent.avoidancePriority = spawnTimeAvoidancePriority;
             state = EnemyState.STOP;
         }
 
@@ -93,6 +92,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
                     state = EnemyState.CHASE;
                     return;
                 }
+                agent.SetObstacleMode();
                 if (currentAttackTime <= 0)
                 {
                     // attack and reset attack cooldown timer
@@ -124,8 +124,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     protected virtual void Move(Vector3 targetPosition)
     {
         // always move the entity closer to target
-        agent.destination = targetPosition;
-        agent.stoppingDistance = 0;
+        agent.SetAgentMode();
+        agent.SetDestination(targetPosition);
+        agent.SetStoppingDistance(0);
         if (Vector3.Magnitude(targetTransform.position - transform.position) <= attackRadius)
         {
             state = EnemyState.ATTACK;
@@ -151,14 +152,13 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             return;
         }
         targetTransform = damageSource;
-        updateAgentPriority(targetTransform);
+        //updateAgentPriority(targetTransform);
         health -= damage;
         healthBar.UpdateHealthBar(health);
         colorIndicator.IndicateDamage();
 
         if (health <= 0)
         {
-            GameManager.Instance.Unregister(this);
             Destroy(gameObject);
         }
     }
@@ -173,7 +173,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         else
         {
             targetTransform = target.transform;
-            updateAgentPriority(targetTransform);
+            //updateAgentPriority(targetTransform);
         }
     }
 
@@ -182,7 +182,12 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         if (targetTransform.TryGetComponent<NavMeshAgent>(out var targetAgent))
         {
             // set our agent priority to moving target's so we do not avoid one another
-            agent.avoidancePriority = targetAgent.avoidancePriority;
+            //agent.avoidancePriority = targetAgent.avoidancePriority;
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.Unregister(this);
     }
 }

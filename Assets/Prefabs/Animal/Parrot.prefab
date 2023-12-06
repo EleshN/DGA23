@@ -606,6 +606,8 @@ GameObject:
   - component: {fileID: 868621220294053537}
   - component: {fileID: 1207716532444428903}
   - component: {fileID: 89676508841180428}
+  - component: {fileID: 8829331212345125549}
+  - component: {fileID: 5101586602590506787}
   m_Layer: 0
   m_Name: Parrot
   m_TagString: Animal
@@ -723,6 +725,35 @@ MonoBehaviour:
   initLocation: {x: 0, y: 0, z: 0}
   secondinitLocation: {x: 0, y: 0, z: 0}
   inMotion: 0
+--- !u!208 &8829331212345125549
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5075847750515261920}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!114 &5101586602590506787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5075847750515261920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b22089caa9844d3d96ab810202da061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopTime: 2
 --- !u!1 &5350020983591841724
 GameObject:
   m_ObjectHideFlags: 0

@@ -42,33 +42,22 @@ public class Parrot : Animal
         switch (currEmotion)
         {
             case Emotion.ANGER:
-                if (agent.speed != angerSpeed)
-                {
-                    agent.speed = angerSpeed;
-                    //print("agent anger speed: " + angerSpeed.ToString() + "|" + agent.speed.ToString());
-                }
+                agent.SetSpeed(angerSpeed);
                 AngerTarget();
                 break;
             case Emotion.LOVE:
-                if (agent.speed != loveSpeed)
-                {
-                    agent.speed = loveSpeed;
-                    //print("agent love speed: " + loveSpeed.ToString() + "|" + agent.speed.ToString());
-                }
+                agent.SetSpeed(loveSpeed);
                 LoveTarget();
                 break;
             default:
-                if (agent.speed != emoSpeed)
-                {
-                    agent.speed = emoSpeed;
-                }
+                agent.SetSpeed(emoSpeed);
                 EmoTarget();
                 break;
         }
 
         agent.enabled = !inMotion;
         if (agent.enabled){
-            agent.destination = targetPosition;
+            agent.SetDestination(targetPosition);
         }
         //if (!inMotion) agent.destination = targetPosition;
 
@@ -98,6 +87,7 @@ public class Parrot : Animal
     /// Flies in a circle of defind radius, spreads Love, calls "SpreadEmotion"
     /// </summary>
     public override void LoveTarget() {
+        targetTransform = GameManager.Instance.PlayerTransform;
         if (!follow)
         {
             SpreadEmotion(Emotion.LOVE);
@@ -146,20 +136,19 @@ public class Parrot : Animal
         // Perform the motion
         if (!atFirstDestination) // take off (parabolic)
         {
-            (timeFirstMotion, _) = ParabolicMotion(agent.speed, targetLocationAir, initLocation);
+            (timeFirstMotion, _) = ParabolicMotion(agent.GetSpeed(), targetLocationAir, initLocation);
             atFirstDestination = Vector3.Distance(targetLocationAir, transform.position) < 0.2f;
         }
         else if (!doneFlight) // circular flight
         {
             //print("landing1");
-            CircuilarMotion(agent.speed, timeFirstMotion, targetLocationAir.y);
+            CircuilarMotion(agent.GetSpeed(), timeFirstMotion, targetLocationAir.y);
             secondinitLocation = transform.position;
-
         }
         else if (inMotion) // landing (parabolic)
         {
             //print("Second init location: " + secondinitLocation.ToString());
-            (_, landingRotation) = ParabolicMotion(agent.speed, initLocation, secondinitLocation, circleDurration);
+            (_, landingRotation) = ParabolicMotion(agent.GetSpeed(), initLocation, secondinitLocation, circleDurration);
             inMotion = Vector3.Distance(initLocation, transform.position) > 0.2f;
         }
         else
