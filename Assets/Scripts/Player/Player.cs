@@ -83,16 +83,26 @@ public class Player : MonoBehaviour
         rb.velocity = movement * moveSpeed;
     }
 
+    private int Next()
+    {
+        return (ammoIndex + 1) % ammo.Length;
+    }
+
+    private int Prev()
+    {
+       return (ammoIndex - 1 + ammo.Length) % ammo.Length;
+    }
+
     private void Scroll()
     {
         // weapon switching here
         if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(switchEmotion))
         {
-            ammoIndex = (ammoIndex + 1) % ammo.Length;
+            ammoIndex = Next();
         }
         else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(switchEmotion))
         {
-            ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
+            ammoIndex = Prev();
         }
     }
 
@@ -121,15 +131,35 @@ public class Player : MonoBehaviour
         }
     }
 
+    public string GetPrevAmmoType()
+    {
+        return ammoNames[Prev()];
+    }
+
     public string GetCurrentAmmoType()
     {
         return ammoNames[ammoIndex];
+    }
+
+    public string GetNextAmmoType()
+    {
+        return ammoNames[Next()];
     }
 
     /// <returns>the ammo count of the current selected ammo type</returns>
     public int GetCurrentAmmoCount()
     {
         return ammo[ammoIndex];
+    }
+
+    public int GetPrevAmmoCount()
+    {
+        return ammo[Prev()];
+    }
+
+    public int GetNextAmmoCount()
+    {
+        return ammo[Next()];
     }
 
 }
