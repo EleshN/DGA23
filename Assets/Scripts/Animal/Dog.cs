@@ -50,7 +50,10 @@ public class Dog : Animal
     public override void AngerTarget()
     {
         if (targetTransform == null)
+        {
             targetTransform = GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
+            targetPosition = targetTransform.position;
+        }
         else
         {
             targetPosition = targetTransform.position;

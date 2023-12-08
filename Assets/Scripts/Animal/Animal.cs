@@ -18,6 +18,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     protected Vector3 spawnLocation;
 
+    [SerializeField]
     protected Transform targetTransform;
 
     protected Vector3 targetPosition;
@@ -68,6 +69,9 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     SpriteRenderer spriteRenderer;
 
+    
+    [SerializeField] [Range(0,1)] float animationSpeed = 1.0f;
+
     void Awake()
     {
         agent = GetComponent<NavMeshObstacleAgent>();
@@ -81,6 +85,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
             mainCam = GameObject.FindGameObjectWithTag("MainCamera");
         }
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        anim.speed = animationSpeed;
+        
     }
 
     public virtual void Start()
@@ -101,6 +107,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     public virtual void Update()
     {
+        anim.speed = animationSpeed;
         // Movement
         switch (currEmotion)
         {
@@ -312,11 +319,20 @@ public abstract class Animal : MonoBehaviour, IDamageable
         // Check if the x component of the velocity in camera space is positive (moving to the right)
         if (spriteRenderer != null)
         {
-            // change x orientation only when horizontal direction changes.
+            bool flipX = false;
+            print(velocityInCameraSpace.x);
             if (velocityInCameraSpace.x != 0)
             {
-                spriteRenderer.flipX = velocityInCameraSpace.x > 0;
+                // change x orientation  when horizontal direction changes.
+                flipX = velocityInCameraSpace.x > 0;
             }
+            else 
+            {
+                Vector3 offsetInCameraSpace = mainCam.transform.InverseTransformDirection( targetPosition - transform.position );
+                flipX = offsetInCameraSpace.x > 0;
+            }
+            spriteRenderer.flipX = flipX;
+
         }
 
         if (anim != null){

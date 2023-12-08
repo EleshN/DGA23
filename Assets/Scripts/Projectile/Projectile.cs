@@ -15,9 +15,15 @@ public abstract class Projectile : MonoBehaviour
     //Projectile start position
     private Vector3 startPosition;
 
+    /// <summary>
+    /// set to true once an first impact occurs.
+    /// </summary>
+    protected bool impacted;
+
     private void Start()
     {
         startPosition = transform.position;
+        impacted = false;
     }
 
     // Use this for initialization
@@ -53,5 +59,11 @@ public abstract class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider collision)
     {
         HandleCollision(collision);
+        impacted = true;
+    }
+
+    public void destroyMe() {
+        //method exists for animations to call it with animation events 
+        Destroy(gameObject);
     }
 }
