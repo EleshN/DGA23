@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public HashSet<Transform> ValidEnemyTargets;
 
-    Player PlayerObject;
+    public Player PlayerObject;
 
     // Reference to Player Transform for player target tracking
     [HideInInspector] public Transform PlayerTransform;

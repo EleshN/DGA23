@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3904619748141049913}
   - component: {fileID: 3528703618054159464}
   - component: {fileID: 4501249755055091662}
+  - component: {fileID: -5165236525586937532}
   m_Layer: 0
   m_Name: enemyBase
   m_TagString: Enemy
@@ -139,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   healthBar: {fileID: 1082982858925421839}
-  enemyWeights: 
+  enemyWeights: 020000000300000004000000
   enemyPrefabs:
   - {fileID: 6644180354889415888, guid: a04f3369971cc4e81b0a83309e4396ab, type: 3}
   - {fileID: 1369977561761461088, guid: 800b90ebcc06c1f45be98b2abd3c7a2f, type: 3}
@@ -160,6 +161,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageColor: {r: 1, g: 0.033067696, b: 0, a: 0.34901962}
+--- !u!114 &-5165236525586937532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327787184381659261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 1.5, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.5}
+  m_Area: 1
+  m_AffectedAgents: f2652fae
 --- !u!1 &1298736120947618274
 GameObject:
   m_ObjectHideFlags: 0

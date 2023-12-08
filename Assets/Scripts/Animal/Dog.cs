@@ -15,14 +15,14 @@ public class Dog : Animal
     [SerializeField] float healthBuffConst = 1.5f;
     [SerializeField] float damageBuffConst = 1.5f;
 
-    [SerializeField] ParticleSystem ps;
+    [SerializeField] ParticleSystem buffParticleSystem;
 
     public override void Start()
     {
         base.Start();
         InvokeRepeating(nameof(Buff), 0, 1);
-        ps.Pause();
-        ps.Clear();
+        buffParticleSystem.Pause();
+        buffParticleSystem.Clear();
         // print("Name is " + gameObject.name + " spawnpos is " + spawnLocation);
     }
 
@@ -73,29 +73,29 @@ public class Dog : Animal
 
             if (nearByDogs > 0)
             {
-                if (!ps.isPlaying)
+                if (!buffParticleSystem.isPlaying)
                 {
-                    ps.Play();
+                    buffParticleSystem.Play();
                 }
                 damageMultiplier = damageBuffConst * nearByDogs;
                 healthMultiplier = healthBuffConst * nearByDogs;
             }
             else
             {
-                if (ps.isPlaying)
+                if (buffParticleSystem.isPlaying)
                 {
-                    ps.Pause();
-                    ps.Clear();
+                    buffParticleSystem.Pause();
+                    buffParticleSystem.Clear();
                 }
                 damageMultiplier = 1f;
                 healthMultiplier = 1f;
             }
         }
         else{
-            if (ps.isPlaying)
+            if (buffParticleSystem.isPlaying)
                 {
-                    ps.Pause();
-                    ps.Clear();
+                    buffParticleSystem.Pause();
+                    buffParticleSystem.Clear();
                 }
         }
     }

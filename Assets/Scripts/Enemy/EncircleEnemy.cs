@@ -53,7 +53,7 @@ public class EncircleEnemy : Enemy
       Vector3 newPosition = targetTransform.position + direction * encircleRadius;
 
       // Set the NavMeshAgent's destination to the new position
-      agent.SetDestination(newPosition);
+      agent.Destination = newPosition;
 
       // Check if the enemy has returned to the near vicinity of the start position
       if (Vector3.Distance(startPosition, transform.position) <= returnErrorMargin && angle >= 360f)

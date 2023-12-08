@@ -30,7 +30,7 @@ public class ColorIndicator : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Child GameObject named 'Sprite' not found.");
+            Debug.LogError("Child GameObject named 'Sprite' not found at " + gameObject.name);
         }
     }
 

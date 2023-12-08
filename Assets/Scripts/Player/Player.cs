@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -20,6 +21,34 @@ public class Player : MonoBehaviour
 
     public KeyCode switchEmotion = KeyCode.Q;
 
+    ColorIndicator colorIndicator;
+    [SerializeField] float iframeDuration = 1.0f;
+    float iframes;
+    System.Random random;
+
+    [SerializeField] float knockbackForce = 20;
+    [SerializeField] float knockbackDuration = 0.3f;
+    float knockbackTimer;
+
+    void Start()
+    {         
+        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
+        Collider playerCollider = GetComponent<Collider>();
+
+        foreach (var animal in animals)
+        {
+            Collider animalCollider = animal.GetComponent<Collider>();
+            if (animalCollider != null)
+            {
+                Physics.IgnoreCollision(playerCollider, animalCollider);
+            }
+        }
+
+        colorIndicator = GetComponent<ColorIndicator>();
+        random = new System.Random();
+    }
+
+
     private void Update()
     {
         if (!PauseGame.isPaused)
@@ -27,6 +56,8 @@ public class Player : MonoBehaviour
             Inputs();
             Move();
             Scroll();
+            iframes -= Time.deltaTime;
+            knockbackTimer -= Time.deltaTime;
         }
     }
 
@@ -51,9 +82,12 @@ public class Player : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
 
-        Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
-
-        rb.velocity = anglevector * movement * moveSpeed;
+        // Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
+        // rb.velocity = anglevector * movement * moveSpeed;
+        if(knockbackTimer <= 0)
+        {
+            rb.velocity = movement * moveSpeed;
+        }
     }
 
     private void Scroll()
@@ -69,17 +103,27 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // Reduce ammo
-            if (ammo[ammoIndex] > 0)
+            if (iframes <= 0)
             {
-                ammo[ammoIndex]--;
-            }
+                knockbackTimer = knockbackDuration;
 
-            //Knockback
+                // Apply knockback
+                Vector3 direction = transform.position - collision.transform.position;
+                direction.y = 0;
+                direction = direction.normalized * knockbackForce; // Set knockback force and direction
+                GetComponent<Rigidbody>().AddForce(direction, ForceMode.Impulse);
+
+                for (int i = 0; i < ammo.Length; i++)
+                {
+                    ammo[i] = Math.Max(ammo[i] - random.Next(1, 3), 0);
+                }
+                iframes = iframeDuration;
+                colorIndicator.IndicateDamage();
+            }
         }
     }
 

@@ -15,14 +15,10 @@ public class Cat : Animal
     [SerializeField] float damageRadius;
     [SerializeField] float radiusDamage;
 
-    [SerializeField] ParticleSystem ps;
-
     public override void Start()
     {
         base.Start();
         InvokeRepeating(nameof(DamageInRadius), 0, 1); // Changed from Debuff to DamageInRadius
-        ps.Pause();
-        ps.Clear();
     }
 
     public override void Update()
@@ -72,17 +68,6 @@ public class Cat : Animal
                     }
                 }
             }
-
-            // Particle system effect for visual feedback
-            if (nearbyColliders.Length > 0 && !ps.isPlaying)
-            {
-                ps.Play();
-            }
-            else if (ps.isPlaying)
-            {
-                ps.Pause();
-                ps.Clear();
-            }
         }
     }
 
@@ -105,6 +90,6 @@ public class Cat : Animal
         hitbox.gameObject.SetActive(true);
         yield return new WaitForSeconds(hitboxActiveTime);
         hitbox.gameObject.SetActive(false);
-
     }
+
 }
