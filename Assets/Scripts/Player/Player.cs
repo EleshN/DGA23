@@ -129,10 +129,13 @@ public class Player : MonoBehaviour
 
     public void RefreshAmmo()
     {
-        Debug.Log("Ammo Refreshed");
+        Debug.Log("Ammo Refreshed +1 for Each Type");
         for (int i = 0; i < ammo.Length; i++)
         {
-            ammo[i] = initialAmmo[i];
+            if (ammo[i] < initialAmmo[i])
+            {
+                ammo[i] += 1;
+            }
         }
     }
 

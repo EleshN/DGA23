@@ -431,7 +431,7 @@ MonoBehaviour:
   speed: 2
   maxHealth: 6
   health: 0
-  attackRadius: 2
+  attackRadius: 1.5
   attackCountDown: 2
   robotDamage: 2
   hitbox: {fileID: 5769747738735344323}
@@ -471,7 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c35feea9bbb8c4a93cc2b5bb08fe0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageColor: {r: 0.3141338, g: 1, b: 0.2584905, a: 1}
+  damageColor: {r: 1, g: 0.04150939, b: 0.04150939, a: 0.47058824}
 --- !u!208 &6127754573394007226
 NavMeshObstacle:
   m_ObjectHideFlags: 0
