@@ -25,12 +25,12 @@ public class ColorIndicator : MonoBehaviour
             }
             else
             {
-                Debug.LogError("SpriteRenderer component not found on the child GameObject.");
+                Debug.Log("SpriteRenderer component not found on the child GameObject.");
             }
         }
         else
         {
-            Debug.LogError("Child GameObject named 'Sprite' not found at " + gameObject.name);
+            Debug.Log("Child GameObject named 'Sprite' not found at " + gameObject.name);
         }
     }
 

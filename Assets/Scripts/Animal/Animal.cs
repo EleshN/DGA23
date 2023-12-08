@@ -66,6 +66,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     ColorIndicator colorIndicator;
 
+    SpriteRenderer spriteRenderer;
 
     void Awake()
     {
@@ -79,6 +80,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         {
             mainCam = GameObject.FindGameObjectWithTag("MainCamera");
         }
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     public virtual void Start()
@@ -301,16 +303,28 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public virtual void Animate()
     {
-        // whether the cat should be facing right (default is left)
-        Vector3 referenceZVelocity = Vector3.Project(agent.Velocity, mainCam.transform.forward);
+      
+        // Vector3 referenceZVelocity = Vector3.Project(agent.Velocity, mainCam.transform.forward);
+
+        // Convert the object's velocity from world space to camera space
+        Vector3 velocityInCameraSpace = mainCam.transform.InverseTransformDirection( agent.Velocity);
+
+        // Check if the x component of the velocity in camera space is positive (moving to the right)
+        if (spriteRenderer != null)
+        {
+            // change x orientation only when horizontal direction changes.
+            if (velocityInCameraSpace.x != 0)
+            {
+                spriteRenderer.flipX = velocityInCameraSpace.x > 0;
+            }
+        }
 
         if (anim != null){
-            anim.SetFloat("FBspeed", -referenceZVelocity.z);
+            anim.SetFloat("FBspeed", -velocityInCameraSpace.z);
         }
         else
         {
             Debug.Log("no animation set for animal " + gameObject.name );
         }
-        
     }
 }
