@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6282210417374811722}
   - component: {fileID: 722624868986988265}
   - component: {fileID: 6671701043320421091}
-  - component: {fileID: 369477305273846036}
+  - component: {fileID: 2351938893715609683}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -124,7 +124,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &369477305273846036
+--- !u!114 &2351938893715609683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 625480673737698281}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21e228d5ccbd419c876523c593c759d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b138748cbab34366afb92d4e8eb9f12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8484157980712267484
@@ -259,6 +259,7 @@ MonoBehaviour:
   speed: 3
   maxDistance: 50
   anim: {fileID: 6671701043320421091}
+  callback: {fileID: 2351938893715609683}
 --- !u!54 &-1444632781967521483
 Rigidbody:
   m_ObjectHideFlags: 0

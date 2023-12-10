@@ -123,6 +123,7 @@ MonoBehaviour:
   speed: 3
   maxDistance: 50
   anim: {fileID: 5836619224041020489}
+  callback: {fileID: 1077737338636734949}
 --- !u!54 &6696050107595393011
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,7 +163,7 @@ GameObject:
   - component: {fileID: 7268038741940013489}
   - component: {fileID: 4144196755016824165}
   - component: {fileID: 5836619224041020489}
-  - component: {fileID: 9180467380662634733}
+  - component: {fileID: 1077737338636734949}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -274,7 +275,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &9180467380662634733
+--- !u!114 &1077737338636734949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -283,6 +284,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6515795829319903409}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21e228d5ccbd419c876523c593c759d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b138748cbab34366afb92d4e8eb9f12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
