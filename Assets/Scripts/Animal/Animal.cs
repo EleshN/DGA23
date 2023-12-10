@@ -319,8 +319,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         // Check if the x component of the velocity in camera space is positive (moving to the right)
         if (spriteRenderer != null)
         {
-            bool flipX = false;
-            print(velocityInCameraSpace.x);
+            bool flipX = spriteRenderer.flipX;
             if (velocityInCameraSpace.x != 0)
             {
                 // change x orientation  when horizontal direction changes.
@@ -328,8 +327,12 @@ public abstract class Animal : MonoBehaviour, IDamageable
             }
             else 
             {
-                Vector3 offsetInCameraSpace = mainCam.transform.InverseTransformDirection( targetPosition - transform.position );
-                flipX = offsetInCameraSpace.x > 0;
+                if (targetTransform != null)
+                {
+                    // face target if stationary
+                    Vector3 offsetInCameraSpace = mainCam.transform.InverseTransformDirection( targetTransform.position - transform.position );
+                    flipX = offsetInCameraSpace.x > 0;
+                }
             }
             spriteRenderer.flipX = flipX;
 
