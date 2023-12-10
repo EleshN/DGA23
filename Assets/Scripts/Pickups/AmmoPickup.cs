@@ -48,17 +48,14 @@ public class AmmoPickup : MonoBehaviour
 
   private IEnumerator PickupCollected()
   {
-    Debug.Log("PickupCollected coroutine started.");
-
     // Change to the new sprite
     if (spriteRenderer != null && newSprite != null)
     {
       spriteRenderer.sprite = newSprite;
-      Debug.Log("Changed to new sprite.");
     }
     else
     {
-      Debug.Log("SpriteRenderer or newSprite is null.");
+      Debug.Log("SpriteRenderer or newSprite is null for " + gameObject.name);
     }
 
     // Disable the collider to prevent immediate recollection
@@ -69,24 +66,25 @@ public class AmmoPickup : MonoBehaviour
 
     // Wait for the specified delay
     yield return new WaitForSeconds(delayBeforeReset);
-    Debug.Log("Delay finished.");
+    EnablePickup();
+  }
 
+  private void EnablePickup()
+  {
     // Reset to the original sprite and re-enable the collider
     if (spriteRenderer != null && originalSprite != null)
     {
       spriteRenderer.sprite = originalSprite;
-      Debug.Log("Changed back to original sprite.");
     }
     else
     {
-      Debug.Log("SpriteRenderer or originalSprite is null.");
+      Debug.Log("SpriteRenderer or originalSprite is null for " + gameObject.name);
     }
 
     if (colliderComponent != null)
     {
       colliderComponent.enabled = true;
     }
-    Debug.Log("Collider re-enabled.");
   }
 
 }

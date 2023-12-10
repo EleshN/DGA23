@@ -16,7 +16,12 @@ public class AngerProjectile : Projectile
 
     protected void Start()
     {
-        callback.AddDestroyCallback("onFinish", this.gameObject);
+        // the actual callback function is named "onFinish". The animation event function would be "Callback", see anger projectile impact animation.
+        callback.AddCallback("onFinish", () => Destroy(this.gameObject));
+        // alternative (added functionality to AnimatorCallback)
+        // - callback.AddDestroyCallback("onFinish", this.gameObject);
+        // this would also work as an example:
+        // - callback.AddCallback("awake", Awake);
     }
 
     protected override void HandleCollision(Collider collision)
