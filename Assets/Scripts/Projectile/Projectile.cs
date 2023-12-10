@@ -27,16 +27,33 @@ public abstract class Projectile : MonoBehaviour
     }
 
     // Use this for initialization
-    void Awake()
+    protected virtual void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
         startPosition = transform.position;
     }
 
+    public void SetDirection(Vector3 direction, float speed)
+    {
+        this.speed = speed;
+        SetDirection(direction);
+    }
+
     public void SetDirection(Vector3 direction)
     {
         direction.Normalize();
-        rb.velocity = direction * speed;
+        // transform.rotation = Quaternion.Euler(0, Quaternion.LookRotation(direction).eulerAngles.y, 0);
+        rb.AddForce(direction * speed, ForceMode.Impulse);
+    }
+
+    /// <summary>
+    /// <para>the bottom of a projectiles will collide first if shot downwards.</para>
+    /// <para>if spawn positions are calculated using center, adjust spawn using vertical offset based on collider radius</para>
+    /// </summary>
+    public void AdjustYSpawn()
+    {
+        startPosition.y += 0.25f;
+        rb.transform.position = startPosition;
     }
 
     // Update is called once per frame
@@ -60,10 +77,5 @@ public abstract class Projectile : MonoBehaviour
     {
         HandleCollision(collision);
         impacted = true;
-    }
-
-    public void destroyMe() {
-        //method exists for animations to call it with animation events 
-        Destroy(gameObject);
     }
 }

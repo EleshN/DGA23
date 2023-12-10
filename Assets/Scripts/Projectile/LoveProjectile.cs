@@ -6,11 +6,12 @@ public class LoveProjectile : Projectile
 
     [SerializeField] Animator anim;
 
-    public void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Physics.IgnoreCollision(GetComponent<Collider>(), GameManager.Instance.PlayerObject.GetComponent<Collider>());
     }
-    
+
     protected override void HandleCollision(Collider collision)
     {
         if (!impacted){

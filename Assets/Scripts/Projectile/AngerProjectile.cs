@@ -6,8 +6,9 @@ public class AngerProjectile : Projectile
 
     [SerializeField] Animator anim;
     
-    public void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Physics.IgnoreCollision(GetComponent<Collider>(), GameManager.Instance.PlayerObject.GetComponent<Collider>());
     }
 

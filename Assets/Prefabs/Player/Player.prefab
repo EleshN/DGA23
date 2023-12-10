@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6737863600635964696}
   - component: {fileID: 6554197838273546809}
   - component: {fileID: 8636083632494806902}
+  - component: {fileID: 6257672225964591865}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -27,9 +28,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58726949036972131}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.047, y: 1.02, z: 1}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6468600857249622072}
@@ -51,6 +52,8 @@ MonoBehaviour:
   - {fileID: 8484157980712267484, guid: fe3900e0c9e9d744bb620d300aee68ca, type: 3}
   - {fileID: 411135268976928213, guid: f6638be4436ac3347993c5b15d9a8064, type: 3}
   bulletSpawn: {fileID: 6468600857249622072}
+  aim: {fileID: 6554197838273546809}
+  bulletSpeed: 10
 --- !u!114 &6554197838273546809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +114,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6257672225964591865
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58726949036972131}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &987752207510765358
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +358,8 @@ MonoBehaviour:
   moveSpeed: 8
   switchEmotion: 113
   iframeDuration: 1
+  knockbackForce: 20
+  knockbackDuration: 0.3
 --- !u!65 &8172232168992480712
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -353,7 +379,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.8, y: 1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6556091499836259387
 MonoBehaviour:
@@ -377,6 +403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6468600857249622072}
+  - component: {fileID: 5139431691296630829}
   m_Layer: 0
   m_Name: Bullet Spawn
   m_TagString: Untagged
@@ -393,12 +420,33 @@ Transform:
   m_GameObject: {fileID: 3862529808886750313}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.49, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1097025714240175275}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5139431691296630829
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862529808886750313}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7165416972210713883
 GameObject:
   m_ObjectHideFlags: 0

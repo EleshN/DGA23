@@ -10,25 +10,22 @@ public class Gun : MonoBehaviour
 
     //spawn of the bullet
     [SerializeField] Transform bulletSpawn;
-    void Start()
-    {
-        
-    }
+    
+    [SerializeField] Targetting aim;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] float bulletSpeed;
 
     public void Shoot(int ammoIndex)
     {
-        GameObject projectile = Instantiate(ammoPrefabs[ammoIndex], bulletSpawn.position, bulletSpawn.rotation);
-        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
-
-        if (projectileRb != null)
-        {
-            projectileRb.AddForce(bulletSpawn.forward * 20f, ForceMode.Impulse);
-        }
+        print("bullet at: " + bulletSpawn.position);
+        GameObject projectile = Instantiate(ammoPrefabs[ammoIndex], transform.position, bulletSpawn.rotation);
+        // Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+        // if (projectileRb != null)
+        // {
+        //     projectileRb.AddForce(bulletSpawn.forward * 20f, ForceMode.Impulse);
+        // }
+        Projectile bullet = projectile.GetComponent<Projectile>();
+        bullet.SetDirection(aim.targetLocation - bullet.transform.position, bulletSpeed);
+        bullet.AdjustYSpawn();
     }
 }
