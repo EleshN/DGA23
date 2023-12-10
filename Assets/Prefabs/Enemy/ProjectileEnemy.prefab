@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df62fc5af0e0c4051a39e2f912302b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 8390950961805698145}
+  agent: {fileID: 0}
   healthBar: {fileID: 1938080854383796208}
   speed: 1
   maxHealth: 4
@@ -1797,7 +1797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b22089caa9844d3d96ab810202da061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopTime: 2
+  stopTime: 1
 --- !u!208 &1568873344517742384
 NavMeshObstacle:
   m_ObjectHideFlags: 0

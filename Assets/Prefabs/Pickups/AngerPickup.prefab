@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2226514523487634520}
@@ -51,7 +51,7 @@ MonoBehaviour:
   ammoType: anger
   newSprite: {fileID: 21300000, guid: 9ad1dfa405788d64d9423b0516c8a42d, type: 3}
   originalSprite: {fileID: 21300000, guid: 443c9520748eecc4ab84682099af7006, type: 3}
-  delayBeforeReset: 6
+  delayBeforeReset: 10
 --- !u!135 &2536605413478410584
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 2226514523487634520}
   - component: {fileID: 4576444892628353892}
   - component: {fileID: 5788041165777704656}
+  - component: {fileID: 1812214787892462117}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -257,6 +258,18 @@ MonoBehaviour:
   - {fileID: 3960953148434419150}
   agent: {fileID: 0}
   mainCam: {fileID: 0}
+--- !u!114 &1812214787892462117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2369051225343437244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b138748cbab34366afb92d4e8eb9f12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5564982467184318058
 GameObject:
   m_ObjectHideFlags: 0

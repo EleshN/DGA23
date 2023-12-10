@@ -3422,6 +3422,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dog
       objectReference: {fileID: 0}
+    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
+      propertyPath: emoSpeed
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

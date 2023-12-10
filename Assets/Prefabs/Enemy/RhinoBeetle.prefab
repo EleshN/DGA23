@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 2164346131555632297}
   - component: {fileID: 8390950961805698145}
   - component: {fileID: -3755928593137539418}
+  - component: {fileID: 1824284181706879244}
   m_Layer: 0
   m_Name: RhinoBeetle
   m_TagString: Enemy
@@ -424,7 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dbf114aee93f4ab59bd140f7ad16f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 8390950961805698145}
+  agent: {fileID: 0}
   healthBar: {fileID: 1938080854383796208}
   speed: 2
   maxHealth: 6
@@ -470,6 +471,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageColor: {r: 0.3141338, g: 1, b: 0.2584905, a: 1}
+--- !u!114 &1824284181706879244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6644180354889415888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b22089caa9844d3d96ab810202da061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopTime: 0
 --- !u!1 &7204168739668767149
 GameObject:
   m_ObjectHideFlags: 0

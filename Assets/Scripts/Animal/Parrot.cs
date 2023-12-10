@@ -59,6 +59,7 @@ public class Parrot : Animal
         if (agent.enabled){
             agent.Destination = targetPosition;
         }
+        Animate();
         //if (!inMotion) agent.destination = targetPosition;
 
         //print("transform position - y: " + transform.position.y.ToString());

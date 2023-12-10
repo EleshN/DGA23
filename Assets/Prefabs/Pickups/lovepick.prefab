@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2226514523487634520}
@@ -51,7 +51,7 @@ MonoBehaviour:
   ammoType: love
   newSprite: {fileID: 1542026045, guid: d7ed36d47ad9a074b86d0d30429a8f26, type: 3}
   originalSprite: {fileID: -1728773421, guid: e689f7fe030d9734f823e72ad30fa1b1, type: 3}
-  delayBeforeReset: 6
+  delayBeforeReset: 10
 --- !u!135 &2536605413478410584
 SphereCollider:
   m_ObjectHideFlags: 0
