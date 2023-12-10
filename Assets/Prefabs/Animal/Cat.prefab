@@ -190,7 +190,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1097567626449228496}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -199,7 +199,7 @@ RectTransform:
   - {fileID: 4541217844791608393}
   - {fileID: 8279303862108875420}
   m_Father: {fileID: 7853075904261318810}
-  m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -480,7 +480,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 0.05}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &7486823498402646564
 MonoBehaviour:
@@ -496,6 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 28083096181458586}
   currEmotion: 2
+  targetTransform: {fileID: 0}
   animalBody: {fileID: 4282304794092545958}
   emotionlessColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   angerColor: {r: 0.98039216, g: 0.043137256, b: 0.078431375, a: 0.6666667}
@@ -513,8 +514,9 @@ MonoBehaviour:
   minRanDistance: 1.5
   maxRanDistance: 4
   loveDistance: 5
-  attackRadius: 2.5
+  attackRadius: 1.5
   attackRate: 2
+  animationSpeed: 1
   hitbox: {fileID: 8797103352101356180}
   attackDelay: 0
   hitboxActiveTime: 5
@@ -545,7 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b22089caa9844d3d96ab810202da061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopTime: 2
+  stopTime: 0.05
 --- !u!208 &8063850199752677383
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -738,7 +740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6931437576821363961
 Transform:
   m_ObjectHideFlags: 0
@@ -991,7 +993,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2027453872, guid: d65e32c9fee3a4ef881af678127a1fc1, type: 3}
+  m_Sprite: {fileID: 494350772, guid: d181fabf8f5024a6289d0ed36ca5b342, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
