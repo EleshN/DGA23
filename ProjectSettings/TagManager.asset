@@ -8,6 +8,7 @@ TagManager:
   - PlayerBase
   - Animal
   - Scenery
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -44,6 +45,9 @@ TagManager:
   m_SortingLayers:
   - name: GroundSprite
     uniqueID: 447628123
+    locked: 0
+  - name: Shadows
+    uniqueID: 2606702867
     locked: 0
   - name: Default
     uniqueID: 0
