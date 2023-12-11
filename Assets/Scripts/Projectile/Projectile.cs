@@ -41,9 +41,11 @@ public abstract class Projectile : MonoBehaviour
 
     public void SetDirection(Vector3 direction)
     {
-        direction.Normalize();
         // transform.rotation = Quaternion.Euler(0, Quaternion.LookRotation(direction).eulerAngles.y, 0);
-        rb.AddForce(direction * speed, ForceMode.Impulse);
+        direction.Normalize();
+        
+
+        rb.AddForce(direction * speed, ForceMode.Impulse); //Direction times speed
     }
 
     /// <summary>
