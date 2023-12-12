@@ -5,10 +5,7 @@ using UnityEngine;
 public class ProjectileEnemy : Enemy
 {
 
-    /// <summary>
-    /// the y-offset from the enemy's position to spawn the projectile
-    /// </summary>
-    [SerializeField] float verticalOffset = 0.5f;
+    [SerializeField] Transform spawnLocationTransform;
 
     [SerializeField] float projectileEffectRadius = 15f;
 
@@ -17,7 +14,7 @@ public class ProjectileEnemy : Enemy
     protected override void Attack()
     {
         agent.Destination = transform.position; // stop moving, then shoot
-        Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + verticalOffset, transform.position.z);
+        Vector3 spawnPosition = spawnLocationTransform.position;
         GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
         // make sure summoned projectile does not hit the summoner
         Physics.IgnoreCollision(projectile.GetComponent<Collider>(), GetComponent<Collider>());
@@ -28,11 +25,16 @@ public class ProjectileEnemy : Enemy
 
     protected override bool CanAttack()
     {
+        if (Vector3.Magnitude(targetTransform.position - transform.position) > attackRadius)
+        {
+            return false;
+        }
         bool raycastResult = false;
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, attackRadius, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+        Vector3 forwardVector = targetTransform.position - transform.position;
+        if (Physics.Raycast(transform.position, forwardVector, out RaycastHit hit, attackRadius, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
             raycastResult = hit.collider.gameObject.transform == targetTransform;
         }
-        return base.CanAttack() && raycastResult;
+        return raycastResult;
     }
 }

@@ -36,7 +36,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected float attackCountDown = 5f;
     [SerializeField] protected float robotDamage;
 
-    void Awake()
+    protected virtual void Awake()
     {
         agent = GetComponent<NavMeshObstacleAgent>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
