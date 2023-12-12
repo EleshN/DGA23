@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4358e19cae8eef948add605f813a6b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmSource: {fileID: 0}
+  bgmSource: {fileID: 6513728003542134202, guid: 2bd5eb629c662744a9b9c97cb8e5fb71, type: 3}
   sfxSource: {fileID: 0}
   bgmClips:
   - {fileID: 8300000, guid: 39a13ca2e31b11b4a91c560613e5c3e2, type: 3}
