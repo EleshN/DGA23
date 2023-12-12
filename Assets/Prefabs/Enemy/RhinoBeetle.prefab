@@ -511,7 +511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dbf114aee93f4ab59bd140f7ad16f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
   healthBar: {fileID: 1938080854383796208}
   speed: 2
   maxHealth: 6
@@ -577,7 +576,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6644180354889415888}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
@@ -598,7 +597,6 @@ GameObject:
   - component: {fileID: 1059331069918332124}
   - component: {fileID: 2579594202612050911}
   - component: {fileID: 63113987908104557}
-  - component: {fileID: 3773227803918650013}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -710,22 +708,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3773227803918650013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7204168739668767149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cc80e13fd60d4cc4b3bb2367ac018ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Meshes:
-  - {fileID: 328512778247370248}
-  agent: {fileID: 8390950961805698145}
-  mainCam: {fileID: 0}
 --- !u!1 &8297983048635740954
 GameObject:
   m_ObjectHideFlags: 0

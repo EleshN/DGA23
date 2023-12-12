@@ -7,13 +7,15 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 {
     protected EnemyState state = EnemyState.SPAWN;
 
-    [SerializeField] protected NavMeshObstacleAgent agent;
-
-    protected int spawnTimeAvoidancePriority;
+    protected NavMeshObstacleAgent agent;
 
     [SerializeField] HealthBar healthBar;
 
+    SpriteRenderer spriteRenderer;
+
     ColorIndicator colorIndicator;
+
+    protected GameObject mainCam;
 
     /// <summary>
     /// remaining timer before next attack (enemy is able to attack when this value is not greater than 0)
@@ -37,17 +39,18 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     void Awake()
     {
         agent = GetComponent<NavMeshObstacleAgent>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        colorIndicator = GetComponent<ColorIndicator>();
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        GameManager.Instance.Register(this);
         health = maxHealth;
         healthBar.SetHealthBar(maxHealth);
         currentAttackTime = 0;
-        GameManager.Instance.Register(this);
-        // agent.avoidancePriority = spawnTimeAvoidancePriority;
-        colorIndicator = GetComponent<ColorIndicator>();
         agent.Speed = speed;
     }
 
@@ -104,6 +107,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             default:
                 break;
         }
+
+        Animate();
     }
 
     /// <summary>
@@ -187,6 +192,32 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         {
             // set our agent priority to moving target's so we do not avoid one another
             //agent.avoidancePriority = targetAgent.avoidancePriority;
+        }
+    }
+
+    private void Animate()
+    {
+        Vector3 velocityInCameraSpace = mainCam.transform.InverseTransformDirection( agent.Velocity);
+        if (spriteRenderer != null)
+        {
+            // Check if the x component of the velocity in camera space is positive (moving to the right)
+            bool flipX = spriteRenderer.flipX;
+            if (velocityInCameraSpace.x != 0)
+            {
+                // change x orientation  when horizontal direction changes.
+                flipX = velocityInCameraSpace.x > 0;
+            }
+            else 
+            {
+                if (targetTransform != null)
+                {
+                    // face target if stationary
+                    Vector3 offsetInCameraSpace = mainCam.transform.InverseTransformDirection( targetTransform.position - transform.position );
+                    flipX = offsetInCameraSpace.x > 0;
+                }
+            }
+            spriteRenderer.flipX = flipX;
+
         }
     }
 }

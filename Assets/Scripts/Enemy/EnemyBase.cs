@@ -71,6 +71,10 @@ public class EnemyBase : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damageAmount, Transform damageSource)
     {
+        // this prevents same-frame calls to takeDamage and summons two or more player bases
+        if (health <= 0){
+            return;
+        }
         health -= damageAmount;
         healthBar.UpdateHealthBar(health);
         colorIndicator.IndicateDamage();

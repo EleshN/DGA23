@@ -79,11 +79,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
         // Get the Renderer component from the new cube (to change body color)
         cubeRenderer = animalBody.GetComponent<Renderer>();
-
-        if (!mainCam)
-        {
-            mainCam = GameObject.FindGameObjectWithTag("MainCamera");
-        }
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera");
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         anim.speed = animationSpeed;
         
@@ -126,7 +122,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
         }
 
         agent.Destination = targetPosition;
-        Animate();
 
         //Attack
         attackCooldown -= Time.deltaTime;
@@ -168,6 +163,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
             }
         }
         
+        Animate();
     }
 
     /// <summary>
