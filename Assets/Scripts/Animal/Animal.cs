@@ -65,6 +65,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public float attackRate;
     float attackCooldown;
 
+    [Header("Particle Effect")]
+    [SerializeField] ParticleSystem emotionSystem;
+    [SerializeField] Material loveMat;
+    [SerializeField] Material AngerMat;
+
     ColorIndicator colorIndicator;
 
     SpriteRenderer spriteRenderer;
