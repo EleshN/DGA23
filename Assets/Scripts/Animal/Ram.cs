@@ -20,32 +20,6 @@ public class Ram : Animal
         base.Update();
     }
 
-    public override void LoveTarget()
-    {
-        if (targetTransform != GameManager.Instance.PlayerTransform)
-        {
-            targetTransform = GameManager.Instance.PlayerTransform;
-        }
-        if (Vector3.Magnitude(targetTransform.position - transform.position) > loveDistance)
-        {
-            targetPosition = targetTransform.position;
-        }
-        else
-        {
-            targetPosition = transform.position;
-        }
-    }
-
-    public override void AngerTarget()
-    {
-        if (targetTransform == null)
-            targetTransform = GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
-        else
-        {
-            targetPosition = targetTransform.position;
-        }
-    }
-
 
     /// <summary>
     /// Set the damage of the hitbox based on the dog's base damage * damageMultiplier.  Call DogAttack

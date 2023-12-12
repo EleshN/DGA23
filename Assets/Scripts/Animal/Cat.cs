@@ -26,32 +26,6 @@ public class Cat : Animal
         base.Update();
     }
 
-    public override void LoveTarget()
-    {
-        if (targetTransform != GameManager.Instance.PlayerTransform)
-        {
-            targetTransform = GameManager.Instance.PlayerTransform;
-        }
-        if (Vector3.Magnitude(targetTransform.position - transform.position) > loveDistance)
-        {
-            targetPosition = targetTransform.position;
-        }
-        else
-        {
-            targetPosition = transform.position;
-        }
-    }
-
-    public override void AngerTarget()
-    {
-        if (targetTransform == null) {
-            targetPosition = GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy).position;
-        }
-        else
-        {
-            targetPosition = targetTransform.position;
-        }
-    }
 
     private void DamageInRadius()
     {
