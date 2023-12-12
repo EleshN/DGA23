@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Game UI")]
 
+    [SerializeField] GameObject GameCanvas;
+
     [SerializeField] ResultSceneOpener ResultSceneOpener;
     [SerializeField] TMP_Text enemyBaseCount;
     [SerializeField] TMP_Text playerBaseCount;
@@ -125,7 +127,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
     }
 
     // Update is called once per frame
@@ -134,30 +136,53 @@ public class GameManager : MonoBehaviour
         if (PlayerBases.Count == 0 && !isLevelComplete)
         {
             // you lose
+            GameCanvas.SetActive(false);
             ResultSceneOpener.Init(LevelNumber,false);
             isLevelComplete = true;
         }
         if (EnemyBases.Count == 0 && !isLevelComplete)
         {
             // you win
+            GameCanvas.SetActive(false);
             ResultSceneOpener.Init(LevelNumber, true);
             isLevelComplete = true;
         }
 
         // update GameCanvas text elements
-        switch (PlayerObject.GetCurrentAmmoType()) {
+        UpdateIconCounts(PlayerObject.GetCurrentAmmoType());
+    }
+
+    private void UpdateIconCounts(string currentSelected = "")
+    {
+        // update all counts
+        for (int i = 0; i < PlayerObject.ammoNames.Length; i++)
+        {
+            int count = PlayerObject.ammo[i];
+            switch (PlayerObject.ammoNames[i]) {
+                case "anger":
+                    angerCount.text = count.ToString();
+                    break;
+                case "love":
+                    loveCount.text = count.ToString();
+                    break;
+                default:
+                    Debug.Log("Invalid emotion");
+                    break;
+            }
+        }
+
+        // switch between icon focus
+        switch (currentSelected)
+        {
             case "anger":
                 angerUI.transform.localScale = new Vector3(1, 1, 1);
                 loveUI.transform.localScale = new Vector3(.5f, .5f, .5f);
-                angerCount.text = PlayerObject.GetCurrentAmmoCount().ToString();
                 break;
             case "love":
                 loveUI.transform.localScale = new Vector3(1, 1, 1);
                 angerUI.transform.localScale = new Vector3(.5f, .5f, .5f);
-                loveCount.text = PlayerObject.GetCurrentAmmoCount().ToString();
                 break;
             default:
-                Debug.Log("Invalid emotion");
                 break;
         }
     }

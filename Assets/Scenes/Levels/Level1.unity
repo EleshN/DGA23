@@ -1571,7 +1571,7 @@ PrefabInstance:
       value: enemyBase
       objectReference: {fileID: 0}
     - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
-      propertyPath: enemyWeights.Array.data[0]
+      propertyPath: enemyWeights.Array.data[1]
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
@@ -2809,65 +2809,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4791089039594308749, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6077426668867834045, guid: 013c9503b8fd649c688d36affd347302, type: 3}
       propertyPath: m_Name
       value: Dog (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6077426668867834045, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: attackDelay
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: loveColor.b
-      value: 0.4745098
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: loveColor.g
-      value: 0.25490198
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: loveColor.r
-      value: 0.6117647
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: angerColor.b
-      value: 0.20784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: angerColor.g
-      value: 0.35686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: angerColor.r
-      value: 0.79607844
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: animalDamage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: hitboxActiveTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: emotionlessColor.b
-      value: 0.32156864
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: emotionlessColor.g
-      value: 0.3529412
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: emotionlessColor.r
-      value: 0.4431373
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3200,124 +3144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cead068cbd90429a90e2da82bbf117e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1366992181
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1509608548}
-    m_Modifications:
-    - target: {fileID: 1746057720259803590, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.8964715
-      objectReference: {fileID: 0}
-    - target: {fileID: 1746057720259803590, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.5999994
-      objectReference: {fileID: 0}
-    - target: {fileID: 1746057720259803590, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.4311471
-      objectReference: {fileID: 0}
-    - target: {fileID: 1746057720259803590, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1746057720259803590, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1746057720259803590, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1746057720259803590, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1746057720259803590, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1746057720259803590, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1746057720259803590, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4791089039594308749, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6077426668867834045, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_Name
-      value: Dog
-      objectReference: {fileID: 0}
-    - target: {fileID: 6077426668867834045, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: attackDelay
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: loveColor.b
-      value: 0.47260672
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: loveColor.g
-      value: 0.25685295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: loveColor.r
-      value: 0.6132076
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: angerColor.b
-      value: 0.20484152
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: angerColor.g
-      value: 0.35648313
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: angerColor.r
-      value: 0.7924528
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: animalDamage
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: hitboxActiveTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: emotionlessColor.b
-      value: 0.32156864
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: emotionlessColor.g
-      value: 0.3529412
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667359369462860146, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-      propertyPath: emotionlessColor.r
-      value: 0.43921572
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 013c9503b8fd649c688d36affd347302, type: 3}
---- !u!4 &1366992182 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1746057720259803590, guid: 013c9503b8fd649c688d36affd347302, type: 3}
-  m_PrefabInstance: {fileID: 1366992181}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1369783399
 GameObject:
   m_ObjectHideFlags: 0
@@ -4151,7 +3977,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1366992182}
   - {fileID: 1207708119}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4166,6 +3991,10 @@ PrefabInstance:
     - target: {fileID: 2475064746497608209, guid: 1882b0083d3e323488a7ccfc9e67a2f3, type: 3}
       propertyPath: m_Name
       value: PlayerBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 3770474109522332828, guid: 1882b0083d3e323488a7ccfc9e67a2f3, type: 3}
+      propertyPath: health
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8878510227040162442, guid: 1882b0083d3e323488a7ccfc9e67a2f3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4567,6 +4396,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711343908106187076, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
       propertyPath: LevelNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711343908106187076, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
+      propertyPath: EnemySpawnCap
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9122006461562298808, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
