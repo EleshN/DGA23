@@ -9,12 +9,26 @@ public class SoundManager : MonoBehaviour
     // AudioSource for playing sound effects
     public AudioSource sfxSource;
 
+    // AudioClip for walk sound
+    public AudioClip walkSoundClip;
+
+    // AudioClip for UI sound
+    public AudioClip uiSoundClip;
+
+    public AudioClip refreshClip;
+
     // Array of background music clips
     public AudioClip[] bgmClips;
+
 
     // Current index of background music
     private int currentBgmIndex = 0;
 
+
+    public void PlaySFX(AudioClip clip)
+    {
+        sfxSource.PlayOneShot(clip);
+    }
     // Adjusts the master volume (affects all sounds)
     public float masterVolume
     {
@@ -26,6 +40,12 @@ public class SoundManager : MonoBehaviour
     {
         // Start playing background music
         StartCoroutine(BackgroundMusicPlayer());
+    }
+
+    // Function to check if an SFX is currently playing
+    public bool IsPlayingSFX()
+    {
+        return sfxSource.isPlaying;
     }
 
     // Coroutine to cycle through the playlist of background sounds
@@ -45,10 +65,4 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    // Function to play a sound effect
-    // This can be called from other scripts
-    public void PlaySFX(AudioClip clip)
-    {
-        // sfxSource.PlayOneShot(clip);
-    }
 }

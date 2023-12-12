@@ -30,8 +30,16 @@ public class Player : MonoBehaviour
     [SerializeField] float knockbackDuration = 0.3f;
     float knockbackTimer;
 
+    // Local AudioSource for player-specific sounds
+    public AudioSource playerAudioSource;
+
+    // Audio clips for player actions
+    public AudioClip walkSoundClip;
+    public AudioClip uiSoundClip;
+    public AudioClip refreshClip;
+
     void Start()
-    {         
+    {
         GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
         Collider playerCollider = GetComponent<Collider>();
 
@@ -58,7 +66,18 @@ public class Player : MonoBehaviour
             Scroll();
             iframes -= Time.deltaTime;
             knockbackTimer -= Time.deltaTime;
+
+            // Check if player is moving to play walking sound
+            if (IsMoving() && !playerAudioSource.isPlaying)
+            {
+                playerAudioSource.PlayOneShot(walkSoundClip);
+            }
         }
+    }
+
+    private bool IsMoving()
+    {
+        return rb.velocity.magnitude > 0.1f; // Adjust the threshold as needed
     }
 
     private void Inputs()
@@ -84,7 +103,7 @@ public class Player : MonoBehaviour
 
         Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
         //rb.velocity = anglevector * movement * moveSpeed;
-        if(knockbackTimer <= 0)
+        if (knockbackTimer <= 0)
         {
             rb.velocity = anglevector * movement * moveSpeed;
         }
@@ -100,6 +119,12 @@ public class Player : MonoBehaviour
         else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(switchEmotion))
         {
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
+        }
+
+        // Play UI sound when scroll is detected
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            playerAudioSource.PlayOneShot(uiSoundClip);
         }
     }
 
@@ -129,6 +154,8 @@ public class Player : MonoBehaviour
 
     public void RefreshAmmo()
     {
+        playerAudioSource.PlayOneShot(refreshClip);
+
         Debug.Log("Ammo Refreshed +1 for Each Type");
         for (int i = 0; i < ammo.Length; i++)
         {
