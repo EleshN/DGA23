@@ -73,8 +73,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text enemyBaseCount;
     [SerializeField] TMP_Text playerBaseCount;
 
-    [SerializeField] TMP_Text selectedAmmoType;
-    [SerializeField] TMP_Text ammoCount;
+    [SerializeField] TMP_Text loveCount;
+    [SerializeField] TMP_Text angerCount;
+    [SerializeField] GameObject loveUI;
+    [SerializeField] GameObject angerUI;
 
     /// <summary>
     /// whether the current running level is completed (ongoing vs won/lost)
@@ -143,9 +145,21 @@ public class GameManager : MonoBehaviour
         }
 
         // update GameCanvas text elements
-        selectedAmmoType.text = PlayerObject.GetCurrentAmmoType();
-        ammoCount.text = PlayerObject.GetCurrentAmmoCount().ToString();
-
+        switch (PlayerObject.GetCurrentAmmoType()) {
+            case "anger":
+                angerUI.transform.localScale = new Vector3(1, 1, 1);
+                loveUI.transform.localScale = new Vector3(.5f, .5f, .5f);
+                angerCount.text = PlayerObject.GetCurrentAmmoCount().ToString();
+                break;
+            case "love":
+                loveUI.transform.localScale = new Vector3(1, 1, 1);
+                angerUI.transform.localScale = new Vector3(.5f, .5f, .5f);
+                loveCount.text = PlayerObject.GetCurrentAmmoCount().ToString();
+                break;
+            default:
+                Debug.Log("Invalid emotion");
+                break;
+        }
     }
     
     public Transform FindClosest(Vector3 source, HashSet<Transform> transforms)
