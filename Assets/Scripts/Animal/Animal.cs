@@ -74,8 +74,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     SpriteRenderer spriteRenderer;
 
-    
-    [SerializeField] [Range(0,1)] float animationSpeed = 1.0f;
+
+    [SerializeField][Range(0, 1)] float animationSpeed = 1.0f;
 
     void Awake()
     {
@@ -87,14 +87,15 @@ public abstract class Animal : MonoBehaviour, IDamageable
         mainCam = GameObject.FindGameObjectWithTag("MainCamera");
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         anim.speed = animationSpeed;
-        
+
     }
 
     public virtual void Start()
     {
         // Set health
         health = maxHealth;
-        if (healthBar != null){
+        if (healthBar != null)
+        {
             healthBar.SetHealthBar(maxHealth);
             healthBar.gameObject.SetActive(false);
         }
@@ -106,6 +107,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
         RandomPosition();
     }
 
+    // Virtual method to be overridden by derived classes
+    protected virtual void OnEmotionChanged(Emotion newEmotion)
+    {
+        // This method can be overridden in derived classes
+    }
     public virtual void Update()
     {
         anim.speed = animationSpeed;
@@ -117,7 +123,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 AngerTarget();
                 break;
             case Emotion.LOVE:
-                agent.Speed = loveSpeed ;
+                agent.Speed = loveSpeed;
                 LoveTarget();
                 break;
             default:
@@ -145,7 +151,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
             agent.SetObstacleMode();
             attackCooldown = attackRate;
         }
-        if (!withinAttackRadius){
+        if (!withinAttackRadius)
+        {
             agent.SetAgentMode();
         }
 
@@ -168,11 +175,12 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 healthBar.UpdateHealthBar(health);
                 healthBar.gameObject.SetActive(true);
             }
-            else {
+            else
+            {
                 healthBar.gameObject.SetActive(false);
             }
         }
-        
+
         Animate();
     }
 
@@ -183,6 +191,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <param name="emotion"></param>
     protected void SetEmotion(Emotion emotion)
     {
+        if (currEmotion != emotion)
+        {
+            currEmotion = emotion;
+            OnEmotionChanged(emotion); // Notify the derived class of the emotion change
+        }
         if (emotion == Emotion.EMOTIONLESS || emotion == Emotion.LOVE)
         {
             health = maxHealth;
@@ -228,10 +241,12 @@ public abstract class Animal : MonoBehaviour, IDamageable
         {
             SetEmotion(emotion);
             // an animal set to anger state will be qualified to become a target of enemies
-            if (emotion == Emotion.ANGER){
+            if (emotion == Emotion.ANGER)
+            {
                 GameManager.Instance.ValidEnemyTargets.Add(this.transform);
             }
-            else{
+            else
+            {
                 GameManager.Instance.ValidEnemyTargets.Remove(this.transform);
             }
             targetTransform = newTarget;
@@ -256,7 +271,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public virtual void TakeDamage(float damageAmount, Transform damageSource)
     {
-        if (currEmotion == Emotion.ANGER){
+        if (currEmotion == Emotion.ANGER)
+        {
             health -= damageAmount;
             colorIndicator.IndicateDamage();
         }
@@ -349,11 +365,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public virtual void Animate()
     {
-      
+
         // Vector3 referenceZVelocity = Vector3.Project(agent.Velocity, mainCam.transform.forward);
 
         // Convert the object's velocity from world space to camera space
-        Vector3 velocityInCameraSpace = mainCam.transform.InverseTransformDirection( agent.Velocity);
+        Vector3 velocityInCameraSpace = mainCam.transform.InverseTransformDirection(agent.Velocity);
 
         // Check if the x component of the velocity in camera space is positive (moving to the right)
         if (spriteRenderer != null)
@@ -364,12 +380,12 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 // change x orientation  when horizontal direction changes.
                 flipX = velocityInCameraSpace.x > 0;
             }
-            else 
+            else
             {
                 if (targetTransform != null)
                 {
                     // face target if stationary
-                    Vector3 offsetInCameraSpace = mainCam.transform.InverseTransformDirection( targetTransform.position - transform.position );
+                    Vector3 offsetInCameraSpace = mainCam.transform.InverseTransformDirection(targetTransform.position - transform.position);
                     flipX = offsetInCameraSpace.x > 0;
                 }
             }
@@ -377,12 +393,13 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
         }
 
-        if (anim != null){
+        if (anim != null)
+        {
             anim.SetFloat("FBspeed", -velocityInCameraSpace.z);
         }
         else
         {
-            Debug.Log("no animation set for animal " + gameObject.name );
+            Debug.Log("no animation set for animal " + gameObject.name);
         }
     }
 }

@@ -11,6 +11,9 @@ public class MeleeEnemy : Enemy
     [SerializeField] float hitboxActiveTime = 2f;
 
 
+    public AudioSource enemyAudioSource;
+    public AudioClip enemyAttackClip;
+
     // void OnCollisionStay(Collision collision)
     // {
     //     print("enemy colliding with something");
@@ -37,6 +40,7 @@ public class MeleeEnemy : Enemy
     IEnumerator ToggleHitbox()
     {
         yield return new WaitForSeconds(attackDelay);
+        enemyAudioSource.PlayOneShot(enemyAttackClip);
         hitbox.gameObject.SetActive(true);
         yield return new WaitForSeconds(hitboxActiveTime);
         hitbox.gameObject.SetActive(false);

@@ -10,13 +10,18 @@ public class Gun : MonoBehaviour
 
     //spawn of the bullet
     [SerializeField] Transform bulletSpawn;
-    
+
     [SerializeField] Targetting aim;
 
     [SerializeField] float bulletSpeed;
 
+    public AudioSource gunAudioSource;
+
+    public AudioClip shootSoundClip;
+
     public void Shoot(int ammoIndex)
     {
+        gunAudioSource.PlayOneShot(shootSoundClip);
         //print("bullet at: " + bulletSpawn.position);
         GameObject projectile = Instantiate(ammoPrefabs[ammoIndex], transform.position, Quaternion.identity); //bulletSpawn.rotation
         // Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
@@ -46,11 +51,11 @@ public class Gun : MonoBehaviour
         {
             if (direction.z > 0)
             {
-                angle = 90 + (90-angle);
+                angle = 90 + (90 - angle);
             }
             else
             {
-                angle += 180 ;
+                angle += 180;
             }
         }
         else if (direction.z < 0)

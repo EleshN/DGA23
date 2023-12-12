@@ -17,6 +17,12 @@ public class Dog : Animal
 
     [SerializeField] ParticleSystem buffParticleSystem;
 
+    public AudioSource dogAudioSource;
+
+    public AudioClip dogLovedClip;
+    public AudioClip dogAngryClip;
+    public AudioClip dogAttackClip;
+
     public override void Start()
     {
         base.Start();
@@ -29,6 +35,24 @@ public class Dog : Animal
     public override void Update()
     {
         base.Update();
+
+    }
+
+
+    protected override void OnEmotionChanged(Emotion newEmotion)
+    {
+        base.OnEmotionChanged(newEmotion);
+
+        switch (newEmotion)
+        {
+            case Emotion.LOVE:
+                dogAudioSource.PlayOneShot(dogLovedClip);
+                break;
+            case Emotion.ANGER:
+                dogAudioSource.PlayOneShot(dogAngryClip);
+                break;
+                // Add cases for other emotions if needed
+        }
     }
 
     private void Buff()
@@ -49,6 +73,7 @@ public class Dog : Animal
             {
                 if (!buffParticleSystem.isPlaying)
                 {
+                    dogAudioSource.PlayOneShot(dogLovedClip);
                     buffParticleSystem.Play();
                 }
                 damageMultiplier = damageBuffConst * nearByDogs;
@@ -65,12 +90,13 @@ public class Dog : Animal
                 healthMultiplier = 1f;
             }
         }
-        else{
+        else
+        {
             if (buffParticleSystem.isPlaying)
-                {
-                    buffParticleSystem.Pause();
-                    buffParticleSystem.Clear();
-                }
+            {
+                buffParticleSystem.Pause();
+                buffParticleSystem.Clear();
+            }
         }
     }
 
@@ -79,6 +105,7 @@ public class Dog : Animal
     /// </summary>
     public override void Attack()
     {
+        dogAudioSource.PlayOneShot(dogAttackClip);
         hitbox.SetDamage(animalDamage * damageMultiplier);
         StartCoroutine(DogAttack());
     }
