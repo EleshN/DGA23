@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RhinoBeetleHitbox : Hitbox
 {
-    private void OnTriggerStay(Collider other)
+    protected override void OnTriggerStay(Collider other)
     {
         if (base.tagTargets.Contains(other.tag))
         {

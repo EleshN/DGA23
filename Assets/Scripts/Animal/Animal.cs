@@ -131,7 +131,10 @@ public abstract class Animal : MonoBehaviour, IDamageable
         //Attack
         attackCooldown -= Time.deltaTime;
         bool withinAttackRadius = Vector3.Magnitude(targetPosition - transform.position) <= attackRadius;
-        if (currEmotion == Emotion.ANGER && attackCooldown <= 0 && withinAttackRadius)
+        // allow attack if the entity has come to a distance within range and that it comes to a stop
+        // or entity is guaranteed able to hit target because distance < 1 (but target might be moving away)
+        bool canStartAttack = (withinAttackRadius && agent.Velocity.magnitude < 1e-3) || Vector3.Magnitude(targetPosition - transform.position) <= 1;
+        if (currEmotion == Emotion.ANGER && attackCooldown <= 0 && canStartAttack)
         {
             Attack();
             agent.SetObstacleMode();
@@ -174,8 +177,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <param name="emotion"></param>
     protected void SetEmotion(Emotion emotion)
     {
-        if (currEmotion == Emotion.EMOTIONLESS &&
-            emotion != Emotion.EMOTIONLESS)
+        if (emotion == Emotion.EMOTIONLESS || emotion == Emotion.LOVE)
         {
             health = maxHealth;
         }

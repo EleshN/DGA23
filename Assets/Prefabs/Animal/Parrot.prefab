@@ -713,7 +713,7 @@ MonoBehaviour:
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4
-  loveDistance: 5
+  loveDistance: 3
   attackRadius: 0
   attackRate: 0
   animationSpeed: 1

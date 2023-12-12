@@ -52,7 +52,6 @@ public class Dog : Animal
         if (targetTransform == null)
         {
             targetTransform = GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
-            targetPosition = targetTransform.position;
         }
         else
         {

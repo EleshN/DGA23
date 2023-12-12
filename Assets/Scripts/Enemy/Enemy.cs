@@ -113,7 +113,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     /// <returns>whether an enemy can initiate an attack</returns>
     protected virtual bool CanAttack()
     {
-        return Vector3.Magnitude(targetTransform.position - transform.position) <= attackRadius;
+        // allow attack if the entity has come to a distance within range and that it comes to a stop
+        // or entity is guaranteed able to hit target because distance < 1 (but target might be moving away)
+        float dist = Vector3.Magnitude(targetTransform.position - transform.position);
+        return (dist <= attackRadius && agent.Velocity.magnitude < 1e-3) || (dist <= 1);
     }
 
     /// <summary>
