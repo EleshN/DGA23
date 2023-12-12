@@ -489,6 +489,84 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1469561550}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &207383079
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4825615435286823833, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: bgmSource
+      value: 
+      objectReference: {fileID: 207383080}
+    - target: {fileID: 4825615435286823833, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: bgmClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: e36fbfc2f18eb844a8d4ad18afe78359, type: 3}
+    - target: {fileID: 4825615435286823833, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: bgmClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: e36fbfc2f18eb844a8d4ad18afe78359, type: 3}
+    - target: {fileID: 4825615435286823833, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: bgmClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: e36fbfc2f18eb844a8d4ad18afe78359, type: 3}
+    - target: {fileID: 5037562354517958064, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482146111941703973, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.307314
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482146111941703973, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.505061
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482146111941703973, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13.5965805
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482146111941703973, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482146111941703973, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482146111941703973, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482146111941703973, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482146111941703973, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482146111941703973, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482146111941703973, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+--- !u!82 &207383080 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 251574603683008090, guid: 6277f1598b44f40439cc9c04f2f5f968, type: 3}
+  m_PrefabInstance: {fileID: 207383079}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &223551100
 GameObject:
   m_ObjectHideFlags: 0
@@ -4712,6 +4790,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 0}
   sfxSource: {fileID: 0}
+  walkSoundClip: {fileID: 0}
+  uiSoundClip: {fileID: 0}
+  refreshClip: {fileID: 0}
   bgmClips: []
 --- !u!1 &2062219454
 GameObject:
@@ -4980,3 +5061,4 @@ SceneRoots:
   - {fileID: 1020718964}
   - {fileID: 20121558}
   - {fileID: 2110313273}
+  - {fileID: 207383079}

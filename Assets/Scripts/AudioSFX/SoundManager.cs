@@ -22,7 +22,7 @@ public class SoundManager : MonoBehaviour
 
 
     // Current index of background music
-    private int currentBgmIndex = 0;
+    //private int currentBgmIndex = 0;
 
 
     public void PlaySFX(AudioClip clip)
@@ -51,17 +51,15 @@ public class SoundManager : MonoBehaviour
     // Coroutine to cycle through the playlist of background sounds
     private IEnumerator BackgroundMusicPlayer()
     {
-        while (true)
+        for (int i = 0; i < bgmClips.Length; i++)
         {
             // Play the current background music clip
-            bgmSource.clip = bgmClips[currentBgmIndex];
+            print("index and length " + i + "," + bgmClips.Length);
+            bgmSource.clip = bgmClips[i];
             bgmSource.Play();
 
             // Wait for the current clip to finish before moving to the next one
             yield return new WaitForSeconds(bgmSource.clip.length);
-
-            // Move to the next clip in the playlist
-            currentBgmIndex = (currentBgmIndex + 1) % bgmClips.Length;
         }
     }
 
