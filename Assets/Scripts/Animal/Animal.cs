@@ -68,7 +68,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [Header("Particle Effect")]
     [SerializeField] ParticleSystem emotionSystem;
     [SerializeField] Material loveMat;
-    [SerializeField] Material AngerMat;
+    [SerializeField] Material angerMat;
 
     ColorIndicator colorIndicator;
 
@@ -194,12 +194,19 @@ public abstract class Animal : MonoBehaviour, IDamageable
         {
             case Emotion.ANGER:
                 cubeRenderer.material.color = angerColor;
+                print("Previous material is " + emotionSystem.GetComponent<ParticleSystemRenderer>().material);
+                emotionSystem.GetComponent<ParticleSystemRenderer>().material = angerMat;
+                emotionSystem.Play();
                 break;
             case Emotion.LOVE:
                 cubeRenderer.material.color = loveColor;
+                emotionSystem.GetComponent<ParticleSystemRenderer>().material = loveMat;
+                emotionSystem.Play();
                 break;
             default:
                 cubeRenderer.material.color = emotionlessColor;
+                emotionSystem.Pause();
+                emotionSystem.Clear();
                 break;
         }
         if (agent.isActiveAndEnabled)
