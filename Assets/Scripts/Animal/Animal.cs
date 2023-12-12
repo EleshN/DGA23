@@ -318,7 +318,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         if (spriteRenderer != null)
         {
             bool flipX = spriteRenderer.flipX;
-            if (velocityInCameraSpace.x != 0)
+            if (velocityInCameraSpace.x != 0 && Mathf.Abs(velocityInCameraSpace.x) >= 0.1f)
             {
                 // change x orientation  when horizontal direction changes.
                 flipX = velocityInCameraSpace.x > 0;

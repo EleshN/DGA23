@@ -49,7 +49,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         GameManager.Instance.Register(this);
         health = maxHealth;
-        healthBar.SetHealthBar(maxHealth);
+        // Set health
+        health = maxHealth;
+        healthBar?.SetHealthBar(maxHealth);
+        healthBar?.gameObject.SetActive(false);
         currentAttackTime = 0;
         agent.Speed = speed;
     }
@@ -106,6 +109,16 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
             default:
                 break;
+        }
+
+        // hide health bar when HP is at maximum
+        if (health < maxHealth)
+        {
+            healthBar?.UpdateHealthBar(health);
+            healthBar?.gameObject.SetActive(true);
+        }
+        else {
+            healthBar?.gameObject.SetActive(false);
         }
 
         Animate();
@@ -202,9 +215,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         {
             // Check if the x component of the velocity in camera space is positive (moving to the right)
             bool flipX = spriteRenderer.flipX;
-            if (velocityInCameraSpace.x != 0)
+            if (velocityInCameraSpace.x != 0 && Mathf.Abs(velocityInCameraSpace.x) >= 0.1f)
             {
-                // change x orientation  when horizontal direction changes.
+                // change x orientation when horizontal direction changes (positive = right).
                 flipX = velocityInCameraSpace.x > 0;
             }
             else 
@@ -217,7 +230,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
                 }
             }
             spriteRenderer.flipX = flipX;
-
         }
     }
 }
