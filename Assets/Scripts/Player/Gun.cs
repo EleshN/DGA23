@@ -22,7 +22,7 @@ public class Gun : MonoBehaviour
     public void Shoot(int ammoIndex)
     {
         gunAudioSource.PlayOneShot(shootSoundClip);
-        print("bullet at: " + bulletSpawn.position);
+        //print("bullet at: " + bulletSpawn.position);
         GameObject projectile = Instantiate(ammoPrefabs[ammoIndex], transform.position, Quaternion.identity); //bulletSpawn.rotation
         // Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
         // if (projectileRb != null)
@@ -39,8 +39,8 @@ public class Gun : MonoBehaviour
         {
             angle = angle + 180;
         }
-        print("Difference in positions is " + direction);
-        print("Shot, Angle is " + (Mathf.Atan(direction.z / direction.x) * Mathf.Rad2Deg));
+        //print("Difference in positions is " + direction);
+        //print("Shot, Angle is " + (Mathf.Atan(direction.z / direction.x) * Mathf.Rad2Deg));
     }
 
     private void Update()
@@ -62,7 +62,7 @@ public class Gun : MonoBehaviour
         {
             angle = 270 + (90 - angle);
         }
-        print("Difference in positions is " + direction);
-        print("Shot, Angle is " + angle);
+        //print("Difference in positions is " + direction);
+        //print("Shot, Angle is " + angle);
     }
 }

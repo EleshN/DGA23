@@ -65,6 +65,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public float attackRate;
     float attackCooldown;
 
+    [Header("Particle Effect")]
+    [SerializeField] ParticleSystem emotionSystem;
+    [SerializeField] Material loveMat;
+    [SerializeField] Material AngerMat;
+
     ColorIndicator colorIndicator;
 
     SpriteRenderer spriteRenderer;
@@ -135,6 +140,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
         // allow attack if the entity has come to a distance within range and that it comes to a stop
         // or entity is guaranteed able to hit target because distance < 1 (but target might be moving away)
         bool canStartAttack = (withinAttackRadius && agent.Velocity.magnitude < 1e-3) || Vector3.Magnitude(targetPosition - transform.position) <= 1;
+        if (this.gameObject.name == "Cat")
+        {
+            Debug.Log("vec: " + agent.Velocity);
+            Debug.Log("dist: " + Vector3.Magnitude(targetPosition - transform.position));
+        }
         if (currEmotion == Emotion.ANGER && attackCooldown <= 0 && canStartAttack)
         {
             Attack();
@@ -274,12 +284,36 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <summary>
     /// Called every update, when the emotion is Love, targetPosition will update to player position
     /// </summary>
-    public abstract void LoveTarget();
+    public virtual void LoveTarget()
+    {
+        if (targetTransform != GameManager.Instance.PlayerTransform)
+        {
+            targetTransform = GameManager.Instance.PlayerTransform;
+        }
+        if (Vector3.Magnitude(targetTransform.position - transform.position) > loveDistance)
+        {
+            targetPosition = targetTransform.position;
+        }
+        else
+        {
+            targetPosition = transform.position;
+        }
+    }
 
     /// <summary>
     /// Called every update, when the emotion is Anger, targetPosition will update to enemy position
     /// </summary>
-    public abstract void AngerTarget();
+    public virtual void AngerTarget()
+    {
+        if (targetTransform == null) {
+            targetPosition = GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy).position;
+            agent.SetAgentMode(); // make sure to allow movement after current round of combat is over
+        }
+        else
+        {
+            targetPosition = targetTransform.position;
+        }
+    }
 
     /// <summary>
     /// Called every update, when there is no emotion, a random target will be chosen
