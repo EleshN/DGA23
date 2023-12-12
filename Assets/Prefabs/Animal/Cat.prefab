@@ -514,8 +514,8 @@ MonoBehaviour:
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4
-  loveDistance: 5
-  attackRadius: 1
+  loveDistance: 3
+  attackRadius: 2
   attackRate: 2
   animationSpeed: 1
   hitbox: {fileID: 8797103352101356180}

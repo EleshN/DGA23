@@ -11,8 +11,8 @@ public class EncircleEnemy : Enemy
   [SerializeField] private Material attackMaterial; // Material used when attacking
 
   private float angle;
-  private bool firstCircleCompleted = false;
-  private bool isDrawingCircle = false;
+  // private bool firstCircleCompleted = false;
+  // private bool isDrawingCircle = false;
 
   protected override void Start()
   {
@@ -83,7 +83,7 @@ public class EncircleEnemy : Enemy
 
   IEnumerator PerformAttack()
   {
-    isDrawingCircle = true;
+    // isDrawingCircle = true;
     Material originalMaterial = lineRenderer.material;
     lineRenderer.material = attackMaterial;
     lineRenderer.loop = true;
@@ -93,7 +93,7 @@ public class EncircleEnemy : Enemy
     yield return new WaitForSeconds(0.5f); // Duration for the red color
 
     lineRenderer.material = originalMaterial;
-    isDrawingCircle = false;
+    // isDrawingCircle = false;
   }
 
   protected override void Attack()
