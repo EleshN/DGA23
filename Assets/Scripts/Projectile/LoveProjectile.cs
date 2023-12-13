@@ -45,4 +45,10 @@ public class LoveProjectile : Projectile
         }
     }
 
+    protected override void reachMaxDist()
+    {
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        anim.gameObject.transform.localScale = anim.gameObject.transform.localScale / 2;
+        anim.SetTrigger("Impact");
+    }
 }

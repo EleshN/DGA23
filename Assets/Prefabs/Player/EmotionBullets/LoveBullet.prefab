@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  maxDistance: 50
+  maxDistance: 10
   anim: {fileID: 6671701043320421091}
   callback: {fileID: 2351938893715609683}
 --- !u!54 &-1444632781967521483

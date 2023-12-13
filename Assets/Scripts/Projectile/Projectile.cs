@@ -15,6 +15,9 @@ public abstract class Projectile : MonoBehaviour
     //Projectile start position
     private Vector3 startPosition;
 
+    //So we only call reachmaxdist once
+    private bool reachedMaxDist = false;
+
     private void Start()
     {
         startPosition = transform.position;
@@ -37,9 +40,11 @@ public abstract class Projectile : MonoBehaviour
     {
         // transform.rotation = Quaternion.Euler(0, Quaternion.LookRotation(direction).eulerAngles.y, 0);
         direction.Normalize();
-        
-
+        direction.y = 0;
+        print("Shooting in direction " + direction);
         rb.AddForce(direction * speed, ForceMode.Impulse); //Direction times speed
+        rb.useGravity = false;
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
     }
 
     /// <summary>
@@ -57,9 +62,10 @@ public abstract class Projectile : MonoBehaviour
     {
         float distanceTraveled = Vector3.Distance(startPosition, transform.position);
         // If a time based metric is preferred, do Destroy(gameObject,lifeTime)
-        if (distanceTraveled > maxDistance)
+        if (distanceTraveled > maxDistance && !reachedMaxDist)
         {
-            Destroy(gameObject);
+            reachedMaxDist = true;
+            reachMaxDist();
         }
     }
 
@@ -73,4 +79,6 @@ public abstract class Projectile : MonoBehaviour
     {
         HandleCollision(collision);
     }
+
+    protected abstract void reachMaxDist();
 }

@@ -40,4 +40,9 @@ public class EnemyProjectile : Projectile
         }
         base.HandleCollision(collision);
     }
+
+    protected override void reachMaxDist()
+    {
+        Destroy(this.gameObject);
+    }
 }
