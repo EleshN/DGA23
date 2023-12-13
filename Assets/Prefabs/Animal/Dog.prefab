@@ -10566,6 +10566,7 @@ Transform:
   - {fileID: 2363943619798348980}
   - {fileID: 4835486456519640383}
   - {fileID: 890616268401985222}
+  - {fileID: 3303086449073129100}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &-6819493712484568676
@@ -10658,8 +10659,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 1, z: 0.25}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 1.1389267, y: 1, z: 0.7948534}
+  m_Center: {x: -0.030420035, y: 0.5, z: 0.10420075}
 --- !u!114 &5327657638451959388
 MonoBehaviour:
   m_ObjectHideFlags: 0
