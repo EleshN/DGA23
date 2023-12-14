@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -46,48 +47,14 @@ public class NavMeshObstacleAgent : MonoBehaviour
 
     public void Update()
     {
-        if (timer > 0)
+        // make sure timer only ticks when one of agent/obstacle is on. It is possible for both to be off during transition from obstacle to agent
+        bool obstacleAgentActive = agent.enabled || obstacle.enabled;
+        if (timer > 0 && obstacleAgentActive )
         {
             timer -= Time.deltaTime;
             timer = Math.Max(0, timer);
         }
     }
-
-
-    // public void SetSpeed(float speed)
-    // {
-    //     if (agent.enabled) 
-    //     {
-    //         agent.speed = speed;
-    //         this.speed = speed;
-    //     }
-    // }
-
-    // public float GetSpeed()
-    // {
-    //     if (agent.enabled) 
-    //     {
-    //         return agent.speed;
-    //     }
-    //     return speed;
-    // }
-
-    // public void SetStoppingDistance(float dist)
-    // {
-    //     if (agent.enabled) 
-    //     {
-    //         agent.stoppingDistance = dist;
-    //     }
-    // }
-
-
-    // public void SetDestination(Vector3 destination)
-    // { 
-    //     if (agent.enabled)
-    //     {
-    //         agent.SetDestination(destination);
-    //     }
-    // }
 
     public void SetAgentMode(){
         if (agent.enabled){
@@ -121,6 +88,7 @@ public class NavMeshObstacleAgent : MonoBehaviour
     {
         //delay for one frame
         yield return 0;
+        print("why is obstacle enabled for " + gameObject.name + " " + obstacle.enabled);
         agent.enabled = true;
     }
     

@@ -44,6 +44,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
         // rectTransform.sizeDelta = newSize;
         // healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
         healthBar.SetHealthBar(health);
+        healthBar.gameObject.SetActive(false); // hide hp bar when at maximum
         colorIndicator = GetComponent<ColorIndicator>();
         weightRange = new int[enemyWeights.Length];
         weightSum = 0;
@@ -67,7 +68,6 @@ public class EnemyBase : MonoBehaviour, IDamageable
                 spwanType = UnityEngine.Random.Range(1, weightSum+1);
                 for (int i=0; i<enemyWeights.Length; i++){
                     if(spwanType <= weightRange[i]){
-                        //just spwans the first one for now
                         Vector3 spawnPosition = new Vector3(transform.position.x-0.5f, spawnHeight, transform.position.z-1);
                         Instantiate(enemyWeights[i].prefab, spawnPosition, Quaternion.identity);
                         return;
@@ -90,6 +90,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
             return;
         }
         health -= damageAmount;
+        healthBar.gameObject.SetActive(true);
         healthBar.UpdateHealthBar(health);
         colorIndicator.IndicateDamage();
         if (health <= 0)

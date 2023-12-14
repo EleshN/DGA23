@@ -38,8 +38,7 @@ public class Camara : MonoBehaviour
     {
         float characterDistance = Vector3.Distance(transform.position, Player.transform.position);
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, fwd, out hit, characterDistance))
+        if (Physics.Raycast(transform.position, fwd, out RaycastHit hit, characterDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
             //print("Raycasthit: " + hit.transform.gameObject.name);
             //Currently, only sprites that turn transparent are bases and scenery
@@ -48,7 +47,6 @@ public class Camara : MonoBehaviour
             //     (hit.transform.parent && hit.transform.parent.gameObject.name.ToLower().Contains("base"))) //For bases, collider is often on child
             if (xrayTargets.Contains(hit.transform.gameObject.tag))
             {
-                print(hit.transform.gameObject.tag);
                 SpriteRenderer spriteTrans;
                 if (hit.transform.gameObject.GetComponent<SpriteRenderer>())
                 {

@@ -11,10 +11,6 @@ public class PlayerAnim : Sprite
     private float vertical;
 
     // Start is called before the first frame update
-    protected override void Start()
-    {
-        base.Start();
-    }
 
     // Update is called once per frame
     protected override void Update()
@@ -24,6 +20,7 @@ public class PlayerAnim : Sprite
             base.Update();
             horizontal = Input.GetAxisRaw("Horizontal");
             vertical = Input.GetAxisRaw("Vertical");
+            
             //print("h" + horizontal);
             //print("v " + vertical);
         }
@@ -65,7 +62,6 @@ public class PlayerAnim : Sprite
                 anim.SetBool("Upwards", false);
             } 
         }
-        transform.rotation = Quaternion.Euler(transform.parent.rotation.x * -1.0f, transform.parent.rotation.y * -1.0f, transform.parent.rotation.z * -1.0f);
-
+        //transform.rotation = Quaternion.Euler(transform.parent.rotation.x * -1.0f, transform.parent.rotation.y * -1.0f, transform.parent.rotation.z * -1.0f);
     }
 }
