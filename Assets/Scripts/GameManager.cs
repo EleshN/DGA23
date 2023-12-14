@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
 
     public Player PlayerObject;
 
+    private Collider PlayerCollider;
+
     // Reference to Player Transform for player target tracking
     [HideInInspector] public Transform PlayerTransform;
 
@@ -117,10 +119,12 @@ public class GameManager : MonoBehaviour
             {
                 PlayerObject = playerComponent;
                 PlayerTransform = PlayerObject.transform;
+                PlayerCollider = PlayerTransform.GetComponent<Collider>();
             }
         }
         Assert.IsTrue(PlayerObject != null, "Unable to find player script");
         Assert.IsTrue(PlayerTransform != null, "Unable to find player");
+        Assert.IsTrue(PlayerCollider != null, "Unable to find player's collider");
         Assert.IsTrue(LevelNumber >= 0, "Level Number in GameManager must be set");
     }
 
@@ -304,10 +308,16 @@ public class GameManager : MonoBehaviour
 
     /// <summary>
     /// adds animal to internal collection of Animals
+    /// 
+    /// <para>A registered animal does not interfere with player's movement</para>
     /// </summary>
     public void Register(Animal a)
     {
         Animals.Add(a); // useful to maintain all animals, not all animals qualify as a target for enemies
+        if (a.TryGetComponent<Collider>(out Collider animalCollider))
+        {
+            Physics.IgnoreCollision(PlayerCollider, animalCollider);
+        }
     }
 
     /// <summary>

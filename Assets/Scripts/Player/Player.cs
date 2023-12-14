@@ -40,18 +40,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
-        Collider playerCollider = GetComponent<Collider>();
-
-        foreach (var animal in animals)
-        {
-            Collider animalCollider = animal.GetComponent<Collider>();
-            if (animalCollider != null)
-            {
-                Physics.IgnoreCollision(playerCollider, animalCollider);
-            }
-        }
-
         colorIndicator = GetComponent<ColorIndicator>();
         random = new System.Random();
     }
@@ -130,7 +118,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag(Tag.Enemy.ToString()) || collision.gameObject.CompareTag(Tag.EnemyBase.ToString()))
         {
             if (iframes <= 0)
             {

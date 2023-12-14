@@ -42,7 +42,7 @@ public class Cat : Animal
 
             foreach (Collider col in nearbyColliders)
             {
-                if (col.gameObject.CompareTag("Animal") && col.gameObject != gameObject)
+                if (col.gameObject.CompareTag(Tag.Animal.ToString()) && col.gameObject != gameObject)
                 {
                     if (col.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {

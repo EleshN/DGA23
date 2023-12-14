@@ -247,17 +247,4 @@ public class Parrot : Animal
 
     public override void TakeDamage(float damage, Transform source){}
 
-    //-----------------------------// COLLISION //-----------------------------//
-
-    ///// <summary>
-    ///// Applies amotion 
-    ///// </summary>
-    ///// <param name="collision"></param>
-    //private void OnTriggerEnter(Collider collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Animal")) {
-    //        collision.gameObject.GetComponent<Animal>().ApplyEmotionEffect(currEmotion);
-    //    }
-    //}
-
 }

@@ -8,5 +8,6 @@ public enum Tag
     Animal,
     Enemy,
     EnemyBase,
-    PlayerBase
+    PlayerBase,
+    Scenery
 }

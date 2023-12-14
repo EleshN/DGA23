@@ -27,7 +27,7 @@ public class LoveProjectile : Projectile
             return;
         }
         GameObject other = collision.gameObject;
-        if (other.tag == "Animal")
+        if (other.tag == Tag.Animal.ToString())
         {
             Animal animal = other.GetComponent<Animal>();
             if (animal.ApplyEmotionEffect(Emotion.LOVE, GameManager.Instance.PlayerTransform))

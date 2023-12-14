@@ -31,7 +31,7 @@ public class AngerProjectile : Projectile
             return;
         }
         GameObject other = collision.gameObject;
-        if (other.tag == "Enemy")
+        if (other.tag == Tag.Enemy.ToString() || other.tag == Tag.EnemyBase.ToString())
         {
             HashSet<Animal> animals = GameManager.Instance.followers;
             HashSet<Animal> parrots = new HashSet<Animal>();
@@ -52,7 +52,7 @@ public class AngerProjectile : Projectile
             animals.UnionWith(parrots);
             // GameManager.Instance.followers = parrots;
         }
-        else if (other.tag == "Animal")
+        else if (other.tag == Tag.Animal.ToString())
         {
             Animal animal = other.GetComponent<Animal>();
             {

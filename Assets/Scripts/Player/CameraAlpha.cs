@@ -10,10 +10,16 @@ public class Camara : MonoBehaviour
     [SerializeField]
     SpriteRenderer oldHit;
 
+    List<string> xrayTargets;
+
     // Use this for initialization
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
+        xrayTargets = new List<string>();
+        xrayTargets.Add(Tag.EnemyBase.ToString());
+        xrayTargets.Add(Tag.PlayerBase.ToString());
+        xrayTargets.Add(Tag.Scenery.ToString());
     }
 
     // Update is called once per frame
@@ -37,20 +43,21 @@ public class Camara : MonoBehaviour
         {
             //print("Raycasthit: " + hit.transform.gameObject.name);
             //Currently, only sprites that turn transparent are bases and scenery
-            if (hit.transform.gameObject.name.ToLower().Contains("base") ||
-                hit.transform.gameObject.CompareTag("Scenery") ||
-                (hit.transform.parent && hit.transform.parent.gameObject.name.ToLower().Contains("base"))) //For bases, collider is often on child
+            // if (hit.transform.gameObject.name.ToLower().Contains("base") ||
+            //     hit.transform.gameObject.CompareTag(Tag.Scenery.ToString()) ||
+            //     (hit.transform.parent && hit.transform.parent.gameObject.name.ToLower().Contains("base"))) //For bases, collider is often on child
+            if (xrayTargets.Contains(hit.transform.gameObject.tag))
             {
-
+                print(hit.transform.gameObject.tag);
                 SpriteRenderer spriteTrans;
                 if (hit.transform.gameObject.GetComponent<SpriteRenderer>())
                 {
                     spriteTrans = hit.transform.gameObject.GetComponent<SpriteRenderer>();
-                } //Account for hitting a child
+                } 
                 else
                 {
-                    //If we hit a child, find spriterenderer in parent's children
-                    spriteTrans = hit.transform.parent.gameObject.GetComponentInChildren<SpriteRenderer>();
+                    //sprite may be contained as a child rather than directly on the gameobject
+                    spriteTrans = hit.transform.gameObject.GetComponentInChildren<SpriteRenderer>();
                 }
 
                 //print("Raycast hit an alpha-able object");
