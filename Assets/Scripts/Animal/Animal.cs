@@ -115,6 +115,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public virtual void Update()
     {
         anim.speed = animationSpeed;
+        spriteRenderer.color = Color.white;
         // Movement
         switch (currEmotion)
         {
@@ -129,6 +130,10 @@ public abstract class Animal : MonoBehaviour, IDamageable
             default:
                 agent.Speed = emoSpeed;
                 EmoTarget();
+                if (isCoolDown)
+                {
+                    spriteRenderer.color = emotionlessColor;
+                }
                 break;
         }
 
@@ -140,11 +145,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         // allow attack if the entity has come to a distance within range and that it comes to a stop
         // or entity is guaranteed able to hit target because distance < 1 (but target might be moving away)
         bool canStartAttack = (withinAttackRadius && agent.Velocity.magnitude < 1e-3) || Vector3.Magnitude(targetPosition - transform.position) <= 1;
-        if (this.gameObject.name == "Cat")
-        {
-            Debug.Log("vec: " + agent.Velocity);
-            Debug.Log("dist: " + Vector3.Magnitude(targetPosition - transform.position));
-        }
+
         if (currEmotion == Emotion.ANGER && attackCooldown <= 0 && canStartAttack)
         {
             Attack();
@@ -313,7 +314,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public virtual void AngerTarget()
     {
         if (targetTransform == null) {
-            targetPosition = GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy).position;
+            targetTransform = GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
             agent.SetAgentMode(); // make sure to allow movement after current round of combat is over
         }
         else

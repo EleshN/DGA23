@@ -6,7 +6,11 @@ public class Dog : Animal
 {
     [Header("Dog Attack Stats")]
     [SerializeField] Hitbox hitbox;
+
+    [Tooltip("the entities that the dog can attak")]
+    [SerializeField] Tag[] targets;
     [SerializeField] float attackDelay;
+
     [Tooltip("The amount of time in seconds that the hitbox is active when attacking")]
     [SerializeField] float hitboxActiveTime;
 
@@ -29,7 +33,7 @@ public class Dog : Animal
         InvokeRepeating(nameof(Buff), 0, 1);
         buffParticleSystem.Pause();
         buffParticleSystem.Clear();
-        // print("Name is " + gameObject.name + " spawnpos is " + spawnLocation);
+        hitbox.Initialize();
     }
 
     public override void Update()
@@ -106,7 +110,7 @@ public class Dog : Animal
     public override void Attack()
     {
         dogAudioSource.PlayOneShot(dogAttackClip);
-        hitbox.SetDamage(animalDamage * damageMultiplier);
+        hitbox?.SetUniformDamage(targets, animalDamage * damageMultiplier);
         StartCoroutine(DogAttack());
     }
 

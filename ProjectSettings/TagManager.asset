@@ -9,6 +9,7 @@ TagManager:
   - Animal
   - Scenery
   - Wall
+  - EnemyBase
   layers:
   - Default
   - TransparentFX

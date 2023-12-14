@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 2319003856202265754}
   - component: {fileID: 6676348581666320538}
   - component: {fileID: 6886312075259269264}
-  - component: {fileID: 1872556205621936004}
+  - component: {fileID: 4451284130647395726}
   m_Layer: 0
   m_Name: Enemy Hitbox
   m_TagString: Untagged
@@ -241,7 +241,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1872556205621936004
+--- !u!114 &4451284130647395726
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,13 +250,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1772066299915919089}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 608aea319874e47659ec3317963d1ec2, type: 3}
+  m_Script: {fileID: 11500000, guid: 94917eb21ff9a3f4d952038ef752216a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagTargets:
-  - Animal
-  - PlayerBase
-  damage: 0
   attackerTransform: {fileID: 6423367497784624718}
 --- !u!1 &2005861634597551782
 GameObject:
@@ -397,7 +393,7 @@ GameObject:
   - component: {fileID: 1551110755120898079}
   - component: {fileID: 328512778247370248}
   - component: {fileID: 4288100602726006704}
-  - component: {fileID: 2164346131555632297}
+  - component: {fileID: 1766831028209354574}
   - component: {fileID: 8390950961805698145}
   - component: {fileID: -3755928593137539418}
   - component: {fileID: 1824284181706879244}
@@ -500,7 +496,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.66096, y: 1, z: 1.4576595}
   m_Center: {x: 0.06951992, y: 0, z: 0.05833785}
---- !u!114 &2164346131555632297
+--- !u!114 &1766831028209354574
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -509,7 +505,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6644180354889415888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dbf114aee93f4ab59bd140f7ad16f57, type: 3}
+  m_Script: {fileID: 11500000, guid: 608aea319874e47659ec3317963d1ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1938080854383796208}
@@ -517,13 +513,19 @@ MonoBehaviour:
   maxHealth: 6
   health: 0
   attackRadius: 2
-  attackCountDown: 2
+  attackCountDown: 3
   robotDamage: 2
-  hitbox: {fileID: 1872556205621936004}
+  targets: 
+  hitbox: {fileID: 4451284130647395726}
   attackDelay: 1
   hitboxActiveTime: 2
   enemyAudioSource: {fileID: 9098085645575275463}
   enemyAttackClip: {fileID: 8300000, guid: 4842969dd9d6112409692a10d3c25cbb, type: 3}
+  damageValues:
+  - tag: 0
+    damage: 2
+  - tag: 3
+    damage: 3
 --- !u!195 &8390950961805698145
 NavMeshAgent:
   m_ObjectHideFlags: 0

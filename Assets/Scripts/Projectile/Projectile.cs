@@ -40,11 +40,9 @@ public abstract class Projectile : MonoBehaviour
     {
         // transform.rotation = Quaternion.Euler(0, Quaternion.LookRotation(direction).eulerAngles.y, 0);
         direction.Normalize();
-        direction.y = 0;
         print("Shooting in direction " + direction);
         rb.AddForce(direction * speed, ForceMode.Impulse); //Direction times speed
         rb.useGravity = false;
-        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
     }
 
     /// <summary>

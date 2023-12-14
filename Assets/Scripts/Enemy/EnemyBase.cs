@@ -1,12 +1,24 @@
+using System;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
+[Serializable]
+public class WeightedPair 
+{
+    public GameObject prefab;
+    public int weight;
+}
+
 public class EnemyBase : MonoBehaviour, IDamageable
+
+    
 {
     [SerializeField] float health = 100f;
     [SerializeField] HealthBar healthBar;
-
-    public int[] enemyWeights;
+    
+    public WeightedPair[] enemyWeights;
     public GameObject[] enemyPrefabs;
     public GameObject PlayerBaseObject;
     float spawnHeight = 0f; // Height from which the enemy will be spawned
@@ -36,7 +48,9 @@ public class EnemyBase : MonoBehaviour, IDamageable
         weightRange = new int[enemyWeights.Length];
         weightSum = 0;
         for (int i = 0; i<enemyWeights.Length; i++){
-            weightSum += enemyWeights[i];
+            int weight = enemyWeights[i].weight;
+            Assert.IsTrue(weight >= 0, "Spawning system does not support negative weights");
+            weightSum += weight;
             weightRange[i] = weightSum;
         }
         resetNextSpawnTime();
@@ -50,12 +64,12 @@ public class EnemyBase : MonoBehaviour, IDamageable
             resetNextSpawnTime();
             if (GameManager.Instance.WithinEnemySpawnCap())
             {
-                spwanType = Random.Range(1, weightSum+1);
+                spwanType = UnityEngine.Random.Range(1, weightSum+1);
                 for (int i=0; i<enemyWeights.Length; i++){
                     if(spwanType <= weightRange[i]){
                         //just spwans the first one for now
                         Vector3 spawnPosition = new Vector3(transform.position.x-0.5f, spawnHeight, transform.position.z-1);
-                        Instantiate(enemyPrefabs[i], spawnPosition, Quaternion.identity);
+                        Instantiate(enemyWeights[i].prefab, spawnPosition, Quaternion.identity);
                         return;
                     }
                 }
@@ -66,7 +80,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
 
     private void resetNextSpawnTime()
     {
-        nextSpawnTime = Random.Range(minSpawnDelay, maxSpawnDelay);
+        nextSpawnTime = UnityEngine.Random.Range(minSpawnDelay, maxSpawnDelay);
     }
 
     public void TakeDamage(float damageAmount, Transform damageSource)

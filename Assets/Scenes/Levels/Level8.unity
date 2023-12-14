@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641228, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1702,6 +1702,14 @@ PrefabInstance:
       propertyPath: enemyPrefabs.Array.data[0]
       value: 
       objectReference: {fileID: 6644180354889415888, guid: 7ee216003e3184a648e26db140251797, type: 3}
+    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
+      propertyPath: enemyWeights.Array.data[0].weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
+      propertyPath: enemyWeights.Array.data[2].weight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3907812443516874588, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17
@@ -4216,6 +4224,10 @@ PrefabInstance:
       propertyPath: enemyPrefabs.Array.data[1]
       value: 
       objectReference: {fileID: 6644180354889415888, guid: 471d1a9cb95404fcb90e47dd09380454, type: 3}
+    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
+      propertyPath: enemyWeights.Array.data[1].weight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3907812443516874588, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -25

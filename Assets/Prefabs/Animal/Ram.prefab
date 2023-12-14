@@ -5343,9 +5343,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94917eb21ff9a3f4d952038ef752216a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagTargets:
-  - Enemy
-  damage: 0
   attackerTransform: {fileID: 1746057720259803590}
 --- !u!54 &1027934842542314329
 Rigidbody:
@@ -5386,9 +5383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c306403dfb00914397336f32beaed01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagTargets:
-  - Enemy
-  damage: 0
   attackerTransform: {fileID: 0}
   bonusBaseDamage: 1
 --- !u!1 &3481398378857431071
@@ -5701,12 +5695,17 @@ MonoBehaviour:
   maxRanDistance: 4
   loveDistance: 5
   attackRadius: 2.5
-  attackRate: 2
+  attackRate: 3
   emotionSystem: {fileID: 7014217831344356508}
   loveMat: {fileID: 2100000, guid: 4ffd00de12503430080d0bef18b3e8ef, type: 2}
   angerMat: {fileID: 2100000, guid: 3b510a9db88c944b3bca25bd35adfc29, type: 2}
   animationSpeed: 1
   hitbox: {fileID: 2585526950369013348}
+  damageValues:
+  - tag: 1
+    damage: 2
+  - tag: 2
+    damage: 3
   attackDelay: 0
   hitboxActiveTime: 0.5
 --- !u!65 &8943669702477749790

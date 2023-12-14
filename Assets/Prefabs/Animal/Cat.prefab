@@ -5351,8 +5351,9 @@ MonoBehaviour:
   angerMat: {fileID: 2100000, guid: 3b510a9db88c944b3bca25bd35adfc29, type: 2}
   animationSpeed: 1
   hitbox: {fileID: 8797103352101356180}
+  targets: 0200000001000000
   attackDelay: 0
-  hitboxActiveTime: 5
+  hitboxActiveTime: 0.5
   damageRadius: 1.5
   radiusDamage: 2
 --- !u!114 &3102279017370914336
@@ -5685,9 +5686,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94917eb21ff9a3f4d952038ef752216a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagTargets:
-  - Enemy
-  damage: 0
   attackerTransform: {fileID: 1611184428175733977}
 --- !u!65 &3022562350394853674
 BoxCollider:

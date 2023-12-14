@@ -6,6 +6,10 @@ public class Ram : Animal
 {
     [Header("Ram Attack Stats")]
     [SerializeField] Hitbox hitbox;
+
+    [Tooltip("the entities and the damage they receive from the ram")]
+    [SerializeField] HitboxDamage[] damageValues;
+
     [SerializeField] float attackDelay;
     [Tooltip("The amount of time in seconds that the hitbox is active when attacking")]
     [SerializeField] float hitboxActiveTime;
@@ -13,6 +17,8 @@ public class Ram : Animal
     public override void Start()
     {
         base.Start();
+        hitbox.Initialize();
+        hitbox.SetDamage(damageValues);
     }
 
     public override void Update()
@@ -26,7 +32,6 @@ public class Ram : Animal
     /// </summary>
     public override void Attack()
     {
-        hitbox.SetDamage(animalDamage);
         StartCoroutine(RamAttack());
     }
 

@@ -7,21 +7,21 @@ public class RamHitbox : Hitbox
     [SerializeField] float bonusBaseDamage;
 
     
-    protected override void OnTriggerStay(Collider other)
-    {
-        if (tagTargets.Contains(other.tag))
-        {
-            float bonusDamage = 0;
-            //Debug.Log(other.GetComponent<IDamageable>() is EnemyBase);
-            if (other.GetComponent<IDamageable>() is EnemyBase)
-            {
-                bonusDamage += bonusBaseDamage;
+    // protected override void OnTriggerStay(Collider other)
+    // {
+    //     if (tagTargets.Contains(other.tag))
+    //     {
+    //         float bonusDamage = 0;
+    //         //Debug.Log(other.GetComponent<IDamageable>() is EnemyBase);
+    //         if (other.GetComponent<IDamageable>() is EnemyBase)
+    //         {
+    //             bonusDamage += bonusBaseDamage;
                 
-            }
-            other.GetComponent<IDamageable>().TakeDamage(damage + bonusDamage, attackerTransform);
-            gameObject.SetActive(false);
-        }
-    }
+    //         }
+    //         other.GetComponent<IDamageable>().TakeDamage(damage + bonusDamage, attackerTransform);
+    //         gameObject.SetActive(false);
+    //     }
+    // }
     
 
 }

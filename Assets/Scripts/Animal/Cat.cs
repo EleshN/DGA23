@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,10 @@ public class Cat : Animal
 {
     [Header("Cat Attack Stats")]
     [SerializeField] Hitbox hitbox;
+
+    [Tooltip("the entities that the cat can attak")]
+    [SerializeField] Tag[] targets;
+
     [SerializeField] float attackDelay;
     [Tooltip("The amount of time in seconds that the hitbox is active when attacking")]
     [SerializeField] float hitboxActiveTime;
@@ -18,6 +23,8 @@ public class Cat : Animal
     public override void Start()
     {
         base.Start();
+        hitbox.Initialize();
+        hitbox?.SetUniformDamage(targets, animalDamage * damageMultiplier);
         InvokeRepeating(nameof(DamageInRadius), 0, 1); // Changed from Debuff to DamageInRadius
     }
 
@@ -47,11 +54,10 @@ public class Cat : Animal
     }
 
     /// <summary>
-    /// Set the damage of the hitbox based on the cat's base damage * damageMultiplier.  Call CatAttack
+    /// Set the damage of the hitbox based on the cat's base damage. Call CatAttack
     /// </summary>
     public override void Attack()
     {
-        hitbox.SetDamage(animalDamage * damageMultiplier);
         StartCoroutine(CatAttack());
     }
 

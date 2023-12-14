@@ -30,10 +30,11 @@ public class Gun : MonoBehaviour
         //     projectileRb.AddForce(bulletSpawn.forward * 20f, ForceMode.Impulse);
         // }
         Projectile bullet = projectile.GetComponent<Projectile>();
-        bullet.SetDirection(aim.targetLocation - bullet.transform.position, bulletSpeed);
+        Vector3 direction = aim.targetLocation - bullet.transform.position;
+        direction.y = 0;
+        bullet.SetDirection(direction, bulletSpeed);
         bullet.AdjustYSpawn();
 
-        Vector3 direction = aim.targetLocation - transform.position;
         float angle = (Mathf.Atan(direction.z / direction.x) * Mathf.Rad2Deg);
         if (direction.z < 0)
         {

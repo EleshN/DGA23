@@ -36,6 +36,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected float attackCountDown = 5f;
     [SerializeField] protected float robotDamage;
 
+    [Tooltip("the entities that this enemy can attack")]
+    [SerializeField] protected Tag[] targets;
+
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshObstacleAgent>();

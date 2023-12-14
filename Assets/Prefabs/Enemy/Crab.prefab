@@ -226,10 +226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94917eb21ff9a3f4d952038ef752216a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagTargets:
-  - Animal
-  - PlayerBase
-  damage: 0
   attackerTransform: {fileID: 6423367497784624718}
 --- !u!54 &6886312075259269264
 Rigidbody:
@@ -519,6 +515,7 @@ MonoBehaviour:
   attackRadius: 1.5
   attackCountDown: 2
   robotDamage: 2
+  targets: 0000000003000000
   hitbox: {fileID: 5769747738735344323}
   attackDelay: 1
   hitboxActiveTime: 2

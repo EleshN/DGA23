@@ -40,6 +40,7 @@ public class Ant : Enemy
         baseDamage = robotDamage;
         baseMaxHealth = maxHealth;
         stackTimeLeft = stackTime;
+        hitbox.Initialize();
     }
 
     protected override void Update()
@@ -63,7 +64,7 @@ public class Ant : Enemy
     protected override void Attack()
     {
         // perhaps for melee enemies, this is where we animate the attack motion.
-        hitbox.SetDamage(robotDamage);
+        hitbox.SetUniformDamage(base.targets, robotDamage);
         StartCoroutine(ToggleHitbox());
     }
 
