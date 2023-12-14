@@ -115,25 +115,23 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public virtual void Update()
     {
         anim.speed = animationSpeed;
-        spriteRenderer.color = Color.white;
         // Movement
         switch (currEmotion)
         {
             case Emotion.ANGER:
                 agent.Speed = angerSpeed;
                 AngerTarget();
+                spriteRenderer.color = angerColor;
                 break;
             case Emotion.LOVE:
                 agent.Speed = loveSpeed;
                 LoveTarget();
+                spriteRenderer.color = loveColor;
                 break;
             default:
                 agent.Speed = emoSpeed;
                 EmoTarget();
-                if (isCoolDown)
-                {
-                    spriteRenderer.color = emotionlessColor;
-                }
+                spriteRenderer.color = isCoolDown ? emotionlessColor : Color.white;
                 break;
         }
 
