@@ -22,7 +22,7 @@ public class Parrot : Animal
     [SerializeField] Vector3 targetLocationAir;
     [SerializeField] Vector3 initLocation;
     [SerializeField] Vector3 secondinitLocation;
-    //[SerializeField] Vector3 currLocation;
+    [SerializeField] Vector3 prevLocation;
     //[SerializeField] float vSpeed;
     //[Tooltip("The inital vertical speed of parrot flight, used for parabolic motion")]
     //[SerializeField] float hSpeed;
@@ -60,6 +60,7 @@ public class Parrot : Animal
             agent.Destination = targetPosition;
         }
         Animate();
+        prevLocation = transform.position;
         //if (!inMotion) agent.destination = targetPosition;
 
         //print("transform position - y: " + transform.position.y.ToString());
@@ -148,9 +149,10 @@ public class Parrot : Animal
         }
         else if (inMotion) // landing (parabolic)
         {
+            Vector3 targetLocation = new Vector3(transform.position.x, initLocation.y, transform.position.z);
             //print("Second init location: " + secondinitLocation.ToString());
-            (_, landingRotation) = ParabolicMotion(agent.Speed, initLocation, secondinitLocation, circleDurration);
-            inMotion = Vector3.Distance(initLocation, transform.position) > 0.2f;
+            (_, landingRotation) = ParabolicMotion(agent.Speed, targetLocation, secondinitLocation, circleDurration);
+            inMotion = Vector3.Distance(targetLocation, transform.position) > 0.2f;
         }
         else
         {
@@ -202,7 +204,7 @@ public class Parrot : Animal
         transform.position = initLocation + velocity * (currFlightTime - timeOffSet);//new Vector3(initLocation.x + changeX,
                                             //initLocation.y + changeY,
                                             //(initLocation.z + changeZ));
-        LookAt(dx, dy, dz);
+        //LookAt(dx, dy, dz);
         return (dt, transform.rotation);
     }
 
@@ -219,12 +221,12 @@ public class Parrot : Animal
         transform.position = new Vector3(initLocation.x + x,
                                             yPos + y,
                                             initLocation.z + z);
-        LookAt(-z, y, x);
+        //LookAt(-z, y, x);
     }
 
     private void ResetParrot(Quaternion resetRotation)
     {
-        LookAt(resetRotation.x, 0, resetRotation.z);
+        //LookAt(resetRotation.x, 0, resetRotation.z);
         SetEmotion(Emotion.EMOTIONLESS);
         inMotion = false;
         atFirstDestination = false;
@@ -246,5 +248,46 @@ public class Parrot : Animal
     public override void Attack() { }
 
     public override void TakeDamage(float damage, Transform source){}
+
+    public override void Animate()
+    {
+        base.Animate();
+
+        // Convert the object's velocity from world space to camera space
+        Vector3 positionInCameraSpace = mainCam.transform.InverseTransformDirection(transform.position);
+        Vector3 prevpositionInCameraSpace = mainCam.transform.InverseTransformDirection(prevLocation);
+
+        if (anim != null)
+        {
+            if (positionInCameraSpace.y > prevpositionInCameraSpace.y)
+            {
+                anim.SetBool("isTakeOff", true);
+                anim.SetBool("isLanding", false);
+                //if (spriteRenderer != null) spriteRenderer.flipX = true;
+            }
+            else if (positionInCameraSpace.y < prevpositionInCameraSpace.y)
+            {
+                anim.SetBool("isTakeOff", false);
+                anim.SetBool("isLanding", true);
+            }
+            else
+            {
+                anim.SetBool("isTakeOff", false);
+                anim.SetBool("isLanding", false);
+            }
+
+            if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "BirdTakeOff")
+            {
+                if (spriteRenderer != null) spriteRenderer.flipX = true;
+            } else if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "BirdFlying")
+            {
+                if (spriteRenderer != null) spriteRenderer.flipX = false;
+            }
+        }
+        else
+        {
+            Debug.Log("no animation set for animal " + gameObject.name);
+        }
+    }
 
 }

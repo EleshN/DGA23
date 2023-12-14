@@ -72,7 +72,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     ColorIndicator colorIndicator;
 
-    SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
 
     [SerializeField][Range(0, 1)] float animationSpeed = 1.0f;

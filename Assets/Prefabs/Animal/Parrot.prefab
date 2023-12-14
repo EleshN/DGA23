@@ -5558,6 +5558,7 @@ MonoBehaviour:
   targetLocationAir: {x: 0, y: 0, z: 0}
   initLocation: {x: 0, y: 0, z: 0}
   secondinitLocation: {x: 0, y: 0, z: 0}
+  prevLocation: {x: 0, y: 0, z: 0}
   inMotion: 0
 --- !u!208 &8829331212345125549
 NavMeshObstacle:
