@@ -8,6 +8,8 @@ using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
 
+    public static int MaxLevel = 9;
+
     private static GameManager _Instance;
     public int LevelNumber = -1;
 

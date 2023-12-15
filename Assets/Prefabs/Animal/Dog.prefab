@@ -10606,7 +10606,7 @@ MonoBehaviour:
   animalBody: {fileID: 4156970003935199234}
   emotionlessColor: {r: 0.4431373, g: 0.3529412, b: 0.32156864, a: 1}
   angerColor: {r: 0.79607844, g: 0.35686275, b: 0.20784314, a: 0.6666667}
-  loveColor: {r: 0.6117647, g: 0.25490198, b: 0.4745098, a: 0.69803923}
+  loveColor: {r: 0.6117647, g: 0.25490198, b: 0.56078434, a: 0.69803923}
   maxHealth: 4
   health: 0
   healthBar: {fileID: 512443639149192916}

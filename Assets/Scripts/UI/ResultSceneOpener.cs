@@ -29,7 +29,14 @@ public class ResultSceneOpener : MonoBehaviour
         if (result)
         {
             resultText.text = "You Win!";
-            restartOrNextText.text = "Next Level";
+            if (currentLevel < GameManager.MaxLevel)
+            {
+                restartOrNextText.text = "Next Level";
+            }
+            else 
+            {
+                restartOrNextText.text = "Main Menu";
+            }
         }
         else
         {
@@ -48,11 +55,18 @@ public class ResultSceneOpener : MonoBehaviour
     {
         Time.timeScale = 1f;
         PauseGame.isPaused = false;
-        //TODO: what if there is no next level? (result menu needs an edge case adjustment, keep this in mind for end product)
         if (levelResult)
         {
             int level = currentLevel + 1;
-            SceneManager.LoadScene("Level"+level.ToString());
+            //TODO: what if there is no next level? (result menu needs an edge case adjustment, keep this in mind for end product)
+            if (level > GameManager.MaxLevel){
+                // return to main menu etc
+                SceneManager.LoadScene("LevelSelect");
+            }
+            else
+            {
+                SceneManager.LoadScene("Level"+level.ToString());
+            }
         }
         else
         {
