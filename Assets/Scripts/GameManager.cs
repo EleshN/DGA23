@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Assertions;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Limit for the number of enemies
     /// </summary>
-    public int EnemySpawnCap = 3;
+    public int EnemySpawnCap;
 
     /// <summary>
     /// All player bases currently on the map
@@ -76,6 +77,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject loveUI;
     [SerializeField] GameObject angerUI;
 
+    [SerializeField] GameObject levelTextBkg;
+    [SerializeField] TMP_Text levelText;
+
     /// <summary>
     /// whether the current running level is completed (ongoing vs won/lost)
     /// </summary>
@@ -120,6 +124,13 @@ public class GameManager : MonoBehaviour
         Assert.IsTrue(PlayerTransform != null, "Unable to find player");
         Assert.IsTrue(PlayerCollider != null, "Unable to find player's collider");
         Assert.IsTrue(LevelNumber >= 0, "Level Number in GameManager must be set");
+
+        levelText.enabled = LevelNumber >= 1;
+        levelTextBkg.SetActive(LevelNumber >= 1);
+        if (LevelNumber >= 1){
+            levelText.text = "Level :" + LevelNumber;
+        }
+        
     }
 
     // Start is called before the first frame update
