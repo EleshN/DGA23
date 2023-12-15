@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
         levelText.enabled = LevelNumber >= 1;
         levelTextBkg.SetActive(LevelNumber >= 1);
         if (LevelNumber >= 1){
-            levelText.text = "Level :" + LevelNumber;
+            levelText.text = "Level: " + LevelNumber;
         }
         
     }
