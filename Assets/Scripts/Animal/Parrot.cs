@@ -234,7 +234,7 @@ public class Parrot : Animal
 
     private void LookAt(float x, float y, float z)
     {
-        transform.rotation = Quaternion.LookRotation(new Vector3(x,y,z));
+        //transform.rotation = Quaternion.LookRotation(new Vector3(x,y,z));
     }
 
 

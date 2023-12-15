@@ -87,8 +87,7 @@ public class NavMeshObstacleAgent : MonoBehaviour
     IEnumerator EnableNavMeshAgent()
     {
         //delay for one frame
-        yield return 0;
-        print("why is obstacle enabled for " + gameObject.name + " " + obstacle.enabled);
+        yield return new WaitForSeconds(0.01f);
         agent.enabled = true;
     }
     

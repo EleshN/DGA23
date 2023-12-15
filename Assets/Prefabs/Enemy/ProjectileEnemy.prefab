@@ -1734,7 +1734,6 @@ Transform:
   m_LocalScale: {x: 0.75, y: 0.7, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5647444063361281507}
   - {fileID: 8724921277087113470}
   - {fileID: 6744915339376532517}
   - {fileID: 4384799309992390567}
@@ -1812,6 +1811,7 @@ MonoBehaviour:
   attackRadius: 6
   attackCountDown: 4
   robotDamage: 1
+  targets: 
   spawnLocationTransform: {fileID: 6672500085249350542}
   projectileEffectRadius: 0.5
   projectilePrefab: {fileID: 411135268976928213, guid: f16d3331f5a754e2eb7529d830f66ef4, type: 3}
@@ -2014,7 +2014,8 @@ Transform:
   m_LocalPosition: {x: 0.66, y: 1.57, z: -0.08}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 5647444063361281507}
   m_Father: {fileID: 6423367497784624718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8953062704909814127
@@ -2135,16 +2136,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8297983048635740954}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.3333334, y: 1.3333334, z: 1.3333334}
+  m_LocalPosition: {x: 0, y: 0, z: 0.16}
+  m_LocalScale: {x: 2.6666667, y: 2.6666667, z: 2.6666667}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7934193769390202568}
-  m_Father: {fileID: 6423367497784624718}
+  m_Father: {fileID: 1430794342429275101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -1.32, y: -1.1400003}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8416377127718681159

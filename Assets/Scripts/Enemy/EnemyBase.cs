@@ -1,8 +1,6 @@
 using System;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.UI;
 
 [Serializable]
 public class WeightedPair 
@@ -12,37 +10,25 @@ public class WeightedPair
 }
 
 public class EnemyBase : MonoBehaviour, IDamageable
-
-    
 {
     [SerializeField] float health = 100f;
     [SerializeField] HealthBar healthBar;
-    
-    public WeightedPair[] enemyWeights;
-    public GameObject[] enemyPrefabs;
-    public GameObject PlayerBaseObject;
-    float spawnHeight = 0f; // Height from which the enemy will be spawned
-    // public Vector2 newSize = new Vector2(1,1);
-    float nextSpawnTime = 0f;
-
     private ColorIndicator colorIndicator;
-    private int weightSum;
-    private int[] weightRange;
-    private int spwanType;
 
-
-    [Header("Enemy Spawning")]
+    [Header("Enemy Spawn System")]
     [Tooltip("Delay between each time an enemy spawns")]
     [SerializeField] float minSpawnDelay = 1f;
     [SerializeField] float maxSpawnDelay = 5f;
+    [SerializeField] WeightedPair[] enemyWeights;
+    [SerializeField] GameObject PlayerBaseObject;
+
+    private int weightSum;
+    private int[] weightRange;
+    private float nextSpawnTime = 0f;
 
     void Start()
     {
         GameManager.Instance.Register(this);
-
-        // RectTransform rectTransform = healthBar.GetComponent<RectTransform>();
-        // rectTransform.sizeDelta = newSize;
-        // healthBar.transform.position = transform.position + new Vector3(0, 1.5f, 0);
         healthBar.SetHealthBar(health);
         healthBar.gameObject.SetActive(false); // hide hp bar when at maximum
         colorIndicator = GetComponent<ColorIndicator>();
@@ -65,10 +51,10 @@ public class EnemyBase : MonoBehaviour, IDamageable
             resetNextSpawnTime();
             if (GameManager.Instance.WithinEnemySpawnCap())
             {
-                spwanType = UnityEngine.Random.Range(1, weightSum+1);
+                int spawnType = UnityEngine.Random.Range(1, weightSum+1);
                 for (int i=0; i<enemyWeights.Length; i++){
-                    if(spwanType <= weightRange[i]){
-                        Vector3 spawnPosition = new Vector3(transform.position.x-0.5f, spawnHeight, transform.position.z-1);
+                    if(spawnType <= weightRange[i]){
+                        Vector3 spawnPosition = transform.position;
                         Instantiate(enemyWeights[i].prefab, spawnPosition, Quaternion.identity);
                         return;
                     }

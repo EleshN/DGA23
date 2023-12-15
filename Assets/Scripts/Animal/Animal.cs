@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SocialPlatforms;
@@ -134,8 +131,13 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 spriteRenderer.color = isCoolDown ? emotionlessColor : Color.white;
                 break;
         }
-
-        agent.Destination = targetPosition;
+        // shift destination to be usually in front of the opponent
+        Vector3 destination = targetPosition;
+        if (destination != this.transform.position)
+        {
+            destination.z -= 0.5f;
+        }
+        agent.Destination = destination;
 
         //Attack
         attackCooldown -= Time.deltaTime;

@@ -20,12 +20,6 @@ public class GameManager : MonoBehaviour
     /// Limit for the number of enemies
     /// </summary>
     public int EnemySpawnCap = 3;
-    private int avoidance = 50;
-
-    /// <summary>
-    /// Animal agent avoidance priority
-    /// </summary>
-    [SerializeField] private int AnimalAvoidance = 50;
 
     /// <summary>
     /// All player bases currently on the map
@@ -62,7 +56,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public HashSet<Transform> ValidEnemyTargets;
 
-    public Player PlayerObject;
+    [HideInInspector] public Player PlayerObject;
 
     private Collider PlayerCollider;
 
@@ -286,15 +280,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// adds enemy to the collection of enemies
     /// </summary>
-    public int Register(Enemy e)
+    public void Register(Enemy e)
     {
         TeamEnemy.Add(e.transform);
         Enemies.Add(e);
-        avoidance += 1;
-        if (avoidance >= 99){
-            avoidance = AnimalAvoidance;
-        }
-        return avoidance;
     }
 
     /// <summary>
