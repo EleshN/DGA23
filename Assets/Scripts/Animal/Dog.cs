@@ -121,7 +121,7 @@ public class Dog : Animal
     IEnumerator DogAttack()
     {
         yield return new WaitForSeconds(attackDelay);
-
+        dogAudioSource.PlayOneShot(dogAttackClip);
         hitbox.gameObject.SetActive(true);
         yield return new WaitForSeconds(hitboxActiveTime);
         hitbox.gameObject.SetActive(false);
