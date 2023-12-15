@@ -20,6 +20,12 @@ public class Cat : Animal
     [SerializeField] float damageRadius;
     [SerializeField] float radiusDamage;
 
+    public AudioSource catAudioSource;
+
+    public AudioClip catLovedClip;
+    public AudioClip catAngryClip;
+    public AudioClip catAttackClip;
+
     public override void Start()
     {
         base.Start();
@@ -33,6 +39,21 @@ public class Cat : Animal
         base.Update();
     }
 
+    protected override void OnEmotionChanged(Emotion newEmotion)
+    {
+        base.OnEmotionChanged(newEmotion);
+
+        switch (newEmotion)
+        {
+            case Emotion.LOVE:
+                catAudioSource.PlayOneShot(catLovedClip);
+                break;
+            case Emotion.ANGER:
+                catAudioSource.PlayOneShot(catAngryClip);
+                break;
+                // Add cases for other emotions if needed
+        }
+    }
 
     private void DamageInRadius()
     {
@@ -68,6 +89,7 @@ public class Cat : Animal
     IEnumerator CatAttack()
     {
         yield return new WaitForSeconds(attackDelay);
+        catAudioSource.PlayOneShot(catAttackClip);
         hitbox.gameObject.SetActive(true);
         yield return new WaitForSeconds(hitboxActiveTime);
         hitbox.gameObject.SetActive(false);
