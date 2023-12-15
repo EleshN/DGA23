@@ -87,7 +87,7 @@ public class NavMeshObstacleAgent : MonoBehaviour
     IEnumerator EnableNavMeshAgent()
     {
         //delay for one frame
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForEndOfFrame();
         agent.enabled = true;
     }
     

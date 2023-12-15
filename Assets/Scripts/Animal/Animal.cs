@@ -131,9 +131,9 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 spriteRenderer.color = isCoolDown ? emotionlessColor : Color.white;
                 break;
         }
-        // shift destination to be usually in front of the opponent
+        // shift destination to be usually in front of the enemy base
         Vector3 destination = targetPosition;
-        if (destination != this.transform.position)
+        if (targetTransform != null && targetTransform.CompareTag(Tag.EnemyBase.ToString()))
         {
             destination.z -= 0.5f;
         }
