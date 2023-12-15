@@ -109,7 +109,7 @@ public class Dog : Animal
     /// </summary>
     public override void Attack()
     {
-        dogAudioSource.PlayOneShot(dogAttackClip);
+
         hitbox?.SetUniformDamage(targets, animalDamage * damageMultiplier);
         StartCoroutine(DogAttack());
     }
@@ -121,6 +121,7 @@ public class Dog : Animal
     IEnumerator DogAttack()
     {
         yield return new WaitForSeconds(attackDelay);
+
         hitbox.gameObject.SetActive(true);
         yield return new WaitForSeconds(hitboxActiveTime);
         hitbox.gameObject.SetActive(false);
