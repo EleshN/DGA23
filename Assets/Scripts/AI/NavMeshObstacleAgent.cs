@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel.Design;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -63,7 +64,6 @@ public class NavMeshObstacleAgent : MonoBehaviour
         if (timer <= 0)
         {
             timer = stopTime;
-            obstacle.enabled = false;
             StartCoroutine(EnableNavMeshAgent());
         }
     }
@@ -87,6 +87,7 @@ public class NavMeshObstacleAgent : MonoBehaviour
     IEnumerator EnableNavMeshAgent()
     {
         //delay for one frame
+        obstacle.enabled = false;
         yield return new WaitForEndOfFrame();
         agent.enabled = true;
     }

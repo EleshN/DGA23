@@ -141,20 +141,23 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
         //Attack
         attackCooldown -= Time.deltaTime;
-        bool withinAttackRadius = Vector3.Magnitude(targetPosition - transform.position) <= attackRadius;
-        // allow attack if the entity has come to a distance within range and that it comes to a stop
-        // or entity is guaranteed able to hit target because distance < 1 (but target might be moving away)
-        bool canStartAttack = (withinAttackRadius && agent.Velocity.magnitude < 1e-3) || Vector3.Magnitude(targetPosition - transform.position) <= 1;
 
-        if (currEmotion == Emotion.ANGER && attackCooldown <= 0 && canStartAttack)
+        if (currEmotion == Emotion.ANGER && targetTransform != null)
         {
-            Attack();
-            agent.SetObstacleMode();
-            attackCooldown = attackRate;
-        }
-        if (!withinAttackRadius)
-        {
-            agent.SetAgentMode();
+            float dist = Vector3.Magnitude(targetTransform.position - transform.position);
+            // allow attack if the entity has come to a distance within range and that it comes to a stop
+            // or entity is guaranteed able to hit target because distance < 1 (but target might be moving away)
+            bool canStartAttack = (dist <= attackRadius && agent.Velocity.magnitude < 1e-3) || dist <= 1;
+            if (attackCooldown <= 0 && canStartAttack)
+            {
+                Attack();
+                agent.SetObstacleMode();
+                attackCooldown = attackRate;
+            }
+            if (dist > attackRadius)
+            {
+                agent.SetAgentMode();
+            }
         }
 
         // Die
@@ -168,18 +171,15 @@ public abstract class Animal : MonoBehaviour, IDamageable
             isCoolDown = false;
         }
 
-        if (healthBar != null)
+        // hide health bar when HP is at maximum
+        if (health < maxHealth)
         {
-            // hide health bar when HP is at maximum
-            if (health < maxHealth)
-            {
-                healthBar.UpdateHealthBar(health);
-                healthBar.gameObject.SetActive(true);
-            }
-            else
-            {
-                healthBar.gameObject.SetActive(false);
-            }
+            healthBar?.UpdateHealthBar(health);
+            healthBar?.gameObject.SetActive(true);
+        }
+        else
+        {
+            healthBar?.gameObject.SetActive(false);
         }
 
         Animate();
@@ -200,6 +200,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         if (emotion == Emotion.EMOTIONLESS || emotion == Emotion.LOVE)
         {
             health = maxHealth;
+            agent.SetAgentMode();
         }
 
         currEmotion = emotion;
@@ -223,11 +224,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 emotionSystem.Clear();
                 break;
         }
-        if (agent.isActiveAndEnabled)
-        {
-            // stop moving in this frame of emotional transition because the agent updates destination on next frame.
-            agent.Destination = transform.position;
-        }
+        // stop moving in this frame of emotional transition because the agent updates destination on next frame.
+        agent.Destination = transform.position;
     }
 
     /// <summary>
