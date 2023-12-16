@@ -1,16 +1,19 @@
+using System.Collections;
 using UnityEngine;
-using System.Collections; // Required for Coroutines
 
 public class AmmoPickup : MonoBehaviour
 {
   public string ammoType; // Set this to the specified emotion in the Unity editor
-  public UnityEngine.Sprite newSprite; // Assign this in the Unity editor
-  public UnityEngine.Sprite originalSprite; // Assign this in the Unity editor
 
   public float delayBeforeReset = 5f; // Time in seconds before the pickup resets
 
   private SpriteRenderer spriteRenderer;
+
+  private Animator anim;
+
   private Collider colliderComponent; // Reference to the collider component
+
+  private AnimatorCallback animCallback;
 
   private void Start()
   {
@@ -18,14 +21,11 @@ public class AmmoPickup : MonoBehaviour
     Transform spriteTransform = transform.Find("Sprite");
 
     // Ensure the sprite transform and renderer are found
-    if (spriteTransform != null)
-    {
-      spriteRenderer = spriteTransform.GetComponent<SpriteRenderer>();
-      if (spriteRenderer != null)
-      {
-        originalSprite = spriteRenderer.sprite; // Store the original sprite
-      }
-    }
+    spriteRenderer = spriteTransform.GetComponent<SpriteRenderer>();
+    anim = spriteTransform.GetComponent<Animator>();
+    animCallback = spriteTransform.GetComponent<AnimatorCallback>();
+    animCallback.AddCallback(nameof(EnablePickup), EnablePickup);
+    anim.SetBool("looted", false);
 
     // Get the collider component
     colliderComponent = GetComponent<Collider>();
@@ -33,58 +33,47 @@ public class AmmoPickup : MonoBehaviour
 
   private void OnTriggerEnter(Collider other)
   {
-    if (other.tag == "Player")
+    if (other.tag == Tag.Player.ToString())
     {
       Player playerScript = other.gameObject.GetComponentInParent<Player>();
       int ammoIndexPickup = System.Array.IndexOf(playerScript.ammoNames, ammoType);
 
+      // todo: fix this to disallow increments. should be player model's responsability.
       if (ammoIndexPickup >= 0)
       {
         playerScript.ammo[ammoIndexPickup] += 1; // Increment the ammo count
-        StartCoroutine(PickupCollected());
+        print("begin drawing idle no pickup");
+        anim.SetBool("looted", true);
+        anim.SetBool("regrow", false);
+        print("collider off");
+        colliderComponent.enabled = false; 
+        StartCoroutine(PlayRegrowAnimation());
       }
     }
   }
 
-  private IEnumerator PickupCollected()
+  private IEnumerator PlayRegrowAnimation()
   {
-    // Change to the new sprite
-    if (spriteRenderer != null && newSprite != null)
-    {
-      spriteRenderer.sprite = newSprite;
-    }
-    else
-    {
-      Debug.Log("SpriteRenderer or newSprite is null for " + gameObject.name);
-    }
-
-    // Disable the collider to prevent immediate recollection
-    if (colliderComponent != null)
-    {
-      colliderComponent.enabled = false;
-    }
-
-    // Wait for the specified delay
     yield return new WaitForSeconds(delayBeforeReset);
-    EnablePickup();
+    anim.SetBool("regrow", true);
+    anim.SetBool("looted", true);
+    yield return 0;
   }
 
+  // this is called by animation callback
   private void EnablePickup()
   {
-    // Reset to the original sprite and re-enable the collider
-    if (spriteRenderer != null && originalSprite != null)
-    {
-      spriteRenderer.sprite = originalSprite;
-    }
-    else
-    {
-      Debug.Log("SpriteRenderer or originalSprite is null for " + gameObject.name);
-    }
+    print("begin drawing idle pickup ver");
+    anim.SetBool("looted", false);
+    anim.SetBool("regrow", false);
+    StartCoroutine(EnableCollision());
+  }
 
-    if (colliderComponent != null)
-    {
-      colliderComponent.enabled = true;
-    }
+  private IEnumerator EnableCollision()
+  {
+    yield return new WaitForFixedUpdate();
+    colliderComponent.enabled = true;
+    yield return 0;
   }
 
 }
