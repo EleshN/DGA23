@@ -5479,7 +5479,7 @@ MonoBehaviour:
   angerMat: {fileID: 2100000, guid: 3b510a9db88c944b3bca25bd35adfc29, type: 2}
   animationSpeed: 1
   hitbox: {fileID: 8797103352101356180}
-  targets: 0200000001000000
+  targets: 020000000100000006000000
   attackDelay: 0
   hitboxActiveTime: 0.5
   damageRadius: 1.5

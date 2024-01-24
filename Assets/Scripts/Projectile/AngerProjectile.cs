@@ -31,7 +31,8 @@ public class AngerProjectile : Projectile
             return;
         }
         GameObject other = collision.gameObject;
-        if (other.tag == Tag.Enemy.ToString() || other.tag == Tag.EnemyBase.ToString())
+        if (other.tag == Tag.Enemy.ToString() || other.tag == Tag.EnemyBase.ToString()
+            || other.tag == Tag.Fence.ToString())
         {
             HashSet<Animal> animals = GameManager.Instance.followers;
             HashSet<Animal> parrots = new HashSet<Animal>();
