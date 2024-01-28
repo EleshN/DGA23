@@ -10,25 +10,60 @@ public class Gun : MonoBehaviour
 
     //spawn of the bullet
     [SerializeField] Transform bulletSpawn;
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] Targetting aim;
+
+    [SerializeField] float bulletSpeed;
+
+    public AudioSource gunAudioSource;
+
+    public AudioClip shootSoundClip;
 
     public void Shoot(int ammoIndex)
     {
-        GameObject projectile = Instantiate(ammoPrefabs[ammoIndex], bulletSpawn.position, bulletSpawn.rotation);
-        Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+        gunAudioSource.PlayOneShot(shootSoundClip);
+        //print("bullet at: " + bulletSpawn.position);
+        GameObject projectile = Instantiate(ammoPrefabs[ammoIndex], transform.position, Quaternion.identity); //bulletSpawn.rotation
+        // Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+        // if (projectileRb != null)
+        // {
+        //     projectileRb.AddForce(bulletSpawn.forward * 20f, ForceMode.Impulse);
+        // }
+        Projectile bullet = projectile.GetComponent<Projectile>();
+        Vector3 direction = aim.targetLocation - bullet.transform.position;
+        direction.y = 0;
+        bullet.SetDirection(direction, bulletSpeed);
+        bullet.AdjustYSpawn();
 
-        if (projectileRb != null)
+        float angle = (Mathf.Atan(direction.z / direction.x) * Mathf.Rad2Deg);
+        if (direction.z < 0)
         {
-            projectileRb.AddForce(bulletSpawn.forward * 20f, ForceMode.Impulse);
+            angle = angle + 180;
         }
+        //print("Difference in positions is " + direction);
+        //print("Shot, Angle is " + (Mathf.Atan(direction.z / direction.x) * Mathf.Rad2Deg));
+    }
+
+    private void Update()
+    {
+        Vector3 direction = aim.targetLocation - transform.position;
+        float angle = Mathf.Abs(Mathf.Atan(direction.z / direction.x) * Mathf.Rad2Deg);
+        if (direction.x < 0)
+        {
+            if (direction.z > 0)
+            {
+                angle = 90 + (90 - angle);
+            }
+            else
+            {
+                angle += 180;
+            }
+        }
+        else if (direction.z < 0)
+        {
+            angle = 270 + (90 - angle);
+        }
+        //print("Difference in positions is " + direction);
+        //print("Shot, Angle is " + angle);
     }
 }

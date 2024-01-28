@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,10 @@ public class Cat : Animal
 {
     [Header("Cat Attack Stats")]
     [SerializeField] Hitbox hitbox;
+
+    [Tooltip("the entities that the cat can attak")]
+    [SerializeField] Tag[] targets;
+
     [SerializeField] float attackDelay;
     [Tooltip("The amount of time in seconds that the hitbox is active when attacking")]
     [SerializeField] float hitboxActiveTime;
@@ -15,14 +20,18 @@ public class Cat : Animal
     [SerializeField] float damageRadius;
     [SerializeField] float radiusDamage;
 
-    [SerializeField] ParticleSystem ps;
+    public AudioSource catAudioSource;
+
+    public AudioClip catLovedClip;
+    public AudioClip catAngryClip;
+    public AudioClip catAttackClip;
 
     public override void Start()
     {
         base.Start();
+        hitbox.Initialize();
+        hitbox?.SetUniformDamage(targets, animalDamage * damageMultiplier);
         InvokeRepeating(nameof(DamageInRadius), 0, 1); // Changed from Debuff to DamageInRadius
-        ps.Pause();
-        ps.Clear();
     }
 
     public override void Update()
@@ -30,29 +39,19 @@ public class Cat : Animal
         base.Update();
     }
 
-    public override void LoveTarget()
+    protected override void OnEmotionChanged(Emotion newEmotion)
     {
-        if (targetTransform != GameManager.Instance.PlayerTransform)
-        {
-            targetTransform = GameManager.Instance.PlayerTransform;
-        }
-        if (Vector3.Magnitude(targetTransform.position - transform.position) > loveDistance)
-        {
-            targetPosition = targetTransform.position;
-        }
-        else
-        {
-            targetPosition = transform.position;
-        }
-    }
+        base.OnEmotionChanged(newEmotion);
 
-    public override void AngerTarget()
-    {
-        if (targetTransform == null)
-            targetTransform = GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
-        else
+        switch (newEmotion)
         {
-            targetPosition = targetTransform.position;
+            case Emotion.LOVE:
+                catAudioSource.PlayOneShot(catLovedClip);
+                break;
+            case Emotion.ANGER:
+                catAudioSource.PlayOneShot(catAngryClip);
+                break;
+                // Add cases for other emotions if needed
         }
     }
 
@@ -64,7 +63,7 @@ public class Cat : Animal
 
             foreach (Collider col in nearbyColliders)
             {
-                if (col.gameObject.CompareTag("Animal") && col.gameObject != gameObject)
+                if (col.gameObject.CompareTag(Tag.Animal.ToString()) && col.gameObject != gameObject)
                 {
                     if (col.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
@@ -72,26 +71,14 @@ public class Cat : Animal
                     }
                 }
             }
-
-            // Particle system effect for visual feedback
-            if (nearbyColliders.Length > 0 && !ps.isPlaying)
-            {
-                ps.Play();
-            }
-            else if (ps.isPlaying)
-            {
-                ps.Pause();
-                ps.Clear();
-            }
         }
     }
 
     /// <summary>
-    /// Set the damage of the hitbox based on the cat's base damage * damageMultiplier.  Call CatAttack
+    /// Set the damage of the hitbox based on the cat's base damage. Call CatAttack
     /// </summary>
     public override void Attack()
     {
-        hitbox.SetDamage(animalDamage * damageMultiplier);
         StartCoroutine(CatAttack());
     }
 
@@ -102,9 +89,10 @@ public class Cat : Animal
     IEnumerator CatAttack()
     {
         yield return new WaitForSeconds(attackDelay);
+        catAudioSource.PlayOneShot(catAttackClip);
         hitbox.gameObject.SetActive(true);
         yield return new WaitForSeconds(hitboxActiveTime);
         hitbox.gameObject.SetActive(false);
-
     }
+
 }

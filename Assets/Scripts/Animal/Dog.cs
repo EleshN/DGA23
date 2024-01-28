@@ -6,7 +6,11 @@ public class Dog : Animal
 {
     [Header("Dog Attack Stats")]
     [SerializeField] Hitbox hitbox;
+
+    [Tooltip("the entities that the dog can attak")]
+    [SerializeField] Tag[] targets;
     [SerializeField] float attackDelay;
+
     [Tooltip("The amount of time in seconds that the hitbox is active when attacking")]
     [SerializeField] float hitboxActiveTime;
 
@@ -15,45 +19,43 @@ public class Dog : Animal
     [SerializeField] float healthBuffConst = 1.5f;
     [SerializeField] float damageBuffConst = 1.5f;
 
-    [SerializeField] ParticleSystem ps;
+    [SerializeField] ParticleSystem buffParticleSystem;
+
+    public AudioSource dogAudioSource;
+
+    public AudioClip dogLovedClip;
+    public AudioClip dogAngryClip;
+    public AudioClip dogAttackClip;
 
     public override void Start()
     {
         base.Start();
         InvokeRepeating(nameof(Buff), 0, 1);
-        ps.Pause();
-        ps.Clear();
-        // print("Name is " + gameObject.name + " spawnpos is " + spawnLocation);
+        buffParticleSystem.Pause();
+        buffParticleSystem.Clear();
+        hitbox.Initialize();
     }
 
     public override void Update()
     {
         base.Update();
+
     }
 
-    public override void LoveTarget()
-    {
-        if (targetTransform != GameManager.Instance.PlayerTransform)
-        {
-            targetTransform = GameManager.Instance.PlayerTransform;
-        }
-        if(Vector3.Magnitude(targetTransform.position - transform.position) > loveDistance)
-        {
-            targetPosition = targetTransform.position;
-        }
-        else
-        {
-            targetPosition = transform.position;
-        }
-    }
 
-    public override void AngerTarget()
+    protected override void OnEmotionChanged(Emotion newEmotion)
     {
-        if (targetTransform == null)
-            targetTransform = GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
-        else
+        base.OnEmotionChanged(newEmotion);
+
+        switch (newEmotion)
         {
-            targetPosition = targetTransform.position;
+            case Emotion.LOVE:
+                dogAudioSource.PlayOneShot(dogLovedClip);
+                break;
+            case Emotion.ANGER:
+                dogAudioSource.PlayOneShot(dogAngryClip);
+                break;
+                // Add cases for other emotions if needed
         }
     }
 
@@ -73,30 +75,32 @@ public class Dog : Animal
 
             if (nearByDogs > 0)
             {
-                if (!ps.isPlaying)
+                if (!buffParticleSystem.isPlaying)
                 {
-                    ps.Play();
+                    dogAudioSource.PlayOneShot(dogLovedClip);
+                    buffParticleSystem.Play();
                 }
                 damageMultiplier = damageBuffConst * nearByDogs;
                 healthMultiplier = healthBuffConst * nearByDogs;
             }
             else
             {
-                if (ps.isPlaying)
+                if (buffParticleSystem.isPlaying)
                 {
-                    ps.Pause();
-                    ps.Clear();
+                    buffParticleSystem.Pause();
+                    buffParticleSystem.Clear();
                 }
                 damageMultiplier = 1f;
                 healthMultiplier = 1f;
             }
         }
-        else{
-            if (ps.isPlaying)
-                {
-                    ps.Pause();
-                    ps.Clear();
-                }
+        else
+        {
+            if (buffParticleSystem.isPlaying)
+            {
+                buffParticleSystem.Pause();
+                buffParticleSystem.Clear();
+            }
         }
     }
 
@@ -105,7 +109,8 @@ public class Dog : Animal
     /// </summary>
     public override void Attack()
     {
-        hitbox.SetDamage(animalDamage * damageMultiplier);
+
+        hitbox?.SetUniformDamage(targets, animalDamage * damageMultiplier);
         StartCoroutine(DogAttack());
     }
 
@@ -116,6 +121,7 @@ public class Dog : Animal
     IEnumerator DogAttack()
     {
         yield return new WaitForSeconds(attackDelay);
+        dogAudioSource.PlayOneShot(dogAttackClip);
         hitbox.gameObject.SetActive(true);
         yield return new WaitForSeconds(hitboxActiveTime);
         hitbox.gameObject.SetActive(false);

@@ -32,12 +32,17 @@ public class EnemyProjectile : Projectile
         // find all animals and playerbases and damage them if possible
         foreach (Collider col in neabyColliders)
         {
-            if (col.gameObject.CompareTag("Animal") || col.gameObject.CompareTag("PlayerBase"))
+            if (col.gameObject.CompareTag(Tag.Animal.ToString()) || col.gameObject.CompareTag(Tag.PlayerBase.ToString()))
             {
                 IDamageable entity = col.gameObject.GetComponent<IDamageable>();
                 entity.TakeDamage(damage, projectileSource);
             }
         }
         base.HandleCollision(collision);
+    }
+
+    protected override void reachMaxDist()
+    {
+        Destroy(this.gameObject);
     }
 }

@@ -26,20 +26,20 @@ public class Player : MonoBehaviour
     float iframes;
     System.Random random;
 
+    [SerializeField] float knockbackForce = 20;
+    [SerializeField] float knockbackDuration = 0.3f;
+    float knockbackTimer;
+
+    // Local AudioSource for player-specific sounds
+    public AudioSource playerAudioSource;
+
+    // Audio clips for player actions
+    public AudioClip walkSoundClip;
+    public AudioClip uiSoundClip;
+    public AudioClip refreshClip;
+
     void Start()
-    {         
-        GameObject[] animals = GameObject.FindGameObjectsWithTag("Animal");
-        Collider playerCollider = GetComponent<Collider>();
-
-        foreach (var animal in animals)
-        {
-            Collider animalCollider = animal.GetComponent<Collider>();
-            if (animalCollider != null)
-            {
-                Physics.IgnoreCollision(playerCollider, animalCollider);
-            }
-        }
-
+    {
         colorIndicator = GetComponent<ColorIndicator>();
         random = new System.Random();
     }
@@ -53,7 +53,19 @@ public class Player : MonoBehaviour
             Move();
             Scroll();
             iframes -= Time.deltaTime;
+            knockbackTimer -= Time.deltaTime;
+
+            // Check if player is moving to play walking sound
+            if (IsMoving() && !playerAudioSource.isPlaying)
+            {
+                playerAudioSource.PlayOneShot(walkSoundClip);
+            }
         }
+    }
+
+    private bool IsMoving()
+    {
+        return rb.velocity.magnitude > 0.1f; // Adjust the threshold as needed
     }
 
     private void Inputs()
@@ -77,10 +89,12 @@ public class Player : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
 
-        // Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
-        // rb.velocity = anglevector * movement * moveSpeed;
-
-        rb.velocity = movement * moveSpeed;
+        Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
+        //rb.velocity = anglevector * movement * moveSpeed;
+        if (knockbackTimer <= 0)
+        {
+            rb.velocity = anglevector * movement * moveSpeed;
+        }
     }
 
     private void Scroll()
@@ -94,14 +108,28 @@ public class Player : MonoBehaviour
         {
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
         }
+
+        // Play UI sound when scroll is detected
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            playerAudioSource.PlayOneShot(uiSoundClip);
+        }
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag(Tag.Enemy.ToString()) || collision.gameObject.CompareTag(Tag.EnemyBase.ToString()))
         {
             if (iframes <= 0)
             {
+                knockbackTimer = knockbackDuration;
+
+                // Apply knockback
+                Vector3 direction = transform.position - collision.transform.position;
+                direction.y = 0;
+                direction = direction.normalized * knockbackForce; // Set knockback force and direction
+                GetComponent<Rigidbody>().AddForce(direction, ForceMode.Impulse);
+
                 for (int i = 0; i < ammo.Length; i++)
                 {
                     ammo[i] = Math.Max(ammo[i] - random.Next(1, 3), 0);
@@ -114,10 +142,15 @@ public class Player : MonoBehaviour
 
     public void RefreshAmmo()
     {
-        Debug.Log("Ammo Refreshed");
+        playerAudioSource.PlayOneShot(refreshClip);
+
+        Debug.Log("Ammo Refreshed +1 for Each Type");
         for (int i = 0; i < ammo.Length; i++)
         {
-            ammo[i] = initialAmmo[i];
+            if (ammo[i] < initialAmmo[i])
+            {
+                ammo[i] += 1;
+            }
         }
     }
 
