@@ -8,6 +8,9 @@ TagManager:
   - PlayerBase
   - Animal
   - Scenery
+  - Wall
+  - EnemyBase
+  - Fence
   layers:
   - Default
   - TransparentFX
@@ -45,6 +48,12 @@ TagManager:
   - name: GroundSprite
     uniqueID: 447628123
     locked: 0
+  - name: Shadows
+    uniqueID: 2606702867
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Particles
+    uniqueID: 3471817567
     locked: 0

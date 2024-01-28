@@ -7,13 +7,15 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 {
     protected EnemyState state = EnemyState.SPAWN;
 
-    [SerializeField] protected NavMeshAgent agent;
-
-    protected int spawnTimeAvoidancePriority;
+    protected NavMeshObstacleAgent agent;
 
     [SerializeField] HealthBar healthBar;
 
+    SpriteRenderer spriteRenderer;
+
     ColorIndicator colorIndicator;
+
+    protected GameObject mainCam;
 
     /// <summary>
     /// remaining timer before next attack (enemy is able to attack when this value is not greater than 0)
@@ -34,22 +36,28 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected float attackCountDown = 5f;
     [SerializeField] protected float robotDamage;
 
-    void Awake()
+    [Tooltip("the entities that this enemy can attack")]
+    [SerializeField] protected Tag[] targets;
+
+    protected virtual void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.radius *= 2;
-        agent.speed = speed;
+        agent = GetComponent<NavMeshObstacleAgent>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        colorIndicator = GetComponent<ColorIndicator>();
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        GameManager.Instance.Register(this);
         health = maxHealth;
-        healthBar.SetHealthBar(maxHealth);
+        // Set health
+        health = maxHealth;
+        healthBar?.SetHealthBar(maxHealth);
+        healthBar?.gameObject.SetActive(false);
         currentAttackTime = 0;
-        spawnTimeAvoidancePriority = GameManager.Instance.Register(this);
-        agent.avoidancePriority = spawnTimeAvoidancePriority;
-        colorIndicator = GetComponent<ColorIndicator>();
+        agent.Speed = speed;
     }
 
     // Update is called once per frame
@@ -63,7 +71,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         // target eliminated or no longer a target
         if (targetTransform == null || !GameManager.Instance.ValidEnemyTargets.Contains(targetTransform))
         {
-            agent.avoidancePriority = spawnTimeAvoidancePriority;
+            // agent.avoidancePriority = spawnTimeAvoidancePriority;
             state = EnemyState.STOP;
         }
 
@@ -93,6 +101,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
                     state = EnemyState.CHASE;
                     return;
                 }
+                agent.SetObstacleMode();
                 if (currentAttackTime <= 0)
                 {
                     // attack and reset attack cooldown timer
@@ -104,6 +113,18 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             default:
                 break;
         }
+
+        // hide health bar when HP is at maximum
+        if (health < maxHealth)
+        {
+            healthBar?.UpdateHealthBar(health);
+            healthBar?.gameObject.SetActive(true);
+        }
+        else {
+            healthBar?.gameObject.SetActive(false);
+        }
+
+        Animate();
     }
 
     /// <summary>
@@ -113,7 +134,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     /// <returns>whether an enemy can initiate an attack</returns>
     protected virtual bool CanAttack()
     {
-        return Vector3.Magnitude(targetTransform.position - transform.position) <= attackRadius;
+        // allow attack if the entity has come to a distance within range and that it comes to a stop
+        // or entity is guaranteed able to hit target because distance < 1 (but target might be moving away)
+        float dist = Vector3.Magnitude(targetTransform.position - transform.position);
+        return (dist <= attackRadius && agent.Velocity.magnitude < 1e-3) || (dist <= 1);
     }
 
     /// <summary>
@@ -124,8 +148,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     protected virtual void Move(Vector3 targetPosition)
     {
         // always move the entity closer to target
-        agent.destination = targetPosition;
-        agent.stoppingDistance = 0;
+        agent.SetAgentMode();
+        agent.Destination = targetPosition;
+        agent.StoppingDistance = 0;
         if (Vector3.Magnitude(targetTransform.position - transform.position) <= attackRadius)
         {
             state = EnemyState.ATTACK;
@@ -151,13 +176,14 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             return;
         }
         targetTransform = damageSource;
-        updateAgentPriority(targetTransform);
+        //updateAgentPriority(targetTransform);
         health -= damage;
         healthBar.UpdateHealthBar(health);
         colorIndicator.IndicateDamage();
 
         if (health <= 0)
         {
+            GameManager.Instance.Unregister(this);
             Destroy(gameObject);
         }
     }
@@ -172,7 +198,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         else
         {
             targetTransform = target.transform;
-            updateAgentPriority(targetTransform);
+            //updateAgentPriority(targetTransform);
         }
     }
 
@@ -181,12 +207,32 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         if (targetTransform.TryGetComponent<NavMeshAgent>(out var targetAgent))
         {
             // set our agent priority to moving target's so we do not avoid one another
-            agent.avoidancePriority = targetAgent.avoidancePriority;
+            //agent.avoidancePriority = targetAgent.avoidancePriority;
         }
     }
 
-    private void OnDestroy()
+    private void Animate()
     {
-        GameManager.Instance.Unregister(this);
+        Vector3 velocityInCameraSpace = mainCam.transform.InverseTransformDirection( agent.Velocity);
+        if (spriteRenderer != null)
+        {
+            // Check if the x component of the velocity in camera space is positive (moving to the right)
+            bool flipX = spriteRenderer.flipX;
+            if (velocityInCameraSpace.x != 0 && Mathf.Abs(velocityInCameraSpace.x) >= 0.1f)
+            {
+                // change x orientation when horizontal direction changes (positive = right).
+                flipX = velocityInCameraSpace.x > 0;
+            }
+            else 
+            {
+                if (targetTransform != null)
+                {
+                    // face target if stationary
+                    Vector3 offsetInCameraSpace = mainCam.transform.InverseTransformDirection( targetTransform.position - transform.position );
+                    flipX = offsetInCameraSpace.x > 0;
+                }
+            }
+            spriteRenderer.flipX = flipX;
+        }
     }
 }

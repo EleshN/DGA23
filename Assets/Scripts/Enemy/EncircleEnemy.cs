@@ -11,8 +11,8 @@ public class EncircleEnemy : Enemy
   [SerializeField] private Material attackMaterial; // Material used when attacking
 
   private float angle;
-  private bool firstCircleCompleted = false;
-  private bool isDrawingCircle = false;
+  // private bool firstCircleCompleted = false;
+  // private bool isDrawingCircle = false;
 
   protected override void Start()
   {
@@ -53,7 +53,7 @@ public class EncircleEnemy : Enemy
       Vector3 newPosition = targetTransform.position + direction * encircleRadius;
 
       // Set the NavMeshAgent's destination to the new position
-      agent.SetDestination(newPosition);
+      agent.Destination = newPosition;
 
       // Check if the enemy has returned to the near vicinity of the start position
       if (Vector3.Distance(startPosition, transform.position) <= returnErrorMargin && angle >= 360f)
@@ -83,7 +83,7 @@ public class EncircleEnemy : Enemy
 
   IEnumerator PerformAttack()
   {
-    isDrawingCircle = true;
+    // isDrawingCircle = true;
     Material originalMaterial = lineRenderer.material;
     lineRenderer.material = attackMaterial;
     lineRenderer.loop = true;
@@ -93,7 +93,7 @@ public class EncircleEnemy : Enemy
     yield return new WaitForSeconds(0.5f); // Duration for the red color
 
     lineRenderer.material = originalMaterial;
-    isDrawingCircle = false;
+    // isDrawingCircle = false;
   }
 
   protected override void Attack()

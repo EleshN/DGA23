@@ -1,21 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
 
 public class Cat : Animal
 {
+    [Header("Cat Attack Stats")]
+    [SerializeField] Hitbox hitbox;
 
-    [SerializeField] float debuffRadius;
-    [SerializeField] float healthDebuffConst = 0.5f;
-    [SerializeField] float damageDebuffConst = 0.5f;
+    [Tooltip("the entities that the cat can attak")]
+    [SerializeField] Tag[] targets;
 
-    [SerializeField] ParticleSystem ps;
+    [SerializeField] float attackDelay;
+    [Tooltip("The amount of time in seconds that the hitbox is active when attacking")]
+    [SerializeField] float hitboxActiveTime;
+
+    [Header("Cat Damage in Radius")]
+    [SerializeField] float damageRadius;
+    [SerializeField] float radiusDamage;
+
+    public AudioSource catAudioSource;
+
+    public AudioClip catLovedClip;
+    public AudioClip catAngryClip;
+    public AudioClip catAttackClip;
 
     public override void Start()
     {
         base.Start();
-        InvokeRepeating(nameof(Debuff), 0, 1);
+        hitbox.Initialize();
+        hitbox?.SetUniformDamage(targets, animalDamage * damageMultiplier);
+        InvokeRepeating(nameof(DamageInRadius), 0, 1); // Changed from Debuff to DamageInRadius
     }
 
     public override void Update()
@@ -23,71 +39,60 @@ public class Cat : Animal
         base.Update();
     }
 
-    public override void LoveTarget()
+    protected override void OnEmotionChanged(Emotion newEmotion)
     {
-        if (targetTransform != GameManager.Instance.PlayerTransform)
+        base.OnEmotionChanged(newEmotion);
+
+        switch (newEmotion)
         {
-            targetTransform = GameManager.Instance.PlayerTransform;
-        }
-        if (Vector3.Magnitude(targetTransform.position - transform.position) > loveDistance)
-        {
-            targetPosition = targetTransform.position;
-        }
-        else
-        {
-            targetPosition = transform.position;
+            case Emotion.LOVE:
+                catAudioSource.PlayOneShot(catLovedClip);
+                break;
+            case Emotion.ANGER:
+                catAudioSource.PlayOneShot(catAngryClip);
+                break;
+                // Add cases for other emotions if needed
         }
     }
 
-    public override void AngerTarget()
-    {
-        if (targetTransform == null)
-            GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
-        else
-        {
-            targetPosition = targetTransform.position;
-        }
-    }
-
-    private void Debuff()
+    private void DamageInRadius()
     {
         if (currEmotion != Emotion.EMOTIONLESS)
         {
-            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, debuffRadius);
-            bool isolated = false;
+            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, damageRadius);
 
-            // Check if there's any GameObject with the "Animal" tag nearby other than 'this'
             foreach (Collider col in nearbyColliders)
             {
-                if (col.gameObject.CompareTag("Animal") && col.gameObject != gameObject)
+                if (col.gameObject.CompareTag(Tag.Animal.ToString()) && col.gameObject != gameObject)
                 {
-                    if (!ps.isPlaying)
+                    if (col.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
-                        ps.Play();
+                        damageable.TakeDamage(radiusDamage, transform);
                     }
-                    damageMultiplier = damageDebuffConst;
-                    healthMultiplier = healthDebuffConst;
-                    isolated = true;
-                    break;
                 }
-            }
-
-            if (!isolated)
-            {
-                if (ps.isPlaying)
-                {
-                    ps.Pause();
-                    ps.Clear();
-                }
-                damageMultiplier = 1f;
-                healthMultiplier = 1f;
             }
         }
     }
 
+    /// <summary>
+    /// Set the damage of the hitbox based on the cat's base damage. Call CatAttack
+    /// </summary>
     public override void Attack()
     {
-        throw new System.NotImplementedException();
+        StartCoroutine(CatAttack());
+    }
+
+    /// <summary>
+    /// delay the attack by attackDelay.  Then enable the hitbox to damage enemy
+    /// </summary>
+
+    IEnumerator CatAttack()
+    {
+        yield return new WaitForSeconds(attackDelay);
+        catAudioSource.PlayOneShot(catAttackClip);
+        hitbox.gameObject.SetActive(true);
+        yield return new WaitForSeconds(hitboxActiveTime);
+        hitbox.gameObject.SetActive(false);
     }
 
 }

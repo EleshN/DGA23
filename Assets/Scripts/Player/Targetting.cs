@@ -16,6 +16,8 @@ public class Targetting : MonoBehaviour
     private Camera mainCamera;
     private GameObject redDotInstance;
 
+    public Vector3 targetLocation {get; private set;}
+
     private void Start()
     {
         mainCamera = Camera.main;
@@ -23,31 +25,14 @@ public class Targetting : MonoBehaviour
         // Create the red dot instance and hide it initially
         redDotInstance = Instantiate(redDotPrefab);
         redDotInstance.SetActive(false);
+        targetLocation = Vector3.zero;
     }
 
     private void Update()
     {
         if (!PauseGame.isPaused)
         {
-            AimUpdate();
             AimAssist();
-        }
-    }
-
-    private void AimUpdate()
-    {
-        var (success, hitInfo) = GetMousePosition();
-        if (success)
-        {
-            // Calculate the direction
-            var direction = hitInfo.point - transform.position;
-
-            // Ignore the height difference.
-            // direction.y = 0;
-
-            // Make the transform look in the direction, but only rotate around the y-axis.
-            transform.rotation = Quaternion.Euler(0, Quaternion.LookRotation(direction).eulerAngles.y, 0);
-            //Commented out for now by Noah. Is this necessary? It makes the sprite go super wonky
         }
     }
 
@@ -60,18 +45,19 @@ public class Targetting : MonoBehaviour
             laserSight.enabled = true;
             laserSight.SetPosition(0, gunTransform.position);
             laserSight.SetPosition(1, hitInfo.point);
-
+            Vector3 hit = hitInfo.point;
             // Show the red dot at the hit position
-            redDotInstance.SetActive(true);
-            redDotInstance.transform.position = hitInfo.point;
-
-            redDotInstance.transform.rotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
+            //redDotInstance.SetActive(true);
+            //redDotInstance.transform.position = new Vector3(hit.x, 0.1f, hit.z);
+            
+            //redDotInstance.transform.rotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
+            targetLocation = hit;
         }
         else
         {
             // The Raycast did not hit anything, hide the laser and reticle.
             laserSight.enabled = false;
-            redDotInstance.SetActive(false);
+            //redDotInstance.SetActive(false);
         }
     }
 

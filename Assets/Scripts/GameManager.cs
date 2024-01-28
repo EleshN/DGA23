@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Assertions;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
+
+    public static int MaxLevel = 10;
 
     private static GameManager _Instance;
     public int LevelNumber = -1;
@@ -19,13 +22,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Limit for the number of enemies
     /// </summary>
-    public int EnemySpawnCap = 3;
-    private int avoidance = 50;
-
-    /// <summary>
-    /// Animal agent avoidance priority
-    /// </summary>
-    [SerializeField] private int AnimalAvoidance = 50;
+    public int EnemySpawnCap;
 
     /// <summary>
     /// All player bases currently on the map
@@ -62,19 +59,28 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public HashSet<Transform> ValidEnemyTargets;
 
-    Player PlayerObject;
+    [HideInInspector] public Player PlayerObject;
+
+    private Collider PlayerCollider;
 
     // Reference to Player Transform for player target tracking
     [HideInInspector] public Transform PlayerTransform;
 
     [Header("Game UI")]
 
+    [SerializeField] GameObject GameCanvas;
+
     [SerializeField] ResultSceneOpener ResultSceneOpener;
     [SerializeField] TMP_Text enemyBaseCount;
     [SerializeField] TMP_Text playerBaseCount;
 
-    [SerializeField] TMP_Text selectedAmmoType;
-    [SerializeField] TMP_Text ammoCount;
+    [SerializeField] TMP_Text loveCount;
+    [SerializeField] TMP_Text angerCount;
+    [SerializeField] GameObject loveUI;
+    [SerializeField] GameObject angerUI;
+
+    [SerializeField] GameObject levelTextBkg;
+    [SerializeField] TMP_Text levelText;
 
     /// <summary>
     /// whether the current running level is completed (ongoing vs won/lost)
@@ -113,17 +119,26 @@ public class GameManager : MonoBehaviour
             {
                 PlayerObject = playerComponent;
                 PlayerTransform = PlayerObject.transform;
+                PlayerCollider = PlayerTransform.GetComponent<Collider>();
             }
         }
         Assert.IsTrue(PlayerObject != null, "Unable to find player script");
         Assert.IsTrue(PlayerTransform != null, "Unable to find player");
+        Assert.IsTrue(PlayerCollider != null, "Unable to find player's collider");
         Assert.IsTrue(LevelNumber >= 0, "Level Number in GameManager must be set");
+
+        levelText.enabled = LevelNumber >= 1;
+        levelTextBkg.SetActive(LevelNumber >= 1);
+        if (LevelNumber >= 1){
+            levelText.text = "Level: " + LevelNumber;
+        }
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        // PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
     }
 
     // Update is called once per frame
@@ -132,21 +147,57 @@ public class GameManager : MonoBehaviour
         if (PlayerBases.Count == 0 && !isLevelComplete)
         {
             // you lose
+            GameCanvas.SetActive(false);
             ResultSceneOpener.Init(LevelNumber,false);
             isLevelComplete = true;
         }
         if (EnemyBases.Count == 0 && !isLevelComplete)
         {
             // you win
+            GameCanvas.SetActive(false);
             ResultSceneOpener.Init(LevelNumber, true);
             isLevelComplete = true;
         }
 
         // update GameCanvas text elements
-        selectedAmmoType.text = PlayerObject.GetCurrentAmmoType();
-        ammoCount.text = PlayerObject.GetCurrentAmmoCount().ToString();
-
+        UpdateIconCounts(PlayerObject.GetCurrentAmmoType());
     }
+
+    private void UpdateIconCounts(string currentSelected = "")
+    {
+        // update all counts
+        for (int i = 0; i < PlayerObject.ammoNames.Length; i++)
+        {
+            int count = PlayerObject.ammo[i];
+            switch (PlayerObject.ammoNames[i]) {
+                case "anger":
+                    angerCount.text = count.ToString();
+                    break;
+                case "love":
+                    loveCount.text = count.ToString();
+                    break;
+                default:
+                    Debug.Log("Invalid emotion");
+                    break;
+            }
+        }
+
+        // switch between icon focus
+        switch (currentSelected)
+        {
+            case "anger":
+                angerUI.transform.localScale = new Vector3(1, 1, 1);
+                loveUI.transform.localScale = new Vector3(.5f, .5f, .5f);
+                break;
+            case "love":
+                loveUI.transform.localScale = new Vector3(1, 1, 1);
+                angerUI.transform.localScale = new Vector3(.5f, .5f, .5f);
+                break;
+            default:
+                break;
+        }
+    }
+    
     public Transform FindClosest(Vector3 source, HashSet<Transform> transforms)
     {
         // find closest using Euclidean distance
@@ -242,15 +293,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// adds enemy to the collection of enemies
     /// </summary>
-    public int Register(Enemy e)
+    public void Register(Enemy e)
     {
         TeamEnemy.Add(e.transform);
         Enemies.Add(e);
-        avoidance += 1;
-        if (avoidance >= 99){
-            avoidance = AnimalAvoidance;
-        }
-        return avoidance;
     }
 
     /// <summary>
@@ -264,10 +310,16 @@ public class GameManager : MonoBehaviour
 
     /// <summary>
     /// adds animal to internal collection of Animals
+    /// 
+    /// <para>A registered animal does not interfere with player's movement</para>
     /// </summary>
     public void Register(Animal a)
     {
         Animals.Add(a); // useful to maintain all animals, not all animals qualify as a target for enemies
+        if (a.TryGetComponent<Collider>(out Collider animalCollider))
+        {
+            Physics.IgnoreCollision(PlayerCollider, animalCollider);
+        }
     }
 
     /// <summary>

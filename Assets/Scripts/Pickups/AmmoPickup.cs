@@ -1,30 +1,79 @@
+using System.Collections;
 using UnityEngine;
 
 public class AmmoPickup : MonoBehaviour
 {
-  // The type of ammo this pickup should affect; set this to "love" in the Unity editor
-  public string ammoType;
+  public string ammoType; // Set this to the specified emotion in the Unity editor
+
+  public float delayBeforeReset = 5f; // Time in seconds before the pickup resets
+
+  private SpriteRenderer spriteRenderer;
+
+  private Animator anim;
+
+  private Collider colliderComponent; // Reference to the collider component
+
+  private AnimatorCallback animCallback;
+
+  private void Start()
+  {
+    // Find the child GameObject named 'Sprite'
+    Transform spriteTransform = transform.Find("Sprite");
+
+    // Ensure the sprite transform and renderer are found
+    spriteRenderer = spriteTransform.GetComponent<SpriteRenderer>();
+    anim = spriteTransform.GetComponent<Animator>();
+    animCallback = spriteTransform.GetComponent<AnimatorCallback>();
+    animCallback.AddCallback(nameof(EnablePickup), EnablePickup);
+    anim.SetBool("looted", false);
+
+    // Get the collider component
+    colliderComponent = GetComponent<Collider>();
+  }
 
   private void OnTriggerEnter(Collider other)
   {
-    //Debug.Log("Trigger Entered by: " + other.tag);  // Debug statement
-
-
-    if (other.tag == "Player")  // Check if the colliding object has the "Player" tag
+    if (other.tag == Tag.Player.ToString())
     {
-      Player playerScript = other.gameObject.GetComponentInParent<Player>();  // Get the Player script component from the object
-
-      //Debug.Log("Player script is null: " + (playerScript == null));
-      //Debug.Log("ammoType is null: " + (ammoType == null));
-      //Debug.Log("ammoType is null: " + (ammoType == null));
-      // Find the index of "love" ammo in the Player's ammoNames array
+      Player playerScript = other.gameObject.GetComponentInParent<Player>();
       int ammoIndexPickup = System.Array.IndexOf(playerScript.ammoNames, ammoType);
 
-      if (ammoIndexPickup >= 0) // Check if the ammo type exists in the array
+      // todo: fix this to disallow increments. should be player model's responsability.
+      if (ammoIndexPickup >= 0)
       {
-        playerScript.ammo[ammoIndexPickup] += 1;  // Increment the ammo count by 1
-        Destroy(gameObject);  // Remove the pickup object from the game scene
+        playerScript.ammo[ammoIndexPickup] += 1; // Increment the ammo count
+        print("begin drawing idle no pickup");
+        anim.SetBool("looted", true);
+        anim.SetBool("regrow", false);
+        print("collider off");
+        colliderComponent.enabled = false; 
+        StartCoroutine(PlayRegrowAnimation());
       }
     }
   }
+
+  private IEnumerator PlayRegrowAnimation()
+  {
+    yield return new WaitForSeconds(delayBeforeReset);
+    anim.SetBool("regrow", true);
+    anim.SetBool("looted", true);
+    yield return 0;
+  }
+
+  // this is called by animation callback
+  private void EnablePickup()
+  {
+    print("begin drawing idle pickup ver");
+    anim.SetBool("looted", false);
+    anim.SetBool("regrow", false);
+    StartCoroutine(EnableCollision());
+  }
+
+  private IEnumerator EnableCollision()
+  {
+    yield return new WaitForFixedUpdate();
+    colliderComponent.enabled = true;
+    yield return 0;
+  }
+
 }
