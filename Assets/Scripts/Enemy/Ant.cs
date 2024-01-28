@@ -77,6 +77,7 @@ public class Ant : Enemy
         yield return new WaitForSeconds(hitboxActiveTime);
         hitbox.gameObject.SetActive(false);
 
+
     }
 
     public void CheckStack()
