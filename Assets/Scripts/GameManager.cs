@@ -331,6 +331,29 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// adds animal to internal collection of Animals
+    /// 
+    /// <para>A registered animal does not interfere with player's movement</para>
+    /// </summary>
+    public void Register(Tree t)
+    {
+        //Trees.Add(t); // useful to maintain all animals, not all animals qualify as a target for enemies
+        print("hello");
+        if (t.TryGetComponent<Collider>(out Collider treeCollider))
+        {
+            Physics.IgnoreCollision(PlayerCollider, treeCollider);
+        }
+    }
+
+    /// <summary>
+    /// removes animal to internal collection of Animals
+    /// </summary>
+    public void Unregister(Tree t)
+    {
+        //Trees.Remove(t);
+    }
+
+    /// <summary>
     /// returns whether more enemies can be spawned without hitting the enemy spawn cap
     /// </summary>
     public bool WithinEnemySpawnCap()
