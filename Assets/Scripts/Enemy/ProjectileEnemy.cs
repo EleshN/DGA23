@@ -12,7 +12,7 @@ public class ProjectileEnemy : Enemy
     [SerializeField] GameObject projectilePrefab;
 
     /// <summary>
-    /// the radius of the bullet (used for capsule casting in order to determine whether target can be attacked)
+    /// the radius of the bullet (used for sphere casting in order to determine whether target can be attacked)
     /// </summary>
     float bulletRadius;
 
@@ -43,7 +43,7 @@ public class ProjectileEnemy : Enemy
         }
         bool raycastResult = false;
         Vector3 dir = targetTransform.position - transform.position;
-        if (Physics.CapsuleCast(transform.position, targetTransform.position, bulletRadius, dir, out RaycastHit hit, attackRadius, Physics.DefaultRaycastLayers,  QueryTriggerInteraction.Ignore))
+        if (Physics.SphereCast(transform.position, bulletRadius, dir, out RaycastHit hit, attackRadius, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
             raycastResult = hit.collider.gameObject.transform == targetTransform;
         }
