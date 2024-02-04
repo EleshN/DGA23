@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - EnemyBase
   - Fence
+  - Defence
   layers:
   - Default
   - TransparentFX

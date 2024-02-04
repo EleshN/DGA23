@@ -235,4 +235,16 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             spriteRenderer.flipX = flipX;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (targetTransform.gameObject.tag == "Animal")
+        {
+            if (other.gameObject.tag == "Defence" &&
+                targetTransform.gameObject.GetComponent<Animal>().GetEmotion() == Emotion.DEFENCE)
+            {
+                targetTransform = other.transform;
+            }
+        }
+    }
 }

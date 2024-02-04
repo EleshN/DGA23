@@ -16,9 +16,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
     protected Vector3 spawnLocation;
 
     [SerializeField]
-    protected Transform targetTransform;
+    public Transform targetTransform;
 
     protected Vector3 targetPosition;
+
+    protected Transform damageSourceTransform;
 
     [Header("Animal Colors")]
     [Tooltip("Change the color of the animal body")]
@@ -33,11 +35,13 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [SerializeField] float health;
     [SerializeField] HealthBar healthBar;
     [SerializeField] protected float animalDamage;
+    [SerializeField] protected float animalDefense;
     [SerializeField] protected float emoSpeed = 2f;
     [SerializeField] protected float loveSpeed = 3f;
     [SerializeField] protected float angerSpeed = 3f;
     public float damageMultiplier = 1f;
     public float healthMultiplier = 1f;
+    public float defenceMultiplier = 1f;
 
     [Header("Death Cool Down")]
     [Tooltip("The time between animal death and regain emotion")]
@@ -107,6 +111,10 @@ public abstract class Animal : MonoBehaviour, IDamageable
     // Virtual method to be overridden by derived classes
     protected virtual void OnEmotionChanged(Emotion newEmotion)
     {
+        if (newEmotion == Emotion.DEFENCE)
+        {
+            targetTransform = null;
+        }
         // This method can be overridden in derived classes
     }
     public virtual void Update()
@@ -125,6 +133,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 LoveTarget();
                 spriteRenderer.color = loveColor;
                 break;
+            case Emotion.DEFENCE:
+                agent.Speed = 0;
+                DefenceTarget();
+                // TODO ADD COLOR
+                break;
             default:
                 agent.Speed = emoSpeed;
                 EmoTarget();
@@ -139,10 +152,16 @@ public abstract class Animal : MonoBehaviour, IDamageable
         }
         agent.Destination = destination;
 
+        //Defend
+        //if (currEmotion == Emotion.DEFENCE)
+        //{
+        //    Defend();
+        //}
+
         //Attack
         attackCooldown -= Time.deltaTime;
 
-        if (currEmotion == Emotion.ANGER && targetTransform != null)
+        if ((currEmotion == Emotion.ANGER || currEmotion == Emotion.DEFENCE) && targetTransform != null)
         {
             float dist = Vector3.Magnitude(targetTransform.position - transform.position);
             // allow attack if the entity has come to a distance within range and that it comes to a stop
@@ -188,6 +207,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <summary>
     /// Sets the emotion of the animal when called
     /// Changes the color of the animal to its corresponding emotion
+    /// When emotion is set to defence, the target position is set to null
     /// </summary>
     /// <param name="emotion"></param>
     protected void SetEmotion(Emotion emotion)
@@ -218,6 +238,9 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 emotionSystem.GetComponent<ParticleSystemRenderer>().material = loveMat;
                 emotionSystem.Play();
                 break;
+            case Emotion.DEFENCE:
+                
+                //TODO
             default:
                 cubeRenderer.material.color = emotionlessColor;
                 emotionSystem.Pause();
@@ -270,6 +293,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public virtual void TakeDamage(float damageAmount, Transform damageSource)
     {
+        damageSourceTransform = damageSource;
         if (currEmotion == Emotion.ANGER)
         {
             health -= damageAmount;
@@ -338,6 +362,16 @@ public abstract class Animal : MonoBehaviour, IDamageable
     }
 
     /// <summary>
+    /// Called every update, when emotion is defence, the target Destination is
+    /// the animal's location where the emotion is applied.
+    ///
+    /// </summary>
+    protected virtual void DefenceTarget()
+    {
+        targetPosition = agent.transform.position;
+    }
+
+    /// <summary>
     /// Select and move to a random target on the NavMesh around
     /// the player within the searchRange
     ///
@@ -358,6 +392,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// Defines the attack of the animal.  This method is called when the attack cooldown <= 0
     /// </summary>
     public abstract void Attack();
+
 
     /// <summary>
     /// Changes the animation of the animal depending on its movement direction

@@ -31,7 +31,8 @@ public class Snurtle : Animal
 
     public override void Attack()
     {
-        throw new System.NotImplementedException();
+        hitbox?.SetUniformDamage(targets, animalDamage * damageMultiplier);
+        StartCoroutine(SnurtleAttack());
     }
 
     IEnumerator SnurtleAttack()
