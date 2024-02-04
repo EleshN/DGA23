@@ -27,7 +27,6 @@ public class Snurtle : Animal
     public override void Update()
     {
         base.Update();
-        print(agent);
     }
 
     public override void Attack()

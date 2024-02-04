@@ -97,7 +97,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
             healthBar.gameObject.SetActive(false);
         }
         GameManager.Instance.Register(this);
-        print(this);
         spawnLocation = transform.position;
         colorIndicator = GetComponent<ColorIndicator>();
         // Set color

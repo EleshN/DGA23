@@ -672,6 +672,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4131423448786467418, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -24.299805
+      objectReference: {fileID: 0}
     - target: {fileID: 9122006461562298808, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
       propertyPath: m_Name
       value: Game Manager
@@ -692,6 +696,10 @@ PrefabInstance:
     - target: {fileID: 359648088527951364, guid: cc8584615da95448191f66f2808457d4, type: 3}
       propertyPath: m_Name
       value: Snurtle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901674236737551547, guid: cc8584615da95448191f66f2808457d4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8788534486258921411, guid: cc8584615da95448191f66f2808457d4, type: 3}
       propertyPath: m_LocalPosition.x

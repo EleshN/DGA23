@@ -138,13 +138,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print(Animals);
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(Animals);
+        //print(Animals);
         if (PlayerBases.Count == 0 && !isLevelComplete)
         {
             // you lose
@@ -320,6 +319,7 @@ public class GameManager : MonoBehaviour
         if (a.TryGetComponent<Collider>(out Collider animalCollider))
         {
             Physics.IgnoreCollision(PlayerCollider, animalCollider);
+            print("yay" + a.ToString()+animalCollider.ToString());
         }
     }
 
