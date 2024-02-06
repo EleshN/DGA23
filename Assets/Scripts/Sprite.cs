@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -24,17 +23,28 @@ public class Sprite : MonoBehaviour
         if (!GameManager.Instance.isDebug) {
             foreach (MeshRenderer m in Meshes)
             {
-                m.enabled = false;
+                if (m != null){
+                    m.enabled = false;
+                }
             }
         }
         if (!mainCam) {
             mainCam = GameObject.FindGameObjectWithTag("MainCamera");
         }
+        
+        transform.Rotate(Vector3.up, 45);
+        Vector3 feetPosition = transform.localPosition;
+        float y = feetPosition.y;
+        feetPosition.y = 0;
+        transform.Translate(new Vector3(0, -y, 0));
+        transform.Rotate(Vector3.right, 45);
+        transform.Translate(new Vector3(0, y, 0));
+        // print(transform.parent.name + " " + transform.position + " " + transform.rotation);
     }
 
     // Update is called once per frame
     virtual protected void Update()
     {
-        transform.forward = mainCam.transform.forward;
+        
     }
 }

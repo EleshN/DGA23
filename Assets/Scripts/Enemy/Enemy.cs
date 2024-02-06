@@ -7,13 +7,15 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 {
     protected EnemyState state = EnemyState.SPAWN;
 
-    [SerializeField] protected NavMeshObstacleAgent agent;
-
-    protected int spawnTimeAvoidancePriority;
+    protected NavMeshObstacleAgent agent;
 
     [SerializeField] HealthBar healthBar;
 
+    SpriteRenderer spriteRenderer;
+
     ColorIndicator colorIndicator;
+
+    protected GameObject mainCam;
 
     /// <summary>
     /// remaining timer before next attack (enemy is able to attack when this value is not greater than 0)
@@ -34,21 +36,28 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected float attackCountDown = 5f;
     [SerializeField] protected float robotDamage;
 
-    void Awake()
+    [Tooltip("the entities that this enemy can attack")]
+    [SerializeField] protected Tag[] targets;
+
+    protected virtual void Awake()
     {
         agent = GetComponent<NavMeshObstacleAgent>();
-        agent.SetSpeed(speed);
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        colorIndicator = GetComponent<ColorIndicator>();
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        GameManager.Instance.Register(this);
         health = maxHealth;
-        healthBar.SetHealthBar(maxHealth);
+        // Set health
+        health = maxHealth;
+        healthBar?.SetHealthBar(maxHealth);
+        healthBar?.gameObject.SetActive(false);
         currentAttackTime = 0;
-        // spawnTimeAvoidancePriority = GameManager.Instance.Register(this);
-        // agent.avoidancePriority = spawnTimeAvoidancePriority;
-        colorIndicator = GetComponent<ColorIndicator>();
+        agent.Speed = speed;
     }
 
     // Update is called once per frame
@@ -104,6 +113,18 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             default:
                 break;
         }
+
+        // hide health bar when HP is at maximum
+        if (health < maxHealth)
+        {
+            healthBar?.UpdateHealthBar(health);
+            healthBar?.gameObject.SetActive(true);
+        }
+        else {
+            healthBar?.gameObject.SetActive(false);
+        }
+
+        Animate();
     }
 
     /// <summary>
@@ -113,7 +134,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     /// <returns>whether an enemy can initiate an attack</returns>
     protected virtual bool CanAttack()
     {
-        return Vector3.Magnitude(targetTransform.position - transform.position) <= attackRadius;
+        // allow attack if the entity has come to a distance within range and that it comes to a stop
+        // or entity is guaranteed able to hit target because distance < 1 (but target might be moving away)
+        float dist = Vector3.Magnitude(targetTransform.position - transform.position);
+        return (dist <= attackRadius && agent.Velocity.magnitude < 1e-3) || (dist <= 1);
     }
 
     /// <summary>
@@ -125,8 +149,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         // always move the entity closer to target
         agent.SetAgentMode();
-        agent.SetDestination(targetPosition);
-        agent.SetStoppingDistance(0);
+        agent.Destination = targetPosition;
+        agent.StoppingDistance = 0;
         if (Vector3.Magnitude(targetTransform.position - transform.position) <= attackRadius)
         {
             state = EnemyState.ATTACK;
@@ -159,6 +183,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
+            GameManager.Instance.Unregister(this);
             Destroy(gameObject);
         }
     }
@@ -186,8 +211,28 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    private void OnDestroy()
+    private void Animate()
     {
-        GameManager.Instance.Unregister(this);
+        Vector3 velocityInCameraSpace = mainCam.transform.InverseTransformDirection( agent.Velocity);
+        if (spriteRenderer != null)
+        {
+            // Check if the x component of the velocity in camera space is positive (moving to the right)
+            bool flipX = spriteRenderer.flipX;
+            if (velocityInCameraSpace.x != 0 && Mathf.Abs(velocityInCameraSpace.x) >= 0.1f)
+            {
+                // change x orientation when horizontal direction changes (positive = right).
+                flipX = velocityInCameraSpace.x > 0;
+            }
+            else 
+            {
+                if (targetTransform != null)
+                {
+                    // face target if stationary
+                    Vector3 offsetInCameraSpace = mainCam.transform.InverseTransformDirection( targetTransform.position - transform.position );
+                    flipX = offsetInCameraSpace.x > 0;
+                }
+            }
+            spriteRenderer.flipX = flipX;
+        }
     }
 }
