@@ -2921,7 +2921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e872e2fe696f574e8c3d83e16e75349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: StartUpScene
+  nextScene: StartUpScreen
 --- !u!114 &1688903035
 MonoBehaviour:
   m_ObjectHideFlags: 0
