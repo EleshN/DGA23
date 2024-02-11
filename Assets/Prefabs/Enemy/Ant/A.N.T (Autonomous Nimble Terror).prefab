@@ -251,7 +251,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6423367497784624718}
+  m_Father: {fileID: 4177116413828428157}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3935382553741057826
 GameObject:
@@ -362,16 +362,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6644180354889415888}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2319003856202265754}
   - {fileID: 4177116413828428157}
-  - {fileID: 11294988021208428}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!33 &1551110755120898079
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -500,12 +499,16 @@ MonoBehaviour:
   targets: 0000000003000000
   stackVal: 1
   maxStack: 3
+  stackColors:
+  - {r: 0.8962264, g: 0.6730153, b: 0.6730153, a: 0.84313726}
+  - {r: 0.7495906, g: 0.8005108, b: 0.8867924, a: 0.84313726}
   stackSearchRadius: 10
   stackTime: 17
   searchRepeatTime: 2
-  stackPrefab: {fileID: 7204168739668767149}
+  stackPrefab: {fileID: 5526887972057145437, guid: 5f99c6451dbac85409c60a746e13fab2, type: 3}
   antStack: {fileID: 11294988021208428}
-  stackSpacing: 1
+  yStackSpacing: 3
+  zStackSpacing: 0
   hitbox: {fileID: 5769747738735344323}
   attackDelay: 0.5
   hitboxActiveTime: 2
@@ -623,6 +626,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5647444063361281507}
+  - {fileID: 11294988021208428}
   m_Father: {fileID: 6423367497784624718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1059331069918332124
