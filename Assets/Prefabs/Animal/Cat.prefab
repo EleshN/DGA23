@@ -5471,7 +5471,7 @@ MonoBehaviour:
   damageMultiplier: 1
   healthMultiplier: 1
   defenceMultiplier: 1
-  defenceRadius: {fileID: 0}
+  defenceRadius: {fileID: 8501827164159432682}
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4
