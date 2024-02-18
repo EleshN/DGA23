@@ -54,6 +54,7 @@ public class Cat : Animal
                 break;
             case Emotion.DEFENCE:
                 //TODO: add sound
+                catAudioSource.PlayOneShot(catResolvedClip);
                 break;
                 // Add cases for other emotions if needed
         }

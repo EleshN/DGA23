@@ -34,7 +34,9 @@ public class Ant : Enemy
     [Tooltip("The bonus health and damage applied to Ant stack")]
     [SerializeField] float[] stackMultiplier;
 
-
+    [Header("Ant Audio")]
+    public AudioSource antAudioSource;
+    public AudioClip antAttackClip;
 
     protected override void Start()
     {
@@ -77,6 +79,7 @@ public class Ant : Enemy
     {
         yield return new WaitForSeconds(attackDelay);
         hitbox.gameObject.SetActive(true);
+        antAudioSource.PlayOneShot(antAttackClip);
         yield return new WaitForSeconds(hitboxActiveTime);
         hitbox.gameObject.SetActive(false);
 
