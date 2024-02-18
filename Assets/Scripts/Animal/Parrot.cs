@@ -251,7 +251,7 @@ public class Parrot : Animal
 
     //-------------------------------// COMBAT //-------------------------------//
 
-    public override void Attack() { }
+    public override void Attack() {}
 
     public override void TakeDamage(float damage, Transform source){}
 
