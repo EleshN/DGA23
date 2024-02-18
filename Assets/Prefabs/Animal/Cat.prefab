@@ -5244,7 +5244,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -823149729
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -5395,6 +5395,7 @@ Transform:
   - {fileID: 2352240208749788796}
   - {fileID: 2303005120203186417}
   - {fileID: 8002864923420349315}
+  - {fileID: 7073763461136211820}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &8068037579921231235
@@ -5463,11 +5464,14 @@ MonoBehaviour:
   health: 0
   healthBar: {fileID: 2840477338479861304}
   animalDamage: 3
+  animalDefense: 0
   emoSpeed: 2
   loveSpeed: 3
   angerSpeed: 3
   damageMultiplier: 1
   healthMultiplier: 1
+  defenceMultiplier: 1
+  defenceRadius: {fileID: 0}
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4
@@ -5689,6 +5693,51 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4584525035512702713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7073763461136211820}
+  - component: {fileID: 8501827164159432682}
+  m_Layer: 0
+  m_Name: DefenceRadius
+  m_TagString: Defence
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7073763461136211820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4584525035512702713}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1611184428175733977}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8501827164159432682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4584525035512702713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44252187048b14b71a2d16b5471c46ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defenceRadius: 5
 --- !u!1 &5696154844050447198
 GameObject:
   m_ObjectHideFlags: 0

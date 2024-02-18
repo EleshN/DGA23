@@ -55,6 +55,10 @@ public class Parrot : Animal
                 agent.Speed = loveSpeed ;
                 LoveTarget();
                 break;
+            case Emotion.DEFENCE:
+                agent.Speed = loveSpeed;
+                DefenceTarget();
+                break;
             default:
                 agent.Speed = emoSpeed;
                 EmoTarget();
@@ -104,6 +108,11 @@ public class Parrot : Animal
     /// </summary>
     public override void AngerTarget() {
         SpreadEmotion(Emotion.ANGER);
+    }
+
+    protected override void DefenceTarget()
+    {
+        SpreadEmotion(Emotion.DEFENCE);
     }
 
     /// <summary> 
@@ -285,7 +294,7 @@ public class Parrot : Animal
 
     //-------------------------------// COMBAT //-------------------------------//
 
-    public override void Attack() { }
+    public override void Attack() {}
 
     public override void TakeDamage(float damage, Transform source){}
 

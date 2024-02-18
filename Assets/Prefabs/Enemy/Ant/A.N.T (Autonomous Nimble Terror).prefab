@@ -379,7 +379,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6423367497784624718}
+  m_Father: {fileID: 4177116413828428157}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3935382553741057826
 GameObject:
@@ -490,17 +490,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6644180354889415888}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2319003856202265754}
   - {fileID: 4177116413828428157}
-  - {fileID: 11294988021208428}
-  - {fileID: 5623205876705847669}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!33 &1551110755120898079
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -629,12 +627,16 @@ MonoBehaviour:
   targets: 0000000003000000
   stackVal: 1
   maxStack: 3
+  stackColors:
+  - {r: 0.8962264, g: 0.6730153, b: 0.6730153, a: 0.84313726}
+  - {r: 0.7495906, g: 0.8005108, b: 0.8867924, a: 0.84313726}
   stackSearchRadius: 10
   stackTime: 17
   searchRepeatTime: 2
-  stackPrefab: {fileID: 7204168739668767149}
+  stackPrefab: {fileID: 5526887972057145437, guid: 5f99c6451dbac85409c60a746e13fab2, type: 3}
   antStack: {fileID: 11294988021208428}
-  stackSpacing: 1
+  yStackSpacing: 3
+  zStackSpacing: -0.1
   hitbox: {fileID: 5769747738735344323}
   attackDelay: 0.5
   hitboxActiveTime: 2
@@ -752,6 +754,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5647444063361281507}
+  - {fileID: 11294988021208428}
   m_Father: {fileID: 6423367497784624718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1059331069918332124
@@ -811,7 +814,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -144584413, guid: d5e5374bd2c714bdf87e99b51fc0d5cd, type: 3}
+  m_Sprite: {fileID: -1326705030, guid: 1000656dcb1d5234eb55662d5fe475b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -832,7 +835,7 @@ Animator:
   m_GameObject: {fileID: 7204168739668767149}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0fa280b2cdf0f45478b598ee581bdf43, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7c266248097ebd5479373ff71bd7c736, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

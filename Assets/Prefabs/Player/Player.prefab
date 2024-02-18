@@ -201,6 +201,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   gunTransform: {fileID: 1097025714240175275}
+  playerSpriteTransform: {fileID: 3506484286884819030}
   laserSight: {fileID: 8851094568131856733}
   redDotPrefab: {fileID: 1582840077467022553, guid: 0b686eec593fbff4db06ff92126efccb, type: 3}
 --- !u!23 &8636083632494806902
