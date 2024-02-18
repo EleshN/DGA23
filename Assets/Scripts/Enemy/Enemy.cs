@@ -184,7 +184,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            GameManager.Instance.Unregister(this);
             Destroy(gameObject);
         }
     }
@@ -237,24 +236,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    print("STAY");
-    //    print("tag: " + other.gameObject.tag.ToString());
-    //    print("Target: " + targetTransform.gameObject.ToString());
-    //    if (other.gameObject.tag == "Defence")
-    //    {
-    //        print("Tag is defence");
-    //        if (targetTransform.gameObject.GetComponent<PlayerBase>() != null)
-    //        {
-    //            print("target isn't playerbase");
-    //            if (targetTransform.gameObject.GetComponent<Animal>().GetEmotion() != Emotion.DEFENCE)
-    //            {
-    //                print("target isn't defensive");
-    //                targetTransform = other.transform;
-    //            }
-    //        }
-    //    }
-        
-    //}
+    private void OnDestroy()
+    {
+        if(GameManager.Instance != null)
+            GameManager.Instance.Unregister(this);
+    }
 }

@@ -2643,6 +2643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 126080341}
+  targetTransform: {fileID: 0}
   speed: 2
   maxHealth: 6
   health: 0
@@ -5788,7 +5789,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1700084649}
   - component: {fileID: 1700084648}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: forest_floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5919,6 +5920,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b24cb3a4132f419384be80db051b409, type: 3}
+--- !u!1001 &1727941632
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 278925577518325084, guid: f26a6c64041e0461caf7cea809275717, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705269165654875497, guid: f26a6c64041e0461caf7cea809275717, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705269165654875497, guid: f26a6c64041e0461caf7cea809275717, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705269165654875497, guid: f26a6c64041e0461caf7cea809275717, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705269165654875497, guid: f26a6c64041e0461caf7cea809275717, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705269165654875497, guid: f26a6c64041e0461caf7cea809275717, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705269165654875497, guid: f26a6c64041e0461caf7cea809275717, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705269165654875497, guid: f26a6c64041e0461caf7cea809275717, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705269165654875497, guid: f26a6c64041e0461caf7cea809275717, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705269165654875497, guid: f26a6c64041e0461caf7cea809275717, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705269165654875497, guid: f26a6c64041e0461caf7cea809275717, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188071099292100413, guid: f26a6c64041e0461caf7cea809275717, type: 3}
+      propertyPath: m_Name
+      value: MinimapCamera
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f26a6c64041e0461caf7cea809275717, type: 3}
 --- !u!1 &1761542353
 GameObject:
   m_ObjectHideFlags: 0
@@ -6360,11 +6422,14 @@ MonoBehaviour:
   health: 0
   healthBar: {fileID: 0}
   animalDamage: 0
+  animalDefense: 0
   emoSpeed: 0.5
   loveSpeed: 5
   angerSpeed: 3
   damageMultiplier: 1
   healthMultiplier: 1
+  defenceMultiplier: 1
+  defenceRadius: {fileID: 0}
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4
@@ -11645,6 +11710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1938080854166034421}
+  targetTransform: {fileID: 0}
   speed: 2
   maxHealth: 6
   health: 0
@@ -12606,7 +12672,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -823149729
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -13238,3 +13304,4 @@ SceneRoots:
   - {fileID: 778372905}
   - {fileID: 876097988}
   - {fileID: 39240585}
+  - {fileID: 1727941632}

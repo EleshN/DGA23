@@ -257,6 +257,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerBases.Add(pbase);
         ValidEnemyTargets.Add(pbase.transform);
+        Physics.IgnoreCollision(pbase.GetComponent<Collider>(), PlayerCollider);
         playerBaseCount.text = "Total Player Bases: " + PlayerBases.Count.ToString();
     }
 

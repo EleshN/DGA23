@@ -148,6 +148,8 @@ public class Parrot : Animal
         {
             (timeFirstMotion, _) = ParabolicMotion(agent.Speed, targetLocationAir, initLocation);
             atFirstDestination = Vector3.Distance(targetLocationAir, transform.position) < 0.2f;
+            anim.SetTrigger("Takeoff");
+            anim.ResetTrigger("Fall");
         }
         else if (!doneFlight) // circular flight
         {
@@ -158,8 +160,14 @@ public class Parrot : Animal
         else if (inMotion) // landing (parabolic)
         {
             //print("Second init location: " + secondinitLocation.ToString());
-            (_, landingRotation) = ParabolicMotion(agent.Speed, initLocation, secondinitLocation, circleDurration);
-            inMotion = Vector3.Distance(initLocation, transform.position) > 0.2f;
+            //Land at the same x,z location that you are starting from
+            //This variable was originally "initlocation." Replace it with that if you want to revert.
+            Vector3 landVec = new Vector3(secondinitLocation.x, initLocation.y, secondinitLocation.z);
+            //Land
+            anim.SetTrigger("Fall");
+            anim.ResetTrigger("Takeoff");
+            (_, landingRotation) = ParabolicMotion(agent.Speed, landVec, secondinitLocation, circleDurration);
+            inMotion = Vector3.Distance(landVec, transform.position) > 0.2f;
         }
         else
         {
@@ -252,7 +260,7 @@ public class Parrot : Animal
 
     //-------------------------------// COMBAT //-------------------------------//
 
-    public override void Attack() { }
+    public override void Attack() {}
 
     public override void TakeDamage(float damage, Transform source){}
 

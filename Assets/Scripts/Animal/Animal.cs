@@ -178,14 +178,21 @@ public abstract class Animal : MonoBehaviour, IDamageable
             bool canStartAttack = (dist <= attackRadius && agent.Velocity.magnitude < 1e-3) || dist <= 1;
             if (attackCooldown <= 0 && canStartAttack)
             {
+                animationSpeed = 0f;
                 Attack();
                 agent.SetObstacleMode();
                 attackCooldown = attackRate;
             }
             if (dist > attackRadius)
             {
+                animationSpeed = 1f;
                 agent.SetAgentMode();
+
             }
+        }
+        else
+        {
+            animationSpeed = 1f;
         }
 
         // Die
@@ -436,7 +443,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
             spriteRenderer.flipX = flipX;
 
         }
-
+    
         if (anim != null)
         {
             anim.SetFloat("FBspeed", -velocityInCameraSpace.z);

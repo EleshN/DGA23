@@ -112,7 +112,6 @@ public class Dog : Animal
     /// </summary>
     public override void Attack()
     {
-
         hitbox?.SetUniformDamage(targets, animalDamage * damageMultiplier);
         StartCoroutine(DogAttack());
     }
