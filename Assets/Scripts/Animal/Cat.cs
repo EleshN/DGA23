@@ -20,11 +20,12 @@ public class Cat : Animal
     [SerializeField] float damageRadius;
     [SerializeField] float radiusDamage;
 
+    [Header("Cat Audio")]
     public AudioSource catAudioSource;
-
     public AudioClip catLovedClip;
     public AudioClip catAngryClip;
     public AudioClip catAttackClip;
+    public AudioClip catResolvedClip;
 
     public override void Start()
     {
@@ -92,7 +93,7 @@ public class Cat : Animal
     IEnumerator CatAttack()
     {
         yield return new WaitForSeconds(attackDelay);
-        catAudioSource.PlayOneShot(catAttackClip);
+        AudioSource.PlayClipAtPoint(catAttackClip, transform.position);
         hitbox.gameObject.SetActive(true);
         yield return new WaitForSeconds(hitboxActiveTime);
         hitbox.gameObject.SetActive(false);

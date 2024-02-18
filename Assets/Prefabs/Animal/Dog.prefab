@@ -10690,7 +10690,7 @@ MonoBehaviour:
   dogAudioSource: {fileID: 711217898818142893}
   dogLovedClip: {fileID: 8300000, guid: 21252d3c025a1d241a5ec338e51479c0, type: 3}
   dogAngryClip: {fileID: 8300000, guid: cecd147faf4e8d24481de2099beb9f05, type: 3}
-  dogAttackClip: {fileID: 8300000, guid: e17f69afb9fa19f4a979f193b3c5f01d, type: 3}
+  dogAttackClip: {fileID: 8300000, guid: bc3f60716bb68564aa2e19b4f4aedb64, type: 3}
 --- !u!65 &8943669702477749790
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10957,12 +10957,12 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.23
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 160
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -11000,7 +11000,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.511
       inSlope: 0
       outSlope: 0
       tangentMode: 0

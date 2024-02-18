@@ -103,18 +103,15 @@ public class Player : MonoBehaviour
         // weapon switching here
         if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(switchEmotion))
         {
+            playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex + 1) % ammo.Length;
         }
         else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(switchEmotion))
         {
+            playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
         }
 
-        // Play UI sound when scroll is detected
-        if (Input.mouseScrollDelta.y != 0)
-        {
-            playerAudioSource.PlayOneShot(uiSoundClip);
-        }
     }
 
     private void OnCollisionStay(Collision collision)

@@ -86,6 +86,11 @@ public class GameManager : MonoBehaviour
     /// whether the current running level is completed (ongoing vs won/lost)
     /// </summary>
     private bool isLevelComplete;
+    
+
+    public AudioSource audioSource;
+    public AudioClip captureEnemyBase;
+    public AudioClip capturePlayerBase;
 
     public static GameManager Instance
     {
@@ -268,6 +273,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerBases.Remove(pbase);
         ValidEnemyTargets.Remove(pbase.transform);
+        audioSource.PlayOneShot(capturePlayerBase);
         playerBaseCount.text = "Total Player Bases: " + PlayerBases.Count.ToString();
     }
 
@@ -288,6 +294,7 @@ public class GameManager : MonoBehaviour
     {
         EnemyBases.Remove(ebase);
         TeamEnemy.Remove(ebase.transform);
+        audioSource.PlayOneShot(captureEnemyBase);
         enemyBaseCount.text = "Total Enemy Bases: " + EnemyBases.Count.ToString();
     }
 
