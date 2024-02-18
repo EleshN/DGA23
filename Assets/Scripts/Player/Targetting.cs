@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Targetting : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class Targetting : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [Tooltip("Assign this to the transform of the gun")]
     [SerializeField] private Transform gunTransform;
+
+    [Tooltip("Assign this to the transform of the player sprite")]
+    [SerializeField] private Transform playerSpriteTransform;
+
     [Tooltip("Assign a LineRenderer for the laser sight")]
     [SerializeField] private LineRenderer laserSight;
     [Tooltip("Red Dot GameObject")]
@@ -32,7 +37,13 @@ public class Targetting : MonoBehaviour
     {
         if (!PauseGame.isPaused)
         {
-            AimAssist();
+            // if not hovering over an UI component
+            if (!EventSystem.current.IsPointerOverGameObject()){
+                AimAssist();
+            }
+            else {
+                laserSight.enabled = false;
+            }
         }
     }
 
@@ -43,13 +54,12 @@ public class Targetting : MonoBehaviour
         {
             // The Raycast hit something, show the laser sight.
             laserSight.enabled = true;
-            laserSight.SetPosition(0, gunTransform.position);
+            laserSight.SetPosition(0, playerSpriteTransform.position);
             laserSight.SetPosition(1, hitInfo.point);
             Vector3 hit = hitInfo.point;
             // Show the red dot at the hit position
             //redDotInstance.SetActive(true);
             //redDotInstance.transform.position = new Vector3(hit.x, 0.1f, hit.z);
-            
             //redDotInstance.transform.rotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
             targetLocation = hit;
         }

@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -70,7 +71,7 @@ public class Player : MonoBehaviour
 
     private void Inputs()
     {
-        if (Input.GetMouseButtonDown(0)) // 0 represents left mouse button
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) // 0 represents left mouse button
         {
             if (ammo[ammoIndex] > 0)
             {
