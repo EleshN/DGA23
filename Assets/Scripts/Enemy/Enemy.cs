@@ -183,7 +183,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            GameManager.Instance.Unregister(this);
             Destroy(gameObject);
         }
     }
@@ -234,5 +233,11 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             }
             spriteRenderer.flipX = flipX;
         }
+    }
+
+    private void OnDestroy()
+    {
+        if(GameManager.Instance != null)
+            GameManager.Instance.Unregister(this);
     }
 }

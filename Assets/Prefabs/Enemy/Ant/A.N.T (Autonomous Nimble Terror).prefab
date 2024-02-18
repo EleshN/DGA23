@@ -508,7 +508,7 @@ MonoBehaviour:
   stackPrefab: {fileID: 5526887972057145437, guid: 5f99c6451dbac85409c60a746e13fab2, type: 3}
   antStack: {fileID: 11294988021208428}
   yStackSpacing: 3
-  zStackSpacing: 0
+  zStackSpacing: -0.1
   hitbox: {fileID: 5769747738735344323}
   attackDelay: 0.5
   hitboxActiveTime: 2
