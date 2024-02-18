@@ -22,7 +22,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     /// </summary>
     protected float currentAttackTime;
 
-    protected Transform targetTransform;
+    public Transform targetTransform;
 
     [Header("Stats")]
     [SerializeField] float speed;
@@ -63,6 +63,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     // Update is called once per frame
     protected virtual void Update()
     {
+        print(targetTransform);
         if (currentAttackTime > 0)
         {
             currentAttackTime -= Time.deltaTime;
@@ -183,7 +184,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            GameManager.Instance.Unregister(this);
             Destroy(gameObject);
         }
     }
@@ -234,5 +234,11 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             }
             spriteRenderer.flipX = flipX;
         }
+    }
+
+    private void OnDestroy()
+    {
+        if(GameManager.Instance != null)
+            GameManager.Instance.Unregister(this);
     }
 }

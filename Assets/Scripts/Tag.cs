@@ -10,5 +10,6 @@ public enum Tag
     EnemyBase,
     PlayerBase,
     Player,
-    Scenery
+    Scenery,
+    Fence
 }

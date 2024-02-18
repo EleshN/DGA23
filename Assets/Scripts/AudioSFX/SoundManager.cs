@@ -54,7 +54,7 @@ public class SoundManager : MonoBehaviour
         for (int i = 0; i < bgmClips.Length; i++)
         {
             // Play the current background music clip
-            print("index and length " + i + "," + bgmClips.Length);
+            //print("index and length " + i + "," + bgmClips.Length);
             bgmSource.clip = bgmClips[i];
             bgmSource.Play();
 
