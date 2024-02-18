@@ -151,6 +151,7 @@ MonoBehaviour:
   maxDistance: 50
   hitSound: {fileID: 8300000, guid: 6552b873e72b2f74cbac67507a678213, type: 3}
   audioController: {fileID: 5836183288209957079}
+  spawnSound: {fileID: 8300000, guid: 2e572cc6ac2693b44a930a013a131fc8, type: 3}
 --- !u!1 &5550027743254374184
 GameObject:
   m_ObjectHideFlags: 0

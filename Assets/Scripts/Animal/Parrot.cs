@@ -32,11 +32,9 @@ public class Parrot : Animal
     bool doneFlight = false;
 
     public AudioSource parrotAudioSource;
-    public AudioClip parrotLovedClip;
-    public AudioClip parrotAngryClip;
+    public AudioClip[] parrotLovedClips;
+    public AudioClip[] parrotAngryClips;
     public AudioClip parrotResolvedClip;
-    public AudioClip parrotAttackClip;
-
     public AudioClip birdFlyingClip;
 
     public override void Start()
@@ -69,8 +67,24 @@ public class Parrot : Animal
         }
         Animate();
         //if (!inMotion) agent.destination = targetPosition;
-
+        base.Update();
         //print("transform position - y: " + transform.position.y.ToString());
+    }
+
+    protected override void OnEmotionChanged(Emotion newEmotion)
+    {
+        base.OnEmotionChanged(newEmotion);
+
+        switch (newEmotion)
+        {
+            case Emotion.LOVE:
+                parrotAudioSource.PlayOneShot(parrotLovedClips[Random.Range(0, parrotLovedClips.Length)]);
+                break;
+            case Emotion.ANGER:
+                parrotAudioSource.PlayOneShot(parrotAngryClips[Random.Range(0, parrotAngryClips.Length)]);
+                break;
+                // Add cases for other emotions if needed
+        }
     }
 
     //-----------------------------// TARGETING //------------------------------//

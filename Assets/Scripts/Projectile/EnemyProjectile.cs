@@ -7,7 +7,7 @@ public class EnemyProjectile : Projectile
     public AudioClip hitSound;
     public AudioSource audioController;
     float damage;
-
+    public AudioClip spawnSound;
     Transform projectileSource;
 
     /// <summary>
@@ -18,6 +18,7 @@ public class EnemyProjectile : Projectile
     public void Initialize(float damage, float attackRadius, Transform projectileSource)
     {
         this.damage = damage;
+        AudioSource.PlayClipAtPoint(spawnSound, transform.position);
         this.attackRadius = attackRadius;
         this.projectileSource = projectileSource;
     }
@@ -46,6 +47,7 @@ public class EnemyProjectile : Projectile
         {
             AudioSource.PlayClipAtPoint(hitSound, transform.position);
         }
+        base.HandleCollision(collision);
     }
 
     protected override void reachMaxDist()
