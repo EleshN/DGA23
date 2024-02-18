@@ -319,7 +319,6 @@ public class GameManager : MonoBehaviour
         if (a.TryGetComponent<Collider>(out Collider animalCollider))
         {
             Physics.IgnoreCollision(PlayerCollider, animalCollider);
-            print("yay" + a.ToString()+animalCollider.ToString());
         }
     }
 
@@ -339,7 +338,7 @@ public class GameManager : MonoBehaviour
     public void Register(Tree t)
     {
         //Trees.Add(t); // useful to maintain all animals, not all animals qualify as a target for enemies
-        print("hello");
+        // print("hello");
         if (t.TryGetComponent<Collider>(out Collider treeCollider))
         {
             Physics.IgnoreCollision(PlayerCollider, treeCollider);

@@ -22,7 +22,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     /// </summary>
     protected float currentAttackTime;
 
-    protected Transform targetTransform;
+    public Transform targetTransform;
 
     [Header("Stats")]
     [SerializeField] float speed;
@@ -63,6 +63,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     // Update is called once per frame
     protected virtual void Update()
     {
+        print(targetTransform);
         if (currentAttackTime > 0)
         {
             currentAttackTime -= Time.deltaTime;
@@ -236,15 +237,24 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (targetTransform.gameObject.tag == "Animal")
-        {
-            if (other.gameObject.tag == "Defence" &&
-                targetTransform.gameObject.GetComponent<Animal>().GetEmotion() == Emotion.DEFENCE)
-            {
-                targetTransform = other.transform;
-            }
-        }
-    }
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    print("STAY");
+    //    print("tag: " + other.gameObject.tag.ToString());
+    //    print("Target: " + targetTransform.gameObject.ToString());
+    //    if (other.gameObject.tag == "Defence")
+    //    {
+    //        print("Tag is defence");
+    //        if (targetTransform.gameObject.GetComponent<PlayerBase>() != null)
+    //        {
+    //            print("target isn't playerbase");
+    //            if (targetTransform.gameObject.GetComponent<Animal>().GetEmotion() != Emotion.DEFENCE)
+    //            {
+    //                print("target isn't defensive");
+    //                targetTransform = other.transform;
+    //            }
+    //        }
+    //    }
+        
+    //}
 }

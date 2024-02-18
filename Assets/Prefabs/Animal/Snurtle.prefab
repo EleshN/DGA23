@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 620101931424350821}
-  currEmotion: 0
+  currEmotion: 2
   targetTransform: {fileID: 0}
   animalBody: {fileID: 2275967562550884144}
   emotionlessColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -73,6 +73,7 @@ MonoBehaviour:
   damageMultiplier: 1
   healthMultiplier: 1
   defenceMultiplier: 1
+  defenceRadius: {fileID: 3260166535490606327}
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4
@@ -96,7 +97,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 359648088527951364}
   m_Enabled: 1
   m_AgentTypeID: -1372625422
-  m_Radius: 0.5
+  m_Radius: 2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -10364,7 +10365,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -823149729
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -10500,7 +10501,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 941418281048072148}
-  - component: {fileID: 6951911070558973189}
   - component: {fileID: 3260166535490606327}
   m_Layer: 0
   m_Name: DefenceRadius
@@ -10508,7 +10508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &941418281048072148
 Transform:
   m_ObjectHideFlags: 0
@@ -10524,27 +10524,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8788534486258921411}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6951911070558973189
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5178184857891111382}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3260166535490606327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10557,6 +10536,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44252187048b14b71a2d16b5471c46ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defenceRadius: 5
+  currhitobject: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &7632698357223401187
 GameObject:
   m_ObjectHideFlags: 0

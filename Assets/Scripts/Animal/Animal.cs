@@ -49,6 +49,9 @@ public abstract class Animal : MonoBehaviour, IDamageable
     protected float currentCoolDownTime;
     bool isCoolDown = false;
 
+    [Header("Defence")]
+    [SerializeField] DefenceRadius defenceRadius;
+
     [Header("Emotionless")]
     [Tooltip("Time in between choosing new patrol points")]
     [SerializeField] float patrolTime = 5f;
@@ -111,34 +114,40 @@ public abstract class Animal : MonoBehaviour, IDamageable
     // Virtual method to be overridden by derived classes
     protected virtual void OnEmotionChanged(Emotion newEmotion)
     {
-        if (newEmotion == Emotion.DEFENCE)
-        {
-            targetTransform = null;
-        }
         // This method can be overridden in derived classes
     }
     public virtual void Update()
     {
+        if (currEmotion == Emotion.DEFENCE)
+        {
+            GameManager.Instance.ValidEnemyTargets.Add(this.transform);
+        }
+
         anim.speed = animationSpeed;
         // Movement
+        print("check emotion: " + currEmotion.ToString());
         switch (currEmotion)
         {
             case Emotion.ANGER:
+                defenceRadius.gameObject.SetActive(false);
                 agent.Speed = angerSpeed;
                 AngerTarget();
                 spriteRenderer.color = angerColor;
                 break;
             case Emotion.LOVE:
+                defenceRadius.gameObject.SetActive(false);
                 agent.Speed = loveSpeed;
                 LoveTarget();
                 spriteRenderer.color = loveColor;
                 break;
             case Emotion.DEFENCE:
+                defenceRadius.gameObject.SetActive(true);
                 agent.Speed = 0;
                 DefenceTarget();
                 // TODO ADD COLOR
                 break;
             default:
+                //defenceRadius.gameObject.SetActive(false);
                 agent.Speed = emoSpeed;
                 EmoTarget();
                 spriteRenderer.color = isCoolDown ? emotionlessColor : Color.white;
@@ -368,7 +377,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     protected virtual void DefenceTarget()
     {
-        targetPosition = agent.transform.position;
+        targetTransform = agent.transform;
+
     }
 
     /// <summary>
