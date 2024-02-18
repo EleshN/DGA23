@@ -55,6 +55,9 @@ public class Dog : Animal
             case Emotion.ANGER:
                 dogAudioSource.PlayOneShot(dogAngryClip);
                 break;
+            case Emotion.DEFENCE:
+                //TODO: add sound
+                break;
                 // Add cases for other emotions if needed
         }
     }

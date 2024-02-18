@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 9098546935930922653}
   - component: {fileID: 7644579582436756490}
   - component: {fileID: 9117412007261739497}
+  - component: {fileID: -6564725139206101848}
+  - component: {fileID: 1874857320164768152}
   m_Layer: 0
   m_Name: tree_1
   m_TagString: Scenery
@@ -100,3 +102,36 @@ MonoBehaviour:
   Meshes: []
   agent: {fileID: 0}
   mainCam: {fileID: 0}
+--- !u!65 &-6564725139206101848
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903387139144683576}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.72, y: 7.59, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1874857320164768152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903387139144683576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1290e8a0381ce4296b20cd61af386396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

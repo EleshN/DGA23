@@ -5,5 +5,6 @@ public enum Emotion
 {
     LOVE,
     ANGER,
-    EMOTIONLESS
+    EMOTIONLESS,
+    DEFENCE
 }
