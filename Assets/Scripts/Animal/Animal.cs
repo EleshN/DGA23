@@ -125,29 +125,29 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
         anim.speed = animationSpeed;
         // Movement
-        print("check emotion: " + currEmotion.ToString());
+        // print("check emotion: " + currEmotion.ToString());
         switch (currEmotion)
         {
             case Emotion.ANGER:
-                defenceRadius.gameObject.SetActive(false);
+                defenceRadius?.gameObject.SetActive(false);
                 agent.Speed = angerSpeed;
                 AngerTarget();
-                spriteRenderer.color = angerColor;
+                //spriteRenderer.color = angerColor;
                 break;
             case Emotion.LOVE:
-                defenceRadius.gameObject.SetActive(false);
+                defenceRadius?.gameObject.SetActive(false);
                 agent.Speed = loveSpeed;
                 LoveTarget();
-                spriteRenderer.color = loveColor;
+                //spriteRenderer.color = loveColor;
                 break;
             case Emotion.DEFENCE:
-                defenceRadius.gameObject.SetActive(true);
+                defenceRadius?.gameObject.SetActive(true);
                 agent.Speed = 0;
                 DefenceTarget();
                 // TODO ADD COLOR
                 break;
             default:
-                //defenceRadius.gameObject.SetActive(false);
+                defenceRadius?.gameObject.SetActive(false);
                 agent.Speed = emoSpeed;
                 EmoTarget();
                 spriteRenderer.color = isCoolDown ? emotionlessColor : Color.white;
@@ -417,6 +417,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public virtual void Animate()
     {
 
+        setAnimationStateWithEmotion();
+
         // Vector3 referenceZVelocity = Vector3.Project(agent.Velocity, mainCam.transform.forward);
 
         // Convert the object's velocity from world space to camera space
@@ -452,5 +454,13 @@ public abstract class Animal : MonoBehaviour, IDamageable
         {
             Debug.Log("no animation set for animal " + gameObject.name);
         }
+    }
+
+    /// <summary>
+    /// using the current emotion, update the animator controller to use the correct spritesheets.
+    /// Spritesheets are organized by emotions.
+    /// </summary>
+    protected virtual void setAnimationStateWithEmotion(){
+        // currently implemented in Dog class, but will be moved here with other animal sprites coming in.
     }
 }

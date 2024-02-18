@@ -5704,7 +5704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8473388005264608356
 Transform:
   m_ObjectHideFlags: 0
@@ -5733,10 +5733,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defenceRadius: 5
-  currhitobject: {fileID: 0}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &5926178574609359510
 GameObject:
   m_ObjectHideFlags: 0
@@ -10668,7 +10664,7 @@ MonoBehaviour:
   damageMultiplier: 1
   healthMultiplier: 1
   defenceMultiplier: 1
-  defenceRadius: {fileID: 0}
+  defenceRadius: {fileID: 7089129090581782770}
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4
