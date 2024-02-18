@@ -5487,7 +5487,8 @@ MonoBehaviour:
   catAudioSource: {fileID: 8242075339414285954}
   catLovedClip: {fileID: 8300000, guid: 822e7bb29d3d9684aa9f83f3ed3f7e60, type: 3}
   catAngryClip: {fileID: 8300000, guid: 8273646cbc5972d42b02b1479bbc39b4, type: 3}
-  catAttackClip: {fileID: 8300000, guid: e17f69afb9fa19f4a979f193b3c5f01d, type: 3}
+  catAttackClip: {fileID: 8300000, guid: 349c84c8d887a644ab7d62bc1c397b1b, type: 3}
+  catResolvedClip: {fileID: 8300000, guid: 35dd63be479a0424daf237c4e6888f92, type: 3}
 --- !u!114 &3102279017370914336
 MonoBehaviour:
   m_ObjectHideFlags: 0

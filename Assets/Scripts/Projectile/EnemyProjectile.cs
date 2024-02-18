@@ -4,7 +4,8 @@ using UnityEngine;
 public class EnemyProjectile : Projectile
 {
     float attackRadius;
-
+    public AudioClip hitSound;
+    public AudioSource audioController;
     float damage;
 
     Transform projectileSource;
@@ -28,6 +29,7 @@ public class EnemyProjectile : Projectile
         {
             return;
         }
+        bool didCollide = false;
         Collider[] neabyColliders = Physics.OverlapSphere(transform.position, attackRadius);
         // find all animals and playerbases and damage them if possible
         foreach (Collider col in neabyColliders)
@@ -36,9 +38,14 @@ public class EnemyProjectile : Projectile
             {
                 IDamageable entity = col.gameObject.GetComponent<IDamageable>();
                 entity.TakeDamage(damage, projectileSource);
+                didCollide = true;
             }
         }
-        base.HandleCollision(collision);
+
+        if (didCollide)
+        {
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
+        }
     }
 
     protected override void reachMaxDist()
