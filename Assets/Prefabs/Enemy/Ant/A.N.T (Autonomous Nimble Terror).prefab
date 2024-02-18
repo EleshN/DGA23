@@ -497,6 +497,7 @@ Transform:
   m_Children:
   - {fileID: 2319003856202265754}
   - {fileID: 4177116413828428157}
+  - {fileID: 5623205876705847669}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!33 &1551110755120898079
@@ -618,6 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1938080854383796208}
+  targetTransform: {fileID: 0}
   speed: 1
   maxHealth: 10
   health: 10
@@ -644,6 +646,8 @@ MonoBehaviour:
   - 1.5
   - 2
   - 2.5
+  antAudioSource: {fileID: 2704353161868644872}
+  antAttackClip: {fileID: 8300000, guid: 2e572cc6ac2693b44a930a013a131fc8, type: 3}
 --- !u!135 &7804403660373446515
 SphereCollider:
   m_ObjectHideFlags: 0
