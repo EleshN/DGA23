@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
 
-    public static int MaxLevel = 9;
+    public static int MaxLevel = 10;
 
     private static GameManager _Instance;
     public int LevelNumber = -1;
@@ -86,6 +86,11 @@ public class GameManager : MonoBehaviour
     /// whether the current running level is completed (ongoing vs won/lost)
     /// </summary>
     private bool isLevelComplete;
+    
+
+    public AudioSource audioSource;
+    public AudioClip captureEnemyBase;
+    public AudioClip capturePlayerBase;
 
     public static GameManager Instance
     {
@@ -257,6 +262,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerBases.Add(pbase);
         ValidEnemyTargets.Add(pbase.transform);
+        Physics.IgnoreCollision(pbase.GetComponent<Collider>(), PlayerCollider);
         playerBaseCount.text = "Total Player Bases: " + PlayerBases.Count.ToString();
     }
 
@@ -267,6 +273,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerBases.Remove(pbase);
         ValidEnemyTargets.Remove(pbase.transform);
+        audioSource.PlayOneShot(capturePlayerBase);
         playerBaseCount.text = "Total Player Bases: " + PlayerBases.Count.ToString();
     }
 
@@ -287,6 +294,7 @@ public class GameManager : MonoBehaviour
     {
         EnemyBases.Remove(ebase);
         TeamEnemy.Remove(ebase.transform);
+        audioSource.PlayOneShot(captureEnemyBase);
         enemyBaseCount.text = "Total Enemy Bases: " + EnemyBases.Count.ToString();
     }
 

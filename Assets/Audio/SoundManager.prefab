@@ -51,9 +51,9 @@ MonoBehaviour:
   uiSoundClip: {fileID: 0}
   refreshClip: {fileID: 0}
   bgmClips:
-  - {fileID: 8300000, guid: 39a13ca2e31b11b4a91c560613e5c3e2, type: 3}
-  - {fileID: 8300000, guid: 39a13ca2e31b11b4a91c560613e5c3e2, type: 3}
-  - {fileID: 8300000, guid: 39a13ca2e31b11b4a91c560613e5c3e2, type: 3}
+  - {fileID: 8300000, guid: 2ca315b237c45854fbaf5125e78bfe12, type: 3}
+  - {fileID: 8300000, guid: 2ca315b237c45854fbaf5125e78bfe12, type: 3}
+  - {fileID: 8300000, guid: 2ca315b237c45854fbaf5125e78bfe12, type: 3}
 --- !u!1001 &6420071343696225248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66,6 +66,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Music Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6513728003542134202, guid: 2bd5eb629c662744a9b9c97cb8e5fb71, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2ca315b237c45854fbaf5125e78bfe12, type: 3}
     - target: {fileID: 7269142316911359671, guid: 2bd5eb629c662744a9b9c97cb8e5fb71, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
