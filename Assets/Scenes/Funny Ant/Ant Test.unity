@@ -970,7 +970,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 3d8fd619995054734833f1480e502b4c, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 7b7cff88cdda2a34eb8d91c8454f498d, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &2110313273
 Transform:
@@ -1016,7 +1016,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 2e1a60214ac3a4e04ae65ddbe801595d, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 43e374e6b03ab8944b328851042ca2ef, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &2110313275
 MonoBehaviour:
@@ -1047,7 +1047,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 21d62c215b1204cd0932dfb82fea50af, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 5e0e9801e2d22fc4685305120f7dffdd, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
