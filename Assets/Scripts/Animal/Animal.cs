@@ -106,8 +106,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         GameManager.Instance.Register(this);
         spawnLocation = transform.position;
         colorIndicator = GetComponent<ColorIndicator>();
-        // Set color
-        SetEmotion(Emotion.EMOTIONLESS);
+        //SetEmotion(Emotion.EMOTIONLESS);
         RandomPosition();
     }
 
@@ -124,27 +123,23 @@ public abstract class Animal : MonoBehaviour, IDamageable
         }
 
         anim.speed = animationSpeed;
-        // Movement
-        // print("check emotion: " + currEmotion.ToString());
+
         switch (currEmotion)
         {
             case Emotion.ANGER:
                 defenceRadius?.gameObject.SetActive(false);
                 agent.Speed = angerSpeed;
                 AngerTarget();
-                //spriteRenderer.color = angerColor;
                 break;
             case Emotion.LOVE:
                 defenceRadius?.gameObject.SetActive(false);
                 agent.Speed = loveSpeed;
                 LoveTarget();
-                //spriteRenderer.color = loveColor;
                 break;
             case Emotion.DEFENCE:
                 defenceRadius?.gameObject.SetActive(true);
                 agent.Speed = 0;
-                DefenceTarget();
-                // TODO ADD COLOR
+                agent.SetObstacleMode();
                 break;
             default:
                 defenceRadius?.gameObject.SetActive(false);
@@ -160,12 +155,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
             destination.z -= 0.5f;
         }
         agent.Destination = destination;
-
-        //Defend
-        //if (currEmotion == Emotion.DEFENCE)
-        //{
-        //    Defend();
-        //}
 
         //Attack
         attackCooldown -= Time.deltaTime;
@@ -183,11 +172,10 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 agent.SetObstacleMode();
                 attackCooldown = attackRate;
             }
-            if (dist > attackRadius)
+            if (dist > attackRadius && currEmotion != Emotion.DEFENCE)
             {
                 animationSpeed = 1f;
                 agent.SetAgentMode();
-
             }
         }
         else
@@ -245,7 +233,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
         {
             case Emotion.ANGER:
                 cubeRenderer.material.color = angerColor;
-                print("Previous material is " + emotionSystem.GetComponent<ParticleSystemRenderer>().material);
                 emotionSystem.GetComponent<ParticleSystemRenderer>().material = angerMat;
                 emotionSystem.Play();
                 break;
@@ -255,8 +242,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 emotionSystem.Play();
                 break;
             case Emotion.DEFENCE:
-                
-                //TODO
+                // there are no defensive particles
             default:
                 cubeRenderer.material.color = emotionlessColor;
                 emotionSystem.Pause();
@@ -278,8 +264,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
         if (currentCoolDownTime <= 0)
         {
             SetEmotion(emotion);
-            // an animal set to anger state will be qualified to become a target of enemies
-            if (emotion == Emotion.ANGER)
+            // an animal set to anger/defense state will be qualified to become a target of enemies
+            if (emotion == Emotion.ANGER || emotion == Emotion.DEFENCE)
             {
                 GameManager.Instance.ValidEnemyTargets.Add(this.transform);
             }
@@ -310,7 +296,13 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public virtual void TakeDamage(float damageAmount, Transform damageSource)
     {
         damageSourceTransform = damageSource;
-        if (currEmotion == Emotion.ANGER)
+        if (currEmotion == Emotion.DEFENCE){
+            // set target to the one attacking us
+            if (targetTransform == null){
+                targetTransform = damageSource;
+            }
+        }
+        if (currEmotion == Emotion.ANGER || currEmotion == Emotion.DEFENCE)
         {
             health -= damageAmount;
             colorIndicator.IndicateDamage();
@@ -375,17 +367,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
             RandomPosition();
             currTime = 0;
         }
-    }
-
-    /// <summary>
-    /// Called every update, when emotion is defence, the target Destination is
-    /// the animal's location where the emotion is applied.
-    ///
-    /// </summary>
-    protected virtual void DefenceTarget()
-    {
-        targetTransform = agent.transform;
-
     }
 
     /// <summary>

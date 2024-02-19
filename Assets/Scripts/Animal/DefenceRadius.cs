@@ -40,7 +40,6 @@ public class DefenceRadius : MonoBehaviour
 
             if (enemy != null)
             {
-                print(enemy);
                 makeTarget(enemy);
             }
         }

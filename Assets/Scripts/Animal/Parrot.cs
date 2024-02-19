@@ -110,7 +110,7 @@ public class Parrot : Animal
         SpreadEmotion(Emotion.ANGER);
     }
 
-    protected override void DefenceTarget()
+    protected void DefenceTarget()
     {
         SpreadEmotion(Emotion.DEFENCE);
     }
