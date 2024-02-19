@@ -16,9 +16,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
     protected Vector3 spawnLocation;
 
     [SerializeField]
-    protected Transform targetTransform;
+    public Transform targetTransform;
 
     protected Vector3 targetPosition;
+
+    protected Transform damageSourceTransform;
 
     [Header("Animal Colors")]
     [Tooltip("Change the color of the animal body")]
@@ -33,17 +35,22 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [SerializeField] float health;
     [SerializeField] HealthBar healthBar;
     [SerializeField] protected float animalDamage;
+    [SerializeField] protected float animalDefense;
     [SerializeField] protected float emoSpeed = 2f;
     [SerializeField] protected float loveSpeed = 3f;
     [SerializeField] protected float angerSpeed = 3f;
     public float damageMultiplier = 1f;
     public float healthMultiplier = 1f;
+    public float defenceMultiplier = 1f;
 
     [Header("Death Cool Down")]
     [Tooltip("The time between animal death and regain emotion")]
     protected float deathCoolDown = 5f;
     protected float currentCoolDownTime;
     bool isCoolDown = false;
+
+    [Header("Defence")]
+    [SerializeField] DefenceRadius defenceRadius;
 
     [Header("Emotionless")]
     [Tooltip("Time in between choosing new patrol points")]
@@ -99,8 +106,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         GameManager.Instance.Register(this);
         spawnLocation = transform.position;
         colorIndicator = GetComponent<ColorIndicator>();
-        // Set color
-        SetEmotion(Emotion.EMOTIONLESS);
+        //SetEmotion(Emotion.EMOTIONLESS);
         RandomPosition();
     }
 
@@ -111,21 +117,32 @@ public abstract class Animal : MonoBehaviour, IDamageable
     }
     public virtual void Update()
     {
+        if (currEmotion == Emotion.DEFENCE)
+        {
+            GameManager.Instance.ValidEnemyTargets.Add(this.transform);
+        }
+
         anim.speed = animationSpeed;
-        // Movement
+
         switch (currEmotion)
         {
             case Emotion.ANGER:
+                defenceRadius?.gameObject.SetActive(false);
                 agent.Speed = angerSpeed;
                 AngerTarget();
-                spriteRenderer.color = angerColor;
                 break;
             case Emotion.LOVE:
+                defenceRadius?.gameObject.SetActive(false);
                 agent.Speed = loveSpeed;
                 LoveTarget();
-                spriteRenderer.color = loveColor;
+                break;
+            case Emotion.DEFENCE:
+                defenceRadius?.gameObject.SetActive(true);
+                agent.Speed = 0;
+                agent.SetObstacleMode();
                 break;
             default:
+                defenceRadius?.gameObject.SetActive(false);
                 agent.Speed = emoSpeed;
                 EmoTarget();
                 spriteRenderer.color = isCoolDown ? emotionlessColor : Color.white;
@@ -142,7 +159,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         //Attack
         attackCooldown -= Time.deltaTime;
 
-        if (currEmotion == Emotion.ANGER && targetTransform != null)
+        if ((currEmotion == Emotion.ANGER || currEmotion == Emotion.DEFENCE) && targetTransform != null)
         {
             float dist = Vector3.Magnitude(targetTransform.position - transform.position);
             // allow attack if the entity has come to a distance within range and that it comes to a stop
@@ -155,11 +172,10 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 agent.SetObstacleMode();
                 attackCooldown = attackRate;
             }
-            if (dist > attackRadius)
+            if (dist > attackRadius && currEmotion != Emotion.DEFENCE)
             {
                 animationSpeed = 1f;
                 agent.SetAgentMode();
-
             }
         }
         else
@@ -195,6 +211,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <summary>
     /// Sets the emotion of the animal when called
     /// Changes the color of the animal to its corresponding emotion
+    /// When emotion is set to defence, the target position is set to null
     /// </summary>
     /// <param name="emotion"></param>
     protected void SetEmotion(Emotion emotion)
@@ -216,7 +233,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
         {
             case Emotion.ANGER:
                 cubeRenderer.material.color = angerColor;
-                print("Previous material is " + emotionSystem.GetComponent<ParticleSystemRenderer>().material);
                 emotionSystem.GetComponent<ParticleSystemRenderer>().material = angerMat;
                 emotionSystem.Play();
                 break;
@@ -225,6 +241,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 emotionSystem.GetComponent<ParticleSystemRenderer>().material = loveMat;
                 emotionSystem.Play();
                 break;
+            case Emotion.DEFENCE:
+                // there are no defensive particles
             default:
                 cubeRenderer.material.color = emotionlessColor;
                 emotionSystem.Pause();
@@ -246,8 +264,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
         if (currentCoolDownTime <= 0)
         {
             SetEmotion(emotion);
-            // an animal set to anger state will be qualified to become a target of enemies
-            if (emotion == Emotion.ANGER)
+            // an animal set to anger/defense state will be qualified to become a target of enemies
+            if (emotion == Emotion.ANGER || emotion == Emotion.DEFENCE)
             {
                 GameManager.Instance.ValidEnemyTargets.Add(this.transform);
             }
@@ -277,7 +295,14 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public virtual void TakeDamage(float damageAmount, Transform damageSource)
     {
-        if (currEmotion == Emotion.ANGER)
+        damageSourceTransform = damageSource;
+        if (currEmotion == Emotion.DEFENCE){
+            // set target to the one attacking us
+            if (targetTransform == null){
+                targetTransform = damageSource;
+            }
+        }
+        if (currEmotion == Emotion.ANGER || currEmotion == Emotion.DEFENCE)
         {
             health -= damageAmount;
             colorIndicator.IndicateDamage();
@@ -366,11 +391,14 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// </summary>
     public abstract void Attack();
 
+
     /// <summary>
     /// Changes the animation of the animal depending on its movement direction
     /// </summary>
     public virtual void Animate()
     {
+
+        setAnimationStateWithEmotion();
 
         // Vector3 referenceZVelocity = Vector3.Project(agent.Velocity, mainCam.transform.forward);
 
@@ -407,5 +435,13 @@ public abstract class Animal : MonoBehaviour, IDamageable
         {
             Debug.Log("no animation set for animal " + gameObject.name);
         }
+    }
+
+    /// <summary>
+    /// using the current emotion, update the animator controller to use the correct spritesheets.
+    /// Spritesheets are organized by emotions.
+    /// </summary>
+    protected virtual void setAnimationStateWithEmotion(){
+        // currently implemented in Dog class, but will be moved here with other animal sprites coming in.
     }
 }

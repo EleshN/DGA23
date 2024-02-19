@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - EnemyBase
   - Fence
+  - Defence
   layers:
   - Default
   - TransparentFX
@@ -53,6 +54,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Base
+    uniqueID: 775764211
     locked: 0
   - name: Particles
     uniqueID: 3471817567

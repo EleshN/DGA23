@@ -86,6 +86,11 @@ public class GameManager : MonoBehaviour
     /// whether the current running level is completed (ongoing vs won/lost)
     /// </summary>
     private bool isLevelComplete;
+    
+
+    public AudioSource audioSource;
+    public AudioClip captureEnemyBase;
+    public AudioClip capturePlayerBase;
 
     public static GameManager Instance
     {
@@ -138,12 +143,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        //print(Animals);
         if (PlayerBases.Count == 0 && !isLevelComplete)
         {
             // you lose
@@ -268,6 +273,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerBases.Remove(pbase);
         ValidEnemyTargets.Remove(pbase.transform);
+        audioSource.PlayOneShot(capturePlayerBase);
         playerBaseCount.text = "Total Player Bases: " + PlayerBases.Count.ToString();
     }
 
@@ -288,6 +294,7 @@ public class GameManager : MonoBehaviour
     {
         EnemyBases.Remove(ebase);
         TeamEnemy.Remove(ebase.transform);
+        audioSource.PlayOneShot(captureEnemyBase);
         enemyBaseCount.text = "Total Enemy Bases: " + EnemyBases.Count.ToString();
     }
 
@@ -329,6 +336,29 @@ public class GameManager : MonoBehaviour
     public void Unregister(Animal a)
     {
         Animals.Remove(a);
+    }
+
+    /// <summary>
+    /// adds animal to internal collection of Animals
+    /// 
+    /// <para>A registered animal does not interfere with player's movement</para>
+    /// </summary>
+    public void Register(Tree t)
+    {
+        //Trees.Add(t); // useful to maintain all animals, not all animals qualify as a target for enemies
+        // print("hello");
+        if (t.TryGetComponent<Collider>(out Collider treeCollider))
+        {
+            Physics.IgnoreCollision(PlayerCollider, treeCollider);
+        }
+    }
+
+    /// <summary>
+    /// removes animal to internal collection of Animals
+    /// </summary>
+    public void Unregister(Tree t)
+    {
+        //Trees.Remove(t);
     }
 
     /// <summary>

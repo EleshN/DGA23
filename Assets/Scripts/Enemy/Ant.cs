@@ -7,6 +7,7 @@ public class Ant : Enemy
     [Tooltip("Number of ants stacked on this ant")]
     public int stackVal = 1;
     [SerializeField] int maxStack;
+    [SerializeField] Color[] stackColors;
     [Tooltip("The check radius around ant to start stacking with another ant")]
     [SerializeField] float stackSearchRadius;
     [Tooltip("Time it takes for ants to stack")]
@@ -19,7 +20,8 @@ public class Ant : Enemy
 
     [SerializeField] GameObject stackPrefab;
     [SerializeField] Transform antStack;
-    [SerializeField] float stackSpacing;
+    [SerializeField] float yStackSpacing;
+    [SerializeField] float zStackSpacing;
 
 
     [Header("Combat")]
@@ -32,7 +34,9 @@ public class Ant : Enemy
     [Tooltip("The bonus health and damage applied to Ant stack")]
     [SerializeField] float[] stackMultiplier;
 
-
+    [Header("Ant Audio")]
+    public AudioSource antAudioSource;
+    public AudioClip antAttackClip;
 
     protected override void Start()
     {
@@ -75,8 +79,10 @@ public class Ant : Enemy
     {
         yield return new WaitForSeconds(attackDelay);
         hitbox.gameObject.SetActive(true);
+        antAudioSource.PlayOneShot(antAttackClip);
         yield return new WaitForSeconds(hitboxActiveTime);
         hitbox.gameObject.SetActive(false);
+
 
     }
 
@@ -127,8 +133,10 @@ public class Ant : Enemy
         }
         for(int i = 1; i < stackVal; i++)
         {
-            Transform stackAnt = Instantiate(stackPrefab, antStack).transform;
-            stackAnt.position += new Vector3(0,i * stackSpacing,0);
+            GameObject stackAnt = Instantiate(stackPrefab, antStack);
+            stackAnt.GetComponent<SpriteRenderer>().color = stackColors[i - 1];
+            stackAnt.transform.SetParent(antStack);
+            stackAnt.transform.localPosition = new Vector3(0,i * yStackSpacing,i * zStackSpacing);
         }
 
 

@@ -15,6 +15,9 @@ public class AmmoPickup : MonoBehaviour
 
   private AnimatorCallback animCallback;
 
+  public AudioSource audioSource;
+
+  public AudioClip pickupSound;
   private void Start()
   {
     // Find the child GameObject named 'Sprite'
@@ -42,6 +45,7 @@ public class AmmoPickup : MonoBehaviour
       if (ammoIndexPickup >= 0)
       {
         playerScript.ammo[ammoIndexPickup] += 1; // Increment the ammo count
+        audioSource.PlayOneShot(pickupSound);
         print("begin drawing idle no pickup");
         anim.SetBool("looted", true);
         anim.SetBool("regrow", false);

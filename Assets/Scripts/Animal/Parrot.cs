@@ -31,6 +31,12 @@ public class Parrot : Animal
     bool atFirstDestination = false;
     bool doneFlight = false;
 
+    public AudioSource parrotAudioSource;
+    public AudioClip[] parrotLovedClips;
+    public AudioClip[] parrotAngryClips;
+    public AudioClip parrotResolvedClip;
+    public AudioClip birdFlyingClip;
+
     public override void Start()
     {
         base.Start();
@@ -49,6 +55,10 @@ public class Parrot : Animal
                 agent.Speed = loveSpeed ;
                 LoveTarget();
                 break;
+            case Emotion.DEFENCE:
+                agent.Speed = loveSpeed;
+                DefenceTarget();
+                break;
             default:
                 agent.Speed = emoSpeed;
                 EmoTarget();
@@ -61,8 +71,24 @@ public class Parrot : Animal
         }
         Animate();
         //if (!inMotion) agent.destination = targetPosition;
-
+        base.Update();
         //print("transform position - y: " + transform.position.y.ToString());
+    }
+
+    protected override void OnEmotionChanged(Emotion newEmotion)
+    {
+        base.OnEmotionChanged(newEmotion);
+
+        switch (newEmotion)
+        {
+            case Emotion.LOVE:
+                parrotAudioSource.PlayOneShot(parrotLovedClips[Random.Range(0, parrotLovedClips.Length)]);
+                break;
+            case Emotion.ANGER:
+                parrotAudioSource.PlayOneShot(parrotAngryClips[Random.Range(0, parrotAngryClips.Length)]);
+                break;
+                // Add cases for other emotions if needed
+        }
     }
 
     //-----------------------------// TARGETING //------------------------------//
@@ -82,6 +108,11 @@ public class Parrot : Animal
     /// </summary>
     public override void AngerTarget() {
         SpreadEmotion(Emotion.ANGER);
+    }
+
+    protected void DefenceTarget()
+    {
+        SpreadEmotion(Emotion.DEFENCE);
     }
 
     /// <summary> 
@@ -128,7 +159,9 @@ public class Parrot : Animal
             initLocation = transform.position;
             currFlightTime = 0;
             targetLocationAir = new Vector3(initLocation.x + flightRadius, initLocation.y + flightHeight, initLocation.z);
-
+            if (!parrotAudioSource.isPlaying) {
+                parrotAudioSource.PlayOneShot(birdFlyingClip);
+            }
             atFirstDestination = Vector3.Distance(targetLocationAir, transform.position) < 0.2f;
         }
 
@@ -141,10 +174,17 @@ public class Parrot : Animal
             atFirstDestination = Vector3.Distance(targetLocationAir, transform.position) < 0.2f;
             anim.SetTrigger("Takeoff");
             anim.ResetTrigger("Fall");
+
+            if (!parrotAudioSource.isPlaying) {
+                parrotAudioSource.PlayOneShot(birdFlyingClip);
+            }
         }
         else if (!doneFlight) // circular flight
         {
             //print("landing1");
+            if (!parrotAudioSource.isPlaying) {
+                parrotAudioSource.PlayOneShot(birdFlyingClip);
+            }
             CircuilarMotion(agent.Speed, timeFirstMotion, targetLocationAir.y);
             secondinitLocation = transform.position;
         }
@@ -155,6 +195,9 @@ public class Parrot : Animal
             //This variable was originally "initlocation." Replace it with that if you want to revert.
             Vector3 landVec = new Vector3(secondinitLocation.x, initLocation.y, secondinitLocation.z);
             //Land
+            if (parrotAudioSource.isPlaying) {
+                parrotAudioSource.Stop();
+            }
             anim.SetTrigger("Fall");
             anim.ResetTrigger("Takeoff");
             (_, landingRotation) = ParabolicMotion(agent.Speed, landVec, secondinitLocation, circleDurration);

@@ -82,6 +82,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             GameManager.Instance.Unregister(this);
+            
             Instantiate(PlayerBaseObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

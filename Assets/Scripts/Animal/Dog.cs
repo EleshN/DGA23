@@ -55,6 +55,9 @@ public class Dog : Animal
             case Emotion.ANGER:
                 dogAudioSource.PlayOneShot(dogAngryClip);
                 break;
+            case Emotion.DEFENCE:
+                //TODO: add sound
+                break;
                 // Add cases for other emotions if needed
         }
     }
@@ -127,5 +130,27 @@ public class Dog : Animal
 
     }
 
+    protected override void setAnimationStateWithEmotion()
+    {
+       int emotionIndex = 0; //default
+        switch (currEmotion)
+        {
+            case Emotion.ANGER:
+                emotionIndex = 2;
+                break;
+            case Emotion.LOVE:
+                emotionIndex = 1;
+                break;
+            case Emotion.DEFENCE:
+                emotionIndex = 3;
+                break;
+            default:
+                if (currentCoolDownTime > 0){
+                    emotionIndex = 4; // emotionless
+                }
+                break;
+        }
+        anim.SetInteger("EmotionIndex", emotionIndex);
+    }
 
 }
