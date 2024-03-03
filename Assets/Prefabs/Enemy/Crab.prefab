@@ -518,6 +518,7 @@ MonoBehaviour:
   hitbox: {fileID: 5769747738735344323}
   attackDelay: 1
   hitboxActiveTime: 2
+  animator: {fileID: 63113987908104557}
   enemyAudioSource: {fileID: 6035764515820025373}
   enemyAttackClip: {fileID: 8300000, guid: 4842969dd9d6112409692a10d3c25cbb, type: 3}
 --- !u!195 &8390950961805698145
