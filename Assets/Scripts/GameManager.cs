@@ -96,8 +96,6 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if (_Instance == null)
-                Debug.LogError("GameManager Non Existent");
             return _Instance;
         }
     }
