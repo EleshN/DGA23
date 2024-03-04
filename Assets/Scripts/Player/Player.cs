@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
     public AudioClip uiSoundClip;
     public AudioClip refreshClip;
 
+    public Animator anim;
+
     void Start()
     {
         colorIndicator = GetComponent<ColorIndicator>();
@@ -75,7 +77,9 @@ public class Player : MonoBehaviour
         {
             if (ammo[ammoIndex] > 0)
             {
-                gun.Shoot(ammoIndex);
+                string animtrigger = gun.Shoot(ammoIndex);
+                print("Shoot returned " + animtrigger);
+                anim.SetTrigger(animtrigger);
                 ammo[ammoIndex]--;
             }
         }
