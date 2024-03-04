@@ -167,7 +167,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
             bool canStartAttack = (dist <= attackRadius && agent.Velocity.magnitude < 1e-3) || dist <= 1;
             if (attackCooldown <= 0 && canStartAttack)
             {
-                animationSpeed = 0f;
+                animationSpeed = 1f;
                 Attack();
                 agent.SetObstacleMode();
                 attackCooldown = attackRate;

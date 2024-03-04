@@ -46,6 +46,13 @@ public class Player : MonoBehaviour
     {
         colorIndicator = GetComponent<ColorIndicator>();
         random = new System.Random();
+
+    }
+
+    private void Awake()
+    {
+        playerAudioSource.PlayOneShot(uiSoundClip);
+        ammoIndex = (ammoIndex + 1) % ammo.Length;
     }
 
 

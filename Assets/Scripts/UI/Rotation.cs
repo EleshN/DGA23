@@ -9,6 +9,12 @@ public class Rotation : MonoBehaviour
     private float targetAngle = 0f;
     private float rotationSpeed = 360f; // Speed of rotation, higher for faster rotation
 
+    private void Awake()
+    {
+        targetAngle += 30f;
+        isRotating = true;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && !isRotating)
