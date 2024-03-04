@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 7206324791454775009}
   - component: {fileID: 2205367431753014579}
   m_Layer: 8
-  m_Name: MinimapDot
+  m_Name: MinimapCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -742,8 +742,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 15, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7571600407355910175}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -788,8 +788,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.8679245, g: 0.20879315, b: 0.75783175, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 6942f9407ad504a4bad4c1a7e3fb40af, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

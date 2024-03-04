@@ -20,7 +20,8 @@ public class Player : MonoBehaviour
 
     public HashSet<Animal> followers = new HashSet<Animal>(); //all animals following this player
 
-    public KeyCode switchEmotion = KeyCode.Q;
+    public KeyCode prevEmotion = KeyCode.Q;
+    public KeyCode nextEmotion = KeyCode.E;
 
     ColorIndicator colorIndicator;
     [SerializeField] float iframeDuration = 1.0f;
@@ -105,12 +106,12 @@ public class Player : MonoBehaviour
     private void Scroll()
     {
         // weapon switching here
-        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(switchEmotion))
+        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(nextEmotion))
         {
             playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex + 1) % ammo.Length;
         }
-        else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(switchEmotion))
+        else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(prevEmotion))
         {
             playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;

@@ -106,7 +106,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         GameManager.Instance.Register(this);
         spawnLocation = transform.position;
         colorIndicator = GetComponent<ColorIndicator>();
-        //SetEmotion(Emotion.EMOTIONLESS);
+        SetEmotion(Emotion.EMOTIONLESS);
         RandomPosition();
     }
 
