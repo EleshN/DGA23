@@ -10686,6 +10686,7 @@ MonoBehaviour:
   dogAudioSource: {fileID: 711217898818142893}
   dogLovedClip: {fileID: 8300000, guid: 21252d3c025a1d241a5ec338e51479c0, type: 3}
   dogAngryClip: {fileID: 8300000, guid: cecd147faf4e8d24481de2099beb9f05, type: 3}
+  dogDefenceClip: {fileID: 8300000, guid: c65cdb244cf7fb24c9b4396f527aee30, type: 3}
   dogAttackClip: {fileID: 8300000, guid: bc3f60716bb68564aa2e19b4f4aedb64, type: 3}
 --- !u!65 &8943669702477749790
 BoxCollider:
