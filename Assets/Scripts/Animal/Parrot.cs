@@ -291,6 +291,10 @@ public class Parrot : Animal
 
     //------------------------------// EMOTIONS //------------------------------//
 
+    protected override void setAnimationStateWithEmotion()
+    {
+       // do nothing.... for now.
+    }
 
     //-------------------------------// COMBAT //-------------------------------//
 

@@ -167,20 +167,14 @@ public abstract class Animal : MonoBehaviour, IDamageable
             bool canStartAttack = (dist <= attackRadius && agent.Velocity.magnitude < 1e-3) || dist <= 1;
             if (attackCooldown <= 0 && canStartAttack)
             {
-                animationSpeed = 1f;
                 Attack();
                 agent.SetObstacleMode();
                 attackCooldown = attackRate;
             }
             if (dist > attackRadius && currEmotion != Emotion.DEFENCE)
             {
-                animationSpeed = 1f;
                 agent.SetAgentMode();
             }
-        }
-        else
-        {
-            animationSpeed = 1f;
         }
 
         // Die
@@ -441,7 +435,28 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// using the current emotion, update the animator controller to use the correct spritesheets.
     /// Spritesheets are organized by emotions.
     /// </summary>
-    protected virtual void setAnimationStateWithEmotion(){
-        // currently implemented in Dog class, but will be moved here with other animal sprites coming in.
+    protected virtual void setAnimationStateWithEmotion()
+    {
+        // NOTE: parrots need some handling, this feature is voided in parrot script.
+       int emotionIndex = 0; //default
+        switch (currEmotion)
+        {
+            case Emotion.ANGER:
+                emotionIndex = 2;
+                anim.SetBool("AngerAttack", agent.IsObstacleMode);
+                break;
+            case Emotion.LOVE:
+                emotionIndex = 1;
+                break;
+            case Emotion.DEFENCE:
+                emotionIndex = 3;
+                break;
+            default:
+                if (currentCoolDownTime > 0){
+                    emotionIndex = 4; // emotionless
+                }
+                break;
+        }
+        anim.SetInteger("EmotionIndex", emotionIndex);
     }
 }

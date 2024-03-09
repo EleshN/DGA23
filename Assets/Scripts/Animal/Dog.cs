@@ -129,28 +129,4 @@ public class Dog : Animal
         hitbox.gameObject.SetActive(false);
 
     }
-
-    protected override void setAnimationStateWithEmotion()
-    {
-       int emotionIndex = 0; //default
-        switch (currEmotion)
-        {
-            case Emotion.ANGER:
-                emotionIndex = 2;
-                break;
-            case Emotion.LOVE:
-                emotionIndex = 1;
-                break;
-            case Emotion.DEFENCE:
-                emotionIndex = 3;
-                break;
-            default:
-                if (currentCoolDownTime > 0){
-                    emotionIndex = 4; // emotionless
-                }
-                break;
-        }
-        anim.SetInteger("EmotionIndex", emotionIndex);
-    }
-
 }
