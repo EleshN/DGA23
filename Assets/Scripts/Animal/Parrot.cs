@@ -87,7 +87,9 @@ public class Parrot : Animal
             case Emotion.ANGER:
                 parrotAudioSource.PlayOneShot(parrotAngryClips[Random.Range(0, parrotAngryClips.Length)]);
                 break;
-                // Add cases for other emotions if needed
+            case Emotion.DEFENCE:
+                parrotAudioSource.PlayOneShot(parrotResolvedClip);
+                break;
         }
     }
 

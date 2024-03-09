@@ -25,6 +25,7 @@ public class Dog : Animal
 
     public AudioClip dogLovedClip;
     public AudioClip dogAngryClip;
+    public AudioClip dogDefenceClip;
     public AudioClip dogAttackClip;
 
     public override void Start()
@@ -56,9 +57,8 @@ public class Dog : Animal
                 dogAudioSource.PlayOneShot(dogAngryClip);
                 break;
             case Emotion.DEFENCE:
-                //TODO: add sound
+                dogAudioSource.PlayOneShot(dogDefenceClip);
                 break;
-                // Add cases for other emotions if needed
         }
     }
 
