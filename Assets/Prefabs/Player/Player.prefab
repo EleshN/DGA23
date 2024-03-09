@@ -180,6 +180,7 @@ MonoBehaviour:
   ammoPrefabs:
   - {fileID: 8484157980712267484, guid: fe3900e0c9e9d744bb620d300aee68ca, type: 3}
   - {fileID: 411135268976928213, guid: f6638be4436ac3347993c5b15d9a8064, type: 3}
+  - {fileID: 8781840402561785226, guid: 148ab7380f2ef4fc992206ca496768aa, type: 3}
   bulletSpawn: {fileID: 6468600857249622072}
   aim: {fileID: 6554197838273546809}
   bulletSpeed: 10
@@ -355,7 +356,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.035
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -612,15 +613,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6aae10c05cd504980a9dd59e9323d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammo: 0500000005000000
-  initialAmmo: 0500000005000000
+  ammo: 050000000500000005000000
+  initialAmmo: 050000000500000005000000
   gun: {fileID: 6737863600635964696}
   rb: {fileID: 2874150119457422013}
   ammoNames:
   - love
   - anger
+  - defence
   moveSpeed: 8
-  switchEmotion: 113
+  prevEmotion: 113
+  nextEmotion: 101
   iframeDuration: 1
   knockbackForce: 20
   knockbackDuration: 0.3
@@ -628,6 +631,7 @@ MonoBehaviour:
   walkSoundClip: {fileID: 8300000, guid: 729e1caa61cc59f48b65d0b83d1d37a7, type: 3}
   uiSoundClip: {fileID: 8300000, guid: cb2d61169173cc54b807d23a6e193270, type: 3}
   refreshClip: {fileID: 8300000, guid: 58f9c17c92d0aa747bc31335273691a1, type: 3}
+  anim: {fileID: 0}
 --- !u!65 &8172232168992480712
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -726,7 +730,7 @@ GameObject:
   - component: {fileID: 7206324791454775009}
   - component: {fileID: 2205367431753014579}
   m_Layer: 8
-  m_Name: MinimapDot
+  m_Name: MinimapCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -742,8 +746,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 15, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7571600407355910175}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -788,8 +792,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.8679245, g: 0.20879315, b: 0.75783175, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 6942f9407ad504a4bad4c1a7e3fb40af, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1048,7 +1052,7 @@ Animator:
   m_GameObject: {fileID: 8112175775865090734}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fe381e2d3619a4288897ca3701d3fb88, type: 2}
+  m_Controller: {fileID: 9100000, guid: cd760ac804f46463a888694b32ca381a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1145,8 +1149,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1688264429
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f0a9c6db4560742c89d27b3931f3ab7f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}

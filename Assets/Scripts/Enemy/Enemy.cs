@@ -63,7 +63,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     // Update is called once per frame
     protected virtual void Update()
     {
-        print(targetTransform);
         if (currentAttackTime > 0)
         {
             currentAttackTime -= Time.deltaTime;

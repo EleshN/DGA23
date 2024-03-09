@@ -20,7 +20,8 @@ public class Player : MonoBehaviour
 
     public HashSet<Animal> followers = new HashSet<Animal>(); //all animals following this player
 
-    public KeyCode switchEmotion = KeyCode.Q;
+    public static KeyCode prevEmotionKey = KeyCode.Q;
+    public static KeyCode nextEmotionKey = KeyCode.E;
 
     ColorIndicator colorIndicator;
     [SerializeField] float iframeDuration = 1.0f;
@@ -39,10 +40,19 @@ public class Player : MonoBehaviour
     public AudioClip uiSoundClip;
     public AudioClip refreshClip;
 
+    public Animator anim;
+
     void Start()
     {
         colorIndicator = GetComponent<ColorIndicator>();
         random = new System.Random();
+
+    }
+
+    private void Awake()
+    {
+        playerAudioSource.PlayOneShot(uiSoundClip);
+        ammoIndex = (ammoIndex + 1) % ammo.Length;
     }
 
 
@@ -75,7 +85,8 @@ public class Player : MonoBehaviour
         {
             if (ammo[ammoIndex] > 0)
             {
-                gun.Shoot(ammoIndex);
+                string animtrigger = gun.Shoot(ammoIndex);
+                anim.SetTrigger(animtrigger);
                 ammo[ammoIndex]--;
             }
         }
@@ -101,20 +112,17 @@ public class Player : MonoBehaviour
     private void Scroll()
     {
         // weapon switching here
-        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(switchEmotion))
+        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(nextEmotionKey))
         {
+            playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex + 1) % ammo.Length;
         }
-        else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(switchEmotion))
+        else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(prevEmotionKey))
         {
+            playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
         }
 
-        // Play UI sound when scroll is detected
-        if (Input.mouseScrollDelta.y != 0)
-        {
-            playerAudioSource.PlayOneShot(uiSoundClip);
-        }
     }
 
     private void OnCollisionStay(Collision collision)

@@ -36,6 +36,11 @@ public class NavMeshObstacleAgent : MonoBehaviour
     /// </summary>
     public float StoppingDistance { get { return agent.stoppingDistance;} set { agent.stoppingDistance = value;}}
 
+    /// <summary>
+    /// Whether the agent is complete stationary
+    /// </summary>
+    public Boolean IsObstacleMode { get { return obstacle.enabled;}}
+
     public void Awake()
     {
         agent = GetComponent<NavMeshAgent>();

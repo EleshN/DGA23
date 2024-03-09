@@ -14,6 +14,12 @@ public class Snurtle : Animal
     [Tooltip("The amount of time in seconds that the hitbox is active when attacking")]
     [SerializeField] float hitboxActiveTime; //TODO
 
+    [Header("Snurtle SFX")]
+    public AudioSource snurtleAudioSource;
+    public AudioClip snurtleLovedClip;
+    public AudioClip snurtleAngryClip;
+    public AudioClip snurtleAttackClip;
+    public AudioClip snurtleResolvedClip;
 
     // Start is called before the first frame update
     public override void Start()
@@ -29,6 +35,24 @@ public class Snurtle : Animal
         base.Update();
     }
 
+    protected override void OnEmotionChanged(Emotion newEmotion)
+    {
+        base.OnEmotionChanged(newEmotion);
+
+        switch (newEmotion)
+        {
+            case Emotion.LOVE:
+                snurtleAudioSource.PlayOneShot(snurtleLovedClip);
+                break;
+            case Emotion.ANGER:
+                snurtleAudioSource.PlayOneShot(snurtleAngryClip);
+                break;
+            case Emotion.DEFENCE:
+                snurtleAudioSource.PlayOneShot(snurtleResolvedClip);
+                break;
+        }
+    }
+
     public override void Attack()
     {
         hitbox?.SetUniformDamage(targets, animalDamage * damageMultiplier);
@@ -38,7 +62,7 @@ public class Snurtle : Animal
     IEnumerator SnurtleAttack()
     {
         yield return new WaitForSeconds(attackDelay);
-        // code to play sound
+        snurtleAudioSource.PlayOneShot(snurtleAttackClip);
         hitbox.gameObject.SetActive(true);
         yield return new WaitForSeconds(hitboxActiveTime);
         hitbox.gameObject.SetActive(false);

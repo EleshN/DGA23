@@ -370,7 +370,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 150
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -408,7 +408,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.552
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5471,7 +5471,7 @@ MonoBehaviour:
   damageMultiplier: 1
   healthMultiplier: 1
   defenceMultiplier: 1
-  defenceRadius: {fileID: 0}
+  defenceRadius: {fileID: 8501827164159432682}
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4
@@ -5492,6 +5492,7 @@ MonoBehaviour:
   catLovedClip: {fileID: 8300000, guid: 822e7bb29d3d9684aa9f83f3ed3f7e60, type: 3}
   catAngryClip: {fileID: 8300000, guid: 8273646cbc5972d42b02b1479bbc39b4, type: 3}
   catAttackClip: {fileID: 8300000, guid: e17f69afb9fa19f4a979f193b3c5f01d, type: 3}
+  catResolvedClip: {fileID: 8300000, guid: 35dd63be479a0424daf237c4e6888f92, type: 3}
 --- !u!114 &3102279017370914336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5807,8 +5808,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1688264429
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f0a9c6db4560742c89d27b3931f3ab7f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
@@ -6090,12 +6091,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 494350772, guid: d181fabf8f5024a6289d0ed36ca5b342, type: 3}
+  m_Sprite: {fileID: -1262010871, guid: d181fabf8f5024a6289d0ed36ca5b342, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.0000005, y: 6.00586}
+  m_Size: {x: 2.34375, y: 2.3460388}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
