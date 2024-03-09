@@ -47,7 +47,7 @@ public class Gun : MonoBehaviour
         //This is to decide which animation to play, which is based on which direction you are shooting
         float animationAngle = getPlayerPerspectiveAngle();
         //Because the angles are really weird, these numbers look messed up, but I have tested them.
-        print("Shooting at angle " + animationAngle);
+        //print("Shooting at angle " + animationAngle);
         if (animationAngle >= 340 || animationAngle < 20)
         {
             return "ShootUp";

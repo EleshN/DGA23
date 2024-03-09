@@ -71,13 +71,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject GameCanvas;
 
     [SerializeField] ResultSceneOpener ResultSceneOpener;
-    [SerializeField] TMP_Text enemyBaseCount;
-    [SerializeField] TMP_Text playerBaseCount;
-
-    [SerializeField] TMP_Text loveCount;
-    [SerializeField] TMP_Text angerCount;
-    [SerializeField] GameObject loveUI;
-    [SerializeField] GameObject angerUI;
 
     [SerializeField] GameObject levelTextBkg;
     [SerializeField] TMP_Text levelText;
@@ -146,7 +139,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //print(Animals);
         if (PlayerBases.Count == 0 && !isLevelComplete)
         {
             // you lose
@@ -162,43 +154,7 @@ public class GameManager : MonoBehaviour
             isLevelComplete = true;
         }
 
-        // update GameCanvas text elements
-        UpdateIconCounts(PlayerObject.GetCurrentAmmoType());
-    }
-
-    private void UpdateIconCounts(string currentSelected = "")
-    {
-        // update all counts
-        for (int i = 0; i < PlayerObject.ammoNames.Length; i++)
-        {
-            int count = PlayerObject.ammo[i];
-            switch (PlayerObject.ammoNames[i]) {
-                case "anger":
-                    angerCount.text = count.ToString();
-                    break;
-                case "love":
-                    loveCount.text = count.ToString();
-                    break;
-                default:
-                    Debug.Log("Invalid emotion");
-                    break;
-            }
-        }
-
-        // switch between icon focus
-        switch (currentSelected)
-        {
-            case "anger":
-                angerUI.transform.localScale = new Vector3(1, 1, 1);
-                loveUI.transform.localScale = new Vector3(.5f, .5f, .5f);
-                break;
-            case "love":
-                loveUI.transform.localScale = new Vector3(1, 1, 1);
-                angerUI.transform.localScale = new Vector3(.5f, .5f, .5f);
-                break;
-            default:
-                break;
-        }
+        // TODO: update Inventory counts here
     }
     
     public Transform FindClosest(Vector3 source, HashSet<Transform> transforms)
@@ -261,7 +217,6 @@ public class GameManager : MonoBehaviour
         PlayerBases.Add(pbase);
         ValidEnemyTargets.Add(pbase.transform);
         Physics.IgnoreCollision(pbase.GetComponent<Collider>(), PlayerCollider);
-        playerBaseCount.text = "Total Player Bases: " + PlayerBases.Count.ToString();
     }
 
     /// <summary>
@@ -272,7 +227,6 @@ public class GameManager : MonoBehaviour
         PlayerBases.Remove(pbase);
         ValidEnemyTargets.Remove(pbase.transform);
         audioSource.PlayOneShot(capturePlayerBase);
-        playerBaseCount.text = "Total Player Bases: " + PlayerBases.Count.ToString();
     }
 
     /// <summary>
@@ -282,7 +236,6 @@ public class GameManager : MonoBehaviour
     {
         EnemyBases.Add(ebase);
         TeamEnemy.Add(ebase.transform);
-        enemyBaseCount.text = "Total Enemy Bases: " + EnemyBases.Count.ToString();
     }
 
     /// <summary>
@@ -293,7 +246,6 @@ public class GameManager : MonoBehaviour
         EnemyBases.Remove(ebase);
         TeamEnemy.Remove(ebase.transform);
         audioSource.PlayOneShot(captureEnemyBase);
-        enemyBaseCount.text = "Total Enemy Bases: " + EnemyBases.Count.ToString();
     }
 
     /// <summary>

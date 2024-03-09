@@ -17,13 +17,13 @@ public class Rotation : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !isRotating)
+        if (Input.GetKeyDown(Player.prevEmotionKey) && !isRotating)
         {
             // Rotate clockwise by 45 degrees
             targetAngle -= 30f;
             isRotating = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Q) && !isRotating)
+        else if (Input.GetKeyDown(Player.nextEmotionKey) && !isRotating)
         {
             // Rotate anti-clockwise by 45 degrees
             targetAngle += 30f;

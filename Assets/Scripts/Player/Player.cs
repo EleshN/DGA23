@@ -20,8 +20,8 @@ public class Player : MonoBehaviour
 
     public HashSet<Animal> followers = new HashSet<Animal>(); //all animals following this player
 
-    public KeyCode prevEmotion = KeyCode.Q;
-    public KeyCode nextEmotion = KeyCode.E;
+    public static KeyCode prevEmotionKey = KeyCode.Q;
+    public static KeyCode nextEmotionKey = KeyCode.E;
 
     ColorIndicator colorIndicator;
     [SerializeField] float iframeDuration = 1.0f;
@@ -86,7 +86,6 @@ public class Player : MonoBehaviour
             if (ammo[ammoIndex] > 0)
             {
                 string animtrigger = gun.Shoot(ammoIndex);
-                print("Shoot returned " + animtrigger);
                 anim.SetTrigger(animtrigger);
                 ammo[ammoIndex]--;
             }
@@ -113,12 +112,12 @@ public class Player : MonoBehaviour
     private void Scroll()
     {
         // weapon switching here
-        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(nextEmotion))
+        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(nextEmotionKey))
         {
             playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex + 1) % ammo.Length;
         }
-        else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(prevEmotion))
+        else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(prevEmotionKey))
         {
             playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
