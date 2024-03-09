@@ -5341,7 +5341,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -823149729
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -5485,11 +5485,14 @@ MonoBehaviour:
   health: 0
   healthBar: {fileID: 0}
   animalDamage: 0
+  animalDefense: 0
   emoSpeed: 0.5
   loveSpeed: 5
   angerSpeed: 3
   damageMultiplier: 1
   healthMultiplier: 1
+  defenceMultiplier: 1
+  defenceRadius: {fileID: 0}
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4
@@ -5520,7 +5523,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5b3f9026ca16ea0479cf60895860dbb1, type: 3}
   - {fileID: 8300000, guid: d419be87d6b53e347a8ecb9f97ff14c2, type: 3}
   - {fileID: 8300000, guid: 6d75b6a1fd2fa4d4c9bc89c0f6051d41, type: 3}
-  parrotResolvedClip: {fileID: 0}
+  parrotResolvedClip: {fileID: 8300000, guid: 2842a31a3685d6e4597aac5c3f75a34d, type: 3}
   birdFlyingClip: {fileID: 8300000, guid: 6f02cd462e87bb2469253a6e561ed4ef, type: 3}
 --- !u!208 &8829331212345125549
 NavMeshObstacle:
