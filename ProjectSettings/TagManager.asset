@@ -49,6 +49,9 @@ TagManager:
   - name: GroundSprite
     uniqueID: 447628123
     locked: 0
+  - name: Paths
+    uniqueID: 3797886309
+    locked: 0
   - name: Shadows
     uniqueID: 2606702867
     locked: 0

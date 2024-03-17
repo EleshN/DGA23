@@ -12,7 +12,7 @@ public class Sprite : MonoBehaviour
 
     //The main camera
     [SerializeField]
-    GameObject mainCam;
+    public GameObject mainCam;
 
     // Start is called before the first frame update
     virtual protected void Start()
@@ -45,6 +45,6 @@ public class Sprite : MonoBehaviour
     // Update is called once per frame
     virtual protected void Update()
     {
-        
+        //transform.forward = mainCam.transform.forward;
     }
 }
