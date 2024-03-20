@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7680594307949798797}
   - component: {fileID: 7929436427957811056}
-  - component: {fileID: 622312969330403981}
   - component: {fileID: 184885334427054894}
   - component: {fileID: 8483515128025712375}
   - component: {fileID: 3527797731392436523}
+  - component: {fileID: 6302529903222424596}
   m_Layer: 0
   m_Name: tree_5
   m_TagString: Scenery
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3257183281468862899}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.19, y: 3.6, z: -24.09}
+  m_LocalPosition: {x: -14.19, y: 2.02, z: -24.09}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -88,21 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &622312969330403981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3257183281468862899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 192a1a4e78e414f19b05028a33eaeeca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Meshes: []
-  agent: {fileID: 0}
-  mainCam: {fileID: 0}
 --- !u!65 &184885334427054894
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -157,3 +142,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6302529903222424596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3257183281468862899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208c912d6af2f4310bec7991e6434081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Meshes: []
+  agent: {fileID: 0}
+  mainCam: {fileID: 0}

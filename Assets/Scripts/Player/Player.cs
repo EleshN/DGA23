@@ -86,6 +86,7 @@ public class Player : MonoBehaviour
             if (ammo[ammoIndex] > 0)
             {
                 string animtrigger = gun.Shoot(ammoIndex);
+                print("Gun should have triggered " + animtrigger);
                 anim.SetTrigger(animtrigger);
                 ammo[ammoIndex]--;
             }

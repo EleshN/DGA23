@@ -41,7 +41,7 @@ public class SceneSprite : Sprite
         //Goes off screen at bottom at about z=-26
         //Even at about z=-10
         //Goes off screen at top at about z=1.5
-        print("In new coords, now at " + newx + "," + newy);
+        //print("In new coords, now at " + newx + "," + newy);
         //newx is like y, newz is like x
 
         //Rotate
