@@ -628,7 +628,7 @@ MonoBehaviour:
   walkSoundClip: {fileID: 8300000, guid: 729e1caa61cc59f48b65d0b83d1d37a7, type: 3}
   uiSoundClip: {fileID: 8300000, guid: cb2d61169173cc54b807d23a6e193270, type: 3}
   refreshClip: {fileID: 8300000, guid: 58f9c17c92d0aa747bc31335273691a1, type: 3}
-  anim: {fileID: 0}
+  anim: {fileID: 1288533453468060846}
 --- !u!65 &8172232168992480712
 BoxCollider:
   m_ObjectHideFlags: 0

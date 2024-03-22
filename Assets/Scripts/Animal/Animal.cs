@@ -164,12 +164,17 @@ public abstract class Animal : MonoBehaviour, IDamageable
             float dist = Vector3.Magnitude(targetTransform.position - transform.position);
             // allow attack if the entity has come to a distance within range and that it comes to a stop
             // or entity is guaranteed able to hit target because distance < 1 (but target might be moving away)
-            bool canStartAttack = (dist <= attackRadius && agent.Velocity.magnitude < 1e-3) || dist <= 1;
+            print("Dist is " + dist +  " and velocity is " + agent.Velocity.magnitude);
+            bool canStartAttack = (dist <= attackRadius && agent.Velocity.magnitude < .3) || dist <= 1;
             if (attackCooldown <= 0 && canStartAttack)
             {
+                print("Attacking");
                 Attack();
                 agent.SetObstacleMode();
                 attackCooldown = attackRate;
+            }
+            else {
+                print("Not attacking");
             }
             if (dist > attackRadius && currEmotion != Emotion.DEFENCE)
             {

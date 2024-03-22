@@ -19,28 +19,13 @@ public class Gun : MonoBehaviour
 
     public AudioClip shootSoundClip;
 
+    private float shootdelay = .33f;
+
     //Returns the name of the animation trigger to set
     public string Shoot(int ammoIndex)
     {
-        gunAudioSource.PlayOneShot(shootSoundClip);
-        //print("bullet at: " + bulletSpawn.position);
-        GameObject projectile = Instantiate(ammoPrefabs[ammoIndex], transform.position, Quaternion.identity); //bulletSpawn.rotation
-        // Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
-        // if (projectileRb != null)
-        // {
-        //     projectileRb.AddForce(bulletSpawn.forward * 20f, ForceMode.Impulse);
-        // }
-        Projectile bullet = projectile.GetComponent<Projectile>();
-        Vector3 direction = aim.targetLocation - bullet.transform.position;
-        direction.y = 0;
-        bullet.SetDirection(direction, bulletSpeed);
-        bullet.AdjustYSpawn();
 
-        float angle = (Mathf.Atan(direction.z / direction.x) * Mathf.Rad2Deg);
-        if (direction.z < 0)
-        {
-            angle = angle + 180;
-        }
+        StartCoroutine(delayedShoot(shootdelay, ammoIndex));
         //print("Difference in positions is " + direction);
         //print("Shot, Angle is " + (Mathf.Atan(direction.z / direction.x) * Mathf.Rad2Deg));
 
@@ -76,6 +61,28 @@ public class Gun : MonoBehaviour
             Debug.Log("The gun animation is not working!");
             return "";
         }
+    }
+
+    //Moved the functionality of shoot to here.
+    //This is so the bullet spawns at a time that more closely matches the animation
+    IEnumerator delayedShoot(float delay, int ammoIndex) {
+        //Wait
+        yield return new WaitForSeconds(delay);
+
+
+        gunAudioSource.PlayOneShot(shootSoundClip);
+        //print("bullet at: " + bulletSpawn.position);
+        GameObject projectile = Instantiate(ammoPrefabs[ammoIndex], transform.position, Quaternion.identity); //bulletSpawn.rotation
+        // Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+        // if (projectileRb != null)
+        // {
+        //     projectileRb.AddForce(bulletSpawn.forward * 20f, ForceMode.Impulse);
+        // }
+        Projectile bullet = projectile.GetComponent<Projectile>();
+        Vector3 direction = aim.targetLocation - bullet.transform.position;
+        direction.y = 0;
+        bullet.SetDirection(direction, bulletSpeed);
+        bullet.AdjustYSpawn();
     }
 
     private void Update()
