@@ -31,14 +31,15 @@ public class Sprite : MonoBehaviour
         if (!mainCam) {
             mainCam = GameObject.FindGameObjectWithTag("MainCamera");
         }
-        
+
         transform.Rotate(Vector3.up, 45);
-        Vector3 feetPosition = transform.localPosition;
-        float y = feetPosition.y;
-        feetPosition.y = 0;
-        transform.Translate(new Vector3(0, -y, 0));
+        //Vector3 feetPosition = transform.localPosition;
+        //float y = feetPosition.y;
+        //feetPosition.y = 0;
+        //transform.Translate(new Vector3(0, -y, 0));
+        //transform.Translate(new Vector3(0, y, 0));
         transform.Rotate(Vector3.right, 45);
-        transform.Translate(new Vector3(0, y, 0));
+        
         // print(transform.parent.name + " " + transform.position + " " + transform.rotation);
     }
 
