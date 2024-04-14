@@ -80,6 +80,8 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
 
     [SerializeField][Range(0, 1)] float animationSpeed = 1.0f;
+    float flipCooldown = 0.5f;
+    float flipCounter;
 
     void Awake()
     {
@@ -203,7 +205,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
         {
             healthBar?.gameObject.SetActive(false);
         }
-
+        flipCounter -= Time.deltaTime;
         Animate();
     }
 
@@ -422,13 +424,13 @@ public abstract class Animal : MonoBehaviour, IDamageable
                     flipX = offsetInCameraSpace.x > 0;
                 }
             }
-            spriteRenderer.flipX = flipX;
 
-        }
-    
-        if (anim != null)
-        {
-            anim.SetFloat("FBspeed", -velocityInCameraSpace.z);
+            if(flipCounter <= 0 && anim != null)
+            {
+                spriteRenderer.flipX = flipX;
+                anim.SetFloat("FBspeed", -velocityInCameraSpace.z);
+                flipCounter = flipCooldown;
+            }
         }
         else
         {
