@@ -2,20 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camara : MonoBehaviour
+public class CameraAlpha : MonoBehaviour
 {
     [SerializeField]
     public GameObject Player;
 
+    // Use this for initialization
     [SerializeField]
     SpriteRenderer oldHit;
-
+    List<Enemy> enemies;
     List<string> xrayTargets;
 
     // Use this for initialization
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
+        // Add all enemies to list
+        enemies = new List<Enemy>();
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag(Tag.Enemy.ToString()))
+        {
+            enemies.Add(enemy.GetComponent<Enemy>());
+        }
         xrayTargets = new List<string>();
         xrayTargets.Add(Tag.EnemyBase.ToString());
         xrayTargets.Add(Tag.PlayerBase.ToString());
@@ -31,20 +38,16 @@ public class Camara : MonoBehaviour
     void FixedUpdate()
     {
         XRay();
+        XRayEnemies();
     }
 
-    // Hacer a los objetos que interfieran con la vision transparentes
+    // Make objects that interfere with the camera transparent
     private void XRay()
     {
         float characterDistance = Vector3.Distance(transform.position, Player.transform.position);
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
         if (Physics.Raycast(transform.position, fwd, out RaycastHit hit, characterDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
-            //print("Raycasthit: " + hit.transform.gameObject.name);
-            //Currently, only sprites that turn transparent are bases and scenery
-            // if (hit.transform.gameObject.name.ToLower().Contains("base") ||
-            //     hit.transform.gameObject.CompareTag(Tag.Scenery.ToString()) ||
-            //     (hit.transform.parent && hit.transform.parent.gameObject.name.ToLower().Contains("base"))) //For bases, collider is often on child
             if (xrayTargets.Contains(hit.transform.gameObject.tag))
             {
                 SpriteRenderer spriteTrans;
@@ -54,38 +57,24 @@ public class Camara : MonoBehaviour
                 } 
                 else
                 {
-                    //sprite may be contained as a child rather than directly on the gameobject
                     spriteTrans = hit.transform.gameObject.GetComponentInChildren<SpriteRenderer>();
                 }
 
-                //print("Raycast hit an alpha-able object");
-                // Add transparence if newly seeing object
                 Color colorB = spriteTrans.color;
                 colorB.a = 0.5f;
                 spriteTrans.color = colorB;
 
-                // Reduce transparence if we no longer see an object
                 if (oldHit && oldHit != spriteTrans)
                 {
-                    //print("Resetting oldhit");
                     Color colorA = oldHit.color;
                     colorA.a = 1f;
                     oldHit.color = colorA;
                 }
-                else
-                {
-                    //print("oldhit is " + oldHit);
-                }
-
-                // Save hit
                 oldHit = spriteTrans;
             }
             else {
-                //print("Hit a non-valid object");
-                // Reduce transparence if we no longer see a alpha-able object
                 if (oldHit)
                 {
-                    //print("Seeing oldhit,it is " + oldHit.gameObject.name + ", turning it back to normal");
                     Color colorA = oldHit.color;
                     colorA.a = 1f;
                     oldHit.color = colorA;
@@ -93,9 +82,32 @@ public class Camara : MonoBehaviour
                 }
             }
         }
-        else {
-            print("Raycast missed! Ohhhhh!");
-            //We will never be here, raycast will reasonably never miss completely
+    }
+
+    private void XRayEnemies() {
+        foreach (Enemy enemy in enemies)
+        {
+            float enemyDistance = Vector3.Distance(transform.position, enemy.transform.position);
+            Vector3 enemyDirection = (enemy.transform.position - transform.position).normalized;
+            if (Physics.Raycast(transform.position, enemyDirection, out RaycastHit enemyHit, enemyDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+            {
+                if (xrayTargets.Contains(enemyHit.transform.gameObject.tag))
+                {
+                    SpriteRenderer spriteTrans;
+                    if (enemyHit.transform.gameObject.GetComponent<SpriteRenderer>())
+                    {
+                        spriteTrans = enemyHit.transform.gameObject.GetComponent<SpriteRenderer>();
+                    } 
+                    else
+                    {
+                        spriteTrans = enemyHit.transform.gameObject.GetComponentInChildren<SpriteRenderer>();
+                    }
+
+                    Color colorB = spriteTrans.color;
+                    colorB.a = 0.5f;
+                    spriteTrans.color = colorB;
+                }
+            }
         }
     }
 }  
