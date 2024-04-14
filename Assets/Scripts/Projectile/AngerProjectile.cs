@@ -53,7 +53,9 @@ public class AngerProjectile : Projectile
             animals.UnionWith(parrots);
             // GameManager.Instance.followers = parrots;
         }
-        else if (other.tag == Tag.Animal.ToString())
+        else if (other.tag == Tag.Animal.ToString()
+            && other.gameObject.GetComponent<Animal>().GetEmotion() != Emotion.LOVE)
+            //Disabling single dispatch for now. It's frustrating.
         {
             Animal animal = other.GetComponent<Animal>();
             {
@@ -65,14 +67,15 @@ public class AngerProjectile : Projectile
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             anim.SetTrigger("Impact");
         }
-        else {
+        else if(collision.CompareTag("Wall")) // Try only poofing on walls
+        {
             //Play same anim but smaller
-            if(!collision.isTrigger)
-            {
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
                 anim.gameObject.transform.localScale = anim.gameObject.transform.localScale / 2;
                 anim.SetTrigger("Impact");
-            }
+        }
+        else {
+            Physics.IgnoreCollision(collision, GetComponent<Collider>());
         }
 
 
