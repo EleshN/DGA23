@@ -1884,14 +1884,9 @@ MonoBehaviour:
   PlayerTransform: {fileID: 0}
   GameCanvas: {fileID: 1520105837277190240}
   ResultSceneOpener: {fileID: 8451118325413655083}
-  enemyBaseCount: {fileID: 0}
-  playerBaseCount: {fileID: 0}
-  loveCount: {fileID: 0}
-  angerCount: {fileID: 0}
-  loveUI: {fileID: 0}
-  angerUI: {fileID: 0}
   levelTextBkg: {fileID: 2947055684367976856}
   levelText: {fileID: 547526667228642841}
+  gunUI: {fileID: 894845214236709364}
   audioSource: {fileID: 0}
   captureEnemyBase: {fileID: 0}
   capturePlayerBase: {fileID: 0}

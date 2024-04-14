@@ -5909,7 +5909,7 @@ MonoBehaviour:
   Meshes: []
   agent: {fileID: 0}
   mainCam: {fileID: 0}
-  debug: 1
+  debug: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

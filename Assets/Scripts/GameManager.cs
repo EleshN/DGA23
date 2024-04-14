@@ -75,6 +75,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject levelTextBkg;
     [SerializeField] TMP_Text levelText;
 
+    [SerializeField] public Rotation gunUI;
+
     /// <summary>
     /// whether the current running level is completed (ongoing vs won/lost)
     /// </summary>

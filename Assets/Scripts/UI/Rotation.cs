@@ -7,7 +7,7 @@ public class Rotation : MonoBehaviour
     public RectTransform beltRectTransform; // Assign this in the inspector
     private bool isRotating = false;
     private float targetAngle = 0f;
-    private float rotationSpeed = 360f; // Speed of rotation, higher for faster rotation
+    private float rotationSpeed = 180f; // Speed of rotation, higher for faster rotation
 
     private void Awake()
     {
@@ -15,21 +15,39 @@ public class Rotation : MonoBehaviour
         isRotating = true;
     }
 
+    public bool nextEmotion() {
+        if (isRotating)
+        {
+            return false;
+        }
+        else {
+            isRotating = true;
+            // Rotate anti-clockwise by 45 degrees
+            //Only rotate if we are at target angle
+            targetAngle += 30;
+            return true;
+        }
+    }
+
+    public bool previousEmotion() {
+        if (isRotating) {
+            return false;
+        }
+        else {
+            isRotating = true;
+            // Rotate clockwise by 45 degrees
+            targetAngle -= 30;
+            return true;
+        }
+    }
+
+    public bool doneRotating() {
+        return !isRotating;
+    }
+        
+
     private void Update()
     {
-        if (Input.GetKeyDown(Player.prevEmotionKey) && !isRotating)
-        {
-            // Rotate clockwise by 45 degrees
-            targetAngle -= 30f;
-            isRotating = true;
-        }
-        else if (Input.GetKeyDown(Player.nextEmotionKey) && !isRotating)
-        {
-            // Rotate anti-clockwise by 45 degrees
-            targetAngle += 30f;
-            isRotating = true;
-        }
-
         if (isRotating)
         {
             RotateToAngle();

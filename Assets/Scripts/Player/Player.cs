@@ -42,6 +42,10 @@ public class Player : MonoBehaviour
 
     public Animator anim;
 
+    //Scrolling
+    private float scrolltimer = 1;
+    private float currScrollTimer = 0;
+
     void Start()
     {
         colorIndicator = GetComponent<ColorIndicator>();
@@ -62,7 +66,7 @@ public class Player : MonoBehaviour
         {
             Inputs();
             Move();
-            Scroll();
+            
             iframes -= Time.deltaTime;
             knockbackTimer -= Time.deltaTime;
 
@@ -70,6 +74,14 @@ public class Player : MonoBehaviour
             if (IsMoving() && !playerAudioSource.isPlaying)
             {
                 playerAudioSource.PlayOneShot(walkSoundClip);
+            }
+
+            if (currScrollTimer > 0)
+            {
+                currScrollTimer -= Time.deltaTime;
+            }
+            else {
+                Scroll();
             }
         }
     }
@@ -113,17 +125,33 @@ public class Player : MonoBehaviour
     private void Scroll()
     {
         // weapon switching here
-        if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(nextEmotionKey))
+        if (Input.mouseScrollDelta.y > 0.75f || Input.GetKeyDown(nextEmotionKey) && currScrollTimer == 0)
         {
+            currScrollTimer = scrolltimer;
+            print("Setting rotation to true");
+            nextEmotion();
+        }
+        else if (Input.mouseScrollDelta.y < -0.75f || Input.GetKeyDown(prevEmotionKey) && currScrollTimer == 0)
+        {
+            currScrollTimer = scrolltimer;
+            previousEmotion();
+        }
+
+    }
+
+    private void nextEmotion() {
+        if (GameManager.Instance.gunUI.nextEmotion()) {
+            print("setting next emotion");
             playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex + 1) % ammo.Length;
         }
-        else if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(prevEmotionKey))
-        {
+    }
+    private void previousEmotion() {
+        if (GameManager.Instance.gunUI.previousEmotion()) {
+            print("setting prev emotion");
             playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
         }
-
     }
 
     private void OnCollisionStay(Collision collision)
