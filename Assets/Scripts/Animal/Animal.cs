@@ -76,6 +76,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
 
     ColorIndicator colorIndicator;
 
+    [SerializeField]
     SpriteRenderer spriteRenderer;
 
 
@@ -91,7 +92,6 @@ public abstract class Animal : MonoBehaviour, IDamageable
         // Get the Renderer component from the new cube (to change body color)
         cubeRenderer = animalBody.GetComponent<Renderer>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera");
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         anim.speed = animationSpeed;
 
     }

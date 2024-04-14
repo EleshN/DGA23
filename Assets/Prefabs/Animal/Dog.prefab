@@ -108,13 +108,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521415369818754393}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6532815, y: 0.27059805, z: -0.27059805, w: 0.6532815}
-  m_LocalPosition: {x: 0, y: 0.01, z: 0}
-  m_LocalScale: {x: 0.33333334, y: 0.6666667, z: 2}
+  m_LocalRotation: {x: 0.56472063, y: 0.42554748, z: -0.42554748, w: 0.56472063}
+  m_LocalPosition: {x: -0.0337, y: 0.00999999, z: 0.3228}
+  m_LocalScale: {x: 0.5, y: 0.56000006, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1746057720259803590}
-  m_LocalEulerAnglesHint: {x: 90, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 74, z: 0}
 --- !u!212 &7623516963645110060
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10605,8 +10605,8 @@ Transform:
   - {fileID: 2728443785735982557}
   - {fileID: 2207483055452384888}
   - {fileID: 5776999291822137892}
-  - {fileID: 2363943619798348980}
   - {fileID: 4835486456519640383}
+  - {fileID: 2363943619798348980}
   - {fileID: 890616268401985222}
   - {fileID: 3303086449073129100}
   - {fileID: 8473388005264608356}
@@ -10674,6 +10674,7 @@ MonoBehaviour:
   emotionSystem: {fileID: 6088105449443052481}
   loveMat: {fileID: 2100000, guid: 4ffd00de12503430080d0bef18b3e8ef, type: 2}
   angerMat: {fileID: 2100000, guid: 3b510a9db88c944b3bca25bd35adfc29, type: 2}
+  spriteRenderer: {fileID: 4162656538794206008}
   animationSpeed: 1
   hitbox: {fileID: 2585526950369013348}
   targets: 010000000200000006000000

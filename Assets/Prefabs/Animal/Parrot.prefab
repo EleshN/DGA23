@@ -5502,6 +5502,7 @@ MonoBehaviour:
   emotionSystem: {fileID: 1084741317656957959}
   loveMat: {fileID: 2100000, guid: 4ffd00de12503430080d0bef18b3e8ef, type: 2}
   angerMat: {fileID: 2100000, guid: 3b510a9db88c944b3bca25bd35adfc29, type: 2}
+  spriteRenderer: {fileID: 2189526645735459586}
   animationSpeed: 1
   BirdEmoBox: {fileID: 7459802249582459461}
   follow: 0
