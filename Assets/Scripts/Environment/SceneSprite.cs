@@ -11,11 +11,11 @@ public class SceneSprite : Sprite
 
     //Rotation benchmarks.
     //Player is below the sprite
-    float bottomdist = -24;
+    float bottomdist = -20;
     float bottomangle = 45;
     float bottomheight = 3.87f - .28f;
     //Player is even with the sprite
-    float evendist = -10;
+    float evendist = -8;
     float evenangle = 30;
     float evenheight = 3.87f;
     //Player is above the sprite
@@ -37,12 +37,17 @@ public class SceneSprite : Sprite
         Vector3 camPos = base.mainCam.transform.position;
         float xdiff = camPos.x - transform.position.x;
         float zdiff = camPos.z - transform.position.z;
-        double newx = xdiff * Math.Cos(.785) - zdiff * Math.Sin(.785); //.785 is 45 in rads
-        double newy = zdiff * Math.Cos(.785) + zdiff * Math.Sin(.785);
+        //double newx = xdiff * Math.Cos(.785) - zdiff * Math.Sin(.785); //.785 is 45 in rads
+        //double newy = zdiff * Math.Cos(.785) + zdiff * Math.Sin(.785);
+        double newy = (xdiff + zdiff) / Mathf.Sqrt(2);
+        double newx = (xdiff - zdiff) / Mathf.Sqrt(2);
+
         //Goes off screen at bottom at about z=-26
         //Even at about z=-10
         //Goes off screen at top at about z=1.5
-        //print("In new coords, now at " + newx + "," + newy);
+        if (debug) {
+            print("In new coords, now at " + newx + "," + newy);
+        }
         //newx is like y, newz is like x
 
         //Rotate
@@ -69,12 +74,6 @@ public class SceneSprite : Sprite
             float baseheight = bottomheight;
             float heightdifference = evenheight - bottomheight;
 
-            if (debug)
-            {
-                print("top statement");
-                print("transform position is " + transform.position);
-                print("moving to " + new Vector3(transform.position.x, baseheight + heightdifference * proportion));
-            }
             transform.rotation = Quaternion.Euler(baseangle + angledifference * proportion, 45, transform.rotation.z);
             transform.position = new Vector3(transform.position.x, baseheight + heightdifference * proportion, transform.position.z);
         }
@@ -94,12 +93,6 @@ public class SceneSprite : Sprite
             float baseheight = evenheight;
             float heightdifference = aboveheight - evenheight;
 
-            if (debug)
-            {
-                print("bottom statement");
-                print("transform position is " + transform.position);
-                print("moving to " + new Vector3(transform.position.x, baseheight + heightdifference * proportion));
-            }
             transform.rotation = Quaternion.Euler(baseangle + angledifference * proportion, 45, transform.rotation.z);
             transform.position = new Vector3(transform.position.x, baseheight + heightdifference * proportion, transform.position.z);
         }
