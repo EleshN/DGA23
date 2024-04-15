@@ -80,9 +80,7 @@ public class Player : MonoBehaviour
             {
                 currScrollTimer -= Time.deltaTime;
             }
-            else {
                 Scroll();
-            }
         }
     }
 
@@ -101,6 +99,7 @@ public class Player : MonoBehaviour
                 //print("Gun should have triggered " + animtrigger);
                 anim.SetTrigger(animtrigger);
                 ammo[ammoIndex]--;
+                updateAmmo();
             }
         }
         //handle empty shooting (an effect maybe)
@@ -125,13 +124,13 @@ public class Player : MonoBehaviour
     private void Scroll()
     {
         // weapon switching here
-        if (Input.mouseScrollDelta.y > 0.75f || Input.GetKeyDown(nextEmotionKey) && currScrollTimer == 0)
+        if ((Input.mouseScrollDelta.y > 0 && currScrollTimer <= 0) || Input.GetKeyDown(nextEmotionKey))
         {
             currScrollTimer = scrolltimer;
             print("Setting rotation to true");
             nextEmotion();
         }
-        else if (Input.mouseScrollDelta.y < -0.75f || Input.GetKeyDown(prevEmotionKey) && currScrollTimer == 0)
+        else if ((Input.mouseScrollDelta.y < 0 && currScrollTimer <= 0) || Input.GetKeyDown(prevEmotionKey))
         {
             currScrollTimer = scrolltimer;
             previousEmotion();
@@ -141,16 +140,16 @@ public class Player : MonoBehaviour
 
     private void nextEmotion() {
         if (GameManager.Instance.gunUI.nextEmotion()) {
-            print("setting next emotion");
             playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex + 1) % ammo.Length;
+            updateAmmo();
         }
     }
     private void previousEmotion() {
         if (GameManager.Instance.gunUI.previousEmotion()) {
-            print("setting prev emotion");
             playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
+            updateAmmo();
         }
     }
 
@@ -172,6 +171,7 @@ public class Player : MonoBehaviour
                 {
                     ammo[i] = Math.Max(ammo[i] - random.Next(1, 3), 0);
                 }
+                updateAmmo();
                 iframes = iframeDuration;
                 colorIndicator.IndicateDamage();
             }
@@ -190,6 +190,7 @@ public class Player : MonoBehaviour
                 ammo[i] += 1;
             }
         }
+        updateAmmo();
     }
 
     public string GetCurrentAmmoType()
@@ -203,5 +204,9 @@ public class Player : MonoBehaviour
         return ammo[ammoIndex];
     }
 
+    private void updateAmmo() {
+        print("updating ammo");
+        GameManager.Instance.gunUI.updateAmmoCount(GetCurrentAmmoCount());
+    }
 }
 

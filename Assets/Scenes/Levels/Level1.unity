@@ -1601,6 +1601,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5638504215612986692, guid: 862b55abd87b94950b109236a8bce763, type: 3}
   m_PrefabInstance: {fileID: 665078942}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &680009586 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1267581762318715780, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
+  m_PrefabInstance: {fileID: 1614577993}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &702762170
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4995,6 +5006,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 894845214236709364, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
+      propertyPath: gunSprite
+      value: 
+      objectReference: {fileID: 680009586}
+    - target: {fileID: 894845214236709364, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
+      propertyPath: gunSprites.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 894845214236709364, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
+      propertyPath: gunSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 80142a78a879fca4199ff020504e2a1f, type: 3}
+    - target: {fileID: 894845214236709364, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
+      propertyPath: gunSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: cb07a9cf54f9bf148b1c664c80f72d2e, type: 3}
+    - target: {fileID: 894845214236709364, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
+      propertyPath: gunSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 656ac4a97a1e42e4884d21c749a46566, type: 3}
+    - target: {fileID: 894845214236709364, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
+      propertyPath: gunSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6a7b95c683ec3644a84d1337b7e33632, type: 3}
+    - target: {fileID: 894845214236709364, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
+      propertyPath: gunSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: 0cb620d41931c8b4dbc24b44261aa832, type: 3}
+    - target: {fileID: 894845214236709364, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
+      propertyPath: gunSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 64674bdb4491783448441462d555e62e, type: 3}
+    - target: {fileID: 1267581762318715780, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64674bdb4491783448441462d555e62e, type: 3}
     - target: {fileID: 2376694557593125652, guid: 5bc526521d748974c94cc4e8465047fd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

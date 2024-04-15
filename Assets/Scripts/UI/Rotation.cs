@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Rotation : MonoBehaviour
 {
@@ -8,6 +9,15 @@ public class Rotation : MonoBehaviour
     private bool isRotating = false;
     private float targetAngle = 0f;
     private float rotationSpeed = 180f; // Speed of rotation, higher for faster rotation
+
+    [SerializeField]
+    List<UnityEngine.Sprite> gunSprites;
+    [SerializeField]
+    Image gunSprite;
+
+    public void updateAmmoCount(int amount) {
+        gunSprite.sprite = gunSprites[amount];
+    }
 
     private void Awake()
     {
