@@ -16,6 +16,7 @@ public class Rotation : MonoBehaviour
     Image gunSprite;
 
     public void updateAmmoCount(int amount) {
+        if(amount > 5) { amount = 5; }
         gunSprite.sprite = gunSprites[amount];
     }
 

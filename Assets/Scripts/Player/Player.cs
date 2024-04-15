@@ -127,7 +127,6 @@ public class Player : MonoBehaviour
         if ((Input.mouseScrollDelta.y > 0 && currScrollTimer <= 0) || Input.GetKeyDown(nextEmotionKey))
         {
             currScrollTimer = scrolltimer;
-            print("Setting rotation to true");
             nextEmotion();
         }
         else if ((Input.mouseScrollDelta.y < 0 && currScrollTimer <= 0) || Input.GetKeyDown(prevEmotionKey))
@@ -205,7 +204,6 @@ public class Player : MonoBehaviour
     }
 
     private void updateAmmo() {
-        print("updating ammo");
         GameManager.Instance.gunUI.updateAmmoCount(GetCurrentAmmoCount());
     }
 }

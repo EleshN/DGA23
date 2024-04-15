@@ -54,7 +54,8 @@ public class AngerProjectile : Projectile
             // GameManager.Instance.followers = parrots;
         }
         else if (other.tag == Tag.Animal.ToString()
-            && other.gameObject.GetComponent<Animal>().GetEmotion() != Emotion.LOVE)
+            && other.gameObject.GetComponent<Animal>().GetEmotion() != Emotion.LOVE
+            && other.gameObject.GetComponent<Animal>().GetEmotion() != Emotion.ANGER)
             //Disabling single dispatch for now. It's frustrating.
         {
             Animal animal = other.GetComponent<Animal>();
