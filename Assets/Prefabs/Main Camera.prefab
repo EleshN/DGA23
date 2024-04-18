@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e369f46d8aa4696aafd09991eb856b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: -6, y: 9, z: -6}
+  offset: {x: -6, y: 10, z: -6}
 --- !u!114 &8973154585784575460
 MonoBehaviour:
   m_ObjectHideFlags: 0

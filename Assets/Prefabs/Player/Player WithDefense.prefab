@@ -180,6 +180,7 @@ MonoBehaviour:
   ammoPrefabs:
   - {fileID: 8484157980712267484, guid: fe3900e0c9e9d744bb620d300aee68ca, type: 3}
   - {fileID: 411135268976928213, guid: f6638be4436ac3347993c5b15d9a8064, type: 3}
+  - {fileID: 8781840402561785226, guid: 148ab7380f2ef4fc992206ca496768aa, type: 3}
   bulletSpawn: {fileID: 6468600857249622072}
   aim: {fileID: 6554197838273546809}
   bulletSpeed: 10
@@ -545,7 +546,7 @@ GameObject:
   - component: {fileID: 8172232168992480712}
   - component: {fileID: 6556091499836259387}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player WithDefense
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -611,13 +612,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6aae10c05cd504980a9dd59e9323d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammo: 0500000005000000
-  initialAmmo: 0500000005000000
+  ammo: 050000000500000005000000
+  initialAmmo: 050000000500000005000000
   gun: {fileID: 6737863600635964696}
   rb: {fileID: 2874150119457422013}
   ammoNames:
   - love
   - anger
+  - defence
   moveSpeed: 8
   iframeDuration: 1
   knockbackForce: 20

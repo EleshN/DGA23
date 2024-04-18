@@ -13,15 +13,15 @@ public class SceneSprite : Sprite
     //Player is below the sprite
     float bottomdist = -20;
     float bottomangle = 45;
-    float bottomheight = 3.87f - .28f;
+    float bottomheight = 3.18f - .28f;
     //Player is even with the sprite
     float evendist = -8;
     float evenangle = 30;
-    float evenheight = 3.87f;
+    float evenheight = 3.18f;
     //Player is above the sprite
     float abovedist = -5;
     float aboveangle = 20;
-    float aboveheight = 3.87f;
+    float aboveheight = 3.18f;
 
     [SerializeField]
     bool debug = false;
