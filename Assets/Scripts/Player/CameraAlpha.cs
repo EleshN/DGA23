@@ -10,7 +10,6 @@ public class CameraAlpha : MonoBehaviour
     // Use this for initialization
     [SerializeField]
     SpriteRenderer oldHit;
-    List<Enemy> enemies;
     List<string> xrayTargets;
 
     // Use this for initialization
@@ -18,15 +17,13 @@ public class CameraAlpha : MonoBehaviour
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         // Add all enemies to list
-        enemies = new List<Enemy>();
-        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag(Tag.Enemy.ToString()))
+        xrayTargets = new List<string>
         {
-            enemies.Add(enemy.GetComponent<Enemy>());
-        }
-        xrayTargets = new List<string>();
-        xrayTargets.Add(Tag.EnemyBase.ToString());
-        xrayTargets.Add(Tag.PlayerBase.ToString());
-        xrayTargets.Add(Tag.Scenery.ToString());
+            Tag.EnemyBase.ToString(),
+            Tag.PlayerBase.ToString(),
+            Tag.Scenery.ToString(),
+            Tag.Enemy.ToString()
+        };
     }
 
     // Update is called once per frame
@@ -85,7 +82,7 @@ public class CameraAlpha : MonoBehaviour
     }
 
     private void XRayEnemies() {
-        foreach (Enemy enemy in enemies)
+        foreach (Enemy enemy in GameManager.Instance.GetEnemies())
         {
             float enemyDistance = Vector3.Distance(transform.position, enemy.transform.position);
             Vector3 enemyDirection = (enemy.transform.position - transform.position).normalized;

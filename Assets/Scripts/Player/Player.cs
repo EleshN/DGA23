@@ -100,6 +100,7 @@ public class Player : MonoBehaviour
                 anim.SetTrigger(animtrigger);
                 ammo[ammoIndex]--;
                 updateAmmo();
+                GameManager.Instance.incrementBulletsFired();
             }
         }
         //handle empty shooting (an effect maybe)
@@ -203,8 +204,13 @@ public class Player : MonoBehaviour
         return ammo[ammoIndex];
     }
 
+    /// <summary>
+    /// update the Gun UI ammo count
+    /// </summary>
     private void updateAmmo() {
         GameManager.Instance.gunUI.updateAmmoCount(GetCurrentAmmoCount());
     }
+
+    
 }
 

@@ -82,6 +82,20 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private bool isLevelComplete;
     
+    /// <summary>
+    /// the number of enemies killed during this level
+    /// </summary>
+    private int enemiesKilled;
+
+    /// <summary>
+    /// the time spent during this level
+    /// </summary>
+    private float timeElapsed;
+
+    /// <summary>
+    /// the number of bullets used during this level
+    /// </summary>
+    private int bulletsFired;
 
     public AudioSource audioSource;
     public AudioClip captureEnemyBase;
@@ -130,12 +144,14 @@ public class GameManager : MonoBehaviour
         if (LevelNumber >= 1){
             levelText.text = "Level: " + LevelNumber;
         }
-        
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        enemiesKilled = 0;
+        timeElapsed = 0;
+        bulletsFired = 0;
     }
 
     // Update is called once per frame
@@ -156,7 +172,7 @@ public class GameManager : MonoBehaviour
             isLevelComplete = true;
         }
 
-        // TODO: update Inventory counts here
+        timeElapsed += Time.deltaTime;
     }
     
     public Transform FindClosest(Vector3 source, HashSet<Transform> transforms)
@@ -266,6 +282,7 @@ public class GameManager : MonoBehaviour
     {
         TeamEnemy.Remove(e.transform);
         Enemies.Remove(e);
+        enemiesKilled += 1;
     }
 
     /// <summary>
@@ -321,20 +338,42 @@ public class GameManager : MonoBehaviour
         return (TeamEnemy.Count - EnemyBases.Count) < EnemySpawnCap;
     }
 
-    // /// <summary>
-    // /// Pause all animals, robots, bases on screen.
-    // /// </summary>
-    // private void PauseObjects()
-    // {
-    //     // turn off all animal, enemy, player scripts
-    //     foreach (Enemy e in Enemies)
-    //     {
-    //         e.gameObject.GetComponent<Enemy>().enabled = false;
-    //     }
-    //     foreach (Animal a in Animals)
-    //     {
-    //         a.gameObject.GetComponent<Animal>().enabled = false;
-    //     }
-    //     PlayerTransform.gameObject.GetComponentInParent<Player>().enabled = false;
-    // }
+    /// <summary>
+    /// the current set of all enemies in the level
+    /// </summary>
+    public HashSet<Enemy> GetEnemies(){
+        return Enemies;
+    }
+
+    #region Player Level Stats
+
+    /// <summary>
+    /// the time taken for this level
+    /// </summary>
+    public float getTimeElapsed(){
+        return timeElapsed;
+    }
+
+    /// <summary>
+    /// number of enemies killed during the level
+    /// </summary>
+    public int getEnemiesKilled() {
+        return enemiesKilled;
+    }
+
+    /// <summary>
+    /// number of bullets used during the level
+    /// </summary>
+    public int getBulletsFired() {
+        return bulletsFired;
+    }
+
+    /// <summary>
+    /// increase the number of bullets fired by 1
+    /// </summary>
+    public void incrementBulletsFired() {
+        bulletsFired += 1;
+    }
+
+    #endregion
 }
