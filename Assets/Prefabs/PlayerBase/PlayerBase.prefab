@@ -140,6 +140,8 @@ MonoBehaviour:
   health: 10
   healthBar: {fileID: 8823427924884426560}
   EnemyBaseObject: {fileID: 327787184381659261, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
+  directionIndicator: {fileID: 21300000, guid: ed1e3360fff1e41bf9d069b8d6d1ce7e, type: 3}
+  offScreenThreshold: 10
 --- !u!114 &-8644587308849743771
 MonoBehaviour:
   m_ObjectHideFlags: 0
