@@ -6,6 +6,16 @@ TagManager:
   tags:
   - Enemy
   - PlayerBase
+<<<<<<< Updated upstream
+=======
+  - Animal
+  - Scenery
+  - Wall
+  - EnemyBase
+  - Fence
+  - Defence
+  - Level
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
