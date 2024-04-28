@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5347670665364042756}
   - component: {fileID: 4898528559797868726}
   - component: {fileID: 6696050107595393011}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AngerBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 5498714445533069171}
   - component: {fileID: 6253822936528351514}
   - component: {fileID: 3265834996393120862}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AngerSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4993,7 +4993,7 @@ GameObject:
   - component: {fileID: 4144196755016824165}
   - component: {fileID: 5836619224041020489}
   - component: {fileID: 1077737338636734949}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
