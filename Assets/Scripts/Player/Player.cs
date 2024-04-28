@@ -46,6 +46,12 @@ public class Player : MonoBehaviour
     private float scrolltimer = 1;
     private float currScrollTimer = 0;
 
+    [Header("Particle Effect")]
+    [SerializeField] ParticleSystem emotionSystem;
+    [SerializeField] Material loveMat;
+    [SerializeField] Material angerMat;
+    [SerializeField] Material defenceMat;
+
     void Start()
     {
         colorIndicator = GetComponent<ColorIndicator>();

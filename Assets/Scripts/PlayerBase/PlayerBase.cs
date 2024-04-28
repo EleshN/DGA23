@@ -10,7 +10,6 @@ public class PlayerBase : MonoBehaviour, IDamageable
 
     private ColorIndicator colorIndicator;
 
-
     public void Start()
     {
         GameManager.Instance.Register(this);
