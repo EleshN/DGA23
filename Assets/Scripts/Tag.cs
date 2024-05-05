@@ -11,5 +11,6 @@ public enum Tag
     PlayerBase,
     Player,
     Scenery,
-    Fence
+    Fence,
+    Level
 }
