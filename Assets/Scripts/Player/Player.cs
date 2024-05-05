@@ -47,16 +47,18 @@ public class Player : MonoBehaviour
     private float currScrollTimer = 0;
 
     [Header("Particle Effect")]
-    [SerializeField] ParticleSystem emotionSystem;
-    [SerializeField] Material loveMat;
-    [SerializeField] Material angerMat;
-    [SerializeField] Material defenceMat;
+    [SerializeField] ParticleSystem emotionSystemLove;
+    [SerializeField] ParticleSystem emotionSystemAnger;
+    [SerializeField] ParticleSystem emotionSystemDefence;
+    //[SerializeField] Material loveMat;
+    //[SerializeField] Material angerMat;
+    //[SerializeField] Material defenceMat;
 
     void Start()
     {
         colorIndicator = GetComponent<ColorIndicator>();
         random = new System.Random();
-
+        resetEmotionSystem();
     }
 
     private void Awake()
@@ -194,8 +196,10 @@ public class Player : MonoBehaviour
             if (ammo[i] < initialAmmo[i])
             {
                 ammo[i] += 1;
+                playAmmoClip(i);
             }
         }
+        //resetEmotionSystem();
         updateAmmo();
     }
 
@@ -215,6 +219,40 @@ public class Player : MonoBehaviour
     /// </summary>
     private void updateAmmo() {
         GameManager.Instance.gunUI.updateAmmoCount(GetCurrentAmmoCount());
+    }
+
+    public void resetEmotionSystem()
+    {
+        emotionSystemLove.Pause();
+        emotionSystemLove.Clear();
+        emotionSystemAnger.Pause();
+        emotionSystemAnger.Clear();
+        emotionSystemDefence.Pause();
+        emotionSystemDefence.Clear();
+    }
+
+    public void playAmmoClip(int ammoidx)
+    {
+        if (ammoidx == 0) // love
+        {
+            print("love");
+            //emotionSystemLove.GetComponent<ParticleSystemRenderer>().material = loveMat;
+            emotionSystemLove.Play();
+        }
+        else if(ammoidx == 1) // anger
+        {
+            print("anger");
+            //emotionSystemAnger.GetComponent<ParticleSystemRenderer>().material = angerMat;
+            emotionSystemAnger.Play();
+        }
+        else if (ammoidx == 2)
+        {
+            //emotionSystemDefence.GetComponent<ParticleSystemRenderer>().material = defenceMat;
+            emotionSystemDefence.Play();
+        }
+        else resetEmotionSystem();
+
+       
     }
 
     
