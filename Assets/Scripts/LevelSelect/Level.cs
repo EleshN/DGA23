@@ -14,7 +14,7 @@ public class Level : MonoBehaviour
     /// <summary>
     /// the highest level number finished (game starts at 0)
     /// </summary>
-    public static int maxLevelDefeated = 3;
+    public static int maxLevelDefeated = 10;
 
     /// <summary>
     /// the level this represents
