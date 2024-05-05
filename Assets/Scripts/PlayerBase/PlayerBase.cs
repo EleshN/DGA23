@@ -48,6 +48,14 @@ public class PlayerBase : MonoBehaviour, IDamageable
     }
 
     private void UpdateDamageIndicator(Vector3 damageSourcePosition)
+{
+    // Calculate the distance between the player and the damage source
+    float distanceToSource = Vector3.Distance(transform.position, damageSourcePosition);
+
+    // Set the minimum distance required to draw the indicator
+    float minDrawDistance = 1f; // Adjust this value as needed
+
+    if (distanceToSource >= minDrawDistance)
     {
         Vector3 screenPos = mainCamera.WorldToViewportPoint(damageSourcePosition);
         // Normalize position within the viewport
@@ -55,38 +63,36 @@ public class PlayerBase : MonoBehaviour, IDamageable
         screenPos.y = Mathf.Clamp01(screenPos.y);
 
         // Determine the closest screen edge and apply a consistent margin inside the viewport
-        float edgeMargin = 0.02f; // Adjusted to be slightly off the edge, about 2% of the viewport
+        float edgeMargin = 0.08f; // Adjusted to be slightly off the edge
         Vector3 indicatorPos = screenPos;
-        if (screenPos.x <= edgeMargin)
-            indicatorPos.x = edgeMargin;
-        else if (screenPos.x >= 1 - edgeMargin)
-            indicatorPos.x = 1 - edgeMargin;
-        if (screenPos.y <= edgeMargin)
-            indicatorPos.y = edgeMargin;
-        else if (screenPos.y >= 1 - edgeMargin)
-            indicatorPos.y = 1 - edgeMargin;
+        if (screenPos.x <= edgeMargin) indicatorPos.x = edgeMargin;
+        else if (screenPos.x >= 1 - edgeMargin) indicatorPos.x = 1 - edgeMargin;
+        if (screenPos.y <= edgeMargin) indicatorPos.y = edgeMargin;
+        else if (screenPos.y >= 1 - edgeMargin) indicatorPos.y = 1 - edgeMargin;
 
         // Check if the damage source is behind the camera
         Vector3 directionToSource = damageSourcePosition - mainCamera.transform.position;
         if (Vector3.Dot(mainCamera.transform.forward, directionToSource) < 0)
         {
             // Damage source is behind the camera, flip the indicator position
-            if (indicatorPos.x < 0.5f)
-                indicatorPos.x = 1 - edgeMargin;
-            else
-                indicatorPos.x = edgeMargin;
-
-            if (indicatorPos.y < 0.5f)
-                indicatorPos.y = 1 - edgeMargin;
-            else
-                indicatorPos.y = edgeMargin;
+            if (indicatorPos.x < 0.5f) indicatorPos.x = 1 - edgeMargin;
+            else indicatorPos.x = edgeMargin;
+            if (indicatorPos.y < 0.5f) indicatorPos.y = 1 - edgeMargin;
+            else indicatorPos.y = edgeMargin;
         }
 
         // Convert to screen position and update the indicator's position and visibility
-        damageDirectionIndicator.transform.position = mainCamera.ViewportToScreenPoint(indicatorPos);
+        damageDirectionIndicator.rectTransform.anchorMin = indicatorPos;
+        damageDirectionIndicator.rectTransform.anchorMax = indicatorPos;
+        damageDirectionIndicator.rectTransform.anchoredPosition = Vector2.zero;
         damageDirectionIndicator.enabled = true;
     }
-
+    else
+    {
+        // If the player is too close to the damage source, hide the indicator
+        damageDirectionIndicator.enabled = false;
+    }
+}
 
 
 }
