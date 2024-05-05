@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 722624868986988265}
   - component: {fileID: 6671701043320421091}
   - component: {fileID: 2351938893715609683}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 7493957825121201402}
   - component: {fileID: 7506446186865703473}
   - component: {fileID: 2722232402860989388}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LoveSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4978,7 +4978,7 @@ GameObject:
   - component: {fileID: 2762239982900446812}
   - component: {fileID: -475952970535130088}
   - component: {fileID: -1444632781967521483}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LoveBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1891086150818986126}
   - component: {fileID: 3371207558487679992}
   - component: {fileID: 5941435938045777865}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: DefenceSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4841,7 +4841,7 @@ GameObject:
   - component: {fileID: 3239763897257210379}
   - component: {fileID: 1877530641541791563}
   - component: {fileID: 4851518566520539877}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4978,7 +4978,7 @@ GameObject:
   - component: {fileID: 3525800496186968842}
   - component: {fileID: -2916837340630010558}
   - component: {fileID: -4558965230339399183}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: DefenceBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
