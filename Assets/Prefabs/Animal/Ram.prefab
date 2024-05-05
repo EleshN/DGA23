@@ -5037,7 +5037,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -823149729
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -5685,11 +5685,14 @@ MonoBehaviour:
   health: 0
   healthBar: {fileID: 512443639149192916}
   animalDamage: 2
+  animalDefense: 0
   emoSpeed: 1
   loveSpeed: 1.5
   angerSpeed: 1.5
   damageMultiplier: 1
   healthMultiplier: 1
+  defenceMultiplier: 1
+  defenceRadius: {fileID: 0}
   patrolTime: 5
   minRanDistance: 1.5
   maxRanDistance: 4
@@ -5699,6 +5702,8 @@ MonoBehaviour:
   emotionSystem: {fileID: 7014217831344356508}
   loveMat: {fileID: 2100000, guid: 4ffd00de12503430080d0bef18b3e8ef, type: 2}
   angerMat: {fileID: 2100000, guid: 3b510a9db88c944b3bca25bd35adfc29, type: 2}
+  defenceMat: {fileID: 2100000, guid: b460a388d1e9e4a639a73a4179574441, type: 2}
+  spriteRenderer: {fileID: 0}
   animationSpeed: 1
   hitbox: {fileID: 2585526950369013348}
   damageValues:

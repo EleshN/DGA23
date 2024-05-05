@@ -73,6 +73,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     [SerializeField] ParticleSystem emotionSystem;
     [SerializeField] Material loveMat;
     [SerializeField] Material angerMat;
+    [SerializeField] Material defenceMat;
 
     ColorIndicator colorIndicator;
 
@@ -238,7 +239,9 @@ public abstract class Animal : MonoBehaviour, IDamageable
                 emotionSystem.Play();
                 break;
             case Emotion.DEFENCE:
-                // there are no defensive particles
+                emotionSystem.GetComponent<ParticleSystemRenderer>().material = defenceMat;
+                emotionSystem.Play();
+                break;
             default:
                 cubeRenderer.material.color = emotionlessColor;
                 emotionSystem.Pause();
