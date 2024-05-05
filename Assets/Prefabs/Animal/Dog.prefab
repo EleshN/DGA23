@@ -10674,6 +10674,7 @@ MonoBehaviour:
   emotionSystem: {fileID: 6088105449443052481}
   loveMat: {fileID: 2100000, guid: 4ffd00de12503430080d0bef18b3e8ef, type: 2}
   angerMat: {fileID: 2100000, guid: 3b510a9db88c944b3bca25bd35adfc29, type: 2}
+  defenceMat: {fileID: 2100000, guid: b460a388d1e9e4a639a73a4179574441, type: 2}
   spriteRenderer: {fileID: 4162656538794206008}
   animationSpeed: 1
   hitbox: {fileID: 2585526950369013348}
