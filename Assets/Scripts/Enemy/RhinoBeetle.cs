@@ -9,6 +9,10 @@ public class RhinoBeetle : MeleeEnemy
     [Header("Beetle Specific Combat Stats")]
     [Tooltip("the entities and the damage they receive from the beetle. overrides all other damage stats")]
     [SerializeField] HitboxDamage[] damageValues;
+    [SerializeField] RhinoBounceBox rhinoBounceBox;
+    [SerializeField] float slideTime;
+    [SerializeField] float slideSpeed;
+    [SerializeField] float slideDistance;
 
     protected override void Start()
     {
@@ -16,5 +20,9 @@ public class RhinoBeetle : MeleeEnemy
         // initialize hitbox damage values
         hitbox.Initialize();
         hitbox.SetDamage(damageValues);
+        rhinoBounceBox.slideTime = slideTime;
+        rhinoBounceBox.slideSpeed = slideSpeed;
+        rhinoBounceBox.slideDistance = slideDistance;
     }
+
 }
