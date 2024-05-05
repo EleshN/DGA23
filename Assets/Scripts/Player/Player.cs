@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -12,33 +14,93 @@ public class Player : MonoBehaviour
     int ammoIndex;
     [SerializeField] Rigidbody rb;
 
-    public TMP_Text ammoTypeText;  // displays the current ammo type
-    public TMP_Text ammoCountText; // displays the current ammo count
+    public string[] ammoNames; // make sure that the indices match up with emotions index
 
-    [SerializeField] string[] ammoNames; // make sure that the indices match up with emotions index
-
-    public float moveSpeed = 6.9f;
+    public float moveSpeed = 3f;
 
     public HashSet<Animal> followers = new HashSet<Animal>(); //all animals following this player
 
+    public static KeyCode prevEmotionKey = KeyCode.Q;
+    public static KeyCode nextEmotionKey = KeyCode.E;
+
+    ColorIndicator colorIndicator;
+    [SerializeField] float iframeDuration = 1.0f;
+    float iframes;
+    System.Random random;
+
+    [SerializeField] float knockbackForce = 20;
+    [SerializeField] float knockbackDuration = 0.3f;
+    float knockbackTimer;
+
+    // Local AudioSource for player-specific sounds
+    public AudioSource playerAudioSource;
+
+    // Audio clips for player actions
+    public AudioClip walkSoundClip;
+    public AudioClip uiSoundClip;
+    public AudioClip refreshClip;
+
+    public Animator anim;
+
+    //Scrolling
+    private float scrolltimer = 1;
+    private float currScrollTimer = 0;
+
+    void Start()
+    {
+        colorIndicator = GetComponent<ColorIndicator>();
+        random = new System.Random();
+
+    }
+
+    private void Awake()
+    {
+        playerAudioSource.PlayOneShot(uiSoundClip);
+        ammoIndex = (ammoIndex + 1) % ammo.Length;
+    }
+
+
     private void Update()
     {
-        Inputs();
-        Move();
-        Scroll();
-        UpdateUI();
+        if (!PauseGame.isPaused)
+        {
+            Inputs();
+            Move();
+            
+            iframes -= Time.deltaTime;
+            knockbackTimer -= Time.deltaTime;
 
+            // Check if player is moving to play walking sound
+            if (IsMoving() && !playerAudioSource.isPlaying)
+            {
+                playerAudioSource.PlayOneShot(walkSoundClip);
+            }
+
+            if (currScrollTimer > 0)
+            {
+                currScrollTimer -= Time.deltaTime;
+            }
+                Scroll();
+        }
+    }
+
+    private bool IsMoving()
+    {
+        return rb.velocity.magnitude > 0.1f; // Adjust the threshold as needed
     }
 
     private void Inputs()
     {
-        if (Input.GetMouseButtonDown(0)) // 0 represents left mouse button
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) // 0 represents left mouse button
         {
             if (ammo[ammoIndex] > 0)
             {
-                gun.Shoot(ammoIndex);
+                string animtrigger = gun.Shoot(ammoIndex);
+                //print("Gun should have triggered " + animtrigger);
+                anim.SetTrigger(animtrigger);
                 ammo[ammoIndex]--;
-                UpdateUI();
+                updateAmmo();
+                GameManager.Instance.incrementBulletsFired();
             }
         }
         //handle empty shooting (an effect maybe)
@@ -47,54 +109,108 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
 
-        rb.AddForce(movement * moveSpeed);
+        Quaternion anglevector = Quaternion.Euler(0, 45, 0); //Rotate player movement to be on 45 degrees like the camera
+        //rb.velocity = anglevector * movement * moveSpeed;
+        if (knockbackTimer <= 0)
+        {
+            rb.velocity = anglevector * movement * moveSpeed;
+        }
     }
 
     private void Scroll()
     {
         // weapon switching here
-        if (Input.mouseScrollDelta.y > 0)
+        if ((Input.mouseScrollDelta.y > 0 && currScrollTimer <= 0) || Input.GetKeyDown(nextEmotionKey))
         {
+            currScrollTimer = scrolltimer;
+            nextEmotion();
+        }
+        else if ((Input.mouseScrollDelta.y < 0 && currScrollTimer <= 0) || Input.GetKeyDown(prevEmotionKey))
+        {
+            currScrollTimer = scrolltimer;
+            previousEmotion();
+        }
+
+    }
+
+    private void nextEmotion() {
+        if (GameManager.Instance.gunUI.nextEmotion()) {
+            playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex + 1) % ammo.Length;
+            updateAmmo();
         }
-        else if (Input.mouseScrollDelta.y < 0)
-        {
+    }
+    private void previousEmotion() {
+        if (GameManager.Instance.gunUI.previousEmotion()) {
+            playerAudioSource.PlayOneShot(uiSoundClip);
             ammoIndex = (ammoIndex - 1 + ammo.Length) % ammo.Length;
+            updateAmmo();
         }
     }
 
-    private void UpdateUI()
+    private void OnCollisionStay(Collision collision)
     {
-        ammoTypeText.text = ammoNames[ammoIndex];
-        ammoCountText.text = ammo[ammoIndex].ToString();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag(Tag.Enemy.ToString()) || collision.gameObject.CompareTag(Tag.EnemyBase.ToString()))
         {
-            // Reduce ammo
-            if (ammo[ammoIndex] > 0)
+            if (iframes <= 0)
             {
-                ammo[ammoIndex]--;
-            }
+                knockbackTimer = knockbackDuration;
 
-            //Knockback
+                // Apply knockback
+                Vector3 direction = transform.position - collision.transform.position;
+                direction.y = 0;
+                direction = direction.normalized * knockbackForce; // Set knockback force and direction
+                GetComponent<Rigidbody>().AddForce(direction, ForceMode.Impulse);
+
+                for (int i = 0; i < ammo.Length; i++)
+                {
+                    ammo[i] = Math.Max(ammo[i] - random.Next(1, 3), 0);
+                }
+                updateAmmo();
+                iframes = iframeDuration;
+                colorIndicator.IndicateDamage();
+            }
         }
     }
 
     public void RefreshAmmo()
     {
-        Debug.Log("Ammo Refreshed");
+        playerAudioSource.PlayOneShot(refreshClip);
+
+        Debug.Log("Ammo Refreshed +1 for Each Type");
         for (int i = 0; i < ammo.Length; i++)
         {
-            ammo[i] = initialAmmo[i];
+            if (ammo[i] < initialAmmo[i])
+            {
+                ammo[i] += 1;
+            }
         }
+        updateAmmo();
     }
+
+    public string GetCurrentAmmoType()
+    {
+        return ammoNames[ammoIndex];
+    }
+
+    /// <returns>the ammo count of the current selected ammo type</returns>
+    public int GetCurrentAmmoCount()
+    {
+        return ammo[ammoIndex];
+    }
+
+    /// <summary>
+    /// update the Gun UI ammo count
+    /// </summary>
+    private void updateAmmo() {
+        GameManager.Instance.gunUI.updateAmmoCount(GetCurrentAmmoCount());
+    }
+
+    
 }
 

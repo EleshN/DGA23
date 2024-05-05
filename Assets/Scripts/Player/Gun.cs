@@ -8,28 +8,141 @@ public class Gun : MonoBehaviour
     [Tooltip("Make sure the index of the ammo is same as Player script")]
     public GameObject[] ammoPrefabs;
 
-    private Vector3 fireDirection = new();
-
     //spawn of the bullet
     [SerializeField] Transform bulletSpawn;
-    void Start()
+
+    [SerializeField] Targetting aim;
+
+    [SerializeField] float bulletSpeed;
+
+    public AudioSource gunAudioSource;
+
+    public AudioClip shootSoundClip;
+
+    private float shootdelay = .33f;
+
+    //Returns the name of the animation trigger to set
+    public string Shoot(int ammoIndex)
     {
-        
+
+        StartCoroutine(delayedShoot(shootdelay, ammoIndex));
+        //print("Difference in positions is " + direction);
+        //print("Shot, Angle is " + (Mathf.Atan(direction.z / direction.x) * Mathf.Rad2Deg));
+
+        //This is to decide which animation to play, which is based on which direction you are shooting
+        float animationAngle = getPlayerPerspectiveAngle();
+        //Because the angles are really weird, these numbers look messed up, but I have tested them.
+        //print("Shooting at angle " + animationAngle);
+        if (animationAngle >= 340 || animationAngle < 20)
+        {
+            return "ShootUp";
+        }
+        else if (animationAngle >= 20 && animationAngle < 80)
+        {
+            return "ShootUpLeft";
+        }
+        else if (animationAngle >= 80 && animationAngle < 140)
+        {
+            return "ShootDownLeft";
+        }
+        else if (animationAngle >= 140 && animationAngle < 220)
+        {
+            return "ShootDown";
+        }
+        else if (animationAngle >= 220 && animationAngle < 285)
+        {
+            return "ShootDownRight";
+        }
+        else if (animationAngle >= 285 && animationAngle < 340)
+        {
+            return "ShootUpRight";
+        }
+        else {
+            Debug.Log("The gun animation is not working!");
+            return "";
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    //Moved the functionality of shoot to here.
+    //This is so the bullet spawns at a time that more closely matches the animation
+    IEnumerator delayedShoot(float delay, int ammoIndex) {
+        //Wait
+        yield return new WaitForSeconds(delay);
+
+
+        gunAudioSource.PlayOneShot(shootSoundClip);
+        //print("bullet at: " + bulletSpawn.position);
+        GameObject projectile = Instantiate(ammoPrefabs[ammoIndex], transform.position, Quaternion.identity); //bulletSpawn.rotation
+        // Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+        // if (projectileRb != null)
+        // {
+        //     projectileRb.AddForce(bulletSpawn.forward * 20f, ForceMode.Impulse);
+        // }
+        Projectile bullet = projectile.GetComponent<Projectile>();
+        Vector3 direction = aim.targetLocation - bullet.transform.position;
+        direction.y = 0;
+        bullet.SetDirection(direction, bulletSpeed);
+        bullet.AdjustYSpawn();
     }
 
-    public void Shoot(int ammoIndex)
+    private void Update()
     {
-        GameObject obj = Instantiate(ammoPrefabs[ammoIndex], bulletSpawn.position, bulletSpawn.rotation);
-        Projectile projectile = obj.GetComponent<Projectile>();
-        projectile.SetPlayer(gameObject.GetComponent<Player>());
-        // todo: determine direction of aim
-        fireDirection.Set(Random.Range(-10.0f, 10.0f), 0, Random.Range(-10.0f, 10.0f));
-        projectile.SetDirection(fireDirection);
+        Vector3 direction = aim.targetLocation - transform.position;
+        float angle = Mathf.Abs(Mathf.Atan(direction.z / direction.x) * Mathf.Rad2Deg);
+        if (direction.x < 0)
+        {
+            if (direction.z > 0)
+            {
+                angle = 90 + (90 - angle);
+            }
+            else
+            {
+                angle += 180;
+            }
+        }
+        else if (direction.z < 0)
+        {
+            angle = 270 + (90 - angle);
+        }
+        //print("Difference in positions is " + direction);
+        float playerPerspectiveAngle = angle - 45;
+        if (playerPerspectiveAngle < 0) {
+            playerPerspectiveAngle = 360 + playerPerspectiveAngle;
+        }
+        //Due to our perspective, angles are bizarre
+        //So the left 90* angle is at 65 and the right 90* angle is at 290
+        //print("Shot, Angle is " + playerPerspectiveAngle);
+    }
+
+    //Gets the rough angle from the player's perspective
+    //It's not a perfect angle
+    private float getPlayerPerspectiveAngle() {
+        Vector3 direction = aim.targetLocation - transform.position;
+        float angle = Mathf.Abs(Mathf.Atan(direction.z / direction.x) * Mathf.Rad2Deg);
+        if (direction.x < 0)
+        {
+            if (direction.z > 0)
+            {
+                angle = 90 + (90 - angle);
+            }
+            else
+            {
+                angle += 180;
+            }
+        }
+        else if (direction.z < 0)
+        {
+            angle = 270 + (90 - angle);
+        }
+        //print("Difference in positions is " + direction);
+        float playerPerspectiveAngle = angle - 45;
+        if (playerPerspectiveAngle < 0)
+        {
+            playerPerspectiveAngle = 360 + playerPerspectiveAngle;
+        }
+        //Due to our perspective, angles are bizarre
+        //So the left 90* angle is at 65 and the right 90* angle is at 290
+        //print("Shot, Angle is " + playerPerspectiveAngle);
+        return playerPerspectiveAngle;
     }
 }

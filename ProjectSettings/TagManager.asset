@@ -6,8 +6,6 @@ TagManager:
   tags:
   - Enemy
   - PlayerBase
-<<<<<<< Updated upstream
-=======
   - Animal
   - Scenery
   - Wall
@@ -15,7 +13,6 @@ TagManager:
   - Fence
   - Defence
   - Level
->>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
@@ -23,10 +20,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Animals
+  - MinimapElement
+  - Terrain
   - 
   - 
   - 
@@ -50,6 +47,27 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: GroundSprite
+    uniqueID: 447628123
+    locked: 0
+  - name: Paths
+    uniqueID: 3797886309
+    locked: 0
+  - name: Grass
+    uniqueID: 2047650433
+    locked: 0
+  - name: Shadows
+    uniqueID: 2606702867
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Base
+    uniqueID: 775764211
+    locked: 0
+  - name: Particles
+    uniqueID: 3471817567
+    locked: 0
+  - name: LevelSelectorElement
+    uniqueID: 1539203005
     locked: 0

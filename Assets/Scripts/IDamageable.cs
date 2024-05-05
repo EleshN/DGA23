@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// This interface will only be implemented by the animal and robot
+/// This interface will be implemented by the animals, robot, bases
 /// </summary>
 public interface IDamageable
 {
-    void TakeDamage(float damageAmount);
-    void Die();
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="damageAmount">the damage dealt</param>
+    /// <param name="damageSource">the game entity dealing the damage</param>
+    void TakeDamage(float damageAmount, Transform damageSource);
 }

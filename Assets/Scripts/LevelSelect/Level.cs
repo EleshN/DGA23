@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using UnityEngine.Rendering;
 
 public class Level : MonoBehaviour
 {
@@ -15,24 +16,43 @@ public class Level : MonoBehaviour
     /// </summary>
     public static int maxLevelDefeated = 3;
 
+    /// <summary>
+    /// the level this represents
+    /// </summary>
     public int levelNumber = 1;
 
     public float hoverScale = 1.2f;
 
-    private Vector3[] defaultScales;
-
+    /// <summary>
+    /// whether this level is locked (inaccessible to the player )
+    /// </summary>
     bool locked = false;
 
+    /// <summary>
+    /// whether this level has been defeated by the player
+    /// </summary>
     bool defeated = false;
 
     [SerializeField] GameObject lockIcon;
 
+    /// <summary>
+    /// the player base icon
+    /// </summary>
     [SerializeField] GameObject playerBase;
 
+    /// <summary>
+    /// the enemy base icon
+    /// </summary>
     [SerializeField] GameObject enemyBase;
+
+    /// <summary>
+    /// the folder object containing the three icons (for uniform scaling purposes)
+    /// </summary>
+    [SerializeField] GameObject selectorContents;
 
     void Start()
     {
+        // initialize properties
         defeated = levelNumber <= maxLevelDefeated;
         locked = levelNumber > maxLevelDefeated + 1;
         if (defeated){
@@ -44,15 +64,12 @@ public class Level : MonoBehaviour
             enemyBase.SetActive(true);
         }
         lockIcon.SetActive(!defeated && locked);
-        defaultScales = new Vector3[3];
-        defaultScales[0] = lockIcon.transform.localScale;
-        defaultScales[1] = playerBase.transform.localScale;
-        defaultScales[2] = enemyBase.transform.localScale;
     }
 
     private void Awake()
     {
-
+        SortingGroup sortingGroup = GetComponent<SortingGroup>();
+        sortingGroup.sortingOrder = -(int) transform.position.y;
     }
 
     private void Update()
@@ -63,8 +80,8 @@ public class Level : MonoBehaviour
         Vector3 scale = Vector3.one;
         if (hit.collider != null) {
             if (hit.collider.gameObject.tag == Tag.Level.ToString()){
-                if (hit.collider.transform.parent.gameObject == gameObject){
-                    // enlarge the sprite if hovered by increasing scalar factor
+                if (hit.collider.transform.parent.gameObject == selectorContents){
+                    // enlarge the sprite if mouse is hovering over
                     scale = new Vector3(hoverScale, hoverScale, 1);
                     // load this level if this level is clicked and not locked
                     if (Input.GetMouseButtonDown(0) && !locked) {
@@ -74,9 +91,7 @@ public class Level : MonoBehaviour
                 
             }
         }
-        lockIcon.transform.localScale = Vector3.Scale(scale, defaultScales[0]);
-        playerBase.transform.localScale = Vector3.Scale(scale, defaultScales[1]);
-        enemyBase.transform.localScale = Vector3.Scale(scale, defaultScales[2]);
+        selectorContents.transform.localScale = scale;
     }
     
 }

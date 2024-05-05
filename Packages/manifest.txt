@@ -1,0 +1,2 @@
+# main branch manifest.json contained
+  - "com.unity.render-pipelines.universal": "14.0.8",
