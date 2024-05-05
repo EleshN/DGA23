@@ -78,6 +78,7 @@ public class ResultSceneOpener : MonoBehaviour
     public void ToLevelSelect()
     {
         PauseGame.isPaused = false;
+        Time.timeScale = 1f;
         SceneManager.LoadScene("LevelSelect");
     }
 
