@@ -75,6 +75,75 @@ MonoBehaviour:
   m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &665591984578026740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 976253012100653232}
+  - component: {fileID: 8388641666947687013}
+  - component: {fileID: 877906501114319598}
+  m_Layer: 0
+  m_Name: Bounce Box
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &976253012100653232
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665591984578026740}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6423367497784624718}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8388641666947687013
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665591984578026740}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 1, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &877906501114319598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665591984578026740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0251805fefbacdf478c3c7abf57cab9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slideTime: 0
+  slideSpeed: 0
+  slideDistance: 0
 --- !u!1 &688370952055971385
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,8 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2319003856202265754}
   - component: {fileID: 6676348581666320538}
-  - component: {fileID: 6886312075259269264}
-  - component: {fileID: 4451284130647395726}
+  - component: {fileID: 6621573852026835951}
   m_Layer: 0
   m_Name: Enemy Hitbox
   m_TagString: Untagged
@@ -214,34 +282,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &6886312075259269264
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1772066299915919089}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &4451284130647395726
+--- !u!114 &6621573852026835951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -399,6 +440,7 @@ GameObject:
   - component: {fileID: 1824284181706879244}
   - component: {fileID: 4380511346807081255}
   - component: {fileID: 3190134833826325157}
+  - component: {fileID: 3650202659404692902}
   m_Layer: 0
   m_Name: RhinoBeetle
   m_TagString: Enemy
@@ -420,6 +462,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2319003856202265754}
+  - {fileID: 976253012100653232}
   - {fileID: 4177116413828428157}
   - {fileID: 3722568769758332778}
   - {fileID: 6288490929902441625}
@@ -509,6 +552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1938080854383796208}
+  targetTransform: {fileID: 0}
   speed: 2
   maxHealth: 6
   health: 0
@@ -516,7 +560,7 @@ MonoBehaviour:
   attackCountDown: 3
   robotDamage: 2
   targets: 
-  hitbox: {fileID: 4451284130647395726}
+  hitbox: {fileID: 6621573852026835951}
   attackDelay: 1
   hitboxActiveTime: 2
   animator: {fileID: 63113987908104557}
@@ -524,9 +568,13 @@ MonoBehaviour:
   enemyAttackClip: {fileID: 8300000, guid: 4842969dd9d6112409692a10d3c25cbb, type: 3}
   damageValues:
   - tag: 0
-    damage: 2
+    damage: 1
   - tag: 3
-    damage: 3
+    damage: 2
+  rhinoBounceBox: {fileID: 877906501114319598}
+  slideTime: 1.5
+  slideSpeed: 5
+  slideDistance: 10
 --- !u!195 &8390950961805698145
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -612,6 +660,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!54 &3650202659404692902
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6644180354889415888}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7204168739668767149
 GameObject:
   m_ObjectHideFlags: 0
