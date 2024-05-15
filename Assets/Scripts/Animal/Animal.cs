@@ -344,7 +344,11 @@ public abstract class Animal : MonoBehaviour, IDamageable
     public virtual void AngerTarget()
     {
         if (targetTransform == null) {
+            print("found null transform");
+
             targetTransform = GameManager.Instance.FindClosest(transform.position, GameManager.Instance.TeamEnemy);
+
+            print("transform is " + targetTransform);
             agent.SetAgentMode(); // make sure to allow movement after current round of combat is over
         }
         else

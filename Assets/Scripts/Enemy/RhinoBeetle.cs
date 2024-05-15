@@ -23,11 +23,24 @@ public class RhinoBeetle : MeleeEnemy
         rhinoBounceBox.slideTime = slideTime;
         rhinoBounceBox.slideSpeed = slideSpeed;
         rhinoBounceBox.slideDistance = slideDistance;
+
+        rhinoBounceBox.ShouldHit = true;
+    }
+
+    protected override void Attack()
+    {
+        if (!rhinoBounceBox.ShouldHit)
+        {
+            rhinoBounceBox.ShouldHit = true;
+        }
+        base.Attack();
     }
 
     private void OnDestroy()
     {
         rhinoBounceBox.EndSlide();
+        if (GameManager.Instance != null)
+            GameManager.Instance.Unregister(this);
     }
 
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class RhinoBounceBox : MonoBehaviour
 
 {
+    [HideInInspector] public bool ShouldHit;
+
     [HideInInspector] public float slideTime;
     [HideInInspector] public float slideSpeed;
     [HideInInspector] public float slideDistance;
@@ -14,12 +16,13 @@ public class RhinoBounceBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isSliding)
+        if (isSliding || !ShouldHit)
         {
             return;
         }
         if (other.gameObject.tag == "Animal")
         {
+            ShouldHit = false;
             animal = other.gameObject.GetComponent<Animal>();
             Debug.Log(animal.gameObject.name);
             StartCoroutine(Slide());
