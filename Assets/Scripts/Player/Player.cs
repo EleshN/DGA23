@@ -203,6 +203,22 @@ public class Player : MonoBehaviour
         updateAmmo();
     }
 
+    public void AddOneAmmo(int ammoindex) {
+        if (ammo[ammoindex] < initialAmmo[ammoindex])
+        {
+            playerAudioSource.PlayOneShot(refreshClip);
+            ammo[ammoindex] += 1;
+            playAmmoClip(ammoindex);
+            updateAmmo();
+            StartCoroutine(delayedReset());
+        }
+    }
+
+    IEnumerator delayedReset() {
+        yield return new WaitForSeconds(1.5f);
+        resetEmotionSystem();
+    }
+
     public string GetCurrentAmmoType()
     {
         return ammoNames[ammoIndex];

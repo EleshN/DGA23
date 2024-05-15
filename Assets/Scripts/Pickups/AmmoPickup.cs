@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AmmoPickup : MonoBehaviour
 {
-  public string ammoType; // Set this to the specified emotion in the Unity editor
+  public int ammoType; // Set this to the specified emotion in the Unity editor
 
   public float delayBeforeReset = 5f; // Time in seconds before the pickup resets
 
@@ -39,17 +39,16 @@ public class AmmoPickup : MonoBehaviour
     if (other.tag == Tag.Player.ToString())
     {
       Player playerScript = other.gameObject.GetComponentInParent<Player>();
-      int ammoIndexPickup = System.Array.IndexOf(playerScript.ammoNames, ammoType);
+      int ammoIndexPickup = ammoType;
 
       // todo: fix this to disallow increments. should be player model's responsability.
       if (ammoIndexPickup >= 0)
       {
-        playerScript.ammo[ammoIndexPickup] += 1; // Increment the ammo count
-        audioSource.PlayOneShot(pickupSound);
-        print("begin drawing idle no pickup");
+        playerScript.AddOneAmmo(ammoIndexPickup); // Increment the ammo count
+
         anim.SetBool("looted", true);
         anim.SetBool("regrow", false);
-        print("collider off");
+
         colliderComponent.enabled = false; 
         StartCoroutine(PlayRegrowAnimation());
       }

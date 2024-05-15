@@ -21,8 +21,7 @@ public class CameraAlpha : MonoBehaviour
         {
             Tag.EnemyBase.ToString(),
             Tag.PlayerBase.ToString(),
-            Tag.Scenery.ToString(),
-            Tag.Enemy.ToString()
+            Tag.Scenery.ToString()
         };
     }
 

@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ea08b5bf583ca140b54e2fea7901665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoType: anger
+  ammoType: 1
   delayBeforeReset: 10
   audioSource: {fileID: 4959735550071093198}
   pickupSound: {fileID: 8300000, guid: 44cc25a6e547dbe469fb37ea0c0dd3c7, type: 3}
