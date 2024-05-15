@@ -30,6 +30,12 @@ public class AngerProjectile : Projectile
         {
             return;
         }
+        else if (collision.gameObject.CompareTag("Scenery"))
+        {
+            Physics.IgnoreCollision(collision, GetComponent<Collider>());
+            return;
+        }
+
         GameObject other = collision.gameObject;
         if (other.tag == Tag.Enemy.ToString() || other.tag == Tag.EnemyBase.ToString()
             || other.tag == Tag.Fence.ToString())

@@ -21,13 +21,20 @@ public class LoveProjectile : Projectile
 
     protected override void HandleCollision(Collider collision)
     {
+
         // ignore hits with triggers (goal of emotional projectiles are to hit solid colliders)
         if (collision.isTrigger)
         {
             return;
         }
+        else if (collision.gameObject.CompareTag("Scenery")) {
+            Physics.IgnoreCollision(collision, GetComponent<Collider>());
+            return;
+        }
+
         GameObject other = collision.gameObject;
-        if (other.tag == Tag.Animal.ToString())
+        if (other.tag == Tag.Animal.ToString()
+            && other.gameObject.GetComponent<Animal>().GetEmotion() != Emotion.LOVE)
         {
             Animal animal = other.GetComponent<Animal>();
             if (animal.ApplyEmotionEffect(Emotion.LOVE, GameManager.Instance.PlayerTransform))
@@ -38,6 +45,8 @@ public class LoveProjectile : Projectile
             anim.SetTrigger("Impact");
         }
         else {
+            print("Love bullet dissolved when it hit " + collision.gameObject.name);
+
             //Play same anim but smaller
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             anim.gameObject.transform.localScale = anim.gameObject.transform.localScale / 2;

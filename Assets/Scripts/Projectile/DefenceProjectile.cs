@@ -26,6 +26,12 @@ public class DefenceProjectile : Projectile
         {
             return;
         }
+        else if (collision.gameObject.CompareTag("Scenery"))
+        {
+            Physics.IgnoreCollision(collision, GetComponent<Collider>());
+            return;
+        }
+
         GameObject other = collision.gameObject;
         if (other.tag == Tag.Animal.ToString())
         {
