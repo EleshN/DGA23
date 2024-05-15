@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641228, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -753,7 +753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.0441809
+      value: -8.1
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -761,7 +761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 32.074265
+      value: 11.7
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1994,7 +1994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.0441809
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2002,7 +2002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -27.925735
+      value: -16.3
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2282,7 +2282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -39.451187
+      value: -27.6
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2290,7 +2290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.0742645
+      value: -2.3
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3627,8 +3627,8 @@ Transform:
   m_GameObject: {fileID: 944843441}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.63, y: 0, z: 0}
-  m_LocalScale: {x: 8.5, y: 1, z: 6}
+  m_LocalPosition: {x: -10.3835, y: 0, z: -4.0222}
+  m_LocalScale: {x: 3.7779884, y: 1, z: 2.8883352}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -6804,7 +6804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 43.64418
+      value: 8.1
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6812,7 +6812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.0742645
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7380066120478514301, guid: 80ec4d8103860459586ebfb21bd75ea4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8393,8 +8393,8 @@ Transform:
   m_GameObject: {fileID: 1700084647}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: -10.5363, y: 0.1, z: -4.4458}
+  m_LocalScale: {x: 0.80451435, y: 0.7742415, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -8820,7 +8820,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5638504215612986692, guid: 862b55abd87b94950b109236a8bce763, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.418686
+      value: -21.6
       objectReference: {fileID: 0}
     - target: {fileID: 5638504215612986692, guid: 862b55abd87b94950b109236a8bce763, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8828,7 +8828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5638504215612986692, guid: 862b55abd87b94950b109236a8bce763, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.2349443
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5638504215612986692, guid: 862b55abd87b94950b109236a8bce763, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8943,7 +8943,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5638504215612986692, guid: 862b55abd87b94950b109236a8bce763, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.75
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 5638504215612986692, guid: 862b55abd87b94950b109236a8bce763, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8951,7 +8951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5638504215612986692, guid: 862b55abd87b94950b109236a8bce763, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.57
+      value: -14.6
       objectReference: {fileID: 0}
     - target: {fileID: 5638504215612986692, guid: 862b55abd87b94950b109236a8bce763, type: 3}
       propertyPath: m_LocalRotation.w
