@@ -28,26 +28,31 @@ public class RhinoBounceBox : MonoBehaviour
 
     IEnumerator Slide()
     {
-        Debug.Log("start slide");
+        StartSlide();
+        yield return new WaitForSeconds(slideTime);
+        EndSlide();
+    }
+
+    void StartSlide()
+    {
         isSliding = true;
         Vector3 direction = (animal.transform.position - transform.position).normalized;
         slidePosition = animal.transform.position + direction * slideDistance;
         slidePosition = new Vector3(slidePosition.x, animal.transform.position.y, slidePosition.z);
-        Debug.Log(animal.transform.position + " vs. " + slidePosition);
         animal.GetComponent<NavMeshObstacleAgent>().enabled = false;
         animal.enabled = false;
-        yield return new WaitForSeconds(slideTime);
+    }
+    public void EndSlide()
+    {
         animal.GetComponent<NavMeshObstacleAgent>().enabled = true;
         animal.enabled = true;
         isSliding = false;
-        Debug.Log("end slide");
     }
     
     public void Update()
     {
         if (isSliding)
         {
-            Debug.Log("sliding");
             animal.transform.position = Vector3.MoveTowards(
                 animal.transform.position, slidePosition, slideSpeed * Time.deltaTime);
         }

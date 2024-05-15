@@ -25,4 +25,9 @@ public class RhinoBeetle : MeleeEnemy
         rhinoBounceBox.slideDistance = slideDistance;
     }
 
+    private void OnDestroy()
+    {
+        rhinoBounceBox.EndSlide();
+    }
+
 }
