@@ -53,15 +53,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   healthBar: {fileID: 1082982858925421839}
-  minSpawnDelay: 1
-  maxSpawnDelay: 5
+  minSpawnDelay: 2
+  maxSpawnDelay: 7
   enemyWeights:
   - prefab: {fileID: 6644180354889415888, guid: a04f3369971cc4e81b0a83309e4396ab, type: 3}
-    weight: 1
+    weight: 5
   - prefab: {fileID: 6644180354889415888, guid: 7ee216003e3184a648e26db140251797, type: 3}
     weight: 1
   - prefab: {fileID: 6644180354889415888, guid: 471d1a9cb95404fcb90e47dd09380454, type: 3}
-    weight: 1
+    weight: 3
   PlayerBaseObject: {fileID: 2475064746497608209, guid: 1882b0083d3e323488a7ccfc9e67a2f3, type: 3}
 --- !u!65 &5294823606529299701
 BoxCollider:
@@ -193,7 +193,7 @@ Transform:
   m_GameObject: {fileID: 3138287285960867639}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.76, y: 2.45, z: 1.4}
+  m_LocalPosition: {x: 1.43, y: 2.45, z: 1.09}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:

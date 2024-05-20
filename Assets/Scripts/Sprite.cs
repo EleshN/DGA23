@@ -32,6 +32,8 @@ public class Sprite : MonoBehaviour
             mainCam = GameObject.FindGameObjectWithTag("MainCamera");
         }
 
+        transform.rotation = Quaternion.identity;
+
         transform.Rotate(Vector3.up, 45);
         //Vector3 feetPosition = transform.localPosition;
         //float y = feetPosition.y;

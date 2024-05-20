@@ -44,7 +44,7 @@ public class AmmoPickup : MonoBehaviour
       // todo: fix this to disallow increments. should be player model's responsability.
       if (ammoIndexPickup >= 0)
       {
-        playerScript.AddOneAmmo(ammoIndexPickup); // Increment the ammo count
+        playerScript.AddTwoAmmo(ammoIndexPickup); // Increment the ammo count
 
         anim.SetBool("looted", true);
         anim.SetBool("regrow", false);

@@ -10,6 +10,18 @@ public class EnemyProjectile : Projectile
     public AudioClip spawnSound;
     Transform projectileSource;
 
+    //Animator
+    [SerializeField]
+    Animator anim;
+    bool hasHit = false; //So we don't hit twice while playing hit anim
+    [SerializeField] AnimatorCallback callback;
+
+    private void Start()
+    {
+        startPosition = transform.position;
+        callback.AddCallback("onFinish", () => Destroy(this.gameObject));
+    }
+
     /// <summary>
     /// initialize projectile with the given stats
     /// </summary>
@@ -26,7 +38,8 @@ public class EnemyProjectile : Projectile
     protected override void HandleCollision(Collider collision)
     {
         // make sure we hit colliders of game objects.
-        if (collision.isTrigger)
+        //Make sure we did not hit anything yet
+        if (collision.isTrigger || hasHit)
         {
             return;
         }
@@ -40,6 +53,7 @@ public class EnemyProjectile : Projectile
                 IDamageable entity = col.gameObject.GetComponent<IDamageable>();
                 entity.TakeDamage(damage, projectileSource);
                 didCollide = true;
+                hasHit = true;
             }
         }
 
@@ -47,7 +61,10 @@ public class EnemyProjectile : Projectile
         {
             AudioSource.PlayClipAtPoint(hitSound, transform.position);
         }
-        base.HandleCollision(collision);
+
+        if (!collision.isTrigger) {
+            anim.SetTrigger("Hit");
+        }
     }
 
     protected override void reachMaxDist()

@@ -34,7 +34,7 @@ public class CameraAlpha : MonoBehaviour
     void FixedUpdate()
     {
         XRay();
-        XRayEnemies();
+        //XRayEnemies();
     }
 
     // Make objects that interfere with the camera transparent

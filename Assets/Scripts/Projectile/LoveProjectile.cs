@@ -45,7 +45,7 @@ public class LoveProjectile : Projectile
             anim.SetTrigger("Impact");
         }
         else {
-            print("Love bullet dissolved when it hit " + collision.gameObject.name);
+            //print("Love bullet dissolved when it hit " + collision.gameObject.name);
 
             //Play same anim but smaller
             GetComponent<Rigidbody>().velocity = Vector3.zero;

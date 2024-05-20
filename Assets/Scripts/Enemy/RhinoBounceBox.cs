@@ -47,8 +47,11 @@ public class RhinoBounceBox : MonoBehaviour
     }
     public void EndSlide()
     {
-        animal.GetComponent<NavMeshObstacleAgent>().enabled = true;
-        animal.enabled = true;
+        //print("Ending slide for object " + animal.name);
+        if (animal) {
+            animal.GetComponent<NavMeshObstacleAgent>().enabled = true;
+            animal.enabled = true;
+        }
         isSliding = false;
     }
     

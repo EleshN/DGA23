@@ -13,7 +13,7 @@ public abstract class Projectile : MonoBehaviour
     [SerializeField] private float maxDistance = 50f;
 
     //Projectile start position
-    private Vector3 startPosition;
+    protected Vector3 startPosition;
 
     //So we only call reachmaxdist once
     private bool reachedMaxDist = false;

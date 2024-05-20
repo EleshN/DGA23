@@ -12,6 +12,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] HealthBar healthBar;
 
     SpriteRenderer spriteRenderer;
+    [SerializeField] SpriteRenderer additionalSprite;
+    //Relevant for scorpion tail and crab winder
 
     ColorIndicator colorIndicator;
 
@@ -232,6 +234,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
                 }
             }
             spriteRenderer.flipX = flipX;
+            if (additionalSprite) {
+                additionalSprite.flipX = flipX;
+            }
+            
         }
     }
 

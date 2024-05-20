@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
 
-    public static int MaxLevel = 10;
+    public static int MaxLevel = 20;
 
     private static GameManager _Instance;
     public int LevelNumber = -1;
@@ -186,12 +186,18 @@ public class GameManager : MonoBehaviour
         float minDist = float.PositiveInfinity;
         foreach (Transform target in transforms)
         {
-            Vector3 targetPosition = target.position;
-            float distance = (targetPosition - source).magnitude;
-            if ( distance < minDist)
+            if (target != null)
             {
-                minDist = distance;
-                closest = target;
+                Vector3 targetPosition = target.position;
+                float distance = (targetPosition - source).magnitude;
+                if (distance < minDist)
+                {
+                    minDist = distance;
+                    closest = target;
+                }
+            }
+            else {
+                transforms.Remove(target);
             }
         }
         return closest;

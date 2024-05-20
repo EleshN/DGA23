@@ -449,7 +449,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 33f94348d35649a4b8b8cc96fb508e63, type: 2}
+  - {fileID: 2100000, guid: 2cd7cef7d1c5a4c9bba90a4210da2885, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -493,8 +493,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.049433887, b: 0, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.7294118, g: 0.10588236, b: 0.20000002, a: 1}
+      key1: {r: 0.74509805, g: 0.08235294, b: 0.18039216, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -629,6 +629,9 @@ MonoBehaviour:
   uiSoundClip: {fileID: 8300000, guid: cb2d61169173cc54b807d23a6e193270, type: 3}
   refreshClip: {fileID: 8300000, guid: 58f9c17c92d0aa747bc31335273691a1, type: 3}
   anim: {fileID: 1288533453468060846}
+  emotionSystemLove: {fileID: 0}
+  emotionSystemAnger: {fileID: 0}
+  emotionSystemDefence: {fileID: 0}
 --- !u!65 &8172232168992480712
 BoxCollider:
   m_ObjectHideFlags: 0

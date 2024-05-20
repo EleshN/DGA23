@@ -47,6 +47,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Water
+    uniqueID: 1214470317
+    locked: 0
+  - name: Waves
+    uniqueID: 117116447
+    locked: 0
   - name: GroundSprite
     uniqueID: 447628123
     locked: 0

@@ -5463,7 +5463,7 @@ MonoBehaviour:
   maxHealth: 9
   health: 0
   healthBar: {fileID: 2840477338479861304}
-  animalDamage: 3
+  animalDamage: 5
   animalDefense: 0
   emoSpeed: 2
   loveSpeed: 3

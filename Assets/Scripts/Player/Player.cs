@@ -214,6 +214,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void AddTwoAmmo(int ammoindex)
+    {
+        if (ammo[ammoindex] < initialAmmo[ammoindex])
+        {
+            playerAudioSource.PlayOneShot(refreshClip);
+            ammo[ammoindex] += 2;
+            playAmmoClip(ammoindex);
+            updateAmmo();
+            StartCoroutine(delayedReset());
+        }
+    }
+
     IEnumerator delayedReset() {
         yield return new WaitForSeconds(1.5f);
         resetEmotionSystem();

@@ -31,6 +31,9 @@ public class RegenTrigger : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        other.gameObject.GetComponentInParent<Player>().resetEmotionSystem();
+        if (other.gameObject.GetComponentInParent<Player>())
+        {
+            other.gameObject.GetComponentInParent<Player>().resetEmotionSystem();
+        }
     }
 }
