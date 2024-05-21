@@ -101,6 +101,10 @@ public class GameManager : MonoBehaviour
     public AudioClip captureEnemyBase;
     public AudioClip capturePlayerBase;
 
+    //Level end animation
+    public float levelEndCamSpeed;
+    public Vector3 lastBasePos; //So we know where to send the camera
+
     public static GameManager Instance
     {
         get
@@ -164,21 +168,46 @@ public class GameManager : MonoBehaviour
         if (PlayerBases.Count == 0 && !isLevelComplete)
         {
             // you lose
-            GameCanvas.SetActive(false);
-            ResultSceneOpener.Init(LevelNumber,false);
             isLevelComplete = true;
+            GameCanvas.SetActive(false);
+            ResultSceneOpener.Init(LevelNumber, false);
         }
         if (EnemyBases.Count == 0 && !isLevelComplete)
         {
-            // you win
-            GameCanvas.SetActive(false);
-            ResultSceneOpener.Init(LevelNumber, true);
             isLevelComplete = true;
+            // you win
+            winLevel();
         }
 
         timeElapsed += Time.deltaTime;
     }
-    
+
+    private void winLevel() {
+        StartCoroutine(LevelWinCoro());
+    }
+
+    private IEnumerator LevelWinCoro() {
+        //Set the camera to go to the base that ended the level
+        GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+        cam.GetComponent<EndLevelCamera>().translatingTowards = lastBasePos;
+        cam.GetComponent<CameraFollow>().enabled = false;
+        cam.GetComponent<EndLevelCamera>().enabled = true;
+
+        //Wait for the camera to get there
+        while (cam.GetComponent<EndLevelCamera>().stillGoing) {
+            yield return null;
+        }
+
+        //Slow down for cinematic purposes
+        Time.timeScale = 0.075f;
+        yield return new WaitForSeconds(2f / 20); // divided by 20 because of timestep
+        //Actually end the level
+        GameCanvas.SetActive(false);
+        ResultSceneOpener.Init(LevelNumber, true);
+        //Stop screen shaking
+        cam.GetComponent<EndLevelCamera>().enabled = false;
+    }
+
     public Transform FindClosest(Vector3 source, HashSet<Transform> transforms)
     {
         // find closest using Euclidean distance

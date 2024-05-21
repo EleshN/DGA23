@@ -619,6 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1938080854383796208}
+  additionalSprite: {fileID: 0}
   targetTransform: {fileID: 0}
   speed: 1
   maxHealth: 10
@@ -627,6 +628,7 @@ MonoBehaviour:
   attackCountDown: 5
   robotDamage: 1
   targets: 0000000003000000
+  clusterPrefab: {fileID: 3357773952010431167, guid: 80944b993e1764a95b30259f6be7b413, type: 3}
   stackVal: 1
   maxStack: 3
   stackColors:

@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0251805fefbacdf478c3c7abf57cab9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShouldHit: 0
   slideTime: 0
   slideSpeed: 0
   slideDistance: 0
@@ -552,6 +553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1938080854383796208}
+  additionalSprite: {fileID: 0}
   targetTransform: {fileID: 0}
   speed: 2
   maxHealth: 6
@@ -560,6 +562,7 @@ MonoBehaviour:
   attackCountDown: 3
   robotDamage: 2
   targets: 
+  clusterPrefab: {fileID: 3357773952010431167, guid: 79bbd02fdf3994d00b769ba5b16a4f84, type: 3}
   hitbox: {fileID: 6621573852026835951}
   attackDelay: 1
   hitboxActiveTime: 2

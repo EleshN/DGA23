@@ -1814,6 +1814,7 @@ MonoBehaviour:
   attackCountDown: 4
   robotDamage: 1
   targets: 
+  clusterPrefab: {fileID: 3357773952010431167, guid: e029f3bcc45ed45bbaa3daa2278caf2b, type: 3}
   spawnLocationTransform: {fileID: 6672500085249350542}
   projectileEffectRadius: 0.5
   projectilePrefab: {fileID: 411135268976928213, guid: f16d3331f5a754e2eb7529d830f66ef4, type: 3}

@@ -26,6 +26,10 @@ public class EnemyBase : MonoBehaviour, IDamageable
     private int[] weightRange;
     private float nextSpawnTime = 0f;
 
+    [SerializeField]
+    public GameObject clusterPrefab;
+    public Vector3 clusterPos;
+
     void Start()
     {
         GameManager.Instance.Register(this);
@@ -82,6 +86,9 @@ public class EnemyBase : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             GameManager.Instance.Unregister(this);
+
+            GameManager.Instance.lastBasePos = transform.position; //So the gamemanager knows where to send the camera
+            Instantiate(clusterPrefab, transform.position + clusterPos, Quaternion.identity);
             
             Instantiate(PlayerBaseObject, transform.position, Quaternion.identity);
             Destroy(gameObject);

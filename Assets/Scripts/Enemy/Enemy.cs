@@ -41,6 +41,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [Tooltip("the entities that this enemy can attack")]
     [SerializeField] protected Tag[] targets;
 
+    [SerializeField]
+    GameObject clusterPrefab;
+
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshObstacleAgent>();
@@ -185,6 +188,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
+            Instantiate(clusterPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
