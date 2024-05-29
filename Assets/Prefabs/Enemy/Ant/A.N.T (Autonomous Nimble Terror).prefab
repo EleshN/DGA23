@@ -629,6 +629,7 @@ MonoBehaviour:
   robotDamage: 1
   targets: 0000000003000000
   clusterPrefab: {fileID: 3357773952010431167, guid: 80944b993e1764a95b30259f6be7b413, type: 3}
+  attackPrefab: {fileID: 4782715686286068954, guid: 441dc977d2d81bd4d817ce53cbb8b2f1, type: 3}
   stackVal: 1
   maxStack: 3
   stackColors:

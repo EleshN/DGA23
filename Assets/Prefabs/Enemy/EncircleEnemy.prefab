@@ -762,14 +762,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 788467c6bee177141b21a7118b14c9e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 2686092500760852668}
   healthBar: {fileID: 22060174676416364}
+  additionalSprite: {fileID: 0}
+  targetTransform: {fileID: 0}
   speed: 3
   maxHealth: 13
   health: 13
   attackRadius: 0.001
   attackCountDown: 5
   robotDamage: 3
+  targets: 
+  clusterPrefab: {fileID: 0}
+  attackPrefab: {fileID: 4782715686286068954, guid: 441dc977d2d81bd4d817ce53cbb8b2f1, type: 3}
   encircleRadius: 5
   encircleSpeed: 3
   lineRenderer: {fileID: 5104623080564480899, guid: d2962491e3edae0429383a535f09c538, type: 3}
@@ -2325,10 +2329,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94917eb21ff9a3f4d952038ef752216a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagTargets:
-  - 
-  - 
-  damage: 0
   attackerTransform: {fileID: 0}
 --- !u!54 &7671488738547666743
 Rigidbody:

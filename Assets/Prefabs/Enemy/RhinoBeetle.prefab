@@ -590,6 +590,7 @@ MonoBehaviour:
   robotDamage: 2
   targets: 
   clusterPrefab: {fileID: 3357773952010431167, guid: 79bbd02fdf3994d00b769ba5b16a4f84, type: 3}
+  attackPrefab: {fileID: 4782715686286068954, guid: 441dc977d2d81bd4d817ce53cbb8b2f1, type: 3}
   hitbox: {fileID: 6621573852026835951}
   attackDelay: 1
   hitboxActiveTime: 2

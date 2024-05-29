@@ -44,6 +44,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField]
     GameObject clusterPrefab;
 
+    [SerializeField] GameObject attackPrefab;
+
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshObstacleAgent>();
@@ -186,11 +188,17 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         healthBar.UpdateHealthBar(health);
         colorIndicator.IndicateDamage();
 
+        GameObject attack = Instantiate(attackPrefab, new Vector3(transform.position.x + Random.Range(-.2f,.2f),
+            transform.position.y + .5f, transform.position.z + Random.Range(-.2f, .2f))
+                , Quaternion.identity);
+        Destroy(attack, .5f);
+
         if (health <= 0)
         {
             Instantiate(clusterPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+       
     }
 
     public void selectNewTarget()

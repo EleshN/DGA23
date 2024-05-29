@@ -51,8 +51,7 @@ MonoBehaviour:
   uiSoundClip: {fileID: 0}
   refreshClip: {fileID: 0}
   bgmClips:
-  - {fileID: 8300000, guid: 2ca315b237c45854fbaf5125e78bfe12, type: 3}
-  - {fileID: 8300000, guid: 2ca315b237c45854fbaf5125e78bfe12, type: 3}
+  - {fileID: 8300000, guid: 39a13ca2e31b11b4a91c560613e5c3e2, type: 3}
   - {fileID: 8300000, guid: 2ca315b237c45854fbaf5125e78bfe12, type: 3}
 --- !u!1001 &6420071343696225248
 PrefabInstance:
