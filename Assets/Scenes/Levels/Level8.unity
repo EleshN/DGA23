@@ -1665,12 +1665,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6711343908106187076, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
+      propertyPath: reqTime
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711343908106187076, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
       propertyPath: LevelNumber
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6711343908106187076, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
       propertyPath: EnemySpawnCap
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711343908106187076, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
+      propertyPath: reqShotsFired
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9122006461562298808, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
       propertyPath: m_Name

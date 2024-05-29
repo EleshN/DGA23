@@ -1799,12 +1799,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6711343908106187076, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
+      propertyPath: reqTime
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711343908106187076, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
       propertyPath: LevelNumber
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6711343908106187076, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
       propertyPath: EnemySpawnCap
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711343908106187076, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
+      propertyPath: reqShotsFired
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9122006461562298808, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
       propertyPath: m_Name
@@ -2360,11 +2368,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: maxSpawnDelay
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: minSpawnDelay
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: enemyWeights.Array.data[0].weight
@@ -7723,7 +7731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4868469303290141034, guid: 6b682f50034a940c2ab0433473b7f6bc, type: 3}
       propertyPath: m_Extents.x
-      value: 9.22
+      value: 8.32
       objectReference: {fileID: 0}
     - target: {fileID: 4868469303290141034, guid: 6b682f50034a940c2ab0433473b7f6bc, type: 3}
       propertyPath: m_Extents.z

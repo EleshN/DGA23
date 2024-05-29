@@ -8,6 +8,9 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] Transform PlayerTrans;
     [SerializeField] Vector3 offset = new Vector3(0f,5f,-5f);
 
+    [SerializeField]
+    public Camera otherCam;
+
     // Start is called before the first frame update
     void Start()
     {

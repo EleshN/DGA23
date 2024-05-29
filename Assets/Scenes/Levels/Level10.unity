@@ -2254,12 +2254,20 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6711343908106187076, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
+      propertyPath: reqTime
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711343908106187076, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
       propertyPath: LevelNumber
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6711343908106187076, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
       propertyPath: EnemySpawnCap
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711343908106187076, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
+      propertyPath: reqShotsFired
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7106935675047190200, guid: 044f646c7a6914cea8e7d3339c652de8, type: 3}
       propertyPath: m_IsActive
@@ -2297,6 +2305,10 @@ PrefabInstance:
     - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: health
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
+      propertyPath: maxSpawnDelay
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: enemyPrefabs.Array.size
@@ -3914,6 +3926,10 @@ PrefabInstance:
     - target: {fileID: 3442619983788511634, guid: 5e639c2d44fa3374aa87c468f8ba0247, type: 3}
       propertyPath: m_Name
       value: Cat
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442619983788511634, guid: 5e639c2d44fa3374aa87c468f8ba0247, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

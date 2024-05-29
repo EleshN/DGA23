@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
         {
             Inputs();
             Move();
-            
+
             iframes -= Time.deltaTime;
             knockbackTimer -= Time.deltaTime;
 
@@ -88,7 +88,10 @@ public class Player : MonoBehaviour
             {
                 currScrollTimer -= Time.deltaTime;
             }
-                Scroll();
+            Scroll();
+        }
+        else {
+            print("Game is paused");
         }
     }
 

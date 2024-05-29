@@ -1808,7 +1808,7 @@ MonoBehaviour:
   additionalSprite: {fileID: 5408420297115709519}
   targetTransform: {fileID: 0}
   speed: 1
-  maxHealth: 4
+  maxHealth: 6
   health: 0
   attackRadius: 6
   attackCountDown: 4

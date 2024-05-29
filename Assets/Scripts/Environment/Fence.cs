@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class Fence : MonoBehaviour, IDamageable
 {
+
+    [SerializeField]
+    GameObject clusterPrefab;
+
     public void TakeDamage(float damageAmount, Transform damageSource)
     {
-        if (GetComponent<SpriteRenderer>().color == Color.white) {
-            GetComponent<SpriteRenderer>().color = Color.grey;
+        if (GetComponentInChildren<SpriteRenderer>().color == Color.white) {
+            GetComponentInChildren<SpriteRenderer>().color = Color.grey;
         }
         else
         {
+            Instantiate(clusterPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

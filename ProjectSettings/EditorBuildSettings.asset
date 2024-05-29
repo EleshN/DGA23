@@ -45,22 +45,22 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Level11.unity
     guid: b8008f5f3ca1a4ed091bd5095ef76733
   - enabled: 1
-    path: Assets/Scenes/Levels/Level12.unity
+    path: Assets/Scenes/Levels/OLDLevel12.unity
     guid: 2677f864d1bfe48f5a0fa0347b5658b6
   - enabled: 1
-    path: Assets/Scenes/Levels/Level13.unity
+    path: Assets/Scenes/Levels/Level12.unity
     guid: b0610cbb6b16c4597926290e5d34a46b
   - enabled: 1
-    path: Assets/Scenes/Levels/Level14.unity
+    path: Assets/Scenes/Levels/Level13.unity
     guid: 12ababb42ebff44b38655c2a61e3c51d
   - enabled: 1
-    path: Assets/Scenes/Levels/Level15.unity
+    path: Assets/Scenes/Levels/OLDLevel15.unity
     guid: 313d01ebcd0024fc5bec025f996e3286
   - enabled: 1
-    path: Assets/Scenes/Levels/Level16.unity
+    path: Assets/Scenes/Levels/Level14.unity
     guid: 782d5d80cfce04a9fb31d9a7f5a3d0d6
   - enabled: 1
-    path: Assets/Scenes/Levels/Level17.unity
+    path: Assets/Scenes/Levels/Level15.unity
     guid: f916619af7c1b41ae9ecdd29dd44e172
   - enabled: 1
     path: Assets/Scenes/Levels/ScrappedLevel.unity

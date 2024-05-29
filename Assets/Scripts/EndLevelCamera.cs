@@ -29,6 +29,7 @@ public class EndLevelCamera : MonoBehaviour
                 originalPos.y + Random.Range(screenShakeMin, screenShakeMax),
                 originalPos.z);
         }
+
         if (transform.position == translatingTowards + offset) {
             stillGoing = false;
             originalPos = transform.position;

@@ -6,15 +6,32 @@ using TMPro;
 
 public class ResultSceneOpener : MonoBehaviour
 {
-    [Tooltip("the textbox for storing the result as either win/lose")]
-    public TMP_Text resultText;
-
-    [Tooltip("the textbox indicating the action corresponding to restarting or proceeding to next level")]
-    public TMP_Text restartOrNextText;
+    [SerializeField]
+    GameObject WinScreen;
+    [SerializeField]
+    GameObject LoseScreen;
 
     int currentLevel;
 
     bool levelResult;
+
+    [Header("Level Win + Stars")]
+    [SerializeField]
+    TextMeshProUGUI timeElapsed;
+    [SerializeField]
+    TextMeshProUGUI shotsFired;
+    [SerializeField]
+    TextMeshProUGUI enemiesKilled;
+
+    [SerializeField]
+    List<GameObject> stars;
+
+    private void Start()
+    {
+        GetComponent<Canvas>().worldCamera =
+            GameObject.FindGameObjectWithTag("MainCamera")
+            .GetComponent<CameraFollow>().otherCam;
+    }
 
     /// <summary>
     /// constructor to initialize the results menu for the given level and game result.
@@ -28,23 +45,67 @@ public class ResultSceneOpener : MonoBehaviour
         PauseGame.isPaused = true;
         if (result)
         {
-            resultText.text = "You Win!";
-            if (currentLevel < GameManager.MaxLevel)
-            {
-                restartOrNextText.text = "Next Level";
-            }
-            else 
-            {
-                restartOrNextText.text = "Main Menu";
-            }
+            WinScreen.SetActive(true);
+            StartCoroutine(WinLevelCoro());
+            //if (currentLevel < GameManager.MaxLevel)
+            //{
+            //    restartOrNextText.text = "Next Level";
+            //} TODO: Last level stuff
         }
         else
         {
-            resultText.text = "You Lose!";
-            restartOrNextText.text = "Restart";
+            LoseScreen.SetActive(true);
         }
         this.currentLevel = currentLevel;
         this.levelResult = result;
+    }
+
+    IEnumerator WinLevelCoro() {
+        timeElapsed.text = "";
+        shotsFired.text = "";
+        enemiesKilled.text = "";
+
+        float waittime = 1f;
+        
+        //Time
+        yield return new WaitForSeconds(waittime);
+        int seconds = (int)GameManager.Instance.getTimeElapsed();
+        int minutes = seconds / 60;
+        seconds = seconds % 60;
+        timeElapsed.text = Mathf.Clamp(minutes, 0, 99).ToString() + ":" + seconds.ToString();
+        Debug.Log("time done");
+
+        //Shots
+        yield return new WaitForSeconds(waittime);
+        shotsFired.text = Mathf.Clamp(GameManager.Instance.getBulletsFired(), 0, 999).ToString();
+        Debug.Log("shots done");
+
+        //Enemies
+        yield return new WaitForSeconds(waittime);
+        enemiesKilled.text = Mathf.Clamp(GameManager.Instance.getEnemiesKilled(), 0, 9999).ToString();
+        Debug.Log("enemies done");
+
+        //Stars
+        double numstars = GameManager.Instance.getNumStars();
+        Debug.Log("getnumstars gave " + numstars);
+        if (numstars > .25)
+        {
+            yield return new WaitForSeconds(waittime);
+            stars[0].SetActive(true);
+            Debug.Log("Earned 1 star");
+        }
+        if (numstars > .5) {
+            yield return new WaitForSeconds(waittime);
+            stars[1].SetActive(true);
+            Debug.Log("Earned 2 stars");
+        }
+        if (numstars > .75) {
+            yield return new WaitForSeconds(waittime);
+            stars[2].SetActive(true);
+            Debug.Log("Earned 3 stars");
+        }
+
+        //Done!
     }
 
     /// <summary>
@@ -80,6 +141,13 @@ public class ResultSceneOpener : MonoBehaviour
         PauseGame.isPaused = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene("LevelSelect");
+    }
+
+    public void GoRestart()
+    {
+        //Time.timeScale = 1f;
+        GameObject.FindAnyObjectByType<PauseGame>().GetComponent<PauseGame>().GoRestart();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

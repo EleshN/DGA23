@@ -59,6 +59,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public HashSet<Transform> ValidEnemyTargets;
 
+    /// <summary>
+    /// Required amounts to earn stars
+    /// </summary>
+    [SerializeField] public int reqShotsFired;
+    [SerializeField] public int reqTime;
+
+    //Stars are calculated with the following formula
+    // shots% =  1 - (shots - reqshots / reqshots)
+    // time% = 1 - (time - reqtime / reqtime)
+    // star% = .5 * time% + .5 * shots%
+
     [HideInInspector] public Player PlayerObject;
 
     private Collider PlayerCollider;
@@ -97,6 +108,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private int bulletsFired;
 
+    ///
     public AudioSource audioSource;
     public AudioClip captureEnemyBase;
     public AudioClip capturePlayerBase;
@@ -179,7 +191,9 @@ public class GameManager : MonoBehaviour
             winLevel();
         }
 
-        timeElapsed += Time.deltaTime;
+        if (!isLevelComplete) {
+            timeElapsed += Time.deltaTime;
+        }
     }
 
     private void winLevel() {
@@ -204,6 +218,7 @@ public class GameManager : MonoBehaviour
         //Actually end the level
         GameCanvas.SetActive(false);
         ResultSceneOpener.Init(LevelNumber, true);
+        Time.timeScale = 1f;
         //Stop screen shaking
         cam.GetComponent<EndLevelCamera>().enabled = false;
     }
@@ -412,6 +427,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void incrementBulletsFired() {
         bulletsFired += 1;
+    }
+
+    public double getNumStars() {
+        print("Timeelapsed is " + timeElapsed);
+        float timePercent = 1 - Mathf.Clamp((timeElapsed - reqTime) / reqTime, 0, 1);
+        float shotsPercent =
+            1 - Mathf.Clamp((bulletsFired - reqShotsFired) / reqShotsFired, 0, 1);
+        double totalStarPercent = .5 * timePercent + .5 * shotsPercent;
+        return totalStarPercent;
     }
 
     #endregion
