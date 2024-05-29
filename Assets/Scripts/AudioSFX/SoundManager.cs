@@ -20,6 +20,8 @@ public class SoundManager : MonoBehaviour
     // Array of background music clips
     public AudioClip[] bgmClips;
 
+    int clipIndex = 0;
+
 
     // Current index of background music
     //private int currentBgmIndex = 0;
@@ -39,7 +41,17 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         // Start playing background music
-        StartCoroutine(BackgroundMusicPlayer());
+        if(bgmClips.Length > 1)
+        {
+            bgmSource.loop = false;
+            StartCoroutine(BackgroundMusicPlayer());
+        }
+        else
+        {
+            bgmSource.loop = true;
+            bgmSource.clip = bgmClips[0];
+            bgmSource.Play();
+        }
     }
 
     // Function to check if an SFX is currently playing
@@ -49,17 +61,19 @@ public class SoundManager : MonoBehaviour
     }
 
     // Coroutine to cycle through the playlist of background sounds
-    private IEnumerator BackgroundMusicPlayer()
+    IEnumerator BackgroundMusicPlayer()
     {
-        for (int i = 0; i < bgmClips.Length; i++)
-        {
-            // Play the current background music clip
-            //print("index and length " + i + "," + bgmClips.Length);
-            bgmSource.clip = bgmClips[i];
+        while (true) {
+            bgmSource.clip = bgmClips[clipIndex];
             bgmSource.Play();
-
-            // Wait for the current clip to finish before moving to the next one
-            yield return new WaitForSeconds(bgmSource.clip.length);
+            Debug.Log("Play Clip");
+            yield return new WaitForSeconds(2);
+            Debug.Log("Play Next Clip");
+            clipIndex++;
+            if (clipIndex >= bgmClips.Length)
+            {
+                clipIndex = 0;
+            }
         }
     }
 
