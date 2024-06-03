@@ -63,7 +63,8 @@ public class DefenceRadius : MonoBehaviour
     void makeTarget(Enemy enemy)
     {
         //print(enemy.targetTransform.gameObject != Emotion.DEFENCE);
-        if (enemy.targetTransform.gameObject.GetComponent<Animal>() == null ||
+        if (enemy.targetTransform == null ||
+            enemy.targetTransform.gameObject.GetComponent<Animal>() == null ||
             enemy.targetTransform.gameObject.GetComponent<Animal>().GetEmotion() != Emotion.DEFENCE)
         {
             enemy.targetTransform = GetComponentInParent<Animal>().transform;

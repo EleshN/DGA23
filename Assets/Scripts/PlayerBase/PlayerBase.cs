@@ -24,6 +24,14 @@ public class PlayerBase : MonoBehaviour, IDamageable
         GameManager.Instance.ValidEnemyTargets.Add(transform);
         mainCamera = Camera.main; // Cache main camera
         damageDirectionIndicator.enabled = false; // Initially disable the indicator
+
+        
+    }
+
+    private void Awake()
+    {
+        //Set rotation to 0
+        transform.rotation = Quaternion.identity;
     }
 
     public void TakeDamage(float amount, Transform damageSource)

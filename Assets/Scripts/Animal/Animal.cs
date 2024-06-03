@@ -260,7 +260,7 @@ public abstract class Animal : MonoBehaviour, IDamageable
     /// <returns>true if effect was applied successfully.</returns>
     public virtual bool ApplyEmotionEffect(Emotion emotion, Transform newTarget = null)
     {
-        print("Applying emotion effect " + emotion);
+        //print("Applying emotion effect " + emotion);
         if (currentCoolDownTime <= 0)
         {
             SetEmotion(emotion);

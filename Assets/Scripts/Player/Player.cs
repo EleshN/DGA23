@@ -90,9 +90,9 @@ public class Player : MonoBehaviour
             }
             Scroll();
         }
-        else {
-            print("Game is paused");
-        }
+        //else {
+        //    print("Game is paused");
+        //}
     }
 
     private bool IsMoving()
@@ -193,7 +193,7 @@ public class Player : MonoBehaviour
     {
         playerAudioSource.PlayOneShot(refreshClip);
 
-        Debug.Log("Ammo Refreshed +1 for Each Type");
+        //Debug.Log("Ammo Refreshed +1 for Each Type");
         for (int i = 0; i < ammo.Length; i++)
         {
             if (ammo[i] < initialAmmo[i])

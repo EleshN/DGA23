@@ -646,9 +646,9 @@ MonoBehaviour:
   attackDelay: 0.5
   hitboxActiveTime: 2
   stackMultiplier:
+  - 1.2
   - 1.5
-  - 2
-  - 2.5
+  - 1.75
   antAudioSource: {fileID: 2704353161868644872}
   antAttackClip: {fileID: 8300000, guid: 2e572cc6ac2693b44a930a013a131fc8, type: 3}
 --- !u!135 &7804403660373446515

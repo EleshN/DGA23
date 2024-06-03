@@ -108,7 +108,7 @@ public class Ant : Enemy
         Ant ant = other.GetComponent<Ant>();
         if(ant != null)
         {
-            print("stacking");
+            //print("stacking");
             stackTimeLeft -= Time.deltaTime;
             if(stackTimeLeft <= 0 && ant.stackVal + stackVal <= maxStack)
             {

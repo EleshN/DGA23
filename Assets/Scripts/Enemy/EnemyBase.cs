@@ -45,6 +45,14 @@ public class EnemyBase : MonoBehaviour, IDamageable
             weightRange[i] = weightSum;
         }
         resetNextSpawnTime();
+
+        
+    }
+
+    private void Awake()
+    {
+        //Set rotation to 0
+        transform.rotation = Quaternion.identity;
     }
 
     void Update()

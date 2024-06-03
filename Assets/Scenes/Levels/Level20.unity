@@ -2696,6 +2696,10 @@ PrefabInstance:
       value: enemyBase (5)
       objectReference: {fileID: 0}
     - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
+      propertyPath: minSpawnDelay
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: enemyWeights.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -3281,6 +3285,10 @@ PrefabInstance:
     - target: {fileID: 327787184381659261, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: m_Name
       value: enemyBase (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
+      propertyPath: minSpawnDelay
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: enemyWeights.Array.size
@@ -4983,7 +4991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7571600407355910175, guid: c1d4bb404aee445189e8948bbdb07576, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.77
+      value: 6.7
       objectReference: {fileID: 0}
     - target: {fileID: 7571600407355910175, guid: c1d4bb404aee445189e8948bbdb07576, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4991,7 +4999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7571600407355910175, guid: c1d4bb404aee445189e8948bbdb07576, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.85
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7571600407355910175, guid: c1d4bb404aee445189e8948bbdb07576, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5312,6 +5320,10 @@ PrefabInstance:
     - target: {fileID: 327787184381659261, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: m_Name
       value: enemyBase (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
+      propertyPath: minSpawnDelay
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: enemyWeights.Array.size
@@ -5686,6 +5698,10 @@ PrefabInstance:
     - target: {fileID: 327787184381659261, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: m_Name
       value: enemyBase (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
+      propertyPath: minSpawnDelay
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3528703618054159464, guid: 4051e56fb3d07452b823805d149212cc, type: 3}
       propertyPath: enemyWeights.Array.size

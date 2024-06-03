@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9130527172502724507}
   - component: {fileID: 4066793005107430557}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RegenZoneSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: -8644587308849743771}
   - component: {fileID: 2934229969314648839}
   - component: {fileID: 7166984117332734925}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerBase
   m_TagString: PlayerBase
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 1781459972225548703}
   - component: {fileID: 7958582267436328798}
   - component: {fileID: 3893746489671645866}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Heatlh Bar Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 1913041285129753864}
   - component: {fileID: 8239875323262964055}
   - component: {fileID: 4609824142964531491}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RegenZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 1806567305362969912}
   - component: {fileID: 8630136411738188418}
   - component: {fileID: 2684779318218421093}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -557,7 +557,7 @@ GameObject:
   - component: {fileID: 3816586963192197582}
   - component: {fileID: 5868312562358499847}
   - component: {fileID: 270749889751699296}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Health Bar Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -633,7 +633,7 @@ GameObject:
   - component: {fileID: 1430856563606878368}
   - component: {fileID: 394763534364410205}
   - component: {fileID: 315811029371032481}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -734,7 +734,7 @@ GameObject:
   - component: {fileID: 8082397026394504047}
   - component: {fileID: 8796440797924484854}
   - component: {fileID: 8865622752166721894}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Heatlh Bar Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -810,7 +810,7 @@ GameObject:
   - component: {fileID: 882794411587207510}
   - component: {fileID: 4811186791026957695}
   - component: {fileID: 5043673307445416574}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HealthBar Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -912,7 +912,7 @@ GameObject:
   - component: {fileID: 3397502463131387125}
   - component: {fileID: 6417341184578691582}
   - component: {fileID: 1163186102489286853}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: colliderVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1015,7 +1015,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2764452096880020638}
   - component: {fileID: 8823427924884426560}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1067,7 +1067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7090561507623034892}
   - component: {fileID: 8700491832451773817}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1152,7 +1152,7 @@ GameObject:
   - component: {fileID: 2372090313007732405}
   - component: {fileID: 5033204219121943685}
   - component: {fileID: 40294370186314782}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: enemy_radar_exclamation
   m_TagString: Untagged
   m_Icon: {fileID: 0}

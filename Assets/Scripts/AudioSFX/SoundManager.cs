@@ -66,9 +66,9 @@ public class SoundManager : MonoBehaviour
         while (true) {
             bgmSource.clip = bgmClips[clipIndex];
             bgmSource.Play();
-            Debug.Log("Play Clip");
+            //Debug.Log("Play Clip");
             yield return new WaitForSeconds(2);
-            Debug.Log("Play Next Clip");
+            //Debug.Log("Play Next Clip");
             clipIndex++;
             if (clipIndex >= bgmClips.Length)
             {
